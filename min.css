@@ -1,0 +1,372 @@
+html, body {
+  color: grey;
+  margin: 0px;
+  padding: 0px;
+  left: 0px;
+  top: 0px;
+  font-family: 'Quicksand', sans-serif, bold;
+  overflow: hidden; }
+
+#intro, #about, #contact, #projects {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  left: 0px;
+  top: 0px;
+  box-shadow: 20px;
+  background-color: 0xff0ff0;
+  text-align: center;
+  color: black;
+  font-size: 4vmin;
+  /* font-family: Impact, Charcoal, sans-serif; */ }
+
+#about {
+  transition: left .75s;
+  -webkit-transition: left .75s; }
+
+#contact {
+  transition: left .75s;
+  -webkit-transition: left .75s; }
+
+#projects {
+  transition: top .75s;
+  -webkit-transition: top .75s; }
+
+#projects h1 {
+  margin-bottom: 0px; }
+
+.fullscreen {
+  position: fixed; }
+
+/* About */
+#codeLine1, #codeLine2, #codeLine3 {
+  position: absolute;
+  transition: width 1s;
+  -webkit-transition: width 1s;
+  background-color: #000000;
+  border-radius: 2vmin;
+  left: 7vw;
+  width: 50%;
+  height: 3%; }
+
+#codeLine1 {
+  top: 20%; }
+
+#codeLine2 {
+  top: 25%; }
+
+#codeLine3 {
+  top: 30%; }
+
+@media screen and (orientation: portrait) {
+  #pfPicture {
+    left: 52%;
+    top: 20%;
+    height: 40vmin; } }
+@media screen and (orientation: landscape) {
+  #pfPicture {
+    left: 65%;
+    top: 8%;
+    height: 45%; } }
+.textColumn {
+  border-left: .25vmin solid red;
+  text-align: left;
+  margin: .2vmin; }
+.textColumn p {
+  margin-left: 1vmin; }
+
+#pfPicture {
+  position: absolute;
+  display: block;
+  width: auto;
+  border-radius: 3vmin; }
+
+#aboutInfoLeft {
+  position: absolute;
+  top: 37vh;
+  width: 40vw;
+  left: 7vw;
+  font-size: 2.7vmin; }
+
+#aboutInfoHorizontal {
+  position: absolute;
+  top: 70vh;
+  width: 90vw;
+  left: 7vw;
+  font-size: 2.7vmin; }
+
+/* Contact */
+#contactIconContainer {
+  position: absolute;
+  margin: auto;
+  display: block;
+  top: 50%;
+  left: 50%;
+  margin: -15vmin 0 0 -35vmin;
+  width: 70vmin;
+  height: 30vmin; }
+
+.contactIcons {
+  width: auto;
+  height: 12vmin;
+  position: relative;
+  margin: .8vmin;
+  padding: .8vmin;
+  transform: scale(0, 0);
+  background-size: 100% 0%; }
+
+.contactActive:hover {
+  transform: translate(0, -2vmin); }
+
+.contactActive {
+  transition: transform .09s;
+  transition-timing-function: ease-in;
+  transform: translate(0, 0);
+  transform: scale(1, 1); }
+
+@keyframes bounceSubtle {
+  0% {
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1); }
+  20% {
+    transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1, 1); }
+  28% {
+    transform: scale(1.17, 1.17);
+    -webkit-transform: scale(1.17, 1.17); }
+  45% {
+    transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2); }
+  60% {
+    transform: scale(1.185, 1.185);
+    -webkit-transform: scale(1.185, 1.185); }
+  80% {
+    transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2); }
+  85% {
+    transform: scale(1.19, 1.19);
+    -webkit-transform: scale(1.19, 1.19); }
+  100% {
+    transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2); } }
+@keyframes bounceIn {
+  0% {
+    transform: scale(0, 0);
+    -webkit-transform: scale(0, 0); }
+  40% {
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1); }
+  57% {
+    transform: scale(0.8, 0.8);
+    -webkit-transform: scale(0.8, 0.8); }
+  75% {
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1); }
+  85% {
+    transform: scale(0.9, 0.9);
+    -webkit-transform: scale(0.9, 0.9); }
+  94% {
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1); }
+  98% {
+    transform: scale(0.95, 0.95);
+    -webkit-transform: scale(0.95, 0.95); }
+  100% {
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1); } }
+.popin {
+  animation-name: bounceIn;
+  animation-duration: .8s;
+  transform: scale(1, 1); }
+
+#projectViewerContainer {
+  width: 80vw;
+  height: 80vh;
+  margin-left: 10vw;
+  margin-top: 10vh;
+  background-color: orange; }
+
+.projectView {
+  position: absolute;
+  z-index: 2;
+  background-color: red;
+  width: 80vw;
+  height: 80vh; }
+
+@keyframes projectToCenter {
+  from {
+    transform: scale(0.35, 0.35);
+    margin-left: 100%; }
+  to {
+    transform: scale(1, 1);
+    margin-left: 0%; } }
+@keyframes projectToLeft {
+  from {
+    transform: scale(1, 1);
+    margin-left: 0%; }
+  to {
+    transform: scale(0.35, 0.35);
+    margin-left: -100%; } }
+.moveProjectCenter {
+  animation: projectToCenter .8s; }
+
+.moveProjectLeft {
+  animation: projectToLeft .8s; }
+
+.projectRight {
+  transform: scale(0.35, 0.35);
+  margin-left: 100%; }
+
+.navButtons {
+  position: absolute;
+  border-color: black;
+  border-style: solid;
+  border-width: .6vmin;
+  transition: all 1s; }
+
+#navLeft {
+  border-left: 0px; }
+
+#navRight {
+  border-right: 0px; }
+
+#navTop {
+  border-top: 0px; }
+
+#navBottom {
+  border-bottom: 0px; }
+
+.navButtonHide, .horizontalNavButtonHide, .leftNavButtonHide, .leftNavButtonHideInstant, .rightNavButtonHide, .rightNavButtonHideInstant, .horizontalNavButtonPeek, .leftNavButtonPeek, body.is-touch .leftNavButotnTransition, .rightNavButtonPeek, body.is-touch .rightNavButtonTransition, .verticalNavButtonHide, .topNavButtonHide, .topNavButtonHideInstant, .bottomNavButtonHide, .bottomNavButtonHideInstant, .verticalNavButtonPeek, .topNavButtonPeek, body.is-touch .topNavButtonTransition, .bottomNavButtonPeek, body.is-touch .bottomNavButtonTransition {
+  transition: all .2s;
+  opacity: 0; }
+
+.horizontalNavButtonHide, .leftNavButtonHide, .leftNavButtonHideInstant, .rightNavButtonHide, .rightNavButtonHideInstant, .horizontalNavButtonPeek, .leftNavButtonPeek, body.is-touch .leftNavButotnTransition, .rightNavButtonPeek, body.is-touch .rightNavButtonTransition {
+  width: 0vmin;
+  top: 50%;
+  height: 20vmin;
+  margin-top: -10vmin; }
+
+.leftNavButtonHide, .leftNavButtonHideInstant {
+  left: 0%; }
+
+.leftNavButtonHideInstant {
+  visibility: hidden;
+  transition: none; }
+
+.rightNavButtonHide, .rightNavButtonHideInstant {
+  left: 100%; }
+
+.rightNavButtonHideInstant {
+  visibility: hidden;
+  transition: none; }
+
+.verticalNavButtonHide, .topNavButtonHide, .topNavButtonHideInstant, .bottomNavButtonHide, .bottomNavButtonHideInstant, .verticalNavButtonPeek, .topNavButtonPeek, body.is-touch .topNavButtonTransition, .bottomNavButtonPeek, body.is-touch .bottomNavButtonTransition {
+  height: 0vmin;
+  left: 50%;
+  width: 20vmin;
+  margin-left: -10vmin; }
+
+.topNavButtonHide, .topNavButtonHideInstant {
+  top: 0%; }
+
+.topNavButtonHideInstant {
+  transition: none; }
+
+.bottomNavButtonHide, .bottomNavButtonHideInstant {
+  top: 100%; }
+
+.bottomNavButtonHideInstant {
+  transition: none; }
+
+.navButtonShow, .horizontalNavButtonShow, .leftNavButtonShow, body:not(.is-touch) .leftNavButtonPeek:hover, body:not(.is-touch) body.is-touch .leftNavButotnTransition:hover, body.is-touch body:not(.is-touch) .leftNavButotnTransition:hover, body:not(.is-touch) .leftNavButotnTransition, .rightNavButtonShow, body:not(.is-touch) .rightNavButtonPeek:hover, body:not(.is-touch) body.is-touch .rightNavButtonTransition:hover, body.is-touch body:not(.is-touch) .rightNavButtonTransition:hover, body:not(.is-touch) .rightNavButtonTransition, .verticalNavButtonShow, .topNavButtonShow, body:not(.is-touch) .topNavButtonPeek:hover, body:not(.is-touch) body.is-touch .topNavButtonTransition:hover, body.is-touch body:not(.is-touch) .topNavButtonTransition:hover, body:not(.is-touch) .topNavButtonTransition, .bottomNavButtonShow, body:not(.is-touch) .bottomNavButtonPeek:hover, body:not(.is-touch) body.is-touch .bottomNavButtonTransition:hover, body.is-touch body:not(.is-touch) .bottomNavButtonTransition:hover, body:not(.is-touch) .bottomNavButtonTransition {
+  transition: all .45s; }
+
+.horizontalNavButtonShow, .leftNavButtonShow, body:not(.is-touch) .leftNavButtonPeek:hover, body:not(.is-touch) body.is-touch .leftNavButotnTransition:hover, body.is-touch body:not(.is-touch) .leftNavButotnTransition:hover, body:not(.is-touch) .leftNavButotnTransition, .rightNavButtonShow, body:not(.is-touch) .rightNavButtonPeek:hover, body:not(.is-touch) body.is-touch .rightNavButtonTransition:hover, body.is-touch body:not(.is-touch) .rightNavButtonTransition:hover, body:not(.is-touch) .rightNavButtonTransition {
+  height: 100%;
+  margin-top: 0px;
+  top: 0%;
+  width: 2.5vmin; }
+
+.leftNavButtonShow, body:not(.is-touch) .leftNavButtonPeek:hover, body:not(.is-touch) body.is-touch .leftNavButotnTransition:hover, body.is-touch body:not(.is-touch) .leftNavButotnTransition:hover, body:not(.is-touch) .leftNavButotnTransition {
+  border-top-right-radius: 75vmin;
+  border-bottom-right-radius: 75vmin; }
+
+.rightNavButtonShow, body:not(.is-touch) .rightNavButtonPeek:hover, body:not(.is-touch) body.is-touch .rightNavButtonTransition:hover, body.is-touch body:not(.is-touch) .rightNavButtonTransition:hover, body:not(.is-touch) .rightNavButtonTransition {
+  border-top-left-radius: 75vmin;
+  border-bottom-left-radius: 75vmin; }
+
+.verticalNavButtonShow, .topNavButtonShow, body:not(.is-touch) .topNavButtonPeek:hover, body:not(.is-touch) body.is-touch .topNavButtonTransition:hover, body.is-touch body:not(.is-touch) .topNavButtonTransition:hover, body:not(.is-touch) .topNavButtonTransition, .bottomNavButtonShow, body:not(.is-touch) .bottomNavButtonPeek:hover, body:not(.is-touch) body.is-touch .bottomNavButtonTransition:hover, body.is-touch body:not(.is-touch) .bottomNavButtonTransition:hover, body:not(.is-touch) .bottomNavButtonTransition {
+  width: 100%;
+  margin-left: 0px;
+  left: 0px;
+  height: 2.5vmin; }
+
+.topNavButtonShow, body:not(.is-touch) .topNavButtonPeek:hover, body:not(.is-touch) body.is-touch .topNavButtonTransition:hover, body.is-touch body:not(.is-touch) .topNavButtonTransition:hover, body:not(.is-touch) .topNavButtonTransition {
+  border-bottom-left-radius: 75vmin;
+  border-bottom-right-radius: 75vmin; }
+
+.bottomNavButtonShow, body:not(.is-touch) .bottomNavButtonPeek:hover, body:not(.is-touch) body.is-touch .bottomNavButtonTransition:hover, body.is-touch body:not(.is-touch) .bottomNavButtonTransition:hover, body:not(.is-touch) .bottomNavButtonTransition {
+  border-top-left-radius: 75vmin;
+  border-top-right-radius: 75vmin; }
+
+.navButtonPeek, .horizontalNavButtonPeek, .leftNavButtonPeek, body.is-touch .leftNavButotnTransition, .rightNavButtonPeek, body.is-touch .rightNavButtonTransition, .verticalNavButtonPeek, .topNavButtonPeek, body.is-touch .topNavButtonTransition, .bottomNavButtonPeek, body.is-touch .bottomNavButtonTransition {
+  transition: all .2s; }
+
+.horizontalNavButtonPeek, .leftNavButtonPeek, body.is-touch .leftNavButotnTransition, .rightNavButtonPeek, body.is-touch .rightNavButtonTransition {
+  width: 2.5vmin;
+  opacity: 1; }
+
+.leftNavButtonPeek, body.is-touch .leftNavButotnTransition {
+  left: 0%;
+  border-top-right-radius: 20vmin;
+  border-bottom-right-radius: 20vmin; }
+
+.rightNavButtonPeek, body.is-touch .rightNavButtonTransition {
+  left: 100%;
+  margin-left: -2.5vmin;
+  border-top-left-radius: 20vmin;
+  border-bottom-left-radius: 20vmin; }
+
+.verticalNavButtonPeek, .topNavButtonPeek, body.is-touch .topNavButtonTransition, .bottomNavButtonPeek, body.is-touch .bottomNavButtonTransition {
+  height: 2.5vmin;
+  opacity: 1; }
+
+.topNavButtonPeek, body.is-touch .topNavButtonTransition {
+  top: 0%;
+  border-bottom-left-radius: 20vmin;
+  border-bottom-right-radius: 20vmin; }
+
+.bottomNavButtonPeek, body.is-touch .bottomNavButtonTransition {
+  top: 100%;
+  margin-top: -2.5vmin;
+  border-top-left-radius: 20vmin;
+  border-top-right-radius: 20vmin; }
+
+.navButtonTransition, body:not(.is-touch) .leftNavButotnTransition, body:not(.is-touch) .rightNavButtonTransition, body:not(.is-touch) .topNavButtonTransition, body:not(.is-touch) .bottomNavButtonTransition, body.is-touch .leftNavButotnTransition, body.is-touch .rightNavButtonTransition, body.is-touch .topNavButtonTransition, body.is-touch .bottomNavButtonTransition {
+  transition: all .75s; }
+
+body:not(.is-touch) .leftNavButotnTransition {
+  left: 100%; }
+body:not(.is-touch) .rightNavButtonTransition {
+  margin-left: -4vmin;
+  left: 2%; }
+body:not(.is-touch) .topNavButtonTransition {
+  top: 100%; }
+body:not(.is-touch) .bottomNavButtonTransition {
+  top: 0%;
+  margin-top: -3vmin; }
+
+body.is-touch .leftNavButotnTransition {
+  margin-left: 2px;
+  left: 100%; }
+body.is-touch .rightNavButtonTransition {
+  margin-left: -3vmin;
+  left: 0%; }
+body.is-touch .topNavButtonTransition {
+  top: 100%; }
+body.is-touch .bottomNavButtonTransition {
+  top: 0%;
+  margin-top: -3vmin; }
+
+/*# sourceMappingURL=min.css.map */

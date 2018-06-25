@@ -1,0 +1,264 @@
+<html>
+
+	<head>
+
+		<style>
+			body {
+				overflow: hidden;
+				left : 0;
+				right : 0;
+				margin : 0px;
+				padding : 0px;
+			}
+			#drawStuff {
+				display : block;
+				position: absolute;
+				left : 0;
+				right : 0;
+				margin: 0px;
+				padding : 0px;
+				background-color: rgb(20, 20, 20);
+			}
+		</style>
+	</head>
+
+
+	<body>
+
+
+		<canvas id = "drawStuff"> </canvas>
+
+
+		<script type="text/javascript">
+
+			let c = document.getElementById("drawStuff");
+		    window.addEventListener("resize", resizeCanvasToScreen);
+			resizeCanvasToScreen();
+
+			function resizeCanvasToScreen() {
+				c.width = window.innerWidth;
+				c.height = window.innerHeight;
+			}
+
+
+			let ctx = c.getContext('2d');
+
+			let gameobjects = {};
+
+			function clearScreen () {
+				ctx.beginPath();
+				ctx.rect(0, 0, c.width, c.height);
+				ctx.fillStyle = bgClearColor;
+				ctx.fill();
+			}
+
+			function drawObjects (ctx) {
+				for (let objKey in gameobjects) {
+					gameobjects[objKey].draw(ctx);
+				}
+			}
+
+			function updateObjects () {
+				for (let objKey in gameobjects) {
+					gameobjects[objKey].update();
+				}
+			}
+
+			function destroyObjects () {
+				for (let objKey in gameobjects) {
+					if (gameobjects[objKey].shouldIDestroy() == true) {
+						delete gameobjects[objKey];
+					}
+				}
+			}
+
+			function Instantiate (obj) {
+				gameobjects[obj.name] = obj;
+			}
+
+			function GetComponent (name) {
+				for (let objKey in gameobjects) {
+					if (objKey == name) return gameobjects[objKey];
+				}
+			}
+
+			class Gameobject  {
+				constructor (name, x, y, color) {
+					this.name = name;
+					this.x = x;
+					this.y = y;
+					this.color = color;
+					this.shouldDestroy = false;
+				}
+
+				draw (ctx) {}
+				update () {}
+				shouldIDestroy() {}
+			}
+
+			class rainDrip extends Gameobject {
+				constructor (name, x, y, color, speed, rotation) {
+					super (name, x, y, color);
+					this.speed = speed;
+					this.length = speed;
+					this.rotation = rotation;
+					this.tempSoundPlayer;
+				}
+
+				draw (ctx) {
+					ctx.beginPath ();
+					ctx.moveTo(this.x, this.y);
+					ctx.lineTo(this.x, this.y + this.length);
+					ctx.strokeStyle = this.color;
+					ctx.stroke();
+				}
+
+				shouldIDestroy () {
+					if (this.y > groundPos) {
+						if (playSound){
+							dropSoundCounter++;
+							if (dropSoundCounter >= dropSounds.length) dropSoundCounter = 0;
+							this.tempSoundPlayer = dropSounds[dropSoundCounter].cloneNode().play();
+						}
+
+						Instantiate(new rainSpats( this.name + "spats", this.x, this.y, "red", this.speed/2, this.speed/12 /*.7*/, this.speed/50/*.1*/))
+						this.shouldDestroy = true;
+					}
+					return this.shouldDestroy;
+				}
+
+				update () {
+					this.y += this.speed;
+				}
+			}
+
+			class rainSpat extends Gameobject {
+				constructor(name, x, y, color, velocityX, velocityY, gravity, lifeTime) {
+					super(name, x, y, color);
+					this.velocityX = velocityX;
+					this.velocityY = velocityY;
+					this.gravity = gravity;
+					this.lifeTime = lifeTime;
+
+				}
+
+				draw (ctx) {
+					ctx.beginPath();
+					ctx.moveTo(this.x, this.y);
+					ctx.lineTo(this.x + this.velocityX, this.y + this.velocityY);
+					ctx.strokeStyle = this.color;
+					ctx.stroke();
+				}
+
+				update() {
+					this.x -= this.velocityX;
+					this.y -= this.velocityY;
+					if (this.velocityY <= 4)
+						this.velocityY -= this.gravity;
+					else this.velocityY = 3;
+					this.lifeTime -= 0.016;
+				}
+
+				shouldIDestroy () {
+					if (this.y > groundPos + 3) {
+						this.shouldDestroy = true;
+					}
+					return this.shouldDestroy;
+				}
+			}
+
+			class rainSpats extends Gameobject {
+				constructor(name, x, y, color, amound, size, gravity) {
+					super (name, x, y, color);
+					this.amound = amound;
+					this.size = size;
+					this.gravity = gravity;
+					this.nameCounter = 0;
+					this.currRot = -amound/2;
+
+					for (let i = 0; i < amound; i++){
+						this.currRot +=1;
+						Instantiate(new rainSpat( "spat" + (this.nameCounter++) + this.name, this.x, this.y, this.color,  this.currRot*this.size, this.amound/Math.abs(this.currRot) * (this.size*.6), this.gravity, 30));
+					}
+					this.shouldDestroy = true;
+				}
+
+				shouldIDestroy () {
+					return this.shouldDestroy;
+				}
+			}
+
+			class htmlElement {
+				constructor (element) {
+					this.element = element;
+					document.body.appendChild(this.element);
+				}
+
+				changeElementProperties (func) {
+					func(this.element);
+				}
+			}
+
+
+			let drips = 0;
+			let rainIntencity = 5;
+			let groundPos = c.height;// * .99;
+			let intencitySlider;
+			let originalBgColor = "rgba(20, 20, 20, .4)";
+			let bgClearColor = originalBgColor;
+			let playSound = false;
+			let dropSounds = [
+				new Audio('drop1.mp3'),
+				new Audio('drop3.mp3'),
+			]
+			let dropSoundCounter = 0;
+
+			function spawnLoop () {
+				for (let a = 0; a < rainIntencity; a++)
+					Instantiate(new rainDrip("rainDrip" + (drips ++), Math.random() * c.width, 0, "white", ((Math.random()* 10000) + 7000) / c.height , 0));
+			}
+
+			function htmlElements() {
+				rainIntencity = intencitySlider.element.value;
+			}
+
+			intencitySlider = new htmlElement( document.createElement("INPUT") );
+
+			intencitySlider.changeElementProperties((element) => {
+				element.type = "range";
+				element.id = "intencitySlider";
+				element.style.position = "relative";
+				element.min = 1;
+				element.value = 3;
+				element.max = 14;
+			});
+
+			function thunder () {
+				bgClearColor = "rgba(225, 225, 225, .4)";
+				setTimeout(() => bgClearColor = originalBgColor, 100);
+				setTimeout(() => bgClearColor = "rgba(225, 225, 225, .8)", 200);
+				setTimeout(() => bgClearColor = originalBgColor, 300);
+			}
+
+			setInterval(() => {
+				if (Math.random() < .05 * rainIntencity) thunder();
+			}, 2000)
+
+			!function mainLoop () {
+				clearScreen();
+
+				destroyObjects();
+				updateObjects();
+				spawnLoop();
+				htmlElements();
+
+				drawObjects(ctx);
+				window.requestAnimationFrame(mainLoop);
+			}();
+
+		</script>
+
+	</body>
+
+
+</html>
