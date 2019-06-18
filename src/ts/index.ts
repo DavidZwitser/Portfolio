@@ -1,5 +1,5 @@
-/* Load css files */
-require('../css/index.scss');
+/* Load scss files */
+import '../css/index.scss';
 
 /* Import animation library */
 import anime from '../../node_modules/animejs/lib/anime.es.js';
