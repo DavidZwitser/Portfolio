@@ -1,0 +1,59 @@
+.RotateTiles {
+
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition:all .4s ease;
+    transition: all .4s ease;
+
+    position: absolute;
+    box-shadow: 0px 0px 50px white ;
+}
+
+.RotateTiles .TitleBox {
+    margin: 3%;
+    
+    font-size: 300%;
+    text-align:  center;
+    border-radius: 20px;
+    min-width: 100px;
+    
+    color: white;
+    float: left;
+}
+
+.RotateTiles .TitleBox p {
+    font-size: 40%;
+    margin: 10%;
+    color : white;
+}
+
+.RotateTiles .TitleBox a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.RotateTiles .TitleBox a {
+    color: white;
+    text-decoration: none;
+    font-size: 40%;
+}
+
+
+.RotateTiles .ContentInfo {
+    width: 95%;
+    height: 54%;
+    margin: 15px;
+    
+    overflow: hidden;
+    font-size: 150%;
+    font-family: monospace;  
+
+    color: white;  
+}
+
+.RotateTiles .ContentInfo p {
+    float: left;
+    margin: 2.8%;
+
+    color: white;
+}  
