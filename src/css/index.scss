@@ -1,14 +1,22 @@
 $primary-color: blue;
+$animation-speed: .7s;
 
-body {
-  font: 100%;
-  color: $primary-color;
-  background-color: orange;
+html, body {
+  margin: 0;
+  padding: 0;
+  // overflow: hidden;
+
+  background-color: lightcoral;
+
+  height: 100%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  transition-timing-function: ease-in-out;
 }
 
-.css-selector-demo {
-  width: 50px;
-  height: 50px;
-  background-color: lightblue;
-}
+@import './navigationBar.scss';
 
+@import './pages/defaultPageSettigns.scss';
+@import './pages/homePage.scss';
+@import './pages/otherPages.scss';

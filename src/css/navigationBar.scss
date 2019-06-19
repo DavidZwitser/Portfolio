@@ -1,0 +1,38 @@
+#navigation-bar {
+    width: 100%;
+    /* Keep away, this is dependent on some anime code */
+    height: 6vh;
+  
+    top: 90vmin;
+    transition: top $animation-speed;
+  
+    position: absolute;
+  
+    background-color: rgb(24, 179, 107);
+    opacity: .9;
+  
+    a {
+      display: block;
+      color: white;
+      text-decoration: none;
+  
+      padding: .3vh 2vh .3vh 2vh;
+      font-size: 5vh;
+    }
+    a:hover {
+      background-color: #111;
+    }
+  
+    ul {
+      list-style-type: none;
+      margin: 0;
+  
+      li {
+        float: left;  
+      }
+    }
+  
+    #navigation-bar-back-button {
+      text-align: center;
+    }
+  }
