@@ -15,6 +15,11 @@ function hashChanged()
     let navbar = document.getElementById("navigation-bar");
     let navbar_links = document.getElementById('navigation-bar-links');
     let navbar_back = document.getElementById('navigation-bar-back-button');
+
+    if (hash == '')
+    {
+        window.location.hash = 'page-home';
+    }
     
     if (hash == '#page-home')
     {

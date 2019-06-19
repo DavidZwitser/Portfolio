@@ -4,7 +4,7 @@ $animation-speed: .7s;
 html, body {
   margin: 0;
   padding: 0;
-  // overflow: hidden;
+  overflow: hidden;
 
   background-color: lightcoral;
 
@@ -13,6 +13,7 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
 
   transition-timing-function: ease-in-out;
+
 }
 
 @import './navigationBar.scss';
