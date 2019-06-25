@@ -6,7 +6,9 @@ import '../css/index.scss';
 // /// <reference path="../definitions/index.d.ts" />
 
 window.onhashchange = hashChanged;
-window.onload = hashChanged;
+window.addEventListener('load', hashChanged);
+
+window.addEventListener('resize', resized);
 
 function hashChanged()
 {
@@ -34,4 +36,32 @@ function hashChanged()
         navbar_back.style.display = 'block';
     }
 }
+
+import MouseEventsHandler from './mouseEvents';
+
+let mouse: MouseEventsHandler = new MouseEventsHandler();
+
+mouse.draggingCallback.push(() => {
+    grid.rePosition(mouse.velocityX, mouse.velocityY);
+});
+
+function resized()
+{
+    grid.rePosition();
+}
+
+import ContentBase from './content/contentBase';
+import GridView from './viewers/gridView';
+
+let contents: ContentBase[] = [];
+
+for(let i: number = 61; i--;)
+{
+    contents.push(new ContentBase('Awesome', ' this is a daily', ['Stuck.mp4']));
+}
+
+let grid: GridView = new GridView(contents, <HTMLDivElement>document.getElementById('page-dailies'));
+
+grid.rePosition();
+
 
