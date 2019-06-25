@@ -10,11 +10,16 @@ export default class MouseEventsHandler
     velocityY: number = 0;
 
     mouseDown: boolean = false;
+
+    mosueUpCallback: Function[];
+    mouseDownCallback: Function[];
     draggingCallback: Function[];
 
     constructor()
     {
         this.draggingCallback = [];
+        this.mouseDownCallback = [];
+        this.mosueUpCallback = [];
 
         window.addEventListener('mousemove', this.mouseMoved.bind(this));
         window.addEventListener('touchmove', this.mouseMoved.bind(this));
@@ -29,13 +34,23 @@ export default class MouseEventsHandler
     onMouseUp()
     {
         this.mouseDown = false;
+
+        for (let i: number = this.mosueUpCallback.length; i--; )
+        {
+            this.mosueUpCallback[i]();
+        }
     }
 
     onMouseDown()
     {
         this.mouseDown = true;
+
+        for (let i: number = this.mouseDownCallback.length; i--; )
+        {
+            this.mouseDownCallback[i]();
+        }
     }
-        
+    
     mouseMoved(ev: MouseEvent)
     {
         // grid.rePosition(ev.clientX, ev.clientY);

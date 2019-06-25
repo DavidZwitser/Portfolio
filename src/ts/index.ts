@@ -44,6 +44,9 @@ let mouse: MouseEventsHandler = new MouseEventsHandler();
 mouse.draggingCallback.push(() => {
     grid.rePosition(mouse.velocityX, mouse.velocityY);
 });
+mouse.mosueUpCallback.push(() => {
+    grid.letGoOfGrid(mouse.velocityX, mouse.velocityY);
+})
 
 function resized()
 {
@@ -52,15 +55,17 @@ function resized()
 
 import ContentBase from './content/contentBase';
 import GridView from './viewers/gridView';
+import PreviewPane from './viewers/previewPane';
 
 let contents: ContentBase[] = [];
-
 for(let i: number = 61; i--;)
 {
     contents.push(new ContentBase('Awesome', ' this is a daily', ['Stuck.mp4']));
 }
 
-let grid: GridView = new GridView(contents, <HTMLDivElement>document.getElementById('page-dailies'));
+let grid: GridView = new GridView(<HTMLDivElement>document.getElementById('viewer-grid'), contents);
+
+let previewPane: PreviewPane = new PreviewPane(<HTMLDivElement> document.getElementById('viewer-preview'));
 
 grid.rePosition();
 

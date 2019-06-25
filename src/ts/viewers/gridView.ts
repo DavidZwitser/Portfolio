@@ -1,9 +1,11 @@
 import ContentBase from '../content/contentBase';
+import { request } from 'https';
 
 interface GridElement
 {
     content: ContentBase;
     element: HTMLDivElement;
+    distanceFromCenter: number;
 }
 
 export default class GridView
@@ -16,7 +18,14 @@ export default class GridView
     positionX: number;
     positionY: number;
 
-    constructor(content: ContentBase[], parent: HTMLDivElement)
+    screenCenterX: number;
+    screenCenterY: number;
+
+    movingToCenterAnimationLoopID: number;
+    
+    elementClosestToCenter: GridElement;
+
+    constructor(parent: HTMLDivElement, content: ContentBase[])
     {
         this.contentData = content;
         this.parent = parent;
@@ -39,14 +48,87 @@ export default class GridView
             /* Adding it to interface array */
             let newElement: GridElement = {
                 content: currData,
-                element: gridElement
+                element: gridElement,
+                distanceFromCenter: 0
             };
 
             this.elements.push(newElement);
         }
     }
 
-    public rePosition(offsetX?: number, offsetY?: number): void
+    private findELementClosestToCenter(): GridElement
+    {
+        let nearestElement: GridElement = this.elements[0];
+
+        for(let i = 1; i < this.elements.length; i++ )
+        {
+            if (Math.abs(this.elements[i].distanceFromCenter) < Math.abs(nearestElement.distanceFromCenter))
+            {
+                nearestElement = this.elements[i];
+            }
+        }
+        
+        return nearestElement;
+    }
+
+    public centerToNearestElement()
+    {
+
+        if (this.elementClosestToCenter == null)
+        {
+            this.elementClosestToCenter = this.findELementClosestToCenter();
+        }
+
+        let style: CSSStyleDeclaration = this.elementClosestToCenter.element.style;
+
+        let distanceX: number = this.screenCenterX - parseInt(style.left) - parseInt(style.width) / 2;
+        let distanceY: number = this.screenCenterY - parseInt(style.top) - parseInt(style.height) / 2;
+
+        if (Math.abs(distanceX) < 1 && Math.abs(distanceY) < 1)
+        {
+            this.stopMovingToNearestElement();
+            return;
+        }
+
+        /* Ease to position */
+        this.rePosition(distanceX * .1, distanceY * .1, false);
+
+        /* Fire this function again next frame */
+        this.movingToCenterAnimationLoopID = window.requestAnimationFrame(this.centerToNearestElement.bind(this));
+    }
+
+    private stopMovingToNearestElement()
+    {
+        cancelAnimationFrame(this.movingToCenterAnimationLoopID);
+
+        this.elementClosestToCenter = null;
+        return;
+    }
+
+    private floatOn(velocityX: number, velocityY: number)
+    {
+        velocityX *= .9;
+        velocityY *= .9;
+
+        this.rePosition(Math.round(velocityX), Math.round(velocityY));
+
+        if (Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1)
+        {
+            this.centerToNearestElement();
+            return;
+        }
+
+        window.requestAnimationFrame(() => this.floatOn(velocityX, velocityY) )
+    }
+
+    public letGoOfGrid(velocityX: number, velocityY: number)
+    {
+        this.stopMovingToNearestElement();
+        
+        this.floatOn(velocityX, velocityY);
+    }
+
+    public rePosition(offsetX?: number, offsetY?: number, triggeredByMouseEvent: boolean = true): void
     {
         let vmin: number = Math.min(window.innerWidth, window.innerHeight);
         let size: number = vmin * .25;
@@ -60,8 +142,8 @@ export default class GridView
         let rotationSpeed: number = 0;
         let check: number = 1;
 
-        let screenCenterX: number = window.innerWidth / 2;
-        let screenCenterY: number =  window.innerHeight / 2;
+        this.screenCenterX = window.innerWidth / 2;
+        this.screenCenterY =  window.innerHeight / 2;
 
         /* Loop through all objects */
         for (let i = 0; i < this.elements.length; i++ )
@@ -74,7 +156,8 @@ export default class GridView
             style.top = Math.cos(rot) * dist + this.positionY + 'px';
             
             /* Calculating distance with pytagoras */
-            let distanceFromCenter = (parseInt(style.left) - screenCenterX) ** 2 + (parseInt(style.top) - screenCenterY) ** 2;
+            let distanceFromCenter = (parseInt(style.left) - this.screenCenterX) ** 2 + (parseInt(style.top) - this.screenCenterY) ** 2;
+            curr.distanceFromCenter = distanceFromCenter;
             /* Setting size as the distance */
             let elementSize: number = size - distanceFromCenter * .0015;
             // elementSize **= 1;
@@ -84,7 +167,7 @@ export default class GridView
             style.height = elementSize + 'px';
 
             /* Centering it */
-            style.left = parseInt(style.left) -  parseInt(style.width) / 2 + 'px';
+            style.left = parseInt(style.left) - parseInt(style.width) / 2 + 'px';
             style.top = parseInt(style.top) - parseInt(style.height) / 2 + 'px';
 
             /* Change looping stuff */
@@ -103,6 +186,12 @@ export default class GridView
             rot += Math.PI / rotationSpeed;
             
         }
+
+        if (triggeredByMouseEvent == true)
+        {
+            this.stopMovingToNearestElement();
+        }
+
     }
 
 }
