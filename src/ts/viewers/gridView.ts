@@ -5,6 +5,7 @@ interface GridElement
 {
     content: ContentBase;
     element: HTMLDivElement;
+    imageElement: HTMLImageElement;
     distanceFromCenter: number;
 }
 
@@ -18,8 +19,7 @@ export default class GridView
     positionX: number;
     positionY: number;
 
-    screenCenterX: number;
-    screenCenterY: number;
+    elementCenter: {x: number, y: number};
 
     movingToCenterAnimationLoopID: number;
     
@@ -32,8 +32,11 @@ export default class GridView
 
         this.elements = [];
 
-        this.positionX = window.innerWidth / 2;
-        this.positionY = window.innerHeight / 2;
+        this.elementCenter = this.calculateCenter();
+
+        this.positionX = this.elementCenter.x;
+        this.positionY = this.elementCenter.y;
+
 
         /* Adding elements */
         for(let i: number = this.contentData.length; i--; )
@@ -45,10 +48,16 @@ export default class GridView
             gridElement.className = 'element-grid';
             this.parent.appendChild(gridElement);
 
+            let img: HTMLImageElement =  document.createElement('img');
+            img.src = currData.thumbnail;
+            img.className = 'element-grid-image';
+            gridElement.appendChild(img);
+
             /* Adding it to interface array */
             let newElement: GridElement = {
                 content: currData,
                 element: gridElement,
+                imageElement: img,
                 distanceFromCenter: 0
             };
 
@@ -81,8 +90,8 @@ export default class GridView
 
         let style: CSSStyleDeclaration = this.elementClosestToCenter.element.style;
 
-        let distanceX: number = this.screenCenterX - parseInt(style.left) - parseInt(style.width) / 2;
-        let distanceY: number = this.screenCenterY - parseInt(style.top) - parseInt(style.height) / 2;
+        let distanceX: number = this.elementCenter.x - parseInt(style.left) - parseInt(style.width) / 2;
+        let distanceY: number = this.elementCenter.y - parseInt(style.top) - parseInt(style.height) / 2;
 
         if (Math.abs(distanceX) < 1 && Math.abs(distanceY) < 1)
         {
@@ -91,7 +100,7 @@ export default class GridView
         }
 
         /* Ease to position */
-        this.rePosition(distanceX * .1, distanceY * .1, false);
+        this.rePosition(distanceX * .1, distanceY * .1, false, false);
 
         /* Fire this function again next frame */
         this.movingToCenterAnimationLoopID = window.requestAnimationFrame(this.centerToNearestElement.bind(this));
@@ -110,7 +119,7 @@ export default class GridView
         velocityX *= .9;
         velocityY *= .9;
 
-        this.rePosition(Math.round(velocityX), Math.round(velocityY));
+        this.rePosition(Math.round(velocityX), Math.round(velocityY), false, false);
 
         if (Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1)
         {
@@ -128,7 +137,15 @@ export default class GridView
         this.floatOn(velocityX, velocityY);
     }
 
-    public rePosition(offsetX?: number, offsetY?: number, triggeredByMouseEvent: boolean = true): void
+    private calculateCenter(): {x: number, y: number}
+    {
+        return {
+            x: window.innerWidth / 1.5,
+            y: window.innerHeight / 2
+        }
+    }
+
+    public rePosition(offsetX?: number, offsetY?: number, didResize: boolean = false, triggeredByMouseEvent: boolean = true): void
     {
         let vmin: number = Math.min(window.innerWidth, window.innerHeight);
         let size: number = vmin * .25;
@@ -142,29 +159,33 @@ export default class GridView
         let rotationSpeed: number = 0;
         let check: number = 1;
 
-        this.screenCenterX = window.innerWidth / 2;
-        this.screenCenterY =  window.innerHeight / 2;
+        if (didResize == true)
+        {
+            this.elementCenter = this.calculateCenter();
+        }
 
         /* Loop through all objects */
         for (let i = 0; i < this.elements.length; i++ )
         {
             let curr: GridElement = this.elements[i];
             let style: CSSStyleDeclaration = curr.element.style;
+            let imgStyle: CSSStyleDeclaration =  curr.imageElement.style;
 
             /* Position object */
             style.left = Math.sin(rot) * dist + this.positionX + 'px';
             style.top = Math.cos(rot) * dist + this.positionY + 'px';
             
             /* Calculating distance with pytagoras */
-            let distanceFromCenter = (parseInt(style.left) - this.screenCenterX) ** 2 + (parseInt(style.top) - this.screenCenterY) ** 2;
+            let distanceFromCenter = (parseInt(style.left) - this.elementCenter.x) ** 2 + (parseInt(style.top) - this.elementCenter.y) ** 2;
             curr.distanceFromCenter = distanceFromCenter;
             /* Setting size as the distance */
             let elementSize: number = size - distanceFromCenter * .0015;
-            // elementSize **= 1;
+            
+            if (elementSize < 3) { elementSize = 0; }
 
             /* Calculate size as distance form center */           
-            style.width = elementSize + 'px';
-            style.height = elementSize + 'px';
+            style.width = imgStyle.width = elementSize + 'px';
+            style.height = imgStyle.height = elementSize + 'px';
 
             /* Centering it */
             style.left = parseInt(style.left) - parseInt(style.width) / 2 + 'px';

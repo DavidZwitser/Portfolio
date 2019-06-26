@@ -1,6 +1,25 @@
+.viewer-grid
+{
+    width: 40vw;
+    height: 100vh;
+}
+
 .element-grid
 {
     position: absolute;
     background-color: rgb(16, 77, 175);
     border-radius: 20%;
+
+    border-style: solid;
+
+    overflow: hidden;
+
+    #element-grid-image
+    {
+        // width: inherit;
+        // height: inherit;
+
+        top: 0px;
+        left: 0px;
+    }
 }
