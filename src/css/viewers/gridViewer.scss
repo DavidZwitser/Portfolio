@@ -1,0 +1,28 @@
+.viewer-grid
+{
+    width: 40vw;
+    height: 100vh;
+}
+
+.element-grid
+{
+    position: absolute;
+    background-color: rgb(16, 77, 175);
+    border-radius: 20%;
+
+    border-style: solid;
+
+    overflow: hidden;
+
+    #element-grid-image
+    {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+
+        top: 0px;
+        left: 0px;
+    }
+}

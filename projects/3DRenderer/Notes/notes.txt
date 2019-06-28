@@ -1,3 +1,0 @@
-Clone functie effiecienter
-Draw face sorting
-Renderen op GPU

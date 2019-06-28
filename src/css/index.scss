@@ -1,0 +1,28 @@
+$primary-color: blue;
+$animation-speed: .7s;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  background-color: lightcoral;
+
+  height: 100%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  transition-timing-function: ease-in-out;
+
+  user-select: none;
+
+}
+
+@import './navigationBar.scss';
+
+@import './pages/defaultPageSettigns.scss';
+@import './pages/homePage.scss';
+@import './pages/otherPages.scss';
+
+@import './viewers/gridViewer.scss';
+@import './viewers/previewPane.scss';
