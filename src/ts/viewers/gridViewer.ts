@@ -9,9 +9,8 @@ interface GridElement
     distanceFromCenter: number;
 }
 
-export default class GridView
+export default class GridViewer
 {
-    contentData: ContentBase[];
     parent: HTMLDivElement;
 
     elements: GridElement[];
@@ -24,45 +23,47 @@ export default class GridView
     movingToCenterAnimationLoopID: number;
     
     elementClosestToCenter: GridElement;
+    centerElementChangedCallback: Function[];
 
-    constructor(parent: HTMLDivElement, content: ContentBase[])
+    tmpElCounter: number = 0;
+
+    constructor(parent: HTMLDivElement)
     {
-        this.contentData = content;
         this.parent = parent;
 
         this.elements = [];
 
+        this.centerElementChangedCallback = [];
         this.elementCenter = this.calculateCenter();
 
         this.positionX = this.elementCenter.x;
         this.positionY = this.elementCenter.y;
 
+    }
 
-        /* Adding elements */
-        for(let i: number = this.contentData.length; i--; )
-        {
-            let currData: ContentBase = this.contentData[i];
+    public addContent(content: ContentBase): void
+    {
+        /* Creating DOM element */
+        let gridElement = document.createElement('div');
+        gridElement.className = 'element-grid';
+        this.parent.appendChild(gridElement);
 
-            /* Creating DOM element */
-            let gridElement = document.createElement('div');
-            gridElement.className = 'element-grid';
-            this.parent.appendChild(gridElement);
+        let img: HTMLImageElement =  document.createElement('img');
+        img.className = 'element-grid-image';
+        img.draggable = false;
+        img.src = content.thumbnail;
+        gridElement.appendChild(img);
 
-            let img: HTMLImageElement =  document.createElement('img');
-            img.src = currData.thumbnail;
-            img.className = 'element-grid-image';
-            gridElement.appendChild(img);
+        /* Adding it to interface array */
+        let newElement: GridElement = {
+            content: content,
+            element: gridElement,
+            imageElement: img,
+            distanceFromCenter: 0
+        };
 
-            /* Adding it to interface array */
-            let newElement: GridElement = {
-                content: currData,
-                element: gridElement,
-                imageElement: img,
-                distanceFromCenter: 0
-            };
+        this.elements.push(newElement);
 
-            this.elements.push(newElement);
-        }
     }
 
     private findELementClosestToCenter(): GridElement
@@ -75,6 +76,11 @@ export default class GridView
             {
                 nearestElement = this.elements[i];
             }
+        }
+
+        for (let i = 0; i < this.centerElementChangedCallback.length; i++)
+        {
+            this.centerElementChangedCallback[i](nearestElement.content);
         }
         
         return nearestElement;
@@ -147,6 +153,8 @@ export default class GridView
 
     public rePosition(offsetX?: number, offsetY?: number, didResize: boolean = false, triggeredByMouseEvent: boolean = true): void
     {
+        if (this.elements.length < 0) { return; }
+
         let vmin: number = Math.min(window.innerWidth, window.innerHeight);
         let size: number = vmin * .25;
 
@@ -157,7 +165,7 @@ export default class GridView
         let dist = 0;
 
         let rotationSpeed: number = 0;
-        let check: number = 1;
+        let check: number = 0;
 
         if (didResize == true)
         {
@@ -179,9 +187,9 @@ export default class GridView
             let distanceFromCenter = (parseInt(style.left) - this.elementCenter.x) ** 2 + (parseInt(style.top) - this.elementCenter.y) ** 2;
             curr.distanceFromCenter = distanceFromCenter;
             /* Setting size as the distance */
-            let elementSize: number = size - distanceFromCenter * .0015;
+            let elementSize: number = size - distanceFromCenter * .001;
             
-            if (elementSize < 3) { elementSize = 0; }
+            if (elementSize < 3) { elementSize = 3; }
 
             /* Calculate size as distance form center */           
             style.width = imgStyle.width = elementSize + 'px';
@@ -192,13 +200,14 @@ export default class GridView
             style.top = parseInt(style.top) - parseInt(style.height) / 2 + 'px';
 
             /* Change looping stuff */
-            if (i % check == 0) 
+            if (i == check) 
             { 
                 if (i == 0) { check = 6; }
-                else { check *= 3; }
+                if (i == 6) { check = 18; }
+                if (i == 18) { check = 36; }
+                if (i == 36) { check = 72; }
 
                 dist += size * 1.1;
-
                 rotationSpeed += 3;
             }
 

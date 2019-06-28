@@ -1,8 +1,15 @@
 import ContentBase from "../content/contentBase";
+import { threadId } from "worker_threads";
 
 export default class PreviewPane
 {
     private parent: HTMLDivElement;
+
+    private videoElement: HTMLVideoElement;
+
+    private description: HTMLParagraphElement;
+    private tags: HTMLParagraphElement;
+    private linkToPost: HTMLParagraphElement;
 
     constructor(parent: HTMLDivElement)
     {
@@ -18,10 +25,39 @@ export default class PreviewPane
         imageWindow.appendChild(video);
         video.play();
         video.loop = true;
+
+        this.videoElement = video;
+
+        this.description = document.createElement('p');
+        this.description.className = 'viewer-preview-description';
+        parent.appendChild(this.description);
+
+        this.tags = document.createElement('p');
+        this.tags.className = 'viewer-preview-tags';
+        parent.appendChild(this.tags);
+
+        this.linkToPost = document.createElement('p');
+        this.linkToPost.className = 'viewer-preview-linkToPost';
+        parent.appendChild(this.linkToPost);
     }
 
     public previewElement(content: ContentBase)
     {
-        
+        if (this.videoElement.src == content.footage[0]) { return; }
+        this.videoElement.src = content.footage[0];
+
+        this.videoElement.play();
+
+        this.description.innerHTML = content.description;
+
+        this.tags.innerHTML = 'Techniques: ';
+        for (let i = 0; i < content.tags.length; i++)
+        {
+            if (i !== 0) { this.tags.innerHTML += ', '; }
+            this.tags.innerHTML += content.tags[i];
+        }
+
+        this.linkToPost.innerHTML = '\n Link to post: ' + content.url;
+
     }
 }

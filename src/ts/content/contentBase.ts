@@ -1,15 +1,17 @@
 export default class ContentBase 
 {
-    title: string;
+    description: string;
     thumbnail: string;
     footage: string[];
-    about: string;
+    tags: string[];
+    url: string;
 
-    constructor (title: string, about: string, thumbnail: string, footage: string[])
+    constructor (description: string, thumbnail: string, footage: string[], tags: string[], url: string)
     {
-        this.title = title;
-        this.about = about;
+        this.description = description;
         this.thumbnail = thumbnail;
         this.footage = footage;
+        this.tags = tags;
+        this.url = url;
     }
 }
