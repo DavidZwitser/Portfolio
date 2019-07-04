@@ -55,15 +55,15 @@ function resized()
 
 import ContentBase from './content/contentBase';
 import GridViewer from './viewers/gridViewer';
-import PreviewPane from './viewers/previewPane';
+import GridPopup from './viewers/gridPopup';
 
 import * as projects from '../JSON/projects.json';
 
 let grid: GridViewer = new GridViewer(<HTMLDivElement>document.getElementById('viewer-grid'));
-let previewPane: PreviewPane = new PreviewPane(<HTMLDivElement> document.getElementById('viewer-preview'));
+let gridPopup: GridPopup = new GridPopup(<HTMLDivElement> document.getElementById('viewer-preview'));
 
-grid.centerElementChangedCallback.push((centerElement: ContentBase) => {
-    previewPane.previewElement(centerElement);
+grid.clickedOnElementCallback.push((element: ContentBase) => {
+    gridPopup.changeDataAndAnimate(element);
 });
 
 Object.keys(projects.dailies).forEach((key: string, index: number) => {

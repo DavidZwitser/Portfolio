@@ -3,6 +3,7 @@ import { request } from 'https';
 
 interface GridElement
 {
+    id: Number;
     content: ContentBase;
     element: HTMLDivElement;
     imageElement: HTMLImageElement;
@@ -14,6 +15,7 @@ export default class GridViewer
     parent: HTMLDivElement;
 
     elements: GridElement[];
+    elementCounter: number = 0;
 
     positionX: number;
     positionY: number;
@@ -25,6 +27,8 @@ export default class GridViewer
     elementClosestToCenter: GridElement;
     centerElementChangedCallback: Function[];
 
+    clickedOnElementCallback: Function[];
+
     tmpElCounter: number = 0;
 
     constructor(parent: HTMLDivElement)
@@ -35,6 +39,8 @@ export default class GridViewer
 
         this.centerElementChangedCallback = [];
         this.elementCenter = this.calculateCenter();
+
+        this.clickedOnElementCallback = [];
 
         this.positionX = this.elementCenter.x;
         this.positionY = this.elementCenter.y;
@@ -54,27 +60,57 @@ export default class GridViewer
         img.src = content.thumbnail;
         gridElement.appendChild(img);
 
+        let id: number = this.elementCounter ++;
+
         /* Adding it to interface array */
         let newElement: GridElement = {
+            id: id,
             content: content,
             element: gridElement,
             imageElement: img,
             distanceFromCenter: 0
         };
 
+        gridElement.addEventListener('click', () => this.clickedOnElementHandler(id) );
+
         this.elements.push(newElement);
 
     }
 
-    private findELementClosestToCenter(): GridElement
+    private getElementByID(id: number): GridElement
+    {
+        for(let i = 0; i < this.elements.length; i++)
+        {
+            if (this.elements[i].id == id) { return this.elements[i]; }
+        }
+    }
+
+    private clickedOnElementHandler(elementID: number): void
+    {
+        let element: GridElement = this.getElementByID(elementID);
+        console.log(elementID);
+
+        for (let i = 0; i < this.clickedOnElementHandler.length; i++)
+        {
+            this.clickedOnElementCallback[i](element.content);
+        }
+
+        this.centerToNearestElement(element);
+    }
+
+    private findELementClosestToCenter(overwriteElement: GridElement = null): GridElement
     {
         let nearestElement: GridElement = this.elements[0];
 
-        for(let i = 1; i < this.elements.length; i++ )
+        if (overwriteElement !== null) { nearestElement = overwriteElement; }
+        else
         {
-            if (Math.abs(this.elements[i].distanceFromCenter) < Math.abs(nearestElement.distanceFromCenter))
+            for(let i = 1; i < this.elements.length; i++ )
             {
-                nearestElement = this.elements[i];
+                if (Math.abs(this.elements[i].distanceFromCenter) < Math.abs(nearestElement.distanceFromCenter))
+                {
+                    nearestElement = this.elements[i];
+                }
             }
         }
 
@@ -86,14 +122,20 @@ export default class GridViewer
         return nearestElement;
     }
 
-    public centerToNearestElement()
+    public centerToNearestElement(overwriteElement: GridElement = null)
     {
-
         if (this.elementClosestToCenter == null)
         {
             this.elementClosestToCenter = this.findELementClosestToCenter();
         }
 
+        if (overwriteElement !== null && typeof overwriteElement === "object") 
+        {
+            this.elementClosestToCenter = this.findELementClosestToCenter(overwriteElement);
+
+            console.trace(this.elementClosestToCenter);
+        }
+        
         let style: CSSStyleDeclaration = this.elementClosestToCenter.element.style;
 
         let distanceX: number = this.elementCenter.x - parseInt(style.left) - parseInt(style.width) / 2;
@@ -109,7 +151,7 @@ export default class GridViewer
         this.rePosition(distanceX * .1, distanceY * .1, false, false);
 
         /* Fire this function again next frame */
-        this.movingToCenterAnimationLoopID = window.requestAnimationFrame(this.centerToNearestElement.bind(this));
+        this.movingToCenterAnimationLoopID = window.requestAnimationFrame(() => this.centerToNearestElement() );
     }
 
     private stopMovingToNearestElement()
@@ -146,7 +188,7 @@ export default class GridViewer
     private calculateCenter(): {x: number, y: number}
     {
         return {
-            x: window.innerWidth / 1.5,
+            x: window.innerWidth / 2,
             y: window.innerHeight / 2
         }
     }
@@ -189,7 +231,7 @@ export default class GridViewer
             /* Setting size as the distance */
             let elementSize: number = size - distanceFromCenter * .001;
             
-            if (elementSize < 3) { elementSize = 3; }
+            if (elementSize < 10) { elementSize = 10; }
 
             /* Calculate size as distance form center */           
             style.width = imgStyle.width = elementSize + 'px';
@@ -207,7 +249,7 @@ export default class GridViewer
                 if (i == 18) { check = 36; }
                 if (i == 36) { check = 72; }
 
-                dist += size * 1.1;
+                dist += size * 1.05;
                 rotationSpeed += 3;
             }
 
