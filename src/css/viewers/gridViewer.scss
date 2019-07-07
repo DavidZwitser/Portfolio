@@ -4,6 +4,11 @@
     height: 100vh;
 }
 
+#page-dailies
+{
+    cursor: grab;
+}
+
 .element-grid
 {
     position: absolute;
@@ -27,4 +32,9 @@
         top: 0px;
         left: 0px;
     }
+}
+
+.element-grid:hover
+{
+    cursor: pointer;
 }

@@ -46,7 +46,7 @@ mouse.draggingCallback.push(() => {
 });
 mouse.mosueUpCallback.push(() => {
     grid.letGoOfGrid(mouse.velocityX, mouse.velocityY);
-})
+});
 
 function resized()
 {
@@ -60,15 +60,22 @@ import GridPopup from './viewers/gridPopup';
 import * as projects from '../JSON/projects.json';
 
 let grid: GridViewer = new GridViewer(<HTMLDivElement>document.getElementById('viewer-grid'));
-let gridPopup: GridPopup = new GridPopup(<HTMLDivElement> document.getElementById('viewer-preview'));
+let gridPopup: GridPopup = new GridPopup(<HTMLDivElement> document.getElementById('viewer-grid-popup'));
 
-grid.clickedOnElementCallback.push((element: ContentBase) => {
-    gridPopup.changeDataAndAnimate(element);
+grid.openMoreInfoCallback.push((element: ContentBase) => {
+    gridPopup.openMoreInfo(element);
+});
+grid.closeMoreInfoCallback.push(() => {
+    gridPopup.closeMoreInfo();
 });
 
 Object.keys(projects.dailies).forEach((key: string, index: number) => {
 
     let daily = projects.dailies[key];
+
+    let splitURL: string[] = daily.url.split('/');
+    daily.footage = ['https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/' + splitURL[4] + '.mp4'];
+
     let content: ContentBase = new ContentBase(daily.description, daily.thumbnail, daily.footage, daily.tags, daily.url);
 
     grid.addContent(content);

@@ -21,7 +21,7 @@ export default class GridPopup
 
         let video: HTMLVideoElement = document.createElement('video');
         video.className = 'viewer-grid-popup-video';
-        video.src = 'https://scontent.cdninstagram.com/vp/698dc1093910911928da028626ffd881/5D1579F0/t50.2886-16/54450039_321451865241940_8601119588781916160_n.mp4?_nc_ht=scontent.cdninstagram.com';
+        video.src = '';
         imageWindow.appendChild(video);
         video.play();
         video.loop = true;
@@ -32,32 +32,51 @@ export default class GridPopup
         this.description.className = 'viewer-grid-popup-description';
         parent.appendChild(this.description);
 
+        parent.appendChild(document.createElement('br'));
+
         this.tags = document.createElement('p');
         this.tags.className = 'viewer-grid-popup-tags';
         parent.appendChild(this.tags);
 
+        parent.appendChild(document.createElement('br'));
+
         this.linkToPost = document.createElement('p');
         this.linkToPost.className = 'viewer-grid-popup-linkToPost';
         parent.appendChild(this.linkToPost);
+
+        parent.appendChild(document.createElement('br'));
+
     }
 
-    public changeDataAndAnimate(content: ContentBase)
+    public openMoreInfo(content: ContentBase)
     {
+        this.parent.style.left = '0px';
+        this.parent.style.top = '0px';
+
         if (this.videoElement.src == content.footage[0]) { return; }
         this.videoElement.src = content.footage[0];
-
+        
         this.videoElement.play();
-
+        
         this.description.innerHTML = content.description;
-
+        
         this.tags.innerHTML = 'Techniques: ';
         for (let i = 0; i < content.tags.length; i++)
         {
             if (i !== 0) { this.tags.innerHTML += ', '; }
             this.tags.innerHTML += content.tags[i];
         }
-
+        
         this.linkToPost.innerHTML = '\n Link to post: ' + content.url;
+        
+    }
 
+    public closeMoreInfo(): void
+    {
+        this.parent.style.left = '';
+        this.parent.style.top = '';
+
+
+        this.videoElement.pause();
     }
 }

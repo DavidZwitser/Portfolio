@@ -1,3 +1,5 @@
+import { threadId } from "worker_threads";
+
 export default class MouseEventsHandler
 {
     mouseX: number = 0;
@@ -15,6 +17,8 @@ export default class MouseEventsHandler
     mouseDownCallback: Function[];
     draggingCallback: Function[];
 
+    onMobile: boolean;
+
     constructor()
     {
         this.draggingCallback = [];
@@ -29,11 +33,19 @@ export default class MouseEventsHandler
 
         window.addEventListener('mouseup', this.onMouseUp.bind(this));
         window.addEventListener('touchend', this.onMouseUp.bind(this));
+
+        this.onMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     }
 
     onMouseUp()
     {
         this.mouseDown = false;
+
+        if (this.onMobile)
+        {
+            this.velocityX = 0;
+            this.velocityY = 0;
+        }
 
         for (let i: number = this.mosueUpCallback.length; i--; )
         {
@@ -44,18 +56,37 @@ export default class MouseEventsHandler
     onMouseDown()
     {
         this.mouseDown = true;
+        
+        this.velocityX = this.velocityY = 0;
 
         for (let i: number = this.mouseDownCallback.length; i--; )
         {
             this.mouseDownCallback[i]();
         }
+
     }
     
-    mouseMoved(ev: MouseEvent)
+    mouseMoved(ev: MouseEvent | TouchEvent)
     {
         // grid.rePosition(ev.clientX, ev.clientY);
-        this.mouseX = ev.clientX;
-        this.mouseY = ev.clientY;
+        if (this.onMobile == false)
+        {
+            this.mouseX = (<MouseEvent>ev).clientX;
+            this.mouseY = (<MouseEvent>ev).clientY;
+        }
+        else
+        {
+            this.mouseX = (<TouchEvent> ev).touches[0].clientX;
+            this.mouseY = (<TouchEvent> ev).touches[0].clientY;
+
+            if (this.mouseDown == false)
+            {
+                this.lastX = this.mouseX;
+                this.lastY = this.mouseY;
+            }
+            this.mouseDown = true;
+        }
+
 
         this.velocityX = this.mouseX - this.lastX;
         this.velocityY = this.mouseY - this.lastY;
@@ -63,7 +94,8 @@ export default class MouseEventsHandler
         this.lastX = this.mouseX;
         this.lastY = this.mouseY;
 
-        if (this.mouseDown == true)
+
+        if (this.mouseDown == true || this.onMobile == true)
         {
             for (let i = this.draggingCallback.length; i--; )
             {

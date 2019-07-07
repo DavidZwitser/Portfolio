@@ -20,6 +20,8 @@ export default class GridViewer
     positionX: number;
     positionY: number;
 
+    hasMoved: boolean;
+
     elementCenter: {x: number, y: number};
 
     movingToCenterAnimationLoopID: number;
@@ -27,7 +29,8 @@ export default class GridViewer
     elementClosestToCenter: GridElement;
     centerElementChangedCallback: Function[];
 
-    clickedOnElementCallback: Function[];
+    openMoreInfoCallback: Function[];
+    closeMoreInfoCallback: Function[];
 
     tmpElCounter: number = 0;
 
@@ -40,7 +43,8 @@ export default class GridViewer
         this.centerElementChangedCallback = [];
         this.elementCenter = this.calculateCenter();
 
-        this.clickedOnElementCallback = [];
+        this.openMoreInfoCallback = [];
+        this.closeMoreInfoCallback = [];
 
         this.positionX = this.elementCenter.x;
         this.positionY = this.elementCenter.y;
@@ -87,12 +91,14 @@ export default class GridViewer
 
     private clickedOnElementHandler(elementID: number): void
     {
+        if (this.hasMoved == true) { return; }
         let element: GridElement = this.getElementByID(elementID);
-        console.log(elementID);
 
-        for (let i = 0; i < this.clickedOnElementHandler.length; i++)
-        {
-            this.clickedOnElementCallback[i](element.content);
+        if (element == this.elementClosestToCenter) {
+            for (let i = 0; i < this.openMoreInfoCallback.length; i++)
+            {
+                this.openMoreInfoCallback[i](element.content);
+            }
         }
 
         this.centerToNearestElement(element);
@@ -132,8 +138,6 @@ export default class GridViewer
         if (overwriteElement !== null && typeof overwriteElement === "object") 
         {
             this.elementClosestToCenter = this.findELementClosestToCenter(overwriteElement);
-
-            console.trace(this.elementClosestToCenter);
         }
         
         let style: CSSStyleDeclaration = this.elementClosestToCenter.element.style;
@@ -144,6 +148,7 @@ export default class GridViewer
         if (Math.abs(distanceX) < 1 && Math.abs(distanceY) < 1)
         {
             this.stopMovingToNearestElement();
+            this.elementClosestToCenter = this.findELementClosestToCenter();
             return;
         }
 
@@ -183,6 +188,8 @@ export default class GridViewer
         this.stopMovingToNearestElement();
         
         this.floatOn(velocityX, velocityY);
+
+        setTimeout( () => this.hasMoved = false, 300);
     }
 
     private calculateCenter(): {x: number, y: number}
@@ -196,6 +203,14 @@ export default class GridViewer
     public rePosition(offsetX?: number, offsetY?: number, didResize: boolean = false, triggeredByMouseEvent: boolean = true): void
     {
         if (this.elements.length < 0) { return; }
+
+        if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
+        {
+            for (let i = 0; i < this.closeMoreInfoCallback.length; i++)
+            {
+                this.closeMoreInfoCallback[i]();
+            }
+        }
 
         let vmin: number = Math.min(window.innerWidth, window.innerHeight);
         let size: number = vmin * .25;
@@ -262,6 +277,9 @@ export default class GridViewer
         if (triggeredByMouseEvent == true)
         {
             this.stopMovingToNearestElement();
+            setTimeout( () => {
+                this.hasMoved = true;
+            }, 300); 
         }
 
     }
