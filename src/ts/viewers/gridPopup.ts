@@ -9,7 +9,7 @@ export default class GridPopup
 
     private description: HTMLParagraphElement;
     private tags: HTMLParagraphElement;
-    private linkToPost: HTMLParagraphElement;
+    private linkToPost: HTMLAnchorElement;
 
     constructor(parent: HTMLDivElement)
     {
@@ -32,19 +32,14 @@ export default class GridPopup
         this.description.className = 'viewer-grid-popup-description';
         parent.appendChild(this.description);
 
-        parent.appendChild(document.createElement('br'));
-
         this.tags = document.createElement('p');
         this.tags.className = 'viewer-grid-popup-tags';
         parent.appendChild(this.tags);
 
-        parent.appendChild(document.createElement('br'));
 
-        this.linkToPost = document.createElement('p');
+        this.linkToPost = document.createElement('a');
         this.linkToPost.className = 'viewer-grid-popup-linkToPost';
         parent.appendChild(this.linkToPost);
-
-        parent.appendChild(document.createElement('br'));
 
     }
 
@@ -60,14 +55,16 @@ export default class GridPopup
         
         this.description.innerHTML = content.description;
         
-        this.tags.innerHTML = 'Techniques: ';
+        this.tags.innerHTML = '';
         for (let i = 0; i < content.tags.length; i++)
         {
-            if (i !== 0) { this.tags.innerHTML += ', '; }
+            this.tags.innerHTML += ' | ';
             this.tags.innerHTML += content.tags[i];
         }
+        this.tags.innerHTML += ' | ';
         
-        this.linkToPost.innerHTML = '\n Link to post: ' + content.url;
+        this.linkToPost.innerHTML = '\n Source';
+        this.linkToPost.href = content.url;
         
     }
 

@@ -149,6 +149,9 @@ export default class GridViewer
         {
             this.stopMovingToNearestElement();
             this.elementClosestToCenter = this.findELementClosestToCenter();
+
+            /* TEMPORARY */
+            this.openMoreInfoCallback[0](this.elementClosestToCenter.content);
             return;
         }
 

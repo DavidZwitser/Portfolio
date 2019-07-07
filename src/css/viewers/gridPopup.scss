@@ -7,6 +7,8 @@ $popup-speed: .3s;
     background-color: white;
 
     width: 100vw;
+    height: 40vh;
+
     z-index: 1;
 
     padding: 1%;
@@ -14,19 +16,17 @@ $popup-speed: .3s;
     box-shadow: 0px 0px 15px;
 
     left: 0px;
-    top: -30vh;
+    top: -40vh;
 
-    height: 30vh;
 
     transition: top $popup-speed;
 
     .viewer-grid-popup-image {
         background-color: rgb(102, 102, 102);
-        height: 25vw;
-        width: 25vw;
+        height: 35vh;
+        width: 35vh;
 
-        position: static;
-
+        position: relative;
 
         overflow: hidden;
 
@@ -44,22 +44,34 @@ $popup-speed: .3s;
     }
 
     p {
-        float: left;
-        font-weight: bold;
-        font-size: 20wv;
-        flex: inline;
+        // float: left;
+        word-wrap: break-word;
+
+        margin-right: 3%;
     }
 
     .viewer-grid-popup-description {
         margin-left: 0px;
+        margin-top: 3%;
+
+        font-size: 200%;
+        font-weight: 800;
     }
 
     .viewer-grid-popup-tags {
+
+        margin-left: 0px;
+        margin-top: 0px;
+
+        font-size: 75%;
 
     }
 
     .viewer-grid-popup-linkToPost {
 
+        font-size: 75%;
+
+        font-weight: bolder;
     }
 
 }
@@ -79,5 +91,22 @@ $popup-speed: .3s;
             width: 35vh;
             height: 35vh;
         }
+
+        .viewer-grid-popup-description {
+            margin-left: 5%;
+            margin-top: 100%;
+        }
+
+        .viewer-grid-popup-tags {
+
+            margin-left: 5%;
+               
+        }
+    
+        .viewer-grid-popup-linkToPost {
+            margin-left: 5%;
+        }
     }
+
+    
 }
