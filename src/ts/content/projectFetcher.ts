@@ -16,9 +16,9 @@ export default class ProjectFetcher
     {       
         this.projects = [];
 
-        this.projects.push(Mythos.getProject());
         this.projects.push(Duck.getProject());
         this.projects.push(Unicult.getProject());
+        this.projects.push(Mythos.getProject());
     }
 
     public getProjects(): Project[]

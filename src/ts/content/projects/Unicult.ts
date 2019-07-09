@@ -24,7 +24,7 @@ export namespace Unicult
                 learnedValue: 50
             },
             <ProjectSources>{
-                thumbnail: 'https://raw.githubusercontent.com/DavidZwitser/Portfolio/master/footage/dailies/thumbnails/BucETVoF17t.jpg',
+                thumbnail: 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/thumbnails/Bu-x9x_Fas_.jpg',
                 footage: ['https://raw.githubusercontent.com/DavidZwitser/Portfolio/master/footage/dailies/thumbnails/BucETVoF17t.jpg', 'https://raw.githubusercontent.com/DavidZwitser/Portfolio/master/footage/dailies/thumbnails/BucETVoF17t.jpg'],
                 externalLink: 'http://davidzwitser.com'
             },

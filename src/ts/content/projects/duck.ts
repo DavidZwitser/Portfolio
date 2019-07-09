@@ -24,13 +24,13 @@ export namespace Duck
                 learnedValue: 50
             },
             <ProjectSources>{
-                thumbnail: 'https://raw.githubusercontent.com/DavidZwitser/Portfolio/master/footage/dailies/thumbnails/BucETVoF17t.jpg',
+                thumbnail: 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/thumbnails/BuHRtmCFIyF.jpg',
                 footage: ['https://raw.githubusercontent.com/DavidZwitser/Portfolio/master/footage/dailies/thumbnails/BucETVoF17t.jpg', 'https://raw.githubusercontent.com/DavidZwitser/Portfolio/master/footage/dailies/thumbnails/BucETVoF17t.jpg'],
                 externalLink: 'http://davidzwitser.com'
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create],
-                tools: [tools.Touchdesigner, tools.Blender]
+                tools: [tools.Touchdesigner, tools.Blender, tools.Krita]
             }
         );
     }

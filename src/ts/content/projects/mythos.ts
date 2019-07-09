@@ -30,7 +30,7 @@ export namespace Mythos
             },
             <ProjectTags>{
                 goals: [goals.create, goals.entertain],
-                tools: [tools.Touchdesigner, tools.Krita]
+                tools: [tools.Touchdesigner]
             }
         );
     }

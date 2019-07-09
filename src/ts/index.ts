@@ -90,9 +90,9 @@ class Main
         let categories: tools[] = [
             tools.AffinityDesigner,
             tools.Blender,
-            tools.DavinciResolve,
+            tools.Touchdesigner,
             tools.Houdini,
-            tools.Processing,
+            tools.Krita,
             tools.Processing,
             tools.SuperCollider,
             tools.AffinityPublisher

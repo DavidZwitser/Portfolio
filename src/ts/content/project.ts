@@ -36,6 +36,8 @@ export interface ProjectTags
 
 export default class Project implements ProjectVariables, ProjectText, ProjectSources, ProjectTags
 {
+    id: number;
+
     name: string;
     description: string;
     context: string;
@@ -56,12 +58,16 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     goals: goals[];
     tools: tools[];
 
+    public static USED_IDS: number[] = [];
+
     constructor(
         text: ProjectText = {name: 'not found'},
         variables: ProjectVariables = {durationHrs: -1, teamSize: -1, endresultValue: -1, learnedValue: -1},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
         tags: ProjectTags = {goals: [goals.none], tools: [tools.none]}
     ) {
+        this.id = Project.USED_IDS.length;
+        Project.USED_IDS.push(Project.USED_IDS.length);
 
         this.name = text.name;
         this.description =  text.description;

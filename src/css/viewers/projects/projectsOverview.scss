@@ -54,14 +54,15 @@
     float: left;
 }
 
-.overview-container-icons
+.overview-container-previewer
 {
 
     position: relative;
 
-    width: 60%;
+    width: 100%;
     height: auto;
 
+    clear: left;
     float: left;
 
     // margin-top: 30vmin;
@@ -73,48 +74,104 @@
         // height: 35vmin;
     
         // border-style: solid;
+
+        width: 40%;
         
         margin-top: 3vmin;
         margin-bottom: 2.5vmin;
     
         margin-left: 1.5vmin;
-        margin-right: 1.5vmin;
+        margin-right: 0vmin;
     
         padding: 0px;
+
+        float: left;
     
         overflow: hidden;
     
-        .projects-overview-catagory-title 
-        {
-            color: white;
-    
-            font-size: 5vmin;
-    
-        }
-
+        
         .overview-container-project-preview-thumbnail
         {
             width: 100%;
             border-radius: 20px;
 
+            // border-style: 
+
+            float: left;
         }
 
-        .overview-container-project-preview-tools
+        
+        .overview-container-project-preview-infobar
         {
-            background-color: orange;
-            border-radius: 2vmin;
+            width: 100%;
+            padding-top: 5%;
+            
+            div, p
+            {
+                float: left;
+    
+                padding: 1.5%;
+                margin-left: 2%;
+                margin-top: 3%;
+    
+                font-size: 80%;
+            }
 
-            display: inline-block;
+            .overview-container-project-preview-name
+            {
+    
+                background-color: rgb(86, 98, 102);
+                border-radius: 0px;
+    
+                font-weight: 800;
+                font-size: 120%;
 
-            padding: 1vmin;
-            margin-left: .8vmin;
-            margin-top: .5vmin;
+                margin-bottom: 0px;
+            }
+    
+            .overview-container-project-preview-tools
+            {
+    
+                background-color: orange;
+                border-radius: 2vmin;
+    
+                display: inline-block;
+    
+                width: auto;
+    
+                font-weight: 800;
+    
+            }
+    
+            .overview-container-project-preview-duration
+            {
+                font-weight: 800;
+                font-size: 120%;
 
-            width: auto;
+                /* For some reason the with is way to big by default */
+                width: 18%;
 
-            font-weight: 800;
-            font-size: 1.6vmin;
+                clear: left;
 
+                .overview-container-project-preview-duration-icon {
+                    width: 31%;
+                }
+            }
+    
+            .overview-container-project-preview-teamsize
+            {
+                font-weight: 800;
+                font-size: 120%;
+                /* For some reason the with is way to big by default */
+                width: 10%;
+    
+    
+                .overview-container-project-preview-teamsize-icon
+                {
+                    width: 60%;
+                }
+            }
         }
+
     }
 }
