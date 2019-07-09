@@ -1,13 +1,13 @@
-import { ICategory } from "../../../Interfaces";
+import { tools } from "../../../Enums";
 
 export default class CategorySelector
 {
     parent: HTMLDivElement;
     myElement: HTMLDivElement;
 
-    category: ICategory;
+    category: tools;
 
-    constructor(parent: HTMLDivElement, category: ICategory)
+    constructor(parent: HTMLDivElement, category: tools)
     {
         this.parent = parent;
 

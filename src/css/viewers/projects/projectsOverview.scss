@@ -34,7 +34,7 @@
 
     img {
         width: 100%;
-        margin-top: -30%;
+        // margin-top: -30%;
     }
 }
 
@@ -54,34 +54,46 @@
     float: left;
 }
 
-.overview-container-category
+.overview-container-icons
 {
-    // width: 35vmin;
-    // height: 35vmin;
 
-    // border-style: solid;
-    border-radius: 20px;
+    position: relative;
+
+    width: 100%;
+    height: auto;
 
     float: left;
 
-    margin-top: 2.5vmin;
-    margin-bottom: 2.5vmin;
+    // margin-top: 30vmin;
 
-    margin-left: 1.5vmin;
-    margin-right: 1.5vmin;
 
-    padding: 0px;
-
-    overflow: hidden;
-
-    .projects-overview-catagory-title 
+    .overview-container-project-preview
     {
-        color: white;
-
-        float: left;
-
-        font-size: 5vmin;
-
-
+        // width: 35vmin;
+        // height: 35vmin;
+    
+        // border-style: solid;
+        border-radius: 20px;
+    
+        margin-top: 3vmin;
+        margin-bottom: 2.5vmin;
+    
+        margin-left: 1.5vmin;
+        margin-right: 1.5vmin;
+    
+        padding: 0px;
+    
+        overflow: hidden;
+    
+        .projects-overview-catagory-title 
+        {
+            color: white;
+    
+            font-size: 5vmin;
+    
+            
+    
+    
+        }
     }
 }

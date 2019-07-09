@@ -1,12 +1,13 @@
-import Project from "../../../content/project";
+import Project, { ProjectSources } from "../../../content/project";
 
-export default class Highlight
+export default class ProjectPreviewer
 {
     parent: HTMLDivElement;
-    project: Project;
-
     myElement: HTMLDivElement;
+
     imgElement: HTMLImageElement;
+
+    project: Project;
 
     constructor(parent: HTMLDivElement, project: Project)
     {
@@ -14,7 +15,7 @@ export default class Highlight
         this.project = project;
 
         this.myElement = this.parent.appendChild(document.createElement('div'));
-        this.myElement.className = 'overview-container-highlight';
+        this.myElement.className = 'overview-container-project-preview';
 
         this.imgElement = this.myElement.appendChild(document.createElement('img'));
         this.imgElement.src = project.thumbnail;

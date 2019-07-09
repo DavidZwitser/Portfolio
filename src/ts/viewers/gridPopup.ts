@@ -1,5 +1,4 @@
-import ContentBase from "../content/contentBase";
-import { threadId } from "worker_threads";
+import Project from '../content/project';
 
 export default class GridPopup
 {
@@ -43,7 +42,7 @@ export default class GridPopup
 
     }
 
-    public openMoreInfo(content: ContentBase)
+    public openMoreInfo(content: Project)
     {
         this.parent.style.left = '0px';
         this.parent.style.top = '0px';
@@ -53,18 +52,18 @@ export default class GridPopup
         if (this.videoElement.src == content.footage[0]) { return; }
         this.videoElement.src = content.footage[0];        
         
-        this.description.innerHTML = content.description;
+        this.description.innerHTML = content.context;
         
         this.tags.innerHTML = '';
-        for (let i = 0; i < content.tags.length; i++)
+        for (let i = 0; i < content.tools.length; i++)
         {
             this.tags.innerHTML += ' | ';
-            this.tags.innerHTML += content.tags[i];
+            this.tags.innerHTML += content.tools[i];
         }
         this.tags.innerHTML += ' | ';
         
         this.linkToPost.innerHTML = '\n Source';
-        this.linkToPost.href = content.url;
+        this.linkToPost.href = content.externalLink;
         
     }
 

@@ -1,12 +1,11 @@
-import ContentBase from '../content/contentBase';
-import { request } from 'https';
 import Constants from '../Constants';
-import { IPages } from '../Interfaces';
+import { pages } from '../Enums';
+import Project from '../content/project';
 
 interface GridElement
 {
     id: Number;
-    content: ContentBase;
+    content: Project;
     element: HTMLDivElement;
     imageElement: HTMLImageElement;
     distanceFromCenter: number;
@@ -52,9 +51,9 @@ export default class GridViewer
         this.positionX = this.elementCenter.x;
         this.positionY = this.elementCenter.y;
 
-        Constants.PAGE_CHANGED_CALLBACK.push((page: IPages) => {
+        Constants.PAGE_CHANGED_CALLBACK.push((page: pages) => {
             
-            if (page == IPages.dailies)
+            if (page == pages.dailies)
             {
                 this.onDailiesPage = true;
                 for (let i = 0; i < this.openMoreInfoCallback.length; i++)
@@ -74,7 +73,7 @@ export default class GridViewer
 
     }
 
-    public addContent(content: ContentBase): void
+    public addContent(content: Project): void
     {
         /* Creating DOM element */
         let gridElement = document.createElement('div');

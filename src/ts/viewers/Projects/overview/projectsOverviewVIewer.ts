@@ -1,8 +1,8 @@
 import Highlight from "./highlight";
-import CategoryContainer from "./categoryContainer";
-import ContentBase from "../../../content/contentBase";
 import CategorySelector from "./categorySelector";
-import { ICategory } from "../../../Interfaces";
+import { tools } from "../../../Enums";
+import Project from "../../../content/project";
+import ProjectPreviewer from "./projectPreviewer";
 
 export default class ProjectsOverviewViewer
 {
@@ -14,9 +14,11 @@ export default class ProjectsOverviewViewer
     highlights: Highlight[];
 
     categorySelectors: CategorySelector[];
-    categoryContainers: CategoryContainer[];
 
-    constructor(parent: HTMLDivElement, highlights: ContentBase[], categoryLinks: ICategory[])
+    projectIconContainer: HTMLDivElement;
+    icons: ProjectPreviewer[];
+
+    constructor(parent: HTMLDivElement, highlights: Project[], projects: Project[], categoryLinks: tools[])
     {
         this.parent = parent;
 
@@ -39,12 +41,16 @@ export default class ProjectsOverviewViewer
             this.categorySelectors.push(new CategorySelector(this.myElement, categoryLinks[i]));
         }
 
-        this.categoryContainers = [];
-        this.categoryContainers.push(new CategoryContainer(this.myElement, [ICategory.Blender]));
-        this.categoryContainers.push(new CategoryContainer(this.myElement, [ICategory.Touchdesigner]));
-        this.categoryContainers.push(new CategoryContainer(this.myElement, [ICategory.Houdini]));
-        this.categoryContainers.push(new CategoryContainer(this.myElement, [ICategory.Krita]));
-        this.categoryContainers.push(new CategoryContainer(this.myElement, [ICategory.Python]));
+        this.projectIconContainer = this.myElement.appendChild(document.createElement('div'));
+        this.projectIconContainer.className = 'overview-container-icons';
+
+        this.icons = [];
+
+        for(let i = 0; i < projects.length; i++)
+        {
+            this.icons.push(new ProjectPreviewer(this.projectIconContainer, projects[i]));
+        }
+
     }
 
 }

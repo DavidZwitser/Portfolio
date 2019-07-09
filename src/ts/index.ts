@@ -7,15 +7,16 @@ import anime from '../../node_modules/animejs/lib/anime.es.js';
 
 import MouseEventsHandler from './mouseEvents';
 
-import ContentBase from './content/contentBase';
+import Project, { ProjectSources, ProjectText, ProjectTags } from './content/project';
 import GridViewer from './viewers/gridViewer';
 import GridPopup from './viewers/gridPopup';
 
-import * as projects from '../JSON/projects.json';
+import * as projectData from '../JSON/projects.json';
 import Constants from './Constants';
-import { IPages, ICategory } from './Interfaces';
+import { pages, tools } from './Enums';
 import ProjectsOverviewViewer from './viewers/Projects/overview/projectsOverviewVIewer';
-import { randomBytes } from 'crypto';
+
+import ProjectFetcher from './content/projectFetcher';
 
 class Main
 {
@@ -25,6 +26,7 @@ class Main
     gridPopup: GridPopup;
 
     projects: ProjectsOverviewViewer;
+    projectFetcher: ProjectFetcher;
 
     constructor()
     {
@@ -44,63 +46,64 @@ class Main
             this.grid.letGoOfGrid(this.mouse.velocityX, this.mouse.velocityY);
         });
 
-        this.grid.openMoreInfoCallback.push((element: ContentBase) => {
+        this.grid.openMoreInfoCallback.push((element: Project) => {
             this.gridPopup.openMoreInfo(element);
         });
         this.grid.closeMoreInfoCallback.push(() => {
             this.gridPopup.closeMoreInfo();
         });
 
-        Object.keys(projects.dailies).forEach((key: string, index: number) => {
+        let dailies: Project[] = [];
+        Object.keys(projectData.dailies).forEach((key: string, index: number) => {
 
-            let daily = projects.dailies[key];
+            let daily = projectData.dailies[key];
         
             let splitURL: string[] = daily.url.split('/');
             daily.footage = ['https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/' + splitURL[4] + '.mp4'];
-            daily.thumbnail = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/thunbnails' + splitURL[4] + '.jpg'
+            daily.thumbnail = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/thumbnails/' + splitURL[4] + '.jpg'
         
-            let content: ContentBase = new ContentBase(daily.description, daily.thumbnail, daily.footage, daily.tags, daily.url);
+            let project: Project = new Project((<ProjectText>{
+                description: daily.description
+            }), undefined, (<ProjectSources>{
+                thumbnail: daily.thumbnail,
+                footage: daily.footage,
+                externalLink: daily.url
+            }), (<ProjectTags> {
+                tools: daily.tags
+            }));
+
+            dailies.push(project);
         
-            this.grid.addContent(content);
+            this.grid.addContent(project);
         });
 
         this.grid.rePosition();
         this.grid.letGoOfGrid(0, 0);
         
-        let highlights: ContentBase[] = [];
+        let highlights: Project[] = [];
         for(let i = 0; i < 3; i++)
         {
-            let tmpProj = projects.dailies['daily' + Math.ceil(Math.random() * 56) ];
-            highlights.push(new ContentBase(tmpProj.description, tmpProj.thumbnail, tmpProj.footage, tmpProj.tags, tmpProj.url));
+            let tmpProj = dailies[Math.ceil(Math.random() * 56)];
+            highlights.push(tmpProj);
         }
 
-        let catagorizesContent: ContentBase[][] = [];
-        for(let x = 0; x < 4; x++)
-        {
-            catagorizesContent[x] = [];
-            for(let y = 0; y < 9; y++)
-            {
-                let tmpProj = projects.dailies['daily' + Math.ceil(Math.random() * 56) ];
-                catagorizesContent[x].push(new ContentBase(tmpProj.description, tmpProj.thumbnail, tmpProj.footage, tmpProj.tags, tmpProj.url));
-            }
-        }
-
-        let categories: ICategory[] = [
-            ICategory.Affinity_Designer,
-            ICategory.Blender,
-            ICategory.DavinciResolve,
-            ICategory.Houdini,
-            ICategory.interactive,
-            ICategory.experimental,
-            ICategory.Processing,
-            ICategory.Processing,
-            ICategory.SuperCollider,
-            ICategory.Affinity_Publisher
+        let categories: tools[] = [
+            tools.AffinityDesigner,
+            tools.Blender,
+            tools.DavinciResolve,
+            tools.Houdini,
+            tools.Processing,
+            tools.Processing,
+            tools.SuperCollider,
+            tools.AffinityPublisher
         ];
+
+        this.projectFetcher = new ProjectFetcher();
 
         this.projects = new ProjectsOverviewViewer(
             <HTMLDivElement>document.getElementById('page-projects'), 
-            highlights, 
+            this.projectFetcher.getProjects(), 
+            this.projectFetcher.getProjects(), 
             categories
         );
     }
@@ -120,7 +123,7 @@ class Main
             window.location.hash = 'page-home';
         }
 
-        if (Constants.CURRENT_PAGE == IPages.home)
+        if (Constants.CURRENT_PAGE == pages.home)
         {
             navbar.style.top = "94vh";
             navbar_links.style.display = 'block';
