@@ -54,6 +54,11 @@
     float: left;
 }
 
+.overview-categories-category-selector:hover
+{
+    cursor: pointer;
+}
+
 .overview-container-previewer
 {
 
@@ -146,10 +151,10 @@
             .overview-container-project-preview-duration
             {
                 font-weight: 800;
-                font-size: 120%;
+                font-size: 3vmin;
 
                 /* For some reason the with is way to big by default */
-                width: 18%;
+                width: 20%;
 
                 clear: left;
 
@@ -161,14 +166,14 @@
             .overview-container-project-preview-teamsize
             {
                 font-weight: 800;
-                font-size: 120%;
+                font-size: 3vmin;
                 /* For some reason the with is way to big by default */
-                width: 10%;
+                width: 20%;
     
     
                 .overview-container-project-preview-teamsize-icon
                 {
-                    width: 60%;
+                    width: 35%;
                 }
             }
         }
