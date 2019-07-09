@@ -46,12 +46,16 @@ export default class ProjectPreviewer
         
         this.durationIcon = this.duration.appendChild(document.createElement('img'));
         this.durationIcon.className = 'overview-container-project-preview-duration-icon';
-        // this.duration.src = 
+        this.durationIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/duration-icon.png';
 
 
         this.teamSize = this.myElement.appendChild(document.createElement('div'));
         this.teamSize.className = 'overview-container-project-preview-teamsize';
         this.teamSize.innerHTML = project.teamSize + '';
+
+        this.teamSizeIcon = this.teamSize.appendChild(document.createElement('img'));
+        this.teamSizeIcon.className = 'overview-container-project-preview-duration-icon';
+        this.teamSizeIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/teamsize-icon.png';
 
 
     }
