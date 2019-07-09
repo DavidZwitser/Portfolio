@@ -57,6 +57,7 @@ class Main
         
             let splitURL: string[] = daily.url.split('/');
             daily.footage = ['https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/' + splitURL[4] + '.mp4'];
+            daily.thumbnail = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/thunbnails' + splitURL[4] + '.jpg'
         
             let content: ContentBase = new ContentBase(daily.description, daily.thumbnail, daily.footage, daily.tags, daily.url);
         

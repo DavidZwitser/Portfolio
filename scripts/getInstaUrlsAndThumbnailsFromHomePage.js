@@ -17,13 +17,25 @@ for(let i = 0; i < urlContainers.length; i++)
 
 let jsoned = '';
 
-for(let i = 0; i < thumbnailUrls.length; i++)
+// for(let i = 0; i < thumbnailUrls.length; i++)
+// {
+//     let thumb = thumbnailUrls[i];
+//     let href = hrefs[i];
+
+//     jsoned += '"daily' + i + '": {\n\t"tumbnail": ' + thumb + ',\n\t"url": "' + href + '",\n},\n\n';
+// }
+
+jsoned += '{';
+for (let i = 0; i < thumbnailUrls.length; i++)
 {
     let thumb = thumbnailUrls[i];
-    let href = hrefs[i];
-
-    jsoned += '"daily' + i + '": {\n\t"tumbnail": ' + thumb + ',\n\t"url": "' + href + '",\n},\n\n';
+    
+    jsoned += '"thumbURL": ';
+    jsoned += thumb;
+    jsoned += ',\n';
 }
+
+jsoned += '}'
 
 console.log(jsoned);
 copy(jsoned);
