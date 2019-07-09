@@ -31,7 +31,7 @@ export interface ProjectSources
 export interface ProjectTags
 {
     goals: goals[];
-    tools: tools[];
+    tools: tools[]; 
 }
 
 export default class Project implements ProjectVariables, ProjectText, ProjectSources, ProjectTags

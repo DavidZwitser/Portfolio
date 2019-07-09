@@ -59,7 +59,7 @@
 
     position: relative;
 
-    width: 100%;
+    width: 60%;
     height: auto;
 
     float: left;
@@ -73,8 +73,7 @@
         // height: 35vmin;
     
         // border-style: solid;
-        border-radius: 20px;
-    
+        
         margin-top: 3vmin;
         margin-bottom: 2.5vmin;
     
@@ -91,9 +90,31 @@
     
             font-size: 5vmin;
     
-            
-    
-    
+        }
+
+        .overview-container-project-preview-thumbnail
+        {
+            width: 100%;
+            border-radius: 20px;
+
+        }
+
+        .overview-container-project-preview-tools
+        {
+            background-color: orange;
+            border-radius: 2vmin;
+
+            display: inline-block;
+
+            padding: 1vmin;
+            margin-left: .8vmin;
+            margin-top: .5vmin;
+
+            width: auto;
+
+            font-weight: 800;
+            font-size: 1.6vmin;
+
         }
     }
 }
