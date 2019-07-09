@@ -1,3 +1,5 @@
+import { ICategory } from "../Interfaces";
+
 export default class ContentBase 
 {
     description: string;
@@ -5,6 +7,8 @@ export default class ContentBase
     footage: string[];
     tags: string[];
     url: string;
+
+    categories: ICategory[];
 
     constructor (description: string, thumbnail: string, footage: string[], tags: string[], url: string)
     {

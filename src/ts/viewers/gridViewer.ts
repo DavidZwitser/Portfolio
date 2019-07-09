@@ -1,5 +1,7 @@
 import ContentBase from '../content/contentBase';
 import { request } from 'https';
+import Constants from '../Constants';
+import { IPages } from '../Interfaces';
 
 interface GridElement
 {
@@ -21,6 +23,7 @@ export default class GridViewer
     positionY: number;
 
     hasMoved: boolean;
+    onDailiesPage: boolean = false;
 
     elementCenter: {x: number, y: number};
 
@@ -48,6 +51,26 @@ export default class GridViewer
 
         this.positionX = this.elementCenter.x;
         this.positionY = this.elementCenter.y;
+
+        Constants.PAGE_CHANGED_CALLBACK.push((page: IPages) => {
+            
+            if (page == IPages.dailies)
+            {
+                this.onDailiesPage = true;
+                for (let i = 0; i < this.openMoreInfoCallback.length; i++)
+                {
+                    this.openMoreInfoCallback[i](this.elementClosestToCenter.content);
+                }
+            }
+            else
+            {
+                this.onDailiesPage = false;
+                for (let i = 0; i < this.closeMoreInfoCallback.length; i++)
+                {
+                    this.closeMoreInfoCallback[i]();
+                }
+            }
+        });
 
     }
 
@@ -91,7 +114,7 @@ export default class GridViewer
 
     private clickedOnElementHandler(elementID: number): void
     {
-        if (this.hasMoved == true) { return; }
+        if (this.hasMoved == true || this.onDailiesPage == false) { return; }
         let element: GridElement = this.getElementByID(elementID);
 
         if (element == this.elementClosestToCenter) {

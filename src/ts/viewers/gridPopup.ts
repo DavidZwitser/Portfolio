@@ -48,10 +48,10 @@ export default class GridPopup
         this.parent.style.left = '0px';
         this.parent.style.top = '0px';
 
-        if (this.videoElement.src == content.footage[0]) { return; }
-        this.videoElement.src = content.footage[0];
-        
         this.videoElement.play();
+
+        if (this.videoElement.src == content.footage[0]) { return; }
+        this.videoElement.src = content.footage[0];        
         
         this.description.innerHTML = content.description;
         
