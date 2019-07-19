@@ -1,5 +1,5 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "../project";
-import { goals, tools } from "../../Enums";
+import { goals, tools, themes } from "../../Enums";
 
 export namespace Unicult
 {
@@ -20,7 +20,7 @@ export namespace Unicult
             <ProjectVariables>{
                 durationHrs: 3,
                 teamSize: 1,
-                endresultValue: 80,
+                endResultValue: 80,
                 learnedValue: 50
             },
             <ProjectSources>{
@@ -30,7 +30,8 @@ export namespace Unicult
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create],
-                tools: [tools.Houdini, tools.SuperCollider]
+                tools: [tools.Houdini, tools.SuperCollider],
+                themes: [themes.drama]
             }
         );
     }

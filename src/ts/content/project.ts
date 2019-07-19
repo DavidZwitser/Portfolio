@@ -1,24 +1,27 @@
-import { goals, tools } from "../Enums";
+import { goals, tools, themes } from "../Enums";
 
 export interface ProjectText
 {
     name: string;
 
     description?: string;
+
+    goal?: string;
+    outcome?: string;
+
     context?: string;
     whatWentGood?: string;
     whatWentBad?: string;
     
     whatILearned?: string;
-    endresult?: string;
 }
 
 export interface ProjectVariables
 {
     durationHrs: number;
     teamSize: number;
-    endresultValue: number;
     learnedValue: number;
+    endResultValue: number;
 }
 
 export interface ProjectSources
@@ -32,63 +35,66 @@ export interface ProjectTags
 {
     goals: goals[];
     tools: tools[]; 
+    themes: themes[];
 }
 
-export default class Project implements ProjectVariables, ProjectText, ProjectSources, ProjectTags
+export default class Project implements ProjectVariables, ProjectText, ProjectSources
 {
     id: number;
 
     name: string;
     description: string;
     context: string;
+    goal: string;
+    outcome: string;
     whatWentGood: string;
     whatWentBad: string;
     whatILearned: string;
-    endresult: string;
 
     durationHrs: number;
     teamSize: number;
-    endresultValue: number;
+    endResultValue: number;
     learnedValue: number;
     
     thumbnail: string;
     footage: string[];
     externalLink: string;
 
-    goals: goals[];
-    tools: tools[];
+    tags: ProjectTags;
 
-    public static USED_IDS: number[] = [];
+    private static ID_COUNTER: number = 0;
 
     constructor(
         text: ProjectText = {name: 'not found'},
-        variables: ProjectVariables = {durationHrs: -1, teamSize: -1, endresultValue: -1, learnedValue: -1},
+        variables: ProjectVariables = {durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
-        tags: ProjectTags = {goals: [goals.none], tools: [tools.none]}
+        tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}
     ) {
-        this.id = Project.USED_IDS.length;
-        Project.USED_IDS.push(Project.USED_IDS.length);
+        this.id = Project.ID_COUNTER++;
 
         this.name = text.name;
         this.description =  text.description;
         this.context = text.context;
+        this.goal = text.goal;
+        this.outcome = text.outcome;
         this.whatWentGood = text.whatWentGood;
         this.whatWentBad = text.whatWentBad;
         this.whatILearned = text.whatILearned;
-        this.endresult =  text.endresult;
 
         this.durationHrs = variables.durationHrs;
         this.teamSize = variables.teamSize;
-        this.endresultValue = variables.endresultValue;
+        this.endResultValue = variables.endResultValue;
         this.learnedValue = variables.learnedValue;
 
         this.thumbnail = sources.thumbnail;
         this.footage = sources.footage;
         this.externalLink = sources.externalLink;
         
-
-        this.goals = tags.goals;
-        this.tools = tags.tools;
+        this.tags = {
+            goals: tags.goals,
+            tools: tags.tools,
+            themes: tags.themes
+        };
         
     }
 }

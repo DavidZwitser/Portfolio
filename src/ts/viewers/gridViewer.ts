@@ -16,7 +16,7 @@ export default class GridViewer
     parent: HTMLDivElement;
 
     elements: GridElement[];
-    elementCounter: number = 0;
+    idCounter: number = 0;
 
     positionX: number;
     positionY: number;
@@ -86,7 +86,7 @@ export default class GridViewer
         img.src = content.thumbnail;
         gridElement.appendChild(img);
 
-        let id: number = this.elementCounter ++;
+        let id: number = this.idCounter ++;
 
         /* Adding it to interface array */
         let newElement: GridElement = {

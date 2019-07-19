@@ -41,12 +41,12 @@ export default class ProjectPreviewer
         this.name.className = 'overview-container-project-preview-name';
 
         this.tools = [];
-        for(let i = 0; i < this.project.tools.length; i++)
+        for(let i = 0; i < this.project.tags.tools.length; i++)
         {
             let tool: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
             
             tool.className = 'overview-container-project-preview-tools';
-            tool.innerHTML = this.project.tools[i];
+            tool.innerHTML = this.project.tags.tools[i];
 
             this.tools.push(tool);
         }

@@ -4,22 +4,27 @@ import { tools } from "../../../Enums";
 import Project from "../../../content/project";
 import ProjectPreviewer from "./projectPreviewer";
 import { timingSafeEqual } from "crypto";
+import ProjectViewer from "../project/projectViewer";
 
 export default class ProjectsOverviewViewer
 {
-    parent: HTMLDivElement;
+    private parent: HTMLDivElement;
 
-    myElement: HTMLDivElement;
+    private myElement: HTMLDivElement;
 
-    highlightsTitle: HTMLParagraphElement;
-    highlights: Highlight[];
+    private highlightsTitle: HTMLParagraphElement;
+    private highlights: Highlight[];
 
-    categorySelectors: CategorySelector[];
+    private categorySelectors: CategorySelector[];
 
-    projectPreviewer: HTMLDivElement;
-    previews: ProjectPreviewer[];
+    private projectPreviewer: HTMLDivElement;
+    private previews: ProjectPreviewer[];
+
+    private projectViewer: ProjectViewer;
 
     projects: Project[];
+
+    filterClickedCallback: Function;
 
     constructor(parent: HTMLDivElement, highlights: Project[], projects: Project[], categoryLinks: tools[])
     {
@@ -44,8 +49,7 @@ export default class ProjectsOverviewViewer
         for (let i = 0; i < categoryLinks.length; i++)
         {
             this.categorySelectors.push(new CategorySelector(this.myElement, categoryLinks[i], (tool: tools) => {
-                console.log(tool);
-                this.filterProjectsByTools([tool]);
+                this.filterClickedCallback([tool]);
             }));
         }
 
@@ -59,38 +63,12 @@ export default class ProjectsOverviewViewer
             this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i]));
         }
 
+        this.projectViewer = new ProjectViewer(this.parent, this.projects[0]);
+
     }
 
-    public filterProjectsByTools(tools: tools[]): void
+    public reinitPreviews(newPreviews: Project[]): void
     {
-        let selectedProjects: Project[] = [];
-
-        for(let i = 0; i < this.projects.length; i++)
-        {
-            let proj: Project = this.projects[i];
-
-            let requiredTools: number = tools.length;
-            let foundTools: number = 0;
-
-            for(let t = 0; t < proj.tools.length; t++)
-            {
-                let tool: tools = proj.tools[t];
-
-                for (let s = 0; s < tools.length; s++)
-                {
-                    if (tools[s] == tool)
-                    {
-                        foundTools ++;
-                    }
-                }
-            }
-
-            if (requiredTools ==  foundTools)
-            {
-                selectedProjects.push(proj);
-            }
-        }
-
         for(let i = 0; i < this.previews.length; i++)
         {
             this.previews[i].destroy();
@@ -98,11 +76,10 @@ export default class ProjectsOverviewViewer
 
         this.previews = [];
 
-        for(let i = 0; i < selectedProjects.length; i++)
+        for(let i = 0; i < newPreviews.length; i++)
         {
-            this.previews.push(new ProjectPreviewer(this.projectPreviewer, selectedProjects[i]));
+            this.previews.push(new ProjectPreviewer(this.projectPreviewer, newPreviews[i]));
         }
-
     }
 
 }

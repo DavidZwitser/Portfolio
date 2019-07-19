@@ -1,0 +1,41 @@
+#project-viewer
+{
+    position: absolute;
+
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: show;
+
+    background-color: orangered;
+
+    .project-viewer-banner
+    {
+        width: 100%;
+    }
+
+    .project-viewer-info-section
+    {
+        position: absolute;
+        top: 30vh;
+
+        width: 100%;
+        height: 200%;
+
+        background-color: lightgray;
+
+        .project-viewer-title
+        {
+            font-size: 10vmin;
+            
+            margin: 2vmin;
+        }
+
+        .project-viewer-description
+        {
+            margin: 2vmin;
+        }
+    }
+}

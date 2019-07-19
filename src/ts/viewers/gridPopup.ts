@@ -55,10 +55,10 @@ export default class GridPopup
         this.description.innerHTML = content.context;
         
         this.tags.innerHTML = '';
-        for (let i = 0; i < content.tools.length; i++)
+        for (let i = 0; i < content.tags.tools.length; i++)
         {
             this.tags.innerHTML += ' | ';
-            this.tags.innerHTML += content.tools[i];
+            this.tags.innerHTML += content.tags.tools[i];
         }
         this.tags.innerHTML += ' | ';
         

@@ -1,5 +1,5 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "../project";
-import { goals, tools } from "../../Enums";
+import { goals, tools, themes } from "../../Enums";
 
 export namespace Mythos
 {
@@ -20,7 +20,7 @@ export namespace Mythos
             <ProjectVariables>{
                 durationHrs: 20,
                 teamSize: 3,
-                endresultValue: 60,
+                endResultValue: 60,
                 learnedValue: 40
             },  
             <ProjectSources>{
@@ -30,7 +30,8 @@ export namespace Mythos
             },
             <ProjectTags>{
                 goals: [goals.create, goals.entertain],
-                tools: [tools.Touchdesigner]
+                tools: [tools.Touchdesigner],
+                themes: [themes.philosophy]
             }
         );
     }

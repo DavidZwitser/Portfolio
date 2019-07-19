@@ -106,6 +106,12 @@ class Main
             this.projectFetcher.getProjects(), 
             categories
         );
+
+        this.projects.filterClickedCallback = (tags: any[]) => {
+            let filtertProjects: Project[] = this.projectFetcher.getProjectsWithTags(tags);
+            
+            this.projects.reinitPreviews(filtertProjects);
+        }
     }
 
     hashChanged(): void

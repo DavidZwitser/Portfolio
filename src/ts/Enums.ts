@@ -8,10 +8,10 @@ export enum pages
 
 export enum goals
 {
-    none,
-    entertain,
-    learn,
-    create,
+    none = 'none',
+    entertain = 'entertain',
+    learn = 'learn',
+    create = 'create'
 }
 
 export enum tools
@@ -29,4 +29,12 @@ export enum tools
     AffinityDesigner = 'Affinity Designer',
     AffinityPhoto = 'Affinity Photo',
     AffinityPublisher = 'Affinity Publisher'
+}
+
+export enum themes
+{
+    none = 'none',
+    philosophy = 'philosophy',
+    drama = 'drama',
+    interactive = 'interactive'
 }
