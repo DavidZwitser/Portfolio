@@ -21,7 +21,9 @@ export default class ProjectPreviewer
     teamSize: HTMLDivElement;
     teamSizeIcon: HTMLImageElement;
 
-    constructor(parent: HTMLDivElement, project: Project)
+    gotClickedOnCallback: Function;
+
+    constructor(parent: HTMLDivElement, project: Project, clickedonCallback: Function)
     {
         this.parent = parent;
         this.project = project;
@@ -29,9 +31,12 @@ export default class ProjectPreviewer
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.className = 'overview-container-project-preview';
 
+        this.gotClickedOnCallback = clickedonCallback;
+        this.myElement.addEventListener('mouseup', () => this.gotClickedOnCallback(this.project));
+
         this.imgElement = this.myElement.appendChild(document.createElement('img'));
-        this.imgElement.src = project.thumbnail;
         this.imgElement.className = 'overview-container-project-preview-thumbnail';
+        this.imgElement.src = project.thumbnail;
 
         this.infoBar = this.myElement.appendChild(document.createElement('div'));
         this.infoBar.className =  'overview-container-project-preview-infobar';
@@ -67,7 +72,6 @@ export default class ProjectPreviewer
         this.teamSizeIcon = this.teamSize.appendChild(document.createElement('img'));
         this.teamSizeIcon.className = 'overview-container-project-preview-teamsize-icon';
         this.teamSizeIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/teamsize-icon.png';
-
 
     }
 

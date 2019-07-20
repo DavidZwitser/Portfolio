@@ -95,7 +95,8 @@ class Main
             tools.Krita,
             tools.Processing,
             tools.SuperCollider,
-            tools.AffinityPublisher
+            tools.AffinityPublisher,
+            tools.Krita
         ];
 
         this.projectFetcher = new ProjectFetcher();

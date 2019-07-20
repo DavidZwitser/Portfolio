@@ -60,10 +60,12 @@ export default class ProjectsOverviewViewer
 
         for(let i = 0; i < projects.length; i++)
         {
-            this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i]));
+            this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i], (project: Project) => {
+                this.projectViewer.showNewProject(project);
+            }));
         }
 
-        this.projectViewer = new ProjectViewer(this.parent, this.projects[0]);
+        this.projectViewer = new ProjectViewer(this.parent);
 
     }
 
@@ -78,7 +80,7 @@ export default class ProjectsOverviewViewer
 
         for(let i = 0; i < newPreviews.length; i++)
         {
-            this.previews.push(new ProjectPreviewer(this.projectPreviewer, newPreviews[i]));
+            // this.previews.push(new ProjectPreviewer(this.projectPreviewer, newPreviews[i]));
         }
     }
 

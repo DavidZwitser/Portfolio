@@ -28,7 +28,8 @@ export enum tools
     Krita = 'Krita',
     AffinityDesigner = 'Affinity Designer',
     AffinityPhoto = 'Affinity Photo',
-    AffinityPublisher = 'Affinity Publisher'
+    AffinityPublisher = 'Affinity Publisher',
+    Twine = 'Twine'
 }
 
 export enum themes

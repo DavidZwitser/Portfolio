@@ -22,6 +22,7 @@ export interface ProjectVariables
     teamSize: number;
     learnedValue: number;
     endResultValue: number;
+    client: string;
 }
 
 export interface ProjectSources
@@ -59,6 +60,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     thumbnail: string;
     footage: string[];
     externalLink: string;
+    client: string;
 
     tags: ProjectTags;
 
@@ -66,7 +68,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
 
     constructor(
         text: ProjectText = {name: 'not found'},
-        variables: ProjectVariables = {durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1},
+        variables: ProjectVariables = {durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1, client: 'me'},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
         tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}
     ) {
@@ -85,6 +87,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         this.teamSize = variables.teamSize;
         this.endResultValue = variables.endResultValue;
         this.learnedValue = variables.learnedValue;
+        this.client = variables.client;
 
         this.thumbnail = sources.thumbnail;
         this.footage = sources.footage;

@@ -1,8 +1,7 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "./project";
 import { goals, tools, themes } from "../Enums";
 
-import {Mythos} from './projects/mythos';
-import {Duck} from './projects/duck';
+import {Mythos} from './projects/Mythos';
 import {Unicult} from './projects/Unicult';
 
 export default class ProjectFetcher
@@ -16,9 +15,8 @@ export default class ProjectFetcher
     {       
         this.projects = [];
 
-        this.projects.push(Duck.getProject());
-        this.projects.push(Unicult.getProject());
         this.projects.push(Mythos.getProject());
+        this.projects.push(Unicult.getProject());
     }
 
     public getProjects(): Project[]
