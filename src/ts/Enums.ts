@@ -29,7 +29,9 @@ export enum tools
     AffinityDesigner = 'Affinity Designer',
     AffinityPhoto = 'Affinity Photo',
     AffinityPublisher = 'Affinity Publisher',
-    Twine = 'Twine'
+    Twine = 'Twine',
+    Phaser = 'Phaser',
+    Webpack = 'Webpack'
 }
 
 export enum themes
@@ -37,5 +39,7 @@ export enum themes
     none = 'none',
     philosophy = 'philosophy',
     drama = 'drama',
-    interactive = 'interactive'
+    interactive = 'interactive',
+    adventure = 'Adventure',
+    puzzle = 'Puzzle'
 }
