@@ -7,7 +7,7 @@ $popup-speed: .3s;
     background-color: white;
 
     width: 100vw;
-    height: 40vh;
+    height: 50vmin;
 
     z-index: 1;
 
@@ -23,14 +23,14 @@ $popup-speed: .3s;
 
     .viewer-grid-popup-image {
         background-color: rgb(102, 102, 102);
-        height: 35vh;
-        width: 35vh;
+        height: 40vmin;
+        width: 40vmin;
 
         position: relative;
 
         overflow: hidden;
 
-        margin: 20px;
+        margin: 5vmin;
 
         .viewer-grid-popup-video
         {
@@ -54,7 +54,7 @@ $popup-speed: .3s;
         margin-left: 0px;
         margin-top: 3%;
 
-        font-size: 200%;
+        font-size: 5vmin;
         font-weight: 800;
     }
 
@@ -63,13 +63,13 @@ $popup-speed: .3s;
         margin-left: 0px;
         margin-top: 0px;
 
-        font-size: 75%;
+        font-size: 3vmin;
 
     }
 
     .viewer-grid-popup-linkToPost {
 
-        font-size: 75%;
+        font-size: 3vmin;
 
         font-weight: bolder;
     }
@@ -90,6 +90,8 @@ $popup-speed: .3s;
         .viewer-grid-popup-image {
             width: 35vh;
             height: 35vh;
+
+            margin: 2.5vmin;
         }
 
         .viewer-grid-popup-description {
