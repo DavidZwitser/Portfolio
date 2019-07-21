@@ -34,6 +34,8 @@ export default class GridViewer
     openMoreInfoCallback: Function[];
     closeMoreInfoCallback: Function[];
 
+    toggleMoreInfoCallback: Function[];
+
     tmpElCounter: number = 0;
 
     constructor(parent: HTMLDivElement)
@@ -47,6 +49,7 @@ export default class GridViewer
 
         this.openMoreInfoCallback = [];
         this.closeMoreInfoCallback = [];
+        this.toggleMoreInfoCallback = [];
 
         this.positionX = this.elementCenter.x;
         this.positionY = this.elementCenter.y;

@@ -4,11 +4,17 @@ export default class GridPopup
 {
     private parent: HTMLDivElement;
 
+    private currentContent: Project;
+
     private videoElement: HTMLVideoElement;
 
     private description: HTMLParagraphElement;
     private tags: HTMLParagraphElement;
     private linkToPost: HTMLAnchorElement;
+
+    private pullOutIndicator: HTMLDivElement;
+
+    private active: boolean = false;
 
     constructor(parent: HTMLDivElement)
     {
@@ -35,15 +41,40 @@ export default class GridPopup
         this.tags.className = 'viewer-grid-popup-tags';
         parent.appendChild(this.tags);
 
-
         this.linkToPost = document.createElement('a');
         this.linkToPost.className = 'viewer-grid-popup-linkToPost';
         parent.appendChild(this.linkToPost);
 
+
+
+        this.parent.addEventListener('mousedown', () => {
+
+            this.togglePopupActive();
+
+        });
+
+    }
+
+    togglePopupActive(): void
+    {
+        this.active = !this.active;
+
+        if (this.active == true)
+        {
+            this.openMoreInfo(this.currentContent);
+        }
+        else
+        {
+            this.closeMoreInfo();
+        }
     }
 
     public openMoreInfo(content: Project)
     {
+        this.currentContent = content;
+
+        if (this.active == false) { return; }
+
         this.parent.style.left = '0px';
         this.parent.style.top = '0px';
 
@@ -65,6 +96,7 @@ export default class GridPopup
         this.linkToPost.innerHTML = '\n Source';
         this.linkToPost.href = content.externalLink;
         
+        this.videoElement.play();
     }
 
     public closeMoreInfo(): void
