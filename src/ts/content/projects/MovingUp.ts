@@ -10,7 +10,7 @@ export namespace MovingUp
                 name: 'Moving Up',
 
                 description: 'A physics based skill game where you balance a ball on a bar and try to get to the end of puzzle like levels or reach a new highscore in endless mode.',
-                context: 'I created this game at an internship at OrangeGames (now called Azerion). I worked together with another intern where I did most of the ground work and he did most of the level design.',
+                context: 'I created this game at an internship at OrangeGames (now merged with Azerion). I worked together with another intern where I did most of the ground work and he did most of the level design.',
 
                 goal: "The goal of this project was to learn how to make a game in a professional environment within a high profile scrumm based team.",
                 outcome: 'The outcome is a very relaxing and visually pleasing puzzle game in which you can waste a ton of your valuable time.',

@@ -228,6 +228,7 @@ export default class GridViewer
     public rePosition(offsetX?: number, offsetY?: number, didResize: boolean = false, triggeredByMouseEvent: boolean = true): void
     {
         if (this.elements.length < 0) { return; }
+        if (Constants.CURRENT_PAGE !== pages.dailies) { return; }
 
         if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
         {

@@ -52,7 +52,7 @@ export default class GridPopup
         if (this.videoElement.src == content.footage[0]) { return; }
         this.videoElement.src = content.footage[0];        
         
-        this.description.innerHTML = content.context;
+        this.description.innerHTML = content.name;
         
         this.tags.innerHTML = '';
         for (let i = 0; i < content.tags.tools.length; i++)

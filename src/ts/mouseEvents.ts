@@ -13,9 +13,10 @@ export default class MouseEventsHandler
 
     mouseDown: boolean = false;
 
-    mosueUpCallback: Function[];
+    mouseUpCallback: Function[];
     mouseDownCallback: Function[];
     draggingCallback: Function[];
+    mouseMovingCallback: Function[];
 
     onMobile: boolean;
 
@@ -23,7 +24,8 @@ export default class MouseEventsHandler
     {
         this.draggingCallback = [];
         this.mouseDownCallback = [];
-        this.mosueUpCallback = [];
+        this.mouseUpCallback = [];
+        this.mouseMovingCallback = [];
 
         window.addEventListener('mousemove', this.mouseMoved.bind(this));
         window.addEventListener('touchmove', this.mouseMoved.bind(this));
@@ -47,9 +49,9 @@ export default class MouseEventsHandler
             this.velocityY = 0;
         }
 
-        for (let i: number = this.mosueUpCallback.length; i--; )
+        for (let i: number = this.mouseUpCallback.length; i--; )
         {
-            this.mosueUpCallback[i]();
+            this.mouseUpCallback[i]();
         }
     }
 
@@ -94,6 +96,10 @@ export default class MouseEventsHandler
         this.lastX = this.mouseX;
         this.lastY = this.mouseY;
 
+        for(let i = 0; i < this.mouseMovingCallback.length; i++)
+        {
+            this.mouseMovingCallback[i]();
+        }
 
         if (this.mouseDown == true || this.onMobile == true)
         {

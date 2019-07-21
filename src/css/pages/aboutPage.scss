@@ -1,0 +1,85 @@
+#page-about {
+    background-color: white;
+    margin-top: 6vh;
+
+    #about-image
+    {
+        float: right;
+
+        img
+        {
+            width: 40vmin;
+            margin: 5vmin;
+
+            -webkit-user-drag: none;
+        }
+
+        #about-eyewhiteL
+        {
+            position: absolute;
+
+            top: 16.3vmin;
+            right: 38.3vmin;
+
+            transform: rotate(-25deg);
+
+            // margin: 5vmin;
+            width: 3.2vmin;
+            height: 2.2vmin;
+
+            border-radius: 80%;
+
+            // opacity: .6;
+
+            background-color: white;
+
+            #about-pupil-left
+            {
+                position: absolute;
+                width: 1vmin;
+                height: 1vmin;
+
+                top: 25%;
+                left: 25%;
+
+                border-radius: 80%;
+
+                background-color: black;
+            }
+        }
+
+        #about-eyewhiteR
+        {
+            position: absolute;
+
+            top: 14.6vmin;
+            right: 34.4vmin;
+
+            transform: rotate(-25deg);
+
+            // margin: 5vmin;
+            width: 3.5vmin;
+            height: 2.2vmin;
+
+            border-radius: 80%;
+
+            // opacity: .6;
+
+            background-color: white;
+
+            #about-pupil-right
+            {
+                position: absolute;
+                width: 1vmin;
+                height: 1vmin;
+
+                top: 25%;
+                left: 25%;
+
+                border-radius: 80%;
+
+                background-color: black;
+            }
+        }
+    }
+}

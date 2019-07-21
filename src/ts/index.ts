@@ -18,9 +18,13 @@ import ProjectsOverviewViewer from './viewers/Projects/overview/projectsOverview
 
 import ProjectFetcher from './content/projectFetcher';
 
+import AboutEyes from './misc/aboutEyes';
+
 class Main
 {
     mouse: MouseEventsHandler;
+
+    eyes: AboutEyes;
 
     grid: GridViewer;
     gridPopup: GridPopup;
@@ -34,15 +38,21 @@ class Main
         window.addEventListener('load', this.hashChanged.bind(this));
         window.addEventListener('resize', this.resized.bind(this));
 
+        this.eyes = new AboutEyes();
+
         this.mouse = new MouseEventsHandler();
 
         this.grid = new GridViewer(<HTMLDivElement>document.getElementById('viewer-grid'));
         this.gridPopup  = new GridPopup(<HTMLDivElement> document.getElementById('viewer-grid-popup'));
 
+        this.mouse.mouseMovingCallback.push(() => {
+            this.eyes.mouseMoved(this.mouse.mouseX, this.mouse.mouseY);
+        });
+
         this.mouse.draggingCallback.push(() => {
             this.grid.rePosition(this.mouse.velocityX, this.mouse.velocityY, true);
         });
-        this.mouse.mosueUpCallback.push(() => {
+        this.mouse.mouseUpCallback.push(() => {
             this.grid.letGoOfGrid(this.mouse.velocityX, this.mouse.velocityY);
         });
 
@@ -63,7 +73,7 @@ class Main
             daily.thumbnail = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/thumbnails/' + splitURL[4] + '.jpg'
         
             let project: Project = new Project((<ProjectText>{
-                description: daily.description
+                name: daily.description
             }), undefined, (<ProjectSources>{
                 thumbnail: daily.thumbnail,
                 footage: daily.footage,
@@ -147,6 +157,7 @@ class Main
     resized(): void
     {
         this.grid.rePosition(0, 0, true);
+        this.eyes.resize();
     }
 }
 
