@@ -37,14 +37,16 @@ export default class AboutEyes
     {
         let leftEyeDistanceX: number = Math.abs(mouseX) - Math.abs(this.pupilLeftPos.x);
         let leftEyeDistanceY: number = Math.abs(mouseY) - Math.abs(this.pupilLeftPos.y);
+        
+        this.pupilLeft.style.left = Math.round( leftEyeDistanceX / document.body.clientWidth * 100) / 2 + '%';
+        this.pupilLeft.style.top = Math.round(  25 + leftEyeDistanceY / document.body.clientHeight * 100) / 2 + '%';
+
 
         let rightEyeDistanceX: number = Math.abs(mouseX) - Math.abs(this.pupilRightPos.x);
         let rightEyeDistanceY: number = Math.abs(mouseY) - Math.abs(this.pupilRightPos.y);
 
-        this.pupilLeft.style.left = Math.round( 70 + leftEyeDistanceX / document.body.clientWidth * 100) / 2 + '%';
-        this.pupilLeft.style.top = Math.round( 100 + leftEyeDistanceY / document.body.clientHeight * 100)+ '%';
-
-        // console.log(this.pupilLeft.style.top);
+        this.pupilRight.style.left = Math.round( rightEyeDistanceX / document.body.clientWidth * 100) / 2 + '%';
+        this.pupilRight.style.top = Math.round( 25 + rightEyeDistanceY / document.body.clientHeight * 100) / 2 + '%';
     }
 
     public resize(): void
