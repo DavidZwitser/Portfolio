@@ -28,6 +28,7 @@ export default class ProjectViewer
     outcome: HTMLParagraphElement;
 
     images: HTMLImageElement[];
+    video: HTMLDivElement;
 
     variablesSection: HTMLDivElement;
     client: HTMLParagraphElement;
@@ -44,7 +45,7 @@ export default class ProjectViewer
     toolsTitle: HTMLParagraphElement;
     tools: HTMLParagraphElement[];
 
-    restImagesLimit: number = 4;
+    restImagesLimit: number = 3;
 
     constructor(parent: HTMLDivElement)
     {
@@ -202,14 +203,12 @@ export default class ProjectViewer
             this.infoSection.appendChild(this.images[0]);
         }
     
+        this.video = this.infoSection.appendChild(document.createElement('div'));
+        this.video.className = 'project-viewer-video';
+    
         if (this.images.length > 1)
         {
             this.infoSection.appendChild(this.images[1]);
-        }
-    
-        if (this.images.length > 2)
-        {
-            this.infoSection.appendChild(this.images[2]);
         }
         
         this.whatWentGoodTitle = this.infoSection.appendChild(document.createElement('p'));
@@ -229,9 +228,9 @@ export default class ProjectViewer
         this.whatWentBad.className = 'project-viewer-whatWentBad';
         this.whatWentBad.innerHTML = '';
     
-        if (this.images.length > 3)
+        if (this.images.length > 2)
         {
-            this.infoSection.appendChild(this.images[3]);
+            this.infoSection.appendChild(this.images[2]);
         }
     
         this.whatILearned = this.infoSection.appendChild(document.createElement('p'));
@@ -251,9 +250,11 @@ export default class ProjectViewer
 
     showNewProject(newProject: Project): void
     {
+        
         this.project = newProject;
-
+        
         this.myElement.style.display = 'block';
+        this.myElement.scrollTop =  0;
 
         for(let i = 0; i < this.images.length; i++)
         {
@@ -267,6 +268,16 @@ export default class ProjectViewer
                 this.images[i].src = '';
                 this.images[i].style.visibility = 'hidden';
             }
+        }
+
+        if (newProject.video !== undefined)
+        {
+            this.video.innerHTML = newProject.video;
+            this.video.style.display = 'block';
+        }
+        else
+        {
+            this.video.style.display = 'none';
         }
 
         this.banner.src = newProject.thumbnail;

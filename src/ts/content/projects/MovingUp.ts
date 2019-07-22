@@ -38,6 +38,7 @@ export namespace MovingUp
                     'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/pausemenu.jpg',
 
                 ],
+                video: '<iframe src="https://drive.google.com/file/d/1QuvAzWLP8uWtJKjl-jiAsRC-CkvZLzGF/preview" width="720" height="900"></iframe>',
                 externalLink: 'http://spele.nl/moving-up-spel/'
             },
             <ProjectTags>{

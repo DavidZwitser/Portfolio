@@ -24,7 +24,9 @@ $popup-speed: .3s;
     box-shadow: 0px 0px 15px;
 
     left: 0px;
-    top: -45vw;
+    top: -47vw;
+
+    overflow-y: scroll;
 
 
     transition: top $popup-speed;
@@ -80,29 +82,50 @@ $popup-speed: .3s;
         font-weight: bolder;
     }
 
+    .viewer-grid-popup-pullout-down
+    {
+        position: absolute;
+
+        font-weight: bolder;
+        font-size: 3vw;
+
+        left: 49.3vw;
+        top: 85%;
+
+        color: blue;
+
+    }
+
+    .viewer-grid-popup-pullout-right
+    {
+        display: none;
+        color: blue;
+    }
+
 }
 
 @media (orientation: landscape) {
 
+    
     #viewer-grid-popup:hover
     {
         left: -30vh;
     }
-
+    
     #viewer-grid-popup
     {
         transition: left $popup-speed;
-
+        
         top: 0px;
-        left: -40vh;
-
+        left: -39vh;
+        
         width: 40vh;
         height: 100vh;
-
+        
         .viewer-grid-popup-image {
             width: 35vh;
             height: 35vh;
-
+            
             margin: 2.5vmin;
         }
 
@@ -110,17 +133,35 @@ $popup-speed: .3s;
             margin-left: 5%;
             margin-top: 100%;
         }
-
+        
         .viewer-grid-popup-tags {
-
+            
             margin-left: 5%;
-               
+            
         }
-    
+        
         .viewer-grid-popup-linkToPost {
             margin-left: 5%;
         }
-    }
 
+        .viewer-grid-popup-pullout-down
+        {
+            display: none;
+        }
+        
+        .viewer-grid-popup-pullout-right
+        {
+            display: block;
+            position: absolute;
+        
+            font-weight: bolder;
+            font-size: 3vh;
+        
+            left: 96%;
+            top: 43%;
+        
+        }
+    }
+    
     
 }

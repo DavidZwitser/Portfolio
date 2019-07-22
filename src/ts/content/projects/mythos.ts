@@ -7,7 +7,7 @@ export namespace Mythos
     {
         return new Project(
             <ProjectText>{
-                name: 'Mythos',
+                name: 'Ethical Egoism',
 
                 description: 'An interactive audio story with supporting visuals. Play as a young student and experience the typical highschool drama. How do you respond? And even if you try to be good, isnt that, in the end, for your own good?',
                 context: 'Initiated through a school project we made a twist off of the old mythological story of Narcissus. We centered it around ethical egoism and out came this interactive story.',
@@ -37,6 +37,7 @@ export namespace Mythos
                     'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/Mythos/5.jpg',
 
                 ],
+                video: '<iframe src="https://drive.google.com/file/d/1cYpN-Rhmg61apsBs1PMq4rcbs7rM0w0U/preview" width="1280" height="720"></iframe>',
                 externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ProjectTags>{

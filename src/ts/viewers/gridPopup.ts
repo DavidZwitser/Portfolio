@@ -12,7 +12,8 @@ export default class GridPopup
     private tags: HTMLParagraphElement;
     private linkToPost: HTMLAnchorElement;
 
-    private pullOutIndicator: HTMLDivElement;
+    private pullOutIndicatorRight: HTMLParagraphElement;
+    private pullOutIndicatorDown:  HTMLParagraphElement;
 
     private active: boolean = false;
 
@@ -26,7 +27,7 @@ export default class GridPopup
 
         let video: HTMLVideoElement = document.createElement('video');
         video.className = 'viewer-grid-popup-video';
-        video.src = '';
+        video.src = 'v';
         imageWindow.appendChild(video);
         video.play();
         video.loop = true;
@@ -45,12 +46,37 @@ export default class GridPopup
         this.linkToPost.className = 'viewer-grid-popup-linkToPost';
         parent.appendChild(this.linkToPost);
 
+        this.pullOutIndicatorRight = document.createElement('p');
+        this.pullOutIndicatorRight.className = 'viewer-grid-popup-pullout-right';
+        this.pullOutIndicatorRight.innerHTML = '>';
+        parent.appendChild(this.pullOutIndicatorRight);
 
+        this.pullOutIndicatorDown = document.createElement('p');
+        this.pullOutIndicatorDown.className = 'viewer-grid-popup-pullout-down';
+        this.pullOutIndicatorDown.innerHTML = 'v';
+        parent.appendChild(this.pullOutIndicatorDown);
+
+        this.parent.addEventListener('mouseenter', () => {
+            if (this.active) return; 
+            this.pullOutIndicatorDown.innerHTML = '-';
+            this.pullOutIndicatorRight.innerHTML = '-';
+        });
+
+        this.parent.addEventListener('mouseleave', () => {
+            if (this.active)
+            {
+                this.pullOutIndicatorDown.innerHTML = '^';
+                this.pullOutIndicatorRight.innerHTML = '<';
+            }
+            else
+            {
+                this.pullOutIndicatorDown.innerHTML = 'v';
+                this.pullOutIndicatorRight.innerHTML = '>';
+            }
+        });
 
         this.parent.addEventListener('mousedown', () => {
-
             this.togglePopupActive();
-
         });
 
     }
@@ -95,8 +121,12 @@ export default class GridPopup
         
         this.linkToPost.innerHTML = '\n Source';
         this.linkToPost.href = content.externalLink;
+
+        this.pullOutIndicatorDown.innerHTML = '^';
+        this.pullOutIndicatorRight.innerHTML = '<';
         
         this.videoElement.play();
+
     }
 
     public closeMoreInfo(): void
@@ -104,6 +134,8 @@ export default class GridPopup
         this.parent.style.left = '';
         this.parent.style.top = '';
 
+        this.pullOutIndicatorDown.innerHTML = 'v';
+        this.pullOutIndicatorRight.innerHTML = '>';
 
         this.videoElement.pause();
     }

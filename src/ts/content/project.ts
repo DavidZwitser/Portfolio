@@ -29,6 +29,7 @@ export interface ProjectSources
 {
     thumbnail: string;
     footage?: string[];
+    video?: string;
     externalLink?: string;
 }
 
@@ -59,6 +60,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     
     thumbnail: string;
     footage: string[];
+    video: string;
     externalLink: string;
     client: string;
 
@@ -91,6 +93,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
 
         this.thumbnail = sources.thumbnail;
         this.footage = sources.footage;
+        this.video = sources.video;
         this.externalLink = sources.externalLink;
         
         this.tags = {
