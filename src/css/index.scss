@@ -6,7 +6,7 @@ html, body {
   padding: 0;
   overflow: hidden;
 
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(136, 136, 136);
 
   height: 100%;
 
@@ -35,6 +35,8 @@ html, body {
   p {
     margin-top: 45vh;
     font-size: 8vmin;
+    font-weight: bolder;
+    box-shadow: 0 0 20vmin black;
   }
 
 }
