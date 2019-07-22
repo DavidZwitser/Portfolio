@@ -38,6 +38,10 @@ class Main
         window.addEventListener('load', this.hashChanged.bind(this));
         window.addEventListener('resize', this.resized.bind(this));
 
+        window.addEventListener("load", () => {
+            document.getElementById("loading-screen").style.display = "none";
+        });
+
         this.eyes = new AboutEyes();
 
         this.mouse = new MouseEventsHandler();
@@ -123,6 +127,7 @@ class Main
             
             this.projects.reinitPreviews(filtertProjects);
         }
+
     }
 
     hashChanged(): void

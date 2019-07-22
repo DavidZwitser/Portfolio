@@ -18,6 +18,27 @@ html, body {
 
 }
 
+#loading-screen
+{
+  position: fixed;
+
+  width: 100vw; 
+  height: 100vh; 
+  background-color: olive;
+
+  z-index: 5;
+
+  display: block;
+
+  text-align: center;
+
+  p {
+    margin-top: 45vh;
+    font-size: 8vmin;
+  }
+
+}
+
 @import './navigationBar.scss';
 
 @import './pages/defaultPageSettigns.scss';

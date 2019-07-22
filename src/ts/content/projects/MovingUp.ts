@@ -21,7 +21,7 @@ export namespace MovingUp
                 whatWentGood: 'Working with my planning worked perfect and all the bugs and improvements were piped through our scrumm board which kept everything nice and clear.',
             },
             <ProjectVariables>{
-                durationHrs: 120,
+                durationHrs: 320,
                 teamSize: 2,
                 endResultValue: 8,
                 learnedValue: 9,
