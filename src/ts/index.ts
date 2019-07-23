@@ -133,6 +133,12 @@ class Main
 
     hashChanged(): void
     {
+        if (window.location.hash == '')
+        {
+            window.location.hash = pages.home;
+            return;
+        }
+
         let rawHash = window.location.hash.split('#')[1];
         let hashParts = rawHash.split('?');
 
@@ -144,11 +150,6 @@ class Main
         let navbar_back = document.getElementById('navigation-bar-back-button');
 
         Constants.CHANGE_PAGE(hash);
-
-        if (hash == '')
-        {
-            window.location.hash = pages.home;
-        }
 
         if (Constants.CURRENT_PAGE == pages.home)
         {
