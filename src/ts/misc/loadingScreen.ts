@@ -5,8 +5,7 @@
 export default class LoadingScreen
 {
     private parent: HTMLDivElement;
-
-    private parts: HTMLDivElement[];
+    private movingWindow: HTMLDivElement;
 
     private frame: number = 0;
 
@@ -15,6 +14,7 @@ export default class LoadingScreen
     constructor()
     {
         this.parent = <HTMLDivElement>document.getElementById('loading-screen');
+        this.movingWindow = <HTMLDivElement>document.getElementsByClassName('loading-part')[0];
 
 
         window.requestAnimationFrame(this.update.bind(this));
@@ -36,7 +36,21 @@ export default class LoadingScreen
     public endLoadingScreen()
     {
         this.active = false;
-        this.parent.style.display = 'none';
+
+        this.movingWindow.addEventListener('animationiteration', () => {
+
+            this.movingWindow.style.borderWidth = '80vmin';
+            this.movingWindow.style.opacity = '0';
+            this.parent.style.opacity = '0';
+
+            this.movingWindow.style.animationPlayState = 'paused';
+
+            this.movingWindow.addEventListener('transitionend', () => {
+
+                this.parent.style.display = 'none';
+            });
+
+        });
 
     }
 }
