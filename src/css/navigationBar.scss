@@ -2,11 +2,10 @@
     width: 100%;
     /* Keep away, this is dependent on some anime code */
   
-    transition: bottom $animation-speed;
+    transition: all $animation-speed;
+    // transition: bottom $animation-speed;
 
     position: absolute;
-
-    bottom: 0;
 
     // box-shadow: 0px 15px 0px black;
     // visibility: hidden;
@@ -15,12 +14,15 @@
     opacity: .9;
 
     a {
-      display: block;
+      display: inline-flex;
       color: white;
       text-decoration: none;
   
-      padding: .2vh 2vh .2vh 2vh;
-      font-size: 5vh;
+      padding-left: 2vmin;
+      padding-right: 2vmin;
+      padding-top: .2vmin;
+      padding-bottom: .2vmin;
+
     }
     a:hover {
       background-color: #111;
@@ -31,11 +33,15 @@
       margin: 0;
   
       li {
-        float: left;  
+        float: left;
+        font-size: 5vh;
+
       }
     }
   
     #navigation-bar-back-button {
       text-align: center;
+      font-size: 5vh;
+
     }
   }

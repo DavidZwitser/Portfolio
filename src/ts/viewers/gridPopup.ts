@@ -15,7 +15,7 @@ export default class GridPopup
     private pullOutIndicatorRight: HTMLParagraphElement;
     private pullOutIndicatorDown:  HTMLParagraphElement;
 
-    private active: boolean = false;
+    private active: boolean = true;
 
     constructor(parent: HTMLDivElement)
     {

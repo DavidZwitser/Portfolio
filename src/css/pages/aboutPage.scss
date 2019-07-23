@@ -2,6 +2,11 @@
     background-color: white;
     margin-top: 6vh;
 
+    #about-description
+    {
+        position: absolute;
+    }
+
     #about-image
     {
         float: right;
@@ -28,9 +33,10 @@
             height: 2.2vmin;
 
             border-radius: 80%;
-
+            // border-style: solid;
+            
             // opacity: .6;
-
+            
             background-color: white;
 
             #about-pupil-left
@@ -62,11 +68,12 @@
             height: 2.2vmin;
 
             border-radius: 80%;
+            // border-style: solid;
 
             // opacity: .6;
 
             background-color: white;
-
+            
             #about-pupil-right
             {
                 position: absolute;

@@ -147,13 +147,15 @@ class Main
 
         if (Constants.CURRENT_PAGE == pages.home)
         {
-            navbar.style.bottom = "0px";
+            navbar.style.top = "81vh";
+
             navbar_links.style.display = 'block';
             navbar_back.style.display = 'none';
         }
         else
         {
-            navbar.style.bottom = '94vh';
+            navbar.style.top = "0px";
+
             navbar_links.style.display = 'none';
             navbar_back.style.display = 'block';
         }
