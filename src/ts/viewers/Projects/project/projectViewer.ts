@@ -1,4 +1,5 @@
 import Project from "../../../content/project";
+import { pages } from "../../../Enums";
 
 export default class ProjectViewer
 {
@@ -82,7 +83,7 @@ export default class ProjectViewer
         this.closeButton.innerHTML = 'X';
         this.closeButton.className = 'project-viewer-close-button';
         this.closeButton.onclick = () => {
-            this.myElement.style.display = 'none';
+            window.location.hash = pages.projects;
         };
     
         this.banner = this.myElement.appendChild(document.createElement('img'));
@@ -326,6 +327,11 @@ export default class ProjectViewer
         this.whatILearned.innerHTML = newProject.whatILearned;
         this.outcome.innerHTML = newProject.outcome;
 
+    }
+
+    public close(): void
+    {
+        this.myElement.style.display = 'none';
     }
 
 }

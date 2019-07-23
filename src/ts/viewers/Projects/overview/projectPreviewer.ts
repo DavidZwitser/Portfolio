@@ -1,4 +1,5 @@
 import Project, { ProjectSources } from "../../../content/project";
+import { pages } from "../../../Enums";
 
 export default class ProjectPreviewer
 {
@@ -21,9 +22,7 @@ export default class ProjectPreviewer
     teamSize: HTMLDivElement;
     teamSizeIcon: HTMLImageElement;
 
-    gotClickedOnCallback: Function;
-
-    constructor(parent: HTMLDivElement, project: Project, clickedonCallback: Function)
+    constructor(parent: HTMLDivElement, project: Project)
     {
         this.parent = parent;
         this.project = project;
@@ -31,8 +30,12 @@ export default class ProjectPreviewer
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.className = 'overview-container-project-preview';
 
-        this.gotClickedOnCallback = clickedonCallback;
-        this.myElement.addEventListener('mouseup', () => this.gotClickedOnCallback(this.project));
+        this.myElement.addEventListener('mouseup', () => {
+            window.location.hash = pages.projects + '?' + this.project.id;
+        });
+
+        // this.gotClickedOnCallback = clickedonCallback;
+        // this.myElement.addEventListener('mouseup', () => this.gotClickedOnCallback(this.project));
 
         this.imgElement = this.myElement.appendChild(document.createElement('img'));
         this.imgElement.className = 'overview-container-project-preview-thumbnail';

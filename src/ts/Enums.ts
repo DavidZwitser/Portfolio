@@ -1,9 +1,9 @@
 export enum pages
 {
-    home = '#page-home',
-    dailies = '#page-dailies',
-    projects = '#page-projects',
-    about = '#page-about'
+    home = 'home',
+    dailies = 'dailies',
+    projects = 'projects',
+    about = 'about'
 }
 
 export enum goals

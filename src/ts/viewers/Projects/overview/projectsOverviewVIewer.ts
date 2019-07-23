@@ -60,13 +60,31 @@ export default class ProjectsOverviewViewer
 
         for(let i = 0; i < projects.length; i++)
         {
-            this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i], (project: Project) => {
-                this.projectViewer.showNewProject(project);
-            }));
+            this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i] ));
+
+            // this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i], (project: Project) => {
+            //     this.projectViewer.showNewProject(project);
+            // }));
         }
 
         this.projectViewer = new ProjectViewer(this.parent);
 
+    }
+
+    public openProjectByName(id: number)
+    {
+        for(let i = 0; i < this.projects.length; i++)
+        {
+            if (id == this.projects[i].id)
+            {
+                this.projectViewer.showNewProject(this.projects[i]);
+            }
+        }
+    }
+
+    public closeProjectViewer(): void
+    {
+        this.projectViewer.close();
     }
 
     public reinitPreviews(newPreviews: Project[]): void
@@ -80,7 +98,7 @@ export default class ProjectsOverviewViewer
 
         for(let i = 0; i < newPreviews.length; i++)
         {
-            // this.previews.push(new ProjectPreviewer(this.projectPreviewer, newPreviews[i]));
+            this.previews.push(new ProjectPreviewer(this.projectPreviewer, newPreviews[i]));
         }
     }
 

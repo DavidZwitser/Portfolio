@@ -1,4 +1,4 @@
-#page-home {
+#home {
     background-color: lightgoldenrodyellow;
 
     top: -100%; 
@@ -27,6 +27,6 @@
         transform: translateZ(50px) scale(1.5);
     }
 }
-#page-home:target {
+#home:target {
     top: 0%;
 }

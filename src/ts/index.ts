@@ -1,10 +1,6 @@
 /* Load scss files */
 import '../css/index.scss';
 
-/* Import animation library */
-import anime from '../../node_modules/animejs/lib/anime.es.js';
-// /// <reference path="../definitions/index.d.ts" />
-
 import MouseEventsHandler from './mouseEvents';
 
 import Project, { ProjectSources, ProjectText, ProjectTags } from './content/project';
@@ -19,30 +15,33 @@ import ProjectsOverviewViewer from './viewers/Projects/overview/projectsOverview
 import ProjectFetcher from './content/projectFetcher';
 
 import AboutEyes from './misc/aboutEyes';
+import LoadingScreen from './misc/loadingScreen';
 
 class Main
 {
     mouse: MouseEventsHandler;
 
     eyes: AboutEyes;
+    loadingScreen: LoadingScreen;
 
     grid: GridViewer;
     gridPopup: GridPopup;
 
-    projects: ProjectsOverviewViewer;
+    projectOverview: ProjectsOverviewViewer;
     projectFetcher: ProjectFetcher;
 
     constructor()
     {
-        window.onhashchange = this.hashChanged;
+        window.addEventListener('hashchange', this.hashChanged.bind(this));
         window.addEventListener('load', this.hashChanged.bind(this));
         window.addEventListener('resize', this.resized.bind(this));
 
-        window.addEventListener("load", () => {
-            document.getElementById("loading-screen").style.display = "none";
+        window.addEventListener("load", () => { 
+            this.loadingScreen.endLoadingScreen();
         });
 
         this.eyes = new AboutEyes();
+        this.loadingScreen = new LoadingScreen();
 
         this.mouse = new MouseEventsHandler();
 
@@ -110,54 +109,95 @@ class Main
             tools.Processing,
             tools.SuperCollider,
             tools.AffinityPublisher,
-            tools.Krita
+            tools.Typescript,
+            tools.Webpack,
+            tools.Phaser,
         ];
 
         this.projectFetcher = new ProjectFetcher();
 
-        this.projects = new ProjectsOverviewViewer(
-            <HTMLDivElement>document.getElementById('page-projects'), 
+        this.projectOverview = new ProjectsOverviewViewer(
+            <HTMLDivElement>document.getElementById(pages.projects), 
             this.projectFetcher.getProjects(), 
             this.projectFetcher.getProjects(), 
             categories
         );
 
-        this.projects.filterClickedCallback = (tags: any[]) => {
+        this.projectOverview.filterClickedCallback = (tags: any[]) => {
             let filtertProjects: Project[] = this.projectFetcher.getProjectsWithTags(tags);
             
-            this.projects.reinitPreviews(filtertProjects);
+            this.projectOverview.reinitPreviews(filtertProjects);
         }
 
     }
 
     hashChanged(): void
     {
-        let hash = window.location.hash;
+        let rawHash = window.location.hash.split('#')[1];
+        let hashParts = rawHash.split('?');
+
+        let hash = hashParts[0];
+        let projectVariable = parseInt( hashParts[1]);
     
         let navbar = document.getElementById("navigation-bar");
         let navbar_links = document.getElementById('navigation-bar-links');
         let navbar_back = document.getElementById('navigation-bar-back-button');
 
         Constants.CHANGE_PAGE(hash);
-    
+
         if (hash == '')
         {
-            window.location.hash = 'page-home';
+            window.location.hash = pages.home;
         }
 
         if (Constants.CURRENT_PAGE == pages.home)
         {
-            navbar.style.top = "81vh";
+            navbar.style.top = "92vh";
 
             navbar_links.style.display = 'block';
             navbar_back.style.display = 'none';
+
         }
         else
         {
             navbar.style.top = "0px";
-
+            
             navbar_links.style.display = 'none';
             navbar_back.style.display = 'block';
+            
+        }
+        
+        document.getElementById(pages.about).style.height = '0%';
+        document.getElementById(pages.projects).style.height = '0%';
+        document.getElementById(pages.dailies).style.height = '0%';
+        document.getElementById(pages.about).style.top = '100vh';
+        document.getElementById(pages.projects).style.top = '100vh';
+        document.getElementById(pages.dailies).style.top = '100vh';
+        
+        document.getElementById(hash).style.height = '100%';
+        document.getElementById(hash).style.top = '0px';
+
+        if (hash !== pages.home)
+        {
+            document.getElementById(pages.home).style.top = '-100%';
+        }
+        else
+        {
+            document.getElementById(pages.home).style.top = '0px';
+        }
+
+
+        /* Check for url variables */
+        if (Constants.CURRENT_PAGE == pages.projects)
+        {
+            if (hashParts.length > 1)
+            {
+                this.projectOverview.openProjectByName(projectVariable);
+            }
+            else
+            {
+                this.projectOverview.closeProjectViewer();
+            }
         }
     }
 
