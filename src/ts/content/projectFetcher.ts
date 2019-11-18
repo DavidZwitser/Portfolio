@@ -18,17 +18,17 @@ export default class ProjectFetcher
         this.projects.push(Mythos.getProject());
         this.projects.push(MovingUp.getProject());
 
-        // this.requireProjectFiles();
+        this.requireProjectFiles();
     }
 
     private requireProjectFiles(): void
     {
         for (let i: number = 0; i < this.projects.length; i++)
         {
-            // require('../../' + this.projects[i].thumbnail);
+            require('../../' + this.projects[i].thumbnail);
             for(let x: number = 0; x < this.projects[i].footage.length; x++)
             {
-                // require('../../' + this.projects[i ].footage[x]);
+                require('../../' + this.projects[i ].footage[x]);
             }
         }
     }

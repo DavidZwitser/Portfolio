@@ -89,8 +89,8 @@ export default class GridViewer
             let daily = projectData.dailies[dailiesKeys[i]];
         
             let splitURL: string[] = daily.url.split('/');
-            // require('../../' + 'footage/dailies/' + splitURL[4] + '.mp4');
-            // require('../../' + 'footage/dailies/thumbnails/' re+ splitURL[4] + '.jpg');
+            require('../../' + 'footage/dailies/' + splitURL[4] + '.mp4');
+            require('../../' + 'footage/dailies/thumbnails/' re+ splitURL[4] + '.jpg');
             daily.footage = ['../../' + 'footage/dailies/' + splitURL[4] + '.mp4'];
             daily.thumbnail = '../../' + 'footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
         
