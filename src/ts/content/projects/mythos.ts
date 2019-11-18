@@ -28,13 +28,13 @@ export namespace Mythos
                 client: 'HKU'
             },
             <ProjectSources>{
-                thumbnail: 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/Mythos/1.jpg',
+                thumbnail: 'footage/projects/Mythos/1.jpg',
                 footage: [
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/Mythos/3.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/Mythos/2.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/Mythos/1.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/Mythos/4.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/Mythos/5.jpg',
+                    'footage/projects/Mythos/3.jpg',
+                    'footage/projects/Mythos/2.jpg',
+                    'footage/projects/Mythos/1.jpg',
+                    'footage/projects/Mythos/4.jpg',
+                    'footage/projects/Mythos/5.jpg',
 
                 ],
                 video: '<iframe src="https://drive.google.com/file/d/1cYpN-Rhmg61apsBs1PMq4rcbs7rM0w0U/preview" width="1280" height="720"></iframe>',

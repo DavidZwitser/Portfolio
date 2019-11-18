@@ -28,14 +28,14 @@ export namespace MovingUp
                 client: 'OrangeGames'
             },
             <ProjectSources>{
-                thumbnail: 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/endless_mode.jpg',
+                thumbnail: 'footage/projects/MovingUp/endless_mode.jpg',
                 footage: [
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/level_select.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/endless_mode.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/level12.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/startscreen.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/level16.jpg',
-                    'https://github.com/DavidZwitser/Portfolio/raw/master/footage/projects/MovingUp/pausemenu.jpg',
+                    'footage/projects/MovingUp/level_select.jpg',
+                    'footage/projects/MovingUp/endless_mode.jpg',
+                    'footage/projects/MovingUp/level12.jpg',
+                    'footage/projects/MovingUp/startscreen.jpg',
+                    'footage/projects/MovingUp/level16.jpg',
+                    'footage/projects/MovingUp/pausemenu.jpg',
 
                 ],
                 video: '<iframe src="https://drive.google.com/file/d/1QuvAzWLP8uWtJKjl-jiAsRC-CkvZLzGF/preview" width="720" height="900"></iframe>',

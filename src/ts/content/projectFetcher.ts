@@ -1,5 +1,4 @@
-import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "./project";
-import { goals, tools, themes } from "../Enums";
+import Project from "./project";
 
 import {Mythos} from './projects/Mythos';
 import {MovingUp} from './projects/MovingUp';
@@ -13,10 +12,25 @@ export default class ProjectFetcher
 
     constructor()
     {       
+        // console.log('constructing project fetcher');
         this.projects = [];
 
         this.projects.push(Mythos.getProject());
         this.projects.push(MovingUp.getProject());
+
+        // this.requireProjectFiles();
+    }
+
+    private requireProjectFiles(): void
+    {
+        for (let i: number = 0; i < this.projects.length; i++)
+        {
+            // require('../../' + this.projects[i].thumbnail);
+            for(let x: number = 0; x < this.projects[i].footage.length; x++)
+            {
+                // require('../../' + this.projects[i ].footage[x]);
+            }
+        }
     }
 
     public getProjects(): Project[]

@@ -1,6 +1,8 @@
 import Constants from '../Constants';
 import { pages } from '../Enums';
-import Project from '../content/project';
+import Project, { ProjectSources, ProjectText, ProjectTags } from '../content/project';
+
+import * as projectData from '../../JSON/projects.json';
 
 interface GridElement
 {
@@ -38,6 +40,10 @@ export default class GridViewer
 
     tmpElCounter: number = 0;
 
+    nonLoadedContents: Project[];
+
+    private loaded: boolean = false;
+
     constructor(parent: HTMLDivElement)
     {
         this.parent = parent;
@@ -51,6 +57,8 @@ export default class GridViewer
         this.closeMoreInfoCallback = [];
         this.toggleMoreInfoCallback = [];
 
+        this.nonLoadedContents = [];
+
         this.positionX = this.elementCenter.x;
         this.positionY = this.elementCenter.y;
 
@@ -61,7 +69,7 @@ export default class GridViewer
                 this.onDailiesPage = true;
                 for (let i = 0; i < this.openMoreInfoCallback.length; i++)
                 {
-                    this.openMoreInfoCallback[i](this.elementClosestToCenter.content);
+                    // this.openMoreInfoCallback[i](this.elementClosestToCenter.content);
                 }
             }
             else
@@ -74,9 +82,43 @@ export default class GridViewer
             }
         });
 
+        let dailiesKeys = Object.keys(projectData.dailies);
+
+        for (let i: number = 0; i < dailiesKeys.length; i++)
+        {
+            let daily = projectData.dailies[dailiesKeys[i]];
+        
+            let splitURL: string[] = daily.url.split('/');
+            // require('../../' + 'footage/dailies/' + splitURL[4] + '.mp4');
+            // require('../../' + 'footage/dailies/thumbnails/' re+ splitURL[4] + '.jpg');
+            daily.footage = ['../../' + 'footage/dailies/' + splitURL[4] + '.mp4'];
+            daily.thumbnail = '../../' + 'footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
+        
+            this.nonLoadedContents.push(new Project((<ProjectText>{
+                name: daily.description
+            }), undefined, (<ProjectSources>{
+                thumbnail: daily.thumbnail,
+                footage: daily.footage,
+                externalLink: daily.url
+            }), (<ProjectTags> {
+                tools: daily.tags
+            })));
+        }
+
     }
 
-    public addContent(content: Project): void
+    public load(): void
+    {
+        if (this.loaded == true) { return; }
+        this.loaded = true;
+
+        for (let i: number = 0; i < this.nonLoadedContents.length; i++)
+        {
+            this.addContent(this.nonLoadedContents[i]);
+        }
+    }
+
+    private addContent(content: Project): void
     {
         /* Creating DOM element */
         let gridElement = document.createElement('div');
@@ -86,7 +128,7 @@ export default class GridViewer
         let img: HTMLImageElement =  document.createElement('img');
         img.className = 'element-grid-image';
         img.draggable = false;
-        img.src = content.thumbnail;
+        img.src = content.thumbnail;    
         gridElement.appendChild(img);
 
         let id: number = this.idCounter ++;
@@ -149,12 +191,13 @@ export default class GridViewer
         {
             this.centerElementChangedCallback[i](nearestElement.content);
         }
-        
+
         return nearestElement;
     }
 
     public centerToNearestElement(overwriteElement: GridElement = null)
     {
+        if (Constants.CURRENT_PAGE !== pages.dailies) { return; }
         if (this.elementClosestToCenter == null)
         {
             this.elementClosestToCenter = this.findELementClosestToCenter();

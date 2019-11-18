@@ -6,14 +6,14 @@
     width: 100%;
     height: 100%;
 
-    transition: top $animation-speed;
+    transition: top .7s;
 }
 
 /* All pages which are not the home page */
 .content-page {
     @extend .page;
 
-    transition: all $animation-speed;
+    transition: all .7s;
 
     top: 100%;
     height: 0%;

@@ -7,7 +7,6 @@ import Project, { ProjectSources, ProjectText, ProjectTags } from './content/pro
 import GridViewer from './viewers/gridViewer';
 import GridPopup from './viewers/gridPopup';
 
-import * as projectData from '../JSON/projects.json';
 import Constants from './Constants';
 import { pages, tools } from './Enums';
 import ProjectsOverviewViewer from './viewers/Projects/overview/projectsOverviewVIewer';
@@ -31,7 +30,7 @@ class Main
     projectFetcher: ProjectFetcher;
 
     constructor()
-    {
+    {   
         window.addEventListener('hashchange', this.hashChanged.bind(this));
         window.addEventListener('load', this.hashChanged.bind(this));
         window.addEventListener('resize', this.resized.bind(this));
@@ -65,40 +64,9 @@ class Main
         this.grid.closeMoreInfoCallback.push(() => {
             this.gridPopup.closeMoreInfo();
         });
-
-        let dailies: Project[] = [];
-        Object.keys(projectData.dailies).forEach((key: string, index: number) => {
-
-            let daily = projectData.dailies[key];
         
-            let splitURL: string[] = daily.url.split('/');
-            daily.footage = ['https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/' + splitURL[4] + '.mp4'];
-            daily.thumbnail = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/dailies/thumbnails/' + splitURL[4] + '.jpg'
-        
-            let project: Project = new Project((<ProjectText>{
-                name: daily.description
-            }), undefined, (<ProjectSources>{
-                thumbnail: daily.thumbnail,
-                footage: daily.footage,
-                externalLink: daily.url
-            }), (<ProjectTags> {
-                tools: daily.tags
-            }));
-
-            dailies.push(project);
-        
-            this.grid.addContent(project);
-        });
-
         this.grid.rePosition();
         this.grid.letGoOfGrid(0, 0);
-        
-        let highlights: Project[] = [];
-        for(let i = 0; i < 3; i++)
-        {
-            let tmpProj = dailies[Math.ceil(Math.random() * 56)];
-            highlights.push(tmpProj);
-        }
 
         let categories: tools[] = [
             tools.AffinityDesigner,
@@ -153,7 +121,7 @@ class Main
 
         if (Constants.CURRENT_PAGE == pages.home)
         {
-            navbar.style.top = "92vh";
+            navbar.style.top = "94vh";
 
             navbar_links.style.display = 'block';
             navbar_back.style.display = 'none';
@@ -166,6 +134,11 @@ class Main
             navbar_links.style.display = 'none';
             navbar_back.style.display = 'block';
             
+        }
+
+        if (Constants.CURRENT_PAGE == pages.dailies)
+        {
+            this.grid.load();
         }
         
         document.getElementById(pages.about).style.height = '0%';
