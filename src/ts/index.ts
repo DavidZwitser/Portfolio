@@ -16,6 +16,8 @@ import ProjectFetcher from './content/projectFetcher';
 import AboutEyes from './misc/aboutEyes';
 import LoadingScreen from './misc/loadingScreen';
 
+import ImageLoader from './imageLoader';
+
 class Main
 {
     mouse: MouseEventsHandler;
@@ -34,6 +36,8 @@ class Main
         window.addEventListener('hashchange', this.hashChanged.bind(this));
         window.addEventListener('load', this.hashChanged.bind(this));
         window.addEventListener('resize', this.resized.bind(this));
+
+        let imageLoader: ImageLoader = new ImageLoader();
 
         window.addEventListener("load", () => { 
             this.loadingScreen.endLoadingScreen();

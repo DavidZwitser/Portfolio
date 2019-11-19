@@ -83,16 +83,21 @@ export default class GridViewer
         });
 
         let dailiesKeys = Object.keys(projectData.dailies);
+        
+        let videos: String = '';
+        let thumbnails: String = '';
 
         for (let i: number = 0; i < dailiesKeys.length; i++)
         {
             let daily = projectData.dailies[dailiesKeys[i]];
         
             let splitURL: string[] = daily.url.split('/');
-            require('../../' + 'footage/dailies/' + splitURL[4] + '.mp4');
-            require('../../' + 'footage/dailies/thumbnails/' re+ splitURL[4] + '.jpg');
-            daily.footage = ['../../' + 'footage/dailies/' + splitURL[4] + '.mp4'];
-            daily.thumbnail = '../../' + 'footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
+
+            // videos += "require.resolve('../../footage/dailies/" + splitURL[4] + ".mp4');"
+            // thumbnails += "require.resolve('../../footage/dailies/thumbnails/" + splitURL[4] + ".jpg');"
+
+            daily.footage = ['../../footage/dailies/' + splitURL[4] + '.mp4'];
+            daily.thumbnail = '../../footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
         
             this.nonLoadedContents.push(new Project((<ProjectText>{
                 name: daily.description
@@ -104,6 +109,9 @@ export default class GridViewer
                 tools: daily.tags
             })));
         }
+
+        console.log(videos);
+        console.log(thumbnails);
 
     }
 

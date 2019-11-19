@@ -12,25 +12,30 @@ export default class ProjectFetcher
 
     constructor()
     {       
-        // console.log('constructing project fetcher');
         this.projects = [];
 
         this.projects.push(Mythos.getProject());
         this.projects.push(MovingUp.getProject());
 
-        this.requireProjectFiles();
+        // this.requireProjectFiles();
     }
 
     private requireProjectFiles(): void
     {
+        let thumbnais: String = '';     
+        let footage: String = '';
         for (let i: number = 0; i < this.projects.length; i++)
         {
-            require('../../' + this.projects[i].thumbnail);
+            thumbnais += ('require.resolve("../../' + this.projects[i].thumbnail + '"); \n');
             for(let x: number = 0; x < this.projects[i].footage.length; x++)
             {
-                require('../../' + this.projects[i ].footage[x]);
+                footage += ('require.resolve("../../' + this.projects[i ].footage[x] + '");');
             }
         }
+
+        console.log(thumbnais);
+        console.log(footage);
+        
     }
 
     public getProjects(): Project[]
