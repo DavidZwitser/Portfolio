@@ -1,4 +1,4 @@
-import Project from "../../../content/project";
+import Project from "../data/ProjectTemplate";
 
 export default class Highlight
 {

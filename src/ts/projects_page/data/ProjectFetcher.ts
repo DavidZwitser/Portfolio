@@ -1,7 +1,7 @@
-import Project from "./project";
+import Project from "./ProjectTemplate";
 
-import {Mythos} from './projects/Mythos';
-import {MovingUp} from './projects/MovingUp';
+import {Mythos} from './projects_data/Mythos';
+import {MovingUp} from './projects_data/MovingUp';
 
 export default class ProjectFetcher
 {
@@ -26,10 +26,10 @@ export default class ProjectFetcher
         let footage: String = '';
         for (let i: number = 0; i < this.projects.length; i++)
         {
-            thumbnais += ('require.resolve("../../' + this.projects[i].thumbnail + '"); \n');
+            thumbnais += ('require.resolve("../' + this.projects[i].thumbnail + '"); \n');
             for(let x: number = 0; x < this.projects[i].footage.length; x++)
             {
-                footage += ('require.resolve("../../' + this.projects[i ].footage[x] + '");');
+                footage += ('require.resolve("../' + this.projects[i ].footage[x] + '");');
             }
         }
 

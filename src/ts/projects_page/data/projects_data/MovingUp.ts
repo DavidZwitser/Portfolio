@@ -1,5 +1,5 @@
-import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "../project";
-import { goals, tools, themes } from "../../Enums";
+import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "../ProjectTemplate";
+import { goals, tools, themes } from "../../../data/Enums";
 
 export namespace MovingUp
 {

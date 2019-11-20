@@ -1,6 +1,4 @@
-import { threadId } from "worker_threads";
-
-export default class MouseEventsHandler
+export default class MouseEvents
 {
     mouseX: number = 0;
     mouseY: number = 0;

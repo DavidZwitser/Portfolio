@@ -1,6 +1,6 @@
-import Project from '../content/project';
+import Project from '../projects_page/data/ProjectTemplate';
 
-export default class GridPopup
+export default class Popup
 {
     private parent: HTMLDivElement;
 

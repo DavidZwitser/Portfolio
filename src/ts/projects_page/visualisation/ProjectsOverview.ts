@@ -1,12 +1,11 @@
 import Highlight from "./highlight";
 import CategorySelector from "./categorySelector";
-import { tools } from "../../../Enums";
-import Project from "../../../content/project";
+import { tools } from "../../data/Enums";
+import Project from "../data/ProjectTemplate";
 import ProjectPreviewer from "./projectPreviewer";
-import { timingSafeEqual } from "crypto";
-import ProjectViewer from "../project/projectViewer";
+import ProjectViewer from "./ProjectViewer";
 
-export default class ProjectsOverviewViewer
+export default class ProjectsOverview
 {
     private parent: HTMLDivElement;
 

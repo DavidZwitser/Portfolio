@@ -1,4 +1,4 @@
-import { goals, tools, themes } from "../Enums";
+import { goals, tools, themes } from "../../data/Enums";
 
 export interface ProjectText
 {

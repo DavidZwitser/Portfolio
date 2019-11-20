@@ -21,19 +21,17 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
-@import './pages/loadingScreen.scss';
+@import './general/loadingScreen.scss';
 
-@import './navigationBar.scss';
+@import './general/navigationBar.scss';
+@import './general/defaultPageSettigns.scss';
 
-@import './pages/defaultPageSettigns.scss';
-@import './pages/homePage.scss';
-@import './pages/aboutPage.scss';
+@import './landing_page/landingPage.scss';
+@import './about_page/aboutPage.scss';
 
-@import './pages/otherPages.scss';
+@import './dailies_page/gridViewer.scss';
+@import './dailies_page/gridPopup.scss';
+@import './dailies_page/gridLoadingScreen.scss';
 
-@import './viewers/gridViewer.scss';
-@import './viewers/gridPopup.scss';
-@import './viewers/gridLoadingScreen.scss';
-
-@import './viewers/projects/projectsOverview.scss';
-@import './viewers/projects/projectViewer.scss';
+@import './projects_page/projectsOverview.scss';
+@import './projects_page/projectViewer.scss';

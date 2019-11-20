@@ -1,5 +1,5 @@
-import Project from "../../../content/project";
-import { pages } from "../../../Enums";
+import Project from "../data/ProjectTemplate";
+import { pages } from "../../data/Enums";
 
 export default class ProjectViewer
 {

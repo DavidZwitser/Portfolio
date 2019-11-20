@@ -1,26 +1,27 @@
 /* Load scss files */
 import '../css/index.scss';
 
-import MouseEventsHandler from './mouseEvents';
+import MouseEvents from './MouseEvents';
 
-import Project, { ProjectSources, ProjectText, ProjectTags } from './content/project';
-import GridViewer from './viewers/gridViewer';
-import GridPopup from './viewers/gridPopup';
+import Project from './projects_page/data/ProjectTemplate';
 
-import Constants from './Constants';
-import { pages, tools } from './Enums';
-import ProjectsOverviewViewer from './viewers/Projects/overview/projectsOverviewVIewer';
+import GridViewer from './dailies_page/GridViewer';
+import GridPopup from './dailies_page/Popup';
 
-import ProjectFetcher from './content/projectFetcher';
+import Constants from './data/Constants';
+import { pages, tools } from './data/Enums';
+import ProjectsOverviewViewer from './projects_page/visualisation/ProjectsOverview';
 
-import AboutEyes from './misc/aboutEyes';
-import LoadingScreen from './misc/loadingScreen';
+import ProjectFetcher from './projects_page/data/ProjectFetcher';
 
-import ImageLoader from './imageLoader';
+import AboutEyes from './about_page/AboutEyes';
+import LoadingScreen from './loading_screen/LoadingScreen';
+
+import ImageLoader from './data/ImageLoader';
 
 class Main
 {
-    mouse: MouseEventsHandler;
+    mouse: MouseEvents;
 
     eyes: AboutEyes;
     loadingScreen: LoadingScreen;
@@ -47,7 +48,7 @@ class Main
         this.eyes = new AboutEyes();
         this.loadingScreen = new LoadingScreen();
 
-        this.mouse = new MouseEventsHandler();
+        this.mouse = new MouseEvents();
 
         this.grid = new GridViewer(<HTMLDivElement>document.getElementById('viewer-grid'));
         this.gridPopup  = new GridPopup(<HTMLDivElement> document.getElementById('viewer-grid-popup'));

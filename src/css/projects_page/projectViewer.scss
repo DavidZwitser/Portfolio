@@ -1,3 +1,8 @@
+#projects {
+    background-color: rgb(54, 54, 54);
+    margin-top: 6vh;
+}
+
 #project-viewer
 {
     position: absolute;
@@ -17,7 +22,7 @@
 
     display: none;
 
-    .project-viewer-banner
+    .project-banner
     {
         width: 100%;
         position: fixed;

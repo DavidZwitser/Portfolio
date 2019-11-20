@@ -1,4 +1,4 @@
-import { tools } from "../../../Enums";
+import { tools } from "../../data/Enums";
 
 export default class CategorySelector
 {
