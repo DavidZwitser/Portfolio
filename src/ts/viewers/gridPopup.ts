@@ -4,7 +4,7 @@ export default class GridPopup
 {
     private parent: HTMLDivElement;
 
-    private currentContent: Project;
+    private currentProject: Project;
 
     private videoElement: HTMLVideoElement;
 
@@ -15,7 +15,7 @@ export default class GridPopup
     private pullOutIndicatorRight: HTMLParagraphElement;
     private pullOutIndicatorDown:  HTMLParagraphElement;
 
-    private active: boolean = true;
+    private active: boolean = false;
 
     constructor(parent: HTMLDivElement)
     {
@@ -81,13 +81,20 @@ export default class GridPopup
 
     }
 
-    togglePopupActive(): void
+    togglePopupActive(project?: Project): void
     {
         this.active = !this.active;
 
         if (this.active == true)
         {
-            this.openMoreInfo(this.currentContent);
+            if (!project)
+            {
+                this.openMoreInfo(this.currentProject);
+            }
+            else
+            {
+                this.openMoreInfo(project);
+            }
         }
         else
         {
@@ -95,10 +102,11 @@ export default class GridPopup
         }
     }
 
-    public openMoreInfo(content: Project)
+    public openMoreInfo(project: Project, forceOpen?: boolean)
     {
-        this.currentContent = content;
+        this.currentProject = project;
 
+        if (forceOpen == true) { this.active = true; }
         if (this.active == false) { return; }
 
         this.parent.style.left = '0px';
@@ -106,21 +114,21 @@ export default class GridPopup
 
         this.videoElement.play();
 
-        if (this.videoElement.src == content.footage[0]) { return; }
-        this.videoElement.src = content.footage[0];        
+        if (this.videoElement.src == project.footage[0]) { return; }
+        this.videoElement.src = project.footage[0];        
         
-        this.description.innerHTML = content.name;
+        this.description.innerHTML = project.name;
         
         this.tags.innerHTML = '';
-        for (let i = 0; i < content.tags.tools.length; i++)
+        for (let i = 0; i < project.tags.tools.length; i++)
         {
             this.tags.innerHTML += ' | ';
-            this.tags.innerHTML += content.tags.tools[i];
+            this.tags.innerHTML += project.tags.tools[i];
         }
         this.tags.innerHTML += ' | ';
         
         this.linkToPost.innerHTML = '\n Source';
-        this.linkToPost.href = content.externalLink;
+        this.linkToPost.href = project.externalLink;
 
         this.pullOutIndicatorDown.innerHTML = '^';
         this.pullOutIndicatorRight.innerHTML = '<';

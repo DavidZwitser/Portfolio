@@ -33,15 +33,16 @@ class Main
 
     constructor()
     {   
+        /* Listners */
         window.addEventListener('hashchange', this.hashChanged.bind(this));
         window.addEventListener('load', this.hashChanged.bind(this));
         window.addEventListener('resize', this.resized.bind(this));
 
-        let imageLoader: ImageLoader = new ImageLoader();
-
         window.addEventListener("load", () => { 
             this.loadingScreen.endLoadingScreen();
         });
+
+        let imageLoader: ImageLoader = new ImageLoader();
 
         this.eyes = new AboutEyes();
         this.loadingScreen = new LoadingScreen();
@@ -62,12 +63,9 @@ class Main
             this.grid.letGoOfGrid(this.mouse.velocityX, this.mouse.velocityY);
         });
 
-        this.grid.openMoreInfoCallback.push((element: Project) => {
-            this.gridPopup.openMoreInfo(element);
-        });
-        this.grid.closeMoreInfoCallback.push(() => {
-            this.gridPopup.closeMoreInfo();
-        });
+        this.grid.openMoreInfo = (element: Project, forceOpen?: boolean) => this.gridPopup.openMoreInfo(element, forceOpen);
+        this.grid.closeMoreInfo = () => this.gridPopup.closeMoreInfo();
+        this.grid.toggleMoreInfo = (project: Project) => this.gridPopup.togglePopupActive(project);
         
         this.grid.rePosition();
         this.grid.letGoOfGrid(0, 0);
@@ -153,10 +151,7 @@ class Main
         /* -------------- */
         if (Constants.LAST_PAGE == Constants.CURRENT_PAGE) { return; }
 
-        if (Constants.CURRENT_PAGE == pages.dailies)
-        {
-            this.grid.load();
-        }
+        navbar.addEventListener('transitionend', () => this.pageTransitioned());
 
         document.getElementById(pages.about).style.height = '0%';
         document.getElementById(pages.projects).style.height = '0%';
@@ -175,6 +170,18 @@ class Main
         else
         {
             document.getElementById(pages.home).style.top = '0px';
+        }
+    }
+
+    pageTransitioned(): void
+    {
+        if (Constants.CURRENT_PAGE == pages.dailies)
+        {
+            if (this.grid.loaded == false)
+            {
+                this.gridPopup.closeMoreInfo();
+            }
+            this.grid.load();
         }
     }
 

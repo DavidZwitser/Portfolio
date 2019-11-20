@@ -33,16 +33,16 @@ export default class GridViewer
     elementClosestToCenter: GridElement;
     centerElementChangedCallback: Function[];
 
-    openMoreInfoCallback: Function[];
-    closeMoreInfoCallback: Function[];
+    openMoreInfo: (project: Project, foreceOpen?: boolean) => void;
+    closeMoreInfo: () => void;
 
-    toggleMoreInfoCallback: Function[];
+    toggleMoreInfo: (project?: Project) => void;
 
     tmpElCounter: number = 0;
 
     nonLoadedContents: Project[];
 
-    private loaded: boolean = false;
+    public loaded: boolean = false;
 
     constructor(parent: HTMLDivElement)
     {
@@ -52,10 +52,6 @@ export default class GridViewer
 
         this.centerElementChangedCallback = [];
         this.elementCenter = this.calculateCenter();
-
-        this.openMoreInfoCallback = [];
-        this.closeMoreInfoCallback = [];
-        this.toggleMoreInfoCallback = [];
 
         this.nonLoadedContents = [];
 
@@ -67,18 +63,17 @@ export default class GridViewer
             if (page == pages.dailies)
             {
                 this.onDailiesPage = true;
-                for (let i = 0; i < this.openMoreInfoCallback.length; i++)
+                if (this.elementClosestToCenter !== null)
                 {
-                    // this.openMoreInfoCallback[i](this.elementClosestToCenter.content);
+                    if  (this.openMoreInfo !== null)
+                        this.openMoreInfo(this.elementClosestToCenter.content);
                 }
             }
             else
             {
                 this.onDailiesPage = false;
-                for (let i = 0; i < this.closeMoreInfoCallback.length; i++)
-                {
-                    this.closeMoreInfoCallback[i]();
-                }
+                if (this.closeMoreInfo !== null)
+                    this.closeMoreInfo();
             }
         });
 
@@ -110,9 +105,27 @@ export default class GridViewer
             })));
         }
 
-        console.log(videos);
-        console.log(thumbnails);
+    }
 
+    private hideLoadingScreen(): void
+    {
+
+        let loadingScreen: HTMLDivElement = <HTMLDivElement>document.getElementById('grid-loading-screen');
+        let loadingScreenPart: HTMLDivElement = <HTMLDivElement>document.getElementById('grid-loading-screen-part');
+
+        
+        loadingScreenPart.addEventListener('animationiteration', (() => {
+            console.log('animation end');
+            loadingScreenPart.style.opacity = '0';
+            loadingScreenPart.style.display = 'none';
+
+            loadingScreen.style.opacity = '0';
+
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 1000);
+            
+        }));
     }
 
     public load(): void
@@ -124,6 +137,10 @@ export default class GridViewer
         {
             this.addContent(this.nonLoadedContents[i]);
         }
+
+        this.letGoOfGrid(0, 0);
+
+        this.hideLoadingScreen();
     }
 
     private addContent(content: Project): void
@@ -170,10 +187,8 @@ export default class GridViewer
         let element: GridElement = this.getElementByID(elementID);
 
         if (element == this.elementClosestToCenter) {
-            for (let i = 0; i < this.openMoreInfoCallback.length; i++)
-            {
-                this.openMoreInfoCallback[i](element.content);
-            }
+            if (this.openMoreInfo !== null)
+                this.toggleMoreInfo(element.content);
         }
 
         this.centerToNearestElement(element);
@@ -227,7 +242,8 @@ export default class GridViewer
             this.elementClosestToCenter = this.findELementClosestToCenter();
 
             /* TEMPORARY */
-            this.openMoreInfoCallback[0](this.elementClosestToCenter.content);
+            if (this.openMoreInfo !== null)
+                this.openMoreInfo(this.elementClosestToCenter.content);
             return;
         }
 
@@ -286,10 +302,8 @@ export default class GridViewer
 
         if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
         {
-            for (let i = 0; i < this.closeMoreInfoCallback.length; i++)
-            {
-                this.closeMoreInfoCallback[i]();
-            }
+            if (this.closeMoreInfo !== null)
+                this.closeMoreInfo();
         }
 
         let vmin: number = Math.min(window.innerWidth, window.innerHeight);
