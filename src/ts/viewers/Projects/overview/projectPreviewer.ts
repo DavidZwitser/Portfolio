@@ -31,7 +31,7 @@ export default class ProjectPreviewer
         this.myElement.className = 'overview-container-project-preview';
 
         this.myElement.addEventListener('mouseup', () => {
-            window.location.hash = pages.projects + '?' + this.project.id;
+            window.location.hash = pages.projects + '$' + this.project.id;
         });
 
         // this.gotClickedOnCallback = clickedonCallback;

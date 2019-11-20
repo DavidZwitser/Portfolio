@@ -3,9 +3,11 @@ import { pages } from "./Enums";
 export default class Constants
 {
     public static CURRENT_PAGE: pages = pages.home;
+    public static LAST_PAGE: pages =  pages.none;
 
     public static CHANGE_PAGE(hashKey: string)
     {
+        this.LAST_PAGE = this.CURRENT_PAGE;
         switch(hashKey)
         {
             case pages.home:

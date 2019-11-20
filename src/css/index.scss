@@ -6,6 +6,8 @@ html, body {
   padding: 0;
   overflow: hidden;
 
+  position: static;
+
   background-color: rgb(168, 168, 168);
 
   height: 100%;
@@ -26,6 +28,7 @@ html, body {
 @import './pages/defaultPageSettigns.scss';
 @import './pages/homePage.scss';
 @import './pages/aboutPage.scss';
+
 @import './pages/otherPages.scss';
 
 @import './viewers/gridViewer.scss';

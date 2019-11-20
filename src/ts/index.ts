@@ -108,43 +108,56 @@ class Main
         if (window.location.hash == '')
         {
             window.location.hash = pages.home;
-            return;
         }
 
         let rawHash = window.location.hash.split('#')[1];
-        let hashParts = rawHash.split('?');
+        let hashParts = rawHash.split('$');
 
         let hash = hashParts[0];
-        let projectVariable = parseInt( hashParts[1]);
+        let projectVariable = parseInt(hashParts[1]);
     
+        Constants.CHANGE_PAGE(hash);
+        
         let navbar = document.getElementById("navigation-bar");
         let navbar_links = document.getElementById('navigation-bar-links');
         let navbar_back = document.getElementById('navigation-bar-back-button');
 
-        Constants.CHANGE_PAGE(hash);
-
         if (Constants.CURRENT_PAGE == pages.home)
         {
-            navbar.style.top = "94vh";
+            navbar.style.bottom = "0";
 
             navbar_links.style.display = 'block';
             navbar_back.style.display = 'none';
-
         }
         else
         {
-            navbar.style.top = "0px";
+            navbar.style.bottom = "94vh";
             
             navbar_links.style.display = 'none';
-            navbar_back.style.display = 'block';
-            
+            navbar_back.style.display = 'block';            
         }
+
+        /* Check for url variables */
+        if (Constants.CURRENT_PAGE == pages.projects)
+        {
+            if (hashParts.length > 1)
+            {
+                this.projectOverview.openProjectByName(projectVariable);
+            }   
+            else
+            {
+                this.projectOverview.closeProjectViewer();
+            }
+        }
+
+        /* -------------- */
+        if (Constants.LAST_PAGE == Constants.CURRENT_PAGE) { return; }
 
         if (Constants.CURRENT_PAGE == pages.dailies)
         {
             this.grid.load();
         }
-        
+
         document.getElementById(pages.about).style.height = '0%';
         document.getElementById(pages.projects).style.height = '0%';
         document.getElementById(pages.dailies).style.height = '0%';
@@ -162,20 +175,6 @@ class Main
         else
         {
             document.getElementById(pages.home).style.top = '0px';
-        }
-
-
-        /* Check for url variables */
-        if (Constants.CURRENT_PAGE == pages.projects)
-        {
-            if (hashParts.length > 1)
-            {
-                this.projectOverview.openProjectByName(projectVariable);
-            }
-            else
-            {
-                this.projectOverview.closeProjectViewer();
-            }
         }
     }
 

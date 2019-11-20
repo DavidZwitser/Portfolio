@@ -1,5 +1,6 @@
 export enum pages
 {
+    none = 'none',
     home = 'home',
     dailies = 'dailies',
     projects = 'projects',
