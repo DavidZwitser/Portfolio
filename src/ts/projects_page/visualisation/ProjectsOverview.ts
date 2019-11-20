@@ -1,10 +1,11 @@
 import Highlight from "./highlight";
-import CategorySelector from "./categorySelector";
+import FilterTags from "./FilterTags";
 import { tools } from "../../data/Enums";
 import Project from "../data/ProjectTemplate";
 import ProjectPreviewer from "./projectPreviewer";
 import ProjectViewer from "./ProjectViewer";
 
+/* An overview of all the projects */
 export default class ProjectsOverview
 {
     private parent: HTMLDivElement;
@@ -14,14 +15,14 @@ export default class ProjectsOverview
     private highlightsTitle: HTMLParagraphElement;
     private highlights: Highlight[];
 
-    private categorySelectors: CategorySelector[];
+    private filterTags: FilterTags[];
 
     private projectPreviewer: HTMLDivElement;
     private previews: ProjectPreviewer[];
 
     private projectViewer: ProjectViewer;
 
-    projects: Project[];
+    public projects: Project[];
 
     filterClickedCallback: Function;
 
@@ -34,6 +35,7 @@ export default class ProjectsOverview
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.id = 'viewer-projects-overview';
 
+        /* Highlights */
         this.highlightsTitle = this.myElement.appendChild(document.createElement('p'));
         this.highlightsTitle.innerHTML = 'Highlights';
         this.highlightsTitle.id = 'overview-title-highlight';
@@ -44,14 +46,16 @@ export default class ProjectsOverview
             this.highlights.push(new Highlight(this.myElement, highlights[i]));
         }
 
-        this.categorySelectors = [];
+        /* Filter tags */
+        this.filterTags = [];
         for (let i = 0; i < categoryLinks.length; i++)
         {
-            this.categorySelectors.push(new CategorySelector(this.myElement, categoryLinks[i], (tool: tools) => {
+            this.filterTags.push(new FilterTags(this.myElement, categoryLinks[i], (tool: tools) => {
                 this.filterClickedCallback([tool]);
             }));
         }
 
+        /* Project previews */
         this.projectPreviewer = this.myElement.appendChild(document.createElement('div'));
         this.projectPreviewer.className = 'overview-container-previewer';
 
@@ -60,17 +64,15 @@ export default class ProjectsOverview
         for(let i = 0; i < projects.length; i++)
         {
             this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i] ));
-
-            // this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i], (project: Project) => {
-            //     this.projectViewer.showNewProject(project);
-            // }));
         }
 
+        /* Project viewer  */
         this.projectViewer = new ProjectViewer(this.parent);
 
     }
 
-    public openProjectByName(id: number)
+    /* Open project with given ID */
+    public openProjectByID(id: number)
     {
         for(let i = 0; i < this.projects.length; i++)
         {
@@ -81,11 +83,13 @@ export default class ProjectsOverview
         }
     }
 
+    /* Close the project viewer */
     public closeProjectViewer(): void
     {
         this.projectViewer.close();
     }
 
+    /* Reload previews */
     public reinitPreviews(newPreviews: Project[]): void
     {
         for(let i = 0; i < this.previews.length; i++)

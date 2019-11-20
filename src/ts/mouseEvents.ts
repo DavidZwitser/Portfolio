@@ -1,3 +1,4 @@
+/* Handles all the input logic */
 export default class MouseEvents
 {
     mouseX: number = 0;
@@ -63,12 +64,10 @@ export default class MouseEvents
         {
             this.mouseDownCallback[i]();
         }
-
     }
     
     mouseMoved(ev: MouseEvent | TouchEvent)
     {
-        // grid.rePosition(ev.clientX, ev.clientY);
         if (this.onMobile == false)
         {
             this.mouseX = (<MouseEvent>ev).clientX;

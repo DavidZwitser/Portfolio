@@ -1,6 +1,7 @@
 import { tools } from "../../data/Enums";
 
-export default class CategorySelector
+/* Clickable tags to filter the projects */
+export default class FilterTags
 {
     parent: HTMLDivElement;
     myElement: HTMLDivElement;

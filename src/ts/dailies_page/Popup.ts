@@ -1,5 +1,6 @@
 import Project from '../projects_page/data/ProjectTemplate';
 
+/* A popup which shows more information about a project */
 export default class Popup
 {
     private parent: HTMLDivElement;
@@ -21,12 +22,13 @@ export default class Popup
     {
         this.parent = parent;
 
+        /* Creating dom elements */
         let imageWindow: HTMLDivElement = document.createElement('div');
-        imageWindow.className = 'viewer-grid-popup-image';
+        imageWindow.className = 'grid-popup-image';
         parent.appendChild(imageWindow);
 
         let video: HTMLVideoElement = document.createElement('video');
-        video.className = 'viewer-grid-popup-video';
+        video.className = 'grid-popup-video';
         video.src = 'v';
         imageWindow.appendChild(video);
         video.play();
@@ -35,27 +37,28 @@ export default class Popup
         this.videoElement = video;
 
         this.description = document.createElement('p');
-        this.description.className = 'viewer-grid-popup-description';
+        this.description.className = 'grid-popup-description';
         parent.appendChild(this.description);
 
         this.tags = document.createElement('p');
-        this.tags.className = 'viewer-grid-popup-tags';
+        this.tags.className = 'grid-popup-tags';
         parent.appendChild(this.tags);
 
         this.linkToPost = document.createElement('a');
-        this.linkToPost.className = 'viewer-grid-popup-linkToPost';
+        this.linkToPost.className = 'grid-popup-linkToPost';
         parent.appendChild(this.linkToPost);
 
         this.pullOutIndicatorRight = document.createElement('p');
-        this.pullOutIndicatorRight.className = 'viewer-grid-popup-pullout-right';
+        this.pullOutIndicatorRight.className = 'grid-popup-pullout-right';
         this.pullOutIndicatorRight.innerHTML = '>';
         parent.appendChild(this.pullOutIndicatorRight);
 
         this.pullOutIndicatorDown = document.createElement('p');
-        this.pullOutIndicatorDown.className = 'viewer-grid-popup-pullout-down';
+        this.pullOutIndicatorDown.className = 'grid-popup-pullout-down';
         this.pullOutIndicatorDown.innerHTML = 'v';
         parent.appendChild(this.pullOutIndicatorDown);
 
+        /* Setting eventslistner logic */
         this.parent.addEventListener('mouseenter', () => {
             if (this.active) return; 
             this.pullOutIndicatorDown.innerHTML = '-';
@@ -76,12 +79,12 @@ export default class Popup
         });
 
         this.parent.addEventListener('mousedown', () => {
-            this.togglePopupActive();
+            this.togglePopup();
         });
-
     }
 
-    togglePopupActive(project?: Project): void
+    /* Toggle popup's state */
+    public togglePopup(project?: Project): void
     {
         this.active = !this.active;
 
@@ -89,20 +92,22 @@ export default class Popup
         {
             if (!project)
             {
-                this.openMoreInfo(this.currentProject);
+                this.openPopup(this.currentProject);
             }
             else
             {
-                this.openMoreInfo(project);
+                this.openPopup(project);
             }
         }
         else
         {
-            this.closeMoreInfo();
+            this.closePopup();
         }
     }
 
-    public openMoreInfo(project: Project, forceOpen?: boolean)
+
+    /* Open the popup with the information about a project */
+    public openPopup(project: Project, forceOpen?: boolean)
     {
         this.currentProject = project;
 
@@ -137,7 +142,8 @@ export default class Popup
 
     }
 
-    public closeMoreInfo(): void
+    /* Close the popup */
+    public closePopup(): void
     {
         this.parent.style.left = '';
         this.parent.style.top = '';

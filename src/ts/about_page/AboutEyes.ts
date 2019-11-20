@@ -1,3 +1,4 @@
+/* The eyes that follow you mouse in the about page */
 export default class AboutEyes
 {
     parent: HTMLImageElement;
@@ -33,14 +34,13 @@ export default class AboutEyes
         this.resize();
     }
 
-    public mouseMoved(mouseX: number, mouseY: number): void
+    public moveEyes(mouseX: number, mouseY: number): void
     {
         let leftEyeDistanceX: number = Math.abs(mouseX) - Math.abs(this.pupilLeftPos.x);
         let leftEyeDistanceY: number = Math.abs(mouseY) - Math.abs(this.pupilLeftPos.y);
         
         this.pupilLeft.style.left = Math.round( leftEyeDistanceX / document.body.clientWidth * 100) / 2 + '%';
         this.pupilLeft.style.top = Math.round(  25 + leftEyeDistanceY / document.body.clientHeight * 100) / 2 + '%';
-
 
         let rightEyeDistanceX: number = Math.abs(mouseX) - Math.abs(this.pupilRightPos.x);
         let rightEyeDistanceY: number = Math.abs(mouseY) - Math.abs(this.pupilRightPos.y);

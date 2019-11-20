@@ -1,6 +1,7 @@
 import Project, { ProjectSources } from "../data/ProjectTemplate";
 import { pages } from "../../data/Enums";
 
+/* A small representation of a project to give the most valueble information */
 export default class ProjectPreviewer
 {
     parent: HTMLDivElement;
@@ -33,9 +34,6 @@ export default class ProjectPreviewer
         this.myElement.addEventListener('mouseup', () => {
             window.location.hash = pages.projects + '$' + this.project.id;
         });
-
-        // this.gotClickedOnCallback = clickedonCallback;
-        // this.myElement.addEventListener('mouseup', () => this.gotClickedOnCallback(this.project));
 
         this.imgElement = this.myElement.appendChild(document.createElement('img'));
         this.imgElement.className = 'overview-container-project-preview-thumbnail';

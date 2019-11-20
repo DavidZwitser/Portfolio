@@ -1,5 +1,6 @@
 import Project from "../data/ProjectTemplate";
 
+/* A small representation of a project to highlight it */
 export default class Highlight
 {
     parent: HTMLDivElement;

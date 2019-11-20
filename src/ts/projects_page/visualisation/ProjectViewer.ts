@@ -1,6 +1,7 @@
 import Project from "../data/ProjectTemplate";
 import { pages } from "../../data/Enums";
 
+/* A windows in which to show-off projects */
 export default class ProjectViewer
 {
     parent: HTMLDivElement;
@@ -55,7 +56,8 @@ export default class ProjectViewer
         this.generateDOMElements();
     }
     
-    generateDOMElements(): void
+    /* Generate the elements to show the projects in */
+    private generateDOMElements(): void
     {
         this.images = [];
     
@@ -249,6 +251,7 @@ export default class ProjectViewer
 
     }
 
+    /* Change the elements with new project informatoin */
     showNewProject(newProject: Project): void
     {
         
@@ -329,6 +332,7 @@ export default class ProjectViewer
 
     }
 
+    /* Close the window */
     public close(): void
     {
         this.myElement.style.display = 'none';

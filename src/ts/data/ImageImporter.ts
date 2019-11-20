@@ -1,4 +1,4 @@
-export default class ImageLoader
+export default class ImageImporter
 {
     constructor()
     {

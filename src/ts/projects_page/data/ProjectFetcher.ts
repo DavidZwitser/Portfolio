@@ -3,6 +3,7 @@ import Project from "./ProjectTemplate";
 import {Mythos} from './projects_data/Mythos';
 import {MovingUp} from './projects_data/MovingUp';
 
+/* Load and manage project data */
 export default class ProjectFetcher
 {
     projects: Project[];
@@ -20,6 +21,7 @@ export default class ProjectFetcher
         // this.requireProjectFiles();
     }
 
+    /* Log project files for imoprting files */
     private requireProjectFiles(): void
     {
         let thumbnais: String = '';     
@@ -43,6 +45,7 @@ export default class ProjectFetcher
         return this.projects;
     }
 
+    /* Find the projects one or more of these tags */
     public getProjectsWithTags(tags: any[]): Project[]
     {
         let selectedProjects: Project[] = [];

@@ -4,7 +4,7 @@
 
     width: 100vw; 
     height: 100vh; 
-    background-color: rgba(248, 248, 255, 0.664);
+    background-color: rgb(248, 248, 255);
 
     z-index: 5;
 
@@ -23,7 +23,7 @@
         box-shadow: 0 0 20vmin black;
     }
 
-    .loading-part
+    .loading-screen-visual
     {
         position: absolute;
         

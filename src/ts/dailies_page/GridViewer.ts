@@ -4,7 +4,7 @@ import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects_p
 
 import * as projectData from '../../JSON/projects.json';
 
-interface GridElement
+interface GridProject
 {
     id: Number;
     content: Project;
@@ -13,112 +13,72 @@ interface GridElement
     distanceFromCenter: number;
 }
 
+/* Visualises projects in a movable grid */
 export default class GridViewer
 {
     parent: HTMLDivElement;
 
-    elements: GridElement[];
+    projects: GridProject[];
+    /* For creating unique id's for each project */
     idCounter: number = 0;
 
     positionX: number;
     positionY: number;
 
     hasMoved: boolean;
-    onDailiesPage: boolean = false;
 
-    elementCenter: {x: number, y: number};
-
+    currentProjectCenter: {x: number, y: number};
     movingToCenterAnimationLoopID: number;
-    
-    elementClosestToCenter: GridElement;
-    centerElementChangedCallback: Function[];
+    projectClosestToCenter: GridProject;
+    foccusedProjectChangedCalllback: Function[];
 
     openMoreInfo: (project: Project, foreceOpen?: boolean) => void;
     closeMoreInfo: () => void;
-
     toggleMoreInfo: (project?: Project) => void;
 
-    tmpElCounter: number = 0;
-
-    nonLoadedContents: Project[];
-
-    public loaded: boolean = false;
+    notLoadedProjects: Project[];
+    loaded: boolean = false;
 
     constructor(parent: HTMLDivElement)
     {
         this.parent = parent;
 
-        this.elements = [];
+        this.projects = [];
 
-        this.centerElementChangedCallback = [];
-        this.elementCenter = this.calculateCenter();
+        this.foccusedProjectChangedCalllback = [];
+        this.currentProjectCenter = this.calculateGridCenter();
 
-        this.nonLoadedContents = [];
+        this.notLoadedProjects = [];
 
-        this.positionX = this.elementCenter.x;
-        this.positionY = this.elementCenter.y;
+        this.positionX = this.currentProjectCenter.x;
+        this.positionY = this.currentProjectCenter.y;
 
         Constants.PAGE_CHANGED_CALLBACK.push((page: pages) => {
             
             if (page == pages.dailies)
             {
-                this.onDailiesPage = true;
-                if (this.elementClosestToCenter !== null)
+                if (this.projectClosestToCenter !== null)
                 {
                     if  (this.openMoreInfo !== null)
-                        this.openMoreInfo(this.elementClosestToCenter.content);
+                        this.openMoreInfo(this.projectClosestToCenter.content);
                 }
             }
             else
             {
-                this.onDailiesPage = false;
                 if (this.closeMoreInfo !== null)
                     this.closeMoreInfo();
             }
         });
 
-        let dailiesKeys = Object.keys(projectData.dailies);
-        
-        let videos: String = '';
-        let thumbnails: String = '';
-
-        for (let i: number = 0; i < dailiesKeys.length; i++)
-        {
-            let daily = projectData.dailies[dailiesKeys[i]];
-        
-            let splitURL: string[] = daily.url.split('/');
-
-            // videos += "require.resolve('../footage/dailies/" + splitURL[4] + ".mp4');"
-            // thumbnails += "require.resolve('../footage/dailies/thumbnails/" + splitURL[4] + ".jpg');"
-
-            daily.footage = ['../footage/dailies/' + splitURL[4] + '.mp4'];
-            daily.thumbnail = '../footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
-        
-            this.nonLoadedContents.push(new Project((<ProjectText>{
-                name: daily.description
-            }), undefined, (<ProjectSources>{
-                thumbnail: daily.thumbnail,
-                footage: daily.footage,
-                externalLink: daily.url
-            }), (<ProjectTags> {
-                tools: daily.tags
-            })));
-        }
-
-        // console.log(videos);
-        // console.log(thumbnails);
-
+        this.loadProjectsData();
     }
 
     private hideLoadingScreen(): void
     {
-
         let loadingScreen: HTMLDivElement = <HTMLDivElement>document.getElementById('grid-loading-screen');
         let loadingScreenPart: HTMLDivElement = <HTMLDivElement>document.getElementById('grid-loading-screen-part');
-
         
         loadingScreenPart.addEventListener('animationiteration', (() => {
-            console.log('animation end');
             loadingScreenPart.style.opacity = '0';
             loadingScreenPart.style.display = 'none';
 
@@ -131,22 +91,65 @@ export default class GridViewer
         }));
     }
 
-    public load(): void
+    private loadProjectsData(logProjectsData: boolean = false): void
     {
-        if (this.loaded == true) { return; }
-        this.loaded = true;
-
-        for (let i: number = 0; i < this.nonLoadedContents.length; i++)
+        let videos: String = '';
+        let thumbnails: String = '';
+        
+        /* Getting data from dailies JSON file */
+        let dailiesKeys = Object.keys(projectData.dailies);
+        for (let i: number = 0; i < dailiesKeys.length; i++)
         {
-            this.addContent(this.nonLoadedContents[i]);
+            let daily = projectData.dailies[dailiesKeys[i]];
+        
+            let splitURL: string[] = daily.url.split('/');
+
+            if (logProjectsData == true)
+            {
+                videos += "require.resolve('../footage/dailies/" + splitURL[4] + ".mp4');"
+                thumbnails += "require.resolve('../footage/dailies/thumbnails/" + splitURL[4] + ".jpg');"
+            }
+
+            daily.footage = ['../footage/dailies/' + splitURL[4] + '.mp4'];
+            daily.thumbnail = '../footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
+        
+            /* Adding project to not loaded list */
+            this.notLoadedProjects.push(new Project((<ProjectText>{
+                name: daily.description
+            }), undefined, (<ProjectSources>{
+                thumbnail: daily.thumbnail,
+                footage: daily.footage,
+                externalLink: daily.url
+            }), (<ProjectTags> {
+                tools: daily.tags
+            })));
         }
 
+        if (logProjectsData == true)
+        {
+            console.log(videos);
+            console.log(thumbnails);
+        }
+    }
+
+    /* Loop through not loaded projects and add them to the grid */
+    public createGridTilesForPreloadedProjects(): void
+    {
+        if (this.loaded == true) { return; }
+        
+        for (let i: number = 0; i < this.notLoadedProjects.length; i++)
+        {
+            this.addProjectToGrid(this.notLoadedProjects[i]);
+        }
+        
+        this.loaded = true;
         this.letGoOfGrid(0, 0);
 
         this.hideLoadingScreen();
     }
 
-    private addContent(content: Project): void
+    /* Creates a grid tile and adds it to the grid */
+    private addProjectToGrid(content: Project): void
     {
         /* Creating DOM element */
         let gridElement = document.createElement('div');
@@ -162,7 +165,7 @@ export default class GridViewer
         let id: number = this.idCounter ++;
 
         /* Adding it to interface array */
-        let newElement: GridElement = {
+        let newElement: GridProject = {
             id: id,
             content: content,
             element: gridElement,
@@ -170,117 +173,124 @@ export default class GridViewer
             distanceFromCenter: 0
         };
 
-        gridElement.addEventListener('click', () => this.clickedOnElementHandler(id) );
+        gridElement.addEventListener('click', () => this.clickedOnProjectHandler(id) );
 
-        this.elements.push(newElement);
+        this.projects.push(newElement);
 
     }
 
-    private getElementByID(id: number): GridElement
+    /* Give an ID and it'll give you the according project */
+    private getProjectByID(id: number): GridProject
     {
-        for(let i = 0; i < this.elements.length; i++)
+        for(let i = 0; i < this.projects.length; i++)
         {
-            if (this.elements[i].id == id) { return this.elements[i]; }
+            if (this.projects[i].id == id) { return this.projects[i]; }
         }
     }
 
-    private clickedOnElementHandler(elementID: number): void
+    /* The logic that fires when a project is clicked */
+    private clickedOnProjectHandler(elementID: number): void
     {
-        if (this.hasMoved == true || this.onDailiesPage == false) { return; }
-        let element: GridElement = this.getElementByID(elementID);
+        if (this.hasMoved == true || Constants.CURRENT_PAGE !== pages.dailies) { return; }
+        let element: GridProject = this.getProjectByID(elementID);
 
-        if (element == this.elementClosestToCenter) {
+        if (element == this.projectClosestToCenter) {
             if (this.openMoreInfo !== null)
                 this.toggleMoreInfo(element.content);
         }
 
-        this.centerToNearestElement(element);
+        this.centerProjectClosestToTheCenterOfTheScreen(element);
     }
 
-    private findELementClosestToCenter(overwriteElement: GridElement = null): GridElement
+    /* See which project is closest to the center of the screen */
+    private findProjectClosestToCenterOfScreen(overwriteElement: GridProject = null): GridProject
     {
-        let nearestElement: GridElement = this.elements[0];
+        let nearestElement: GridProject = this.projects[0];
 
         if (overwriteElement !== null) { nearestElement = overwriteElement; }
         else
         {
-            for(let i = 1; i < this.elements.length; i++ )
+            for(let i = 1; i < this.projects.length; i++ )
             {
-                if (Math.abs(this.elements[i].distanceFromCenter) < Math.abs(nearestElement.distanceFromCenter))
+                if (Math.abs(this.projects[i].distanceFromCenter) < Math.abs(nearestElement.distanceFromCenter))
                 {
-                    nearestElement = this.elements[i];
+                    nearestElement = this.projects[i];
                 }
             }
         }
 
-        for (let i = 0; i < this.centerElementChangedCallback.length; i++)
+        for (let i = 0; i < this.foccusedProjectChangedCalllback.length; i++)
         {
-            this.centerElementChangedCallback[i](nearestElement.content);
+            this.foccusedProjectChangedCalllback[i](nearestElement.content);
         }
 
         return nearestElement;
     }
 
-    public centerToNearestElement(overwriteElement: GridElement = null)
+    /* Centers the grid to the element whicih is the closest to the screen */
+    public centerProjectClosestToTheCenterOfTheScreen(overwriteElement: GridProject = null)
     {
         if (Constants.CURRENT_PAGE !== pages.dailies) { return; }
-        if (this.elementClosestToCenter == null)
+        if (this.projectClosestToCenter == null)
         {
-            this.elementClosestToCenter = this.findELementClosestToCenter();
+            this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen();
         }
 
         if (overwriteElement !== null && typeof overwriteElement === "object") 
         {
-            this.elementClosestToCenter = this.findELementClosestToCenter(overwriteElement);
+            this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen(overwriteElement);
         }
         
-        let style: CSSStyleDeclaration = this.elementClosestToCenter.element.style;
+        let style: CSSStyleDeclaration = this.projectClosestToCenter.element.style;
 
-        let distanceX: number = this.elementCenter.x - parseInt(style.left) - parseInt(style.width) / 2;
-        let distanceY: number = this.elementCenter.y - parseInt(style.top) - parseInt(style.height) / 2;
+        let distanceX: number = this.currentProjectCenter.x - parseInt(style.left) - parseInt(style.width) / 2;
+        let distanceY: number = this.currentProjectCenter.y - parseInt(style.top) - parseInt(style.height) / 2;
 
         if (Math.abs(distanceX) < 1 && Math.abs(distanceY) < 1)
         {
             this.stopMovingToNearestElement();
-            this.elementClosestToCenter = this.findELementClosestToCenter();
+            this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen();
 
             /* TEMPORARY */
             if (this.openMoreInfo !== null)
-                this.openMoreInfo(this.elementClosestToCenter.content);
+                this.openMoreInfo(this.projectClosestToCenter.content);
             return;
         }
 
         /* Ease to position */
-        this.rePosition(distanceX * .1, distanceY * .1, false, false);
+        this.moveGrid(distanceX * .1, distanceY * .1, false, false);
 
         /* Fire this function again next frame */
-        this.movingToCenterAnimationLoopID = window.requestAnimationFrame(() => this.centerToNearestElement() );
+        this.movingToCenterAnimationLoopID = window.requestAnimationFrame(() => this.centerProjectClosestToTheCenterOfTheScreen() );
     }
 
+    /* Stop animating to a project */
     private stopMovingToNearestElement()
     {
         cancelAnimationFrame(this.movingToCenterAnimationLoopID);
 
-        this.elementClosestToCenter = null;
+        this.projectClosestToCenter = null;
         return;
     }
 
+    /* Let the grid float on (creates a sort of velocity feeling) */
     private floatOn(velocityX: number, velocityY: number)
     {
         velocityX *= .9;
         velocityY *= .9;
 
-        this.rePosition(Math.round(velocityX), Math.round(velocityY), false, false);
+        this.moveGrid(Math.round(velocityX), Math.round(velocityY), false, false);
 
         if (Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1)
         {
-            this.centerToNearestElement();
+            this.centerProjectClosestToTheCenterOfTheScreen();
             return;
         }
 
         window.requestAnimationFrame(() => this.floatOn(velocityX, velocityY) )
     }
 
+    /* The logic that fires when you stop dragging the grid */
     public letGoOfGrid(velocityX: number, velocityY: number)
     {
         this.stopMovingToNearestElement();
@@ -290,7 +300,8 @@ export default class GridViewer
         setTimeout( () => this.hasMoved = false, 300);
     }
 
-    private calculateCenter(): {x: number, y: number}
+    /* Calculate the center of teh grid */
+    private calculateGridCenter(): {x: number, y: number}
     {
         return {
             x: window.innerWidth / 2,
@@ -298,9 +309,10 @@ export default class GridViewer
         }
     }
 
-    public rePosition(offsetX?: number, offsetY?: number, didResize: boolean = false, triggeredByMouseEvent: boolean = true): void
+    /* Use this to omve the grid */
+    public moveGrid(offsetX?: number, offsetY?: number, didResize: boolean = false, triggeredByMouseEvent: boolean = true): void
     {
-        if (this.elements.length < 0) { return; }
+        if (this.projects.length < 0) { return; }
         if (Constants.CURRENT_PAGE !== pages.dailies) { return; }
 
         if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
@@ -323,13 +335,13 @@ export default class GridViewer
 
         if (didResize == true)
         {
-            this.elementCenter = this.calculateCenter();
+            this.currentProjectCenter = this.calculateGridCenter();
         }
 
         /* Loop through all objects */
-        for (let i = 0; i < this.elements.length; i++ )
+        for (let i = 0; i < this.projects.length; i++ )
         {
-            let curr: GridElement = this.elements[i];
+            let curr: GridProject = this.projects[i];
             let style: CSSStyleDeclaration = curr.element.style;
             let imgStyle: CSSStyleDeclaration =  curr.imageElement.style;
 
@@ -338,7 +350,7 @@ export default class GridViewer
             style.top = Math.cos(rot) * dist + this.positionY + 'px';
             
             /* Calculating distance with pytagoras */
-            let distanceFromCenter = (parseInt(style.left) - this.elementCenter.x) ** 2 + (parseInt(style.top) - this.elementCenter.y) ** 2;
+            let distanceFromCenter = (parseInt(style.left) - this.currentProjectCenter.x) ** 2 + (parseInt(style.top) - this.currentProjectCenter.y) ** 2;
             curr.distanceFromCenter = distanceFromCenter;
             /* Setting size as the distance */
             let elementSize: number = size - distanceFromCenter * .001;
