@@ -15,16 +15,17 @@
 
     // text-overflow: wrap;
 
+    box-shadow: black 0 0 20px;
     a {
       display: inline-flex;
-      color: white;
+      color: rgb(216, 216, 216);
       text-decoration: none;
   
       padding-left: 2vmin;
       padding-right: 2vmin;
       padding-top: .2vmin;
       padding-bottom: .2vmin;
-
+      
       p{
         margin: 0;
         text-align: center;
@@ -32,7 +33,7 @@
 
     }
     a:hover {
-      background-color: #111;
+      background-color: rgb(143, 0, 0);
     }
   
     ul {
