@@ -120,7 +120,8 @@ export default class GridViewer
                 thumbnail: daily.thumbnail,
                 footage: daily.footage,
                 externalLink: daily.url
-            }), (<ProjectTags> {
+            }), undefined, 
+            (<ProjectTags> {
                 tools: daily.tags
             })));
         }

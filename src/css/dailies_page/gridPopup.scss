@@ -62,7 +62,7 @@ $popup-speed: .3s;
         margin-left: 0px;
         margin-top: 3%;
 
-        font-size: 5vmin;
+        font-size: 3vmin;
         font-weight: 800;
     }
 
@@ -71,15 +71,17 @@ $popup-speed: .3s;
         margin-left: 0px;
         margin-top: 0px;
 
-        font-size: 3vmin;
+        font-size: 2vmin;
 
     }
 
     .grid-popup-linkToPost {
 
-        font-size: 3vmin;
+        font-size: 1.5vmin;
 
         font-weight: bolder;
+        color: green;
+        text-decoration: solid;
     }
 
     .grid-popup-pullout-down
@@ -92,14 +94,14 @@ $popup-speed: .3s;
         left: 49.3vw;
         top: 85%;
 
-        color: blue;
+        color: rgb(0, 0, 0);
 
     }
 
     .grid-popup-pullout-right
     {
         display: none;
-        color: blue;
+        color: rgb(0, 0, 0);
     }
 
 }

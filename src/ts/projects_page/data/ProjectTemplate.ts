@@ -40,6 +40,11 @@ export interface ProjectTags
     themes: themes[];
 }
 
+export interface ViewerCustomization
+{
+    backgroundColor: string;
+}
+
 export default class Project implements ProjectVariables, ProjectText, ProjectSources
 {
     id: number;
@@ -64,6 +69,8 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     externalLink: string;
     client: string;
 
+    backgroundColor: string;
+
     tags: ProjectTags;
 
     private static ID_COUNTER: number = 0;
@@ -72,6 +79,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         text: ProjectText = {name: 'not found'},
         variables: ProjectVariables = {durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1, client: 'me'},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
+        customization: ViewerCustomization = {backgroundColor: '#333'},
         tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}
     ) {
         this.id = Project.ID_COUNTER++;
@@ -95,6 +103,8 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         this.footage = sources.footage;
         this.video = sources.video;
         this.externalLink = sources.externalLink;
+
+        this.backgroundColor = customization.backgroundColor;
         
         this.tags = {
             goals: tags.goals,

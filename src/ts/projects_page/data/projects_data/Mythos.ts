@@ -1,4 +1,4 @@
-import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "../ProjectTemplate";
+import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags, ViewerCustomization } from "../ProjectTemplate";
 import { goals, tools, themes } from "../../../data/Enums"
 
 export namespace Mythos
@@ -39,6 +39,9 @@ export namespace Mythos
                 ],
                 video: 'https://drive.google.com/file/d/1m9eNn0D4h-wgrt44Wi0WJvZCQAGlQsDx/preview',
                 externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
+            },
+            <ViewerCustomization>{
+                backgroundColor: '#f09999'
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create],

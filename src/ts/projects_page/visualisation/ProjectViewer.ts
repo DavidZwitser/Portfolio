@@ -22,11 +22,11 @@ export default class ProjectViewer
     description: HTMLParagraphElement;
 
     titleBodyWrapperContext: HTMLDivElement;
-    contextTitle: HTMLDivElement;
+    contextTitle: HTMLParagraphElement;
     context: HTMLParagraphElement;
 
-    goalTitle: HTMLDivElement;
-    goal: HTMLDivElement;
+    goalTitle: HTMLParagraphElement;
+    goal: HTMLParagraphElement;
 
     seperatorElement0: HTMLDivElement;
 
@@ -164,7 +164,7 @@ export default class ProjectViewer
         let title: HTMLParagraphElement;
         let lineBetween: HTMLDivElement;
     
-        title = this.variablesSection.appendChild(document.createElement('p'));
+        title = this.variablesSection.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'CLIENT';
     
@@ -175,7 +175,7 @@ export default class ProjectViewer
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
     
-        title = this.variablesSection.appendChild(document.createElement('p'));
+        title = this.variablesSection.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'DURATION';
     
@@ -186,7 +186,7 @@ export default class ProjectViewer
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
     
-        title = this.variablesSection.appendChild(document.createElement('p'));
+        title = this.variablesSection.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'TEAM SIZE';
     
@@ -197,7 +197,7 @@ export default class ProjectViewer
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
     
-        title = this.variablesSection.appendChild(document.createElement('p'));
+        title = this.variablesSection.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'LEARNED VALUE';
     
@@ -208,7 +208,7 @@ export default class ProjectViewer
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
     
-        title = this.variablesSection.appendChild(document.createElement('p'));
+        title = this.variablesSection.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'RESULT VALUE';
     
@@ -219,7 +219,7 @@ export default class ProjectViewer
         this.titleBodyWrapperContext = this.infoSection.appendChild(document.createElement('div'));
         this.titleBodyWrapperContext.className = 'project-viewer-titleBodyWrapper';
 
-        this.contextTitle =  this.titleBodyWrapperContext.appendChild(document.createElement('div'));
+        this.contextTitle =  this.titleBodyWrapperContext.appendChild(document.createElement('p'));
         this.contextTitle.className = 'project-viewer-context-title';
         this.contextTitle.innerHTML = 'Context';
 
@@ -238,11 +238,11 @@ export default class ProjectViewer
         lineBetween = this.infoSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-goal-line-between';
 
-        this.goalTitle = this.infoSection.appendChild(document.createElement('div'));
+        this.goalTitle = this.infoSection.appendChild(document.createElement('p'));
         this.goalTitle.className = 'project-viewer-goal-title';
         this.goalTitle.innerHTML = 'Goal';
 
-        this.goal = this.infoSection.appendChild(document.createElement('div'));
+        this.goal = this.infoSection.appendChild(document.createElement('p'));
         this.goal.className = 'project-viewer-goal';
         this.goal.innerHTML = '';
 
@@ -307,11 +307,30 @@ export default class ProjectViewer
     /* Change the elements with new project informatoin */
     showNewProject(newProject: Project): void
     {
-        
         this.project = newProject;
         
         this.myElement.style.display = 'block';
-        this.myElement.scrollTop =  0;
+        this.myElement.scrollTop =  0; 
+
+        this.infoSection.style.backgroundColor = this.project.backgroundColor;
+
+        let hashTo0x: string = '0x' + this.project.backgroundColor.split('#')[1];
+        let bgIntValue: number = parseInt(hashTo0x, 16);
+
+        let shouldBeLight: boolean = bgIntValue < 8388607.5;
+
+        let paragraphs: HTMLCollectionOf<HTMLParagraphElement> = this.infoSection.getElementsByTagName('p');
+        for (let i = paragraphs.length; i--;)
+        {
+            if (shouldBeLight == true)
+            {
+                paragraphs[i].style.color = '#ffffff';
+            }
+            else
+            {
+                paragraphs[i].style.color = '#000000';
+            }
+        }
 
         for(let i = 0; i < this.images.length; i++)
         {

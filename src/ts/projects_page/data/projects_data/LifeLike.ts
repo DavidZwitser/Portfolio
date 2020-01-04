@@ -1,4 +1,4 @@
-import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags } from "../ProjectTemplate";
+import Project, { ProjectText, ProjectVariables, ProjectSources, ViewerCustomization, ProjectTags } from "../ProjectTemplate";
 import { goals, tools, themes } from "../../../data/Enums"
 
 export namespace LifeLike
@@ -39,6 +39,9 @@ export namespace LifeLike
                 ],
                 video: 'https://drive.google.com/file/d/13tezZHLSNdhvX405-tALrMa05jJgp8Nl/preview',
                 externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
+            },
+            <ViewerCustomization>{
+                backgroundColor: '#235e7c'
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create],

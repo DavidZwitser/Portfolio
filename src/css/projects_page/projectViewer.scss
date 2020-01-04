@@ -27,7 +27,7 @@
         display: block;
         
         width: 100vmin;
-        height: 500vh;
+        height: auto;
         margin-left: auto;
         margin-right: auto;
         
@@ -69,14 +69,18 @@
         .project-viewer-info-section
         {   
             position: relative;
-            top: 40vmin;
+            top: 35vh;
     
             display: block;
             width: 100vmin;
             margin-left: auto;
             // height: 800%;
     
-            background-color: rgb(59, 59, 59);
+            background-color: rgb(30, 54, 97);
+
+            p{
+                color: black;
+            }
             
     
             .project-viewer-title
@@ -130,7 +134,7 @@
     
                 margin-bottom: 1vmin;
             }
-    
+
             .project-viewer-variable
             {
                 margin-left: 5vmin;
@@ -152,8 +156,10 @@
             {
                 width: 50vh;
 
+
                 margin-right: 2vh;
-                margin-top: 3.5vh;
+                margin-top: 3vh;
+                margin-bottom: 1vh;
     
                 font-size: 6vh;
                 // font-weight: bold;
@@ -166,6 +172,7 @@
                 width: 50vh;
 
                 margin-right: 2vh;
+                margin-top: 1vh;
     
                 font-size: 2vh;
                 // font-weight: bold;
@@ -203,10 +210,13 @@
 
             .project-viewer-goal-title
             {
-                width: 50vh;
+                // width: 50vh;
 
                 font-size: 6vh;
                 // font-weight: bold;
+
+                margin-top: 3vh;
+                margin-bottom: 1vh;
 
                 margin-left: 20vh;
                 margin-right: 20vh;
@@ -214,11 +224,20 @@
 
             .project-viewer-goal
             {
-                font-size: 2.5vh;
+                font-size: 2vh;
 
                 margin-left: 20vh;
                 margin-right: 20vh;
                 margin-top: 1vh;
+                margin-bottom: 3vh;
+            }
+
+            @media (orientation: portrait) {
+                .project-viewer-goal, .project-viewer-goal-title
+                {
+                    margin-left: 20vw;
+                    margin-right: 20vw;
+                }
             }
 
             .project-viewer-video
