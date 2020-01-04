@@ -11,7 +11,7 @@ import GridPopup from './dailies_page/Popup';
 
 import Constants from './data/Constants';
 import { pages, tools } from './data/Enums';
-import ProjectsOverview from './projects_page/visualisation/ProjectsOverview';
+import ProjectsOverview from './projects_page/visualization/ProjectsOverview';
 
 import ProjectFetcher from './projects_page/data/ProjectFetcher';
 

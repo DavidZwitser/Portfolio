@@ -6,13 +6,26 @@
     {
         position: absolute;
 
+        user-select: text;
+
         float: left;
-        margin: 0px;
+        margin: 5vmin;
         left: 0px;
 
-        margin-right: 50vw;
+        margin-right: 70vw;
+        margin-top: 10vmin;
+
+        padding: 1vmin;
 
         font-weight: bolder;
+
+        font-size: 2vmin;
+
+        outline-width: thin;
+        outline-color: grey;
+        outline-style: dashed;
+
+        color: #333333;
     }
 
     #about-image
@@ -21,8 +34,11 @@
 
         img
         {
+            right: 0vmin;
+            position: absolute;
             width: 40vmin;
             margin: 5vmin;
+
 
             -webkit-user-drag: none;
         }
@@ -96,5 +112,14 @@
                 background-color: black;
             }
         }
+    }
+
+    #about-bottom-fill-in
+    {
+        position: static;
+
+        background-color: orange;
+        width: 100vw;
+        height: 30vmin;
     }
 }
