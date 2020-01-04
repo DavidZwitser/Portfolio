@@ -17,7 +17,7 @@ export namespace Mythos
 
                 whatILearned: 'This project teached me most about narrative. Writing an interactive story with branching and merging storylines which need to keep feeling coherent is definitely not a simple task.',
 
-                whatWentBad: 'In the end this was quite an ambitious project with not that much time but we made a lot of it! The speach could have been a bit more relax. We wanted to make it more relax but also needed to fit it in the presentation time we got for this project.',
+                whatWentBad: 'In the end this was quite an ambitious project with not that much time but we made a lot of it! The speech could have been a bit more relax. We wanted to make it more relax but also needed to fit it in the presentation time we got for this project.',
                 whatWentGood: 'The team work in this project was excellent. We made lots of good decisions.',
             },
             <ProjectVariables>{

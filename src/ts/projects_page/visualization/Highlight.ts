@@ -1,4 +1,5 @@
 import Project from "../data/ProjectTemplate";
+import { pages } from "../../data/Enums";
 
 /* A small representation of a project to highlight it */
 export default class Highlight
@@ -19,5 +20,9 @@ export default class Highlight
 
         this.imgElement = this.myElement.appendChild(document.createElement('img'));
         this.imgElement.src = project.thumbnail;
+
+        this.myElement.onclick = () => {
+            window.location.hash = pages.projects + '|' + this.project.id;
+        };
     }
 }

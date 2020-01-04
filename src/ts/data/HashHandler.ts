@@ -4,7 +4,7 @@ import {pages} from './Enums';
 export default class HashHandler
 {
     public pageTransitioned: () => void;
-    public openProject: (id: number) => void;
+    public openProject: (id: string) => void;
     public closeProject: () => void;
 
     /* The url hash changed */
@@ -16,10 +16,10 @@ export default class HashHandler
         }
 
         let rawHash = window.location.hash.split('#')[1];
-        let hashParts = rawHash.split('$');
+        let hashParts = rawHash.split('|');
 
         let hash = hashParts[0];
-        let projectVariable = parseInt(hashParts[1]);
+        let projectVariable = hashParts[1];
     
         Constants.CHANGE_PAGE(hash);
         

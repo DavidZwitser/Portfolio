@@ -101,12 +101,12 @@ class Main
         
         this.projectsOverview = new ProjectsOverview(
             <HTMLDivElement>document.getElementById(pages.projects), 
-            this.projectsFetcher.getProjects(), /* Highlights */ 
+            this.projectsFetcher.getProjects().slice().splice(0, 3), /* Highlights */ 
             this.projectsFetcher.getProjects(), 
             categories
         );
             
-        this.hashHandler.openProject = (id: number) => { 
+        this.hashHandler.openProject = (id: string) => { 
             this.projectsOverview.openProjectByID(id);
         }
         this.hashHandler.closeProject = () => {

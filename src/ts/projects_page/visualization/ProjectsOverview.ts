@@ -35,13 +35,6 @@ export default class ProjectsOverview
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.id = 'viewer-projects-overview';
 
-        this.parent.addEventListener('mouseup', () => {
-            if (this.projectViewer.active == true)
-            {
-                this.closeProjectViewer();
-            }
-        });
-
         /* Highlights */
         this.highlightsTitle = this.myElement.appendChild(document.createElement('p'));
         this.highlightsTitle.innerHTML = 'Highlights';
@@ -79,16 +72,21 @@ export default class ProjectsOverview
     }
 
     /* Open project with given ID */
-    public openProjectByID(id: number)
+    public openProjectByID(id: string)
     {
         for(let i = 0; i < this.projects.length; i++)
         {
             if (id == this.projects[i].id)
             {
                 this.projectViewer.showNewProject(this.projects[i]);
-                this.myElement.style.filter = 'blur(2px)';
+                this.blurBackground();
             }
         }
+    }
+
+    private blurBackground()
+    {
+        this.myElement.style.filter = 'blur(2px)';
     }
 
     /* Close the project viewer */

@@ -47,7 +47,7 @@ export interface ViewerCustomization
 
 export default class Project implements ProjectVariables, ProjectText, ProjectSources
 {
-    id: number;
+    id: string;
 
     name: string;
     description: string;
@@ -82,7 +82,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         customization: ViewerCustomization = {backgroundColor: '#333'},
         tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}
     ) {
-        this.id = Project.ID_COUNTER++;
+        this.id = text.name.replace(/\s+/g, '');
 
         this.name = text.name;
         this.description =  text.description;

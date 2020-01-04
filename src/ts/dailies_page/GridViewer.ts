@@ -86,6 +86,8 @@ export default class GridViewer
 
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
+
+                this.centerProjectClosestToTheCenterOfTheScreen();
             }, 1000);
             
         }));
