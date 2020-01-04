@@ -18,7 +18,7 @@ export default class LoadingScreen
         this.parent.style.opacity = '0';
 
         /* Disable after  fadeout */
-        setTimeout(() => {
+        setTimeout(() => {  
     
             this.parent.style.display = 'none';
             

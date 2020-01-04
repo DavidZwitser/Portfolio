@@ -38,7 +38,7 @@ export namespace MovingUp
                     'footage/projects/MovingUp/pausemenu.jpg',
 
                 ],
-                video: '<iframe src="https://drive.google.com/file/d/1QuvAzWLP8uWtJKjl-jiAsRC-CkvZLzGF/preview" width="720" height="900"></iframe>',
+                video: 'https://drive.google.com/file/d/1QRNTLk1BmLlY_IegU7JCyb0ZjkIhBnOG/preview',
                 externalLink: 'http://spele.nl/moving-up-spel/'
             },
             <ProjectTags>{

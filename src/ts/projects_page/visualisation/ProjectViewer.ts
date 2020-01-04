@@ -6,6 +6,9 @@ export default class ProjectViewer
 {
     parent: HTMLDivElement;
     myElement: HTMLDivElement;
+    container: HTMLDivElement;
+
+    public active: boolean = false;
 
     project: Project;
 
@@ -17,20 +20,33 @@ export default class ProjectViewer
     title: HTMLParagraphElement;
 
     description: HTMLParagraphElement;
+
+    titleBodyWrapperContext: HTMLDivElement;
+    contextTitle: HTMLDivElement;
     context: HTMLParagraphElement;
+
+    goalTitle: HTMLDivElement;
+    goal: HTMLDivElement;
+
+    seperatorElement0: HTMLDivElement;
 
     whatWentGoodTitle: HTMLParagraphElement;
     whatWentGood: HTMLParagraphElement;
 
+    seperatorElement: HTMLDivElement;
+
+    titleBodyWrapperBad: HTMLDivElement;
     whatWentBadTitle: HTMLParagraphElement;
     whatWentBad: HTMLParagraphElement;
     
     whatILearnedTitle: HTMLParagraphElement;
     whatILearned: HTMLParagraphElement;
+
+    seperatorElement2: HTMLDivElement;
     outcome: HTMLParagraphElement;
 
     images: HTMLImageElement[];
-    video: HTMLDivElement;
+    video: HTMLIFrameElement;
 
     variablesSection: HTMLDivElement;
     client: HTMLParagraphElement;
@@ -81,18 +97,21 @@ export default class ProjectViewer
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.id = 'project-viewer';
 
-        this.closeButton = this.myElement.appendChild(document.createElement('button'));
+        this.container = this.myElement.appendChild(document.createElement('div'));
+        this.container.id  = 'project-viewer-container';
+
+        this.closeButton = this.container.appendChild(document.createElement('button'));
         this.closeButton.innerHTML = 'X';
         this.closeButton.className = 'project-viewer-close-button';
         this.closeButton.onclick = () => {
             window.location.hash = pages.projects;
         };
     
-        this.banner = this.myElement.appendChild(document.createElement('img'));
+        this.banner = this.container.appendChild(document.createElement('img'));
         this.banner.className = 'project-viewer-banner';
         this.banner.src = '';
         
-        this.infoSection = this.myElement.appendChild(document.createElement('div'));
+        this.infoSection = this.container.appendChild(document.createElement('div'));
         this.infoSection.className = 'project-viewer-info-section';
         
         this.themeContainer = this.infoSection.appendChild(document.createElement('div'));
@@ -197,18 +216,44 @@ export default class ProjectViewer
         this.endResultValue.className = 'project-viewer-variable';
         this.endResultValue.innerHTML = '';
     
-        this.context = this.infoSection.appendChild(document.createElement('p'));
+        this.titleBodyWrapperContext = this.infoSection.appendChild(document.createElement('div'));
+        this.titleBodyWrapperContext.className = 'project-viewer-titleBodyWrapper';
+
+        this.contextTitle =  this.titleBodyWrapperContext.appendChild(document.createElement('div'));
+        this.contextTitle.className = 'project-viewer-context-title';
+        this.contextTitle.innerHTML = 'Context';
+
+        this.context = this.titleBodyWrapperContext.appendChild(document.createElement('p'));
         this.context.className = 'project-viewer-context';
         this.context.innerHTML = '';
-    
+
         if (this.images.length > 0) 
         {
             this.infoSection.appendChild(this.images[0]);
         }
+
+        this.seperatorElement0 = this.infoSection.appendChild(document.createElement('div'));
+        this.seperatorElement0.className = 'project-viewer-seperatorElement2';
+
+        lineBetween = this.infoSection.appendChild(document.createElement('div'));
+        lineBetween.className = 'project-viewer-goal-line-between';
+
+        this.goalTitle = this.infoSection.appendChild(document.createElement('div'));
+        this.goalTitle.className = 'project-viewer-goal-title';
+        this.goalTitle.innerHTML = 'Goal';
+
+        this.goal = this.infoSection.appendChild(document.createElement('div'));
+        this.goal.className = 'project-viewer-goal';
+        this.goal.innerHTML = '';
+
+        lineBetween = this.infoSection.appendChild(document.createElement('div'));
+        lineBetween.className = 'project-viewer-goal-line-between';
     
-        this.video = this.infoSection.appendChild(document.createElement('div'));
+        this.video = this.infoSection.appendChild(document.createElement('iframe'));
         this.video.className = 'project-viewer-video';
-    
+        this.video.allowFullscreen = true;
+        this.video.frameBorder = 'hidden';
+
         if (this.images.length > 1)
         {
             this.infoSection.appendChild(this.images[1]);
@@ -221,13 +266,18 @@ export default class ProjectViewer
         this.whatWentGood = this.infoSection.appendChild(document.createElement('p'));
         this.whatWentGood.className = 'project-viewer-whatWentGood';
         this.whatWentGood.innerHTML = '';
-    
-    
-        this.whatWentBadTitle = this.infoSection.appendChild(document.createElement('p'));
+        
+        this.seperatorElement = this.infoSection.appendChild(document.createElement('div'));
+        this.seperatorElement.className = 'project-viewer-seperatorElement';
+        
+        this.titleBodyWrapperBad = this.infoSection.appendChild(document.createElement('div'));
+        this.titleBodyWrapperBad.className = 'project-viewer-titleBodyWrapper';
+
+        this.whatWentBadTitle = this.titleBodyWrapperBad.appendChild(document.createElement('p'));
         this.whatWentBadTitle.className = 'project-viewer-whatWentBad-title';
         this.whatWentBadTitle.innerHTML = 'Could have gone better';
     
-        this.whatWentBad = this.infoSection.appendChild(document.createElement('p'));
+        this.whatWentBad = this.titleBodyWrapperBad.appendChild(document.createElement('p'));
         this.whatWentBad.className = 'project-viewer-whatWentBad';
         this.whatWentBad.innerHTML = '';
     
@@ -235,6 +285,9 @@ export default class ProjectViewer
         {
             this.infoSection.appendChild(this.images[2]);
         }
+
+        this.seperatorElement2 = this.infoSection.appendChild(document.createElement('div'));
+        this.seperatorElement2.className = 'project-viewer-seperatorElement2';
     
         this.whatILearned = this.infoSection.appendChild(document.createElement('p'));
         this.whatILearned.className = 'project-viewer-whatILearned';
@@ -276,7 +329,7 @@ export default class ProjectViewer
 
         if (newProject.video !== undefined)
         {
-            this.video.innerHTML = newProject.video;
+            this.video.src = newProject.video;
             this.video.style.display = 'block';
         }
         else
@@ -324,18 +377,22 @@ export default class ProjectViewer
         this.endResultValue.innerHTML = newProject.endResultValue + '-10';
 
         this.context.innerHTML = newProject.context;
+        this.goal.innerHTML = newProject.goal;
 
         this.whatWentGood.innerHTML = newProject.whatWentGood;
         this.whatWentBad.innerHTML = newProject.whatWentBad;
         this.whatILearned.innerHTML = newProject.whatILearned;
         this.outcome.innerHTML = newProject.outcome;
 
+        this.active = true;
     }
 
     /* Close the window */
     public close(): void
     {
         this.myElement.style.display = 'none';
+        this.active = false;
+        this.video.src = '';
     }
 
 }

@@ -37,7 +37,7 @@ export namespace Mythos
                     'footage/projects/Mythos/5.jpg',
 
                 ],
-                video: '<iframe src="https://drive.google.com/file/d/1cYpN-Rhmg61apsBs1PMq4rcbs7rM0w0U/preview" width="1280" height="720"></iframe>',
+                video: 'https://drive.google.com/file/d/1m9eNn0D4h-wgrt44Wi0WJvZCQAGlQsDx/preview',
                 externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ProjectTags>{

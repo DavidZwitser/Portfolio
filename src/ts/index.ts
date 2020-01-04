@@ -1,7 +1,7 @@
 /* Load scss files */
 import '../css/index.scss';
 
-import MouseEvents from './MouseEvents';
+import InputEvents from './InputEvents';
 import HashHandler from './data/HashHandler';
 
 import Project from './projects_page/data/ProjectTemplate';
@@ -22,7 +22,7 @@ import ImageImporter from './data/ImageImporter';
 
 class Main
 {
-    mouse: MouseEvents;
+    input: InputEvents;
     hashHandler: HashHandler;
  
     eyes: AboutEyes;
@@ -36,6 +36,8 @@ class Main
     
     constructor()
     {   
+        this.loadingScreen = new LoadingScreen();
+
         this.hashHandler = new HashHandler();
         this.hashHandler.pageTransitioned = () => this.pageTransitioned();
         
@@ -47,25 +49,24 @@ class Main
         
         /* Creating objects */
         let imageLoader: ImageImporter = new ImageImporter();
-        this.loadingScreen = new LoadingScreen();
         
         this.eyes = new AboutEyes(); 
-        this.mouse = new MouseEvents();
+        this.input = new InputEvents();
         
         this.gridViewer = new GridViewer(<HTMLDivElement>document.getElementById('grid'));
         this.gridPopup  = new GridPopup(<HTMLDivElement> document.getElementById('grid-popup'));
         
         /* Asigning mouse events */
-        this.mouse.mouseMovingCallback.push(() => {
+        this.input.mouseMovingCallback.push(() => {
             if (Constants.CURRENT_PAGE !== pages.about) { return; }
-            this.eyes.moveEyes(this.mouse.mouseX, this.mouse.mouseY);
+            this.eyes.moveEyes(this.input.mouseX, this.input.mouseY);
         }); 
         
-        this.mouse.draggingCallback.push(() => {
-            this.gridViewer.moveGrid(this.mouse.velocityX, this.mouse.velocityY, true);
+        this.input.draggingCallback.push(() => {
+            this.gridViewer.moveGrid(this.input.velocityX, this.input.velocityY, true);
         });
-        this.mouse.mouseUpCallback.push(() => {
-            this.gridViewer.letGoOfGrid(this.mouse.velocityX, this.mouse.velocityY);
+        this.input.mouseUpCallback.push(() => {
+            this.gridViewer.letGoOfGrid(this.input.velocityX, this.input.velocityY);
         });
         
         /* Asigning grid events */
@@ -111,6 +112,9 @@ class Main
         this.hashHandler.closeProject = () => {
             this.projectsOverview.closeProjectViewer();
         }
+        // this.input.keyPressedCallback.push((keyCode: number) => {   
+        //     this.projectsOverview.closeProjectViewer();
+        // });
 
         /* Filter projects handler */
         this.projectsOverview.filterClickedCallback = (tags: any[]) => {

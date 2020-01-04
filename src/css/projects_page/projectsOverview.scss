@@ -69,6 +69,8 @@
     width: 100%;
     height: auto;
 
+    margin-left: 15vmin;
+
     clear: left;
     float: left;
 
@@ -83,7 +85,7 @@
     
         // border-style: solid;
 
-        width: 40%;
+        width: 20%;
         
         margin-top: 3vmin;
         margin-bottom: 2.5vmin;
@@ -182,5 +184,14 @@
             }
         }
 
+    }
+
+    @media (orientation: portrait)
+    {
+        .overview-container-project-preview
+        {
+            width: 60vw;
+            margin-left: 5vw;
+        }
     }
 }

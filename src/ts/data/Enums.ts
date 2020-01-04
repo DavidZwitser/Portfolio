@@ -32,7 +32,10 @@ export enum tools
     AffinityPublisher = 'Affinity Publisher',
     Twine = 'Twine',
     Phaser = 'Phaser',
-    Webpack = 'Webpack'
+    Webpack = 'Webpack',
+    RaspberryPI = 'Raspberry PI',
+    Networking = 'Networking',
+    ProjectionMapping = 'Projection mapping'
 }
 
 export enum themes

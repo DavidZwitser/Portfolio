@@ -2,6 +2,7 @@ import Project from "./ProjectTemplate";
 
 import {Mythos} from './projects_data/Mythos';
 import {MovingUp} from './projects_data/MovingUp';
+import {LifeLike} from './projects_data/LifeLike';
 
 /* Load and manage project data */
 export default class ProjectFetcher
@@ -9,7 +10,8 @@ export default class ProjectFetcher
     projects: Project[];
 
     mythos: Project;
-    duck: Project;
+    movingUp: Project;
+    lifeLike: Project;
 
     constructor()
     {       
@@ -17,6 +19,7 @@ export default class ProjectFetcher
 
         this.projects.push(Mythos.getProject());
         this.projects.push(MovingUp.getProject());
+        this.projects.push(LifeLike.getProject());
 
         // this.requireProjectFiles();
     }
@@ -28,10 +31,10 @@ export default class ProjectFetcher
         let footage: String = '';
         for (let i: number = 0; i < this.projects.length; i++)
         {
-            thumbnais += ('require.resolve("../' + this.projects[i].thumbnail + '"); \n');
+            thumbnais += ('require.resolve("../../../' + this.projects[i].thumbnail + '"); \n');
             for(let x: number = 0; x < this.projects[i].footage.length; x++)
             {
-                footage += ('require.resolve("../' + this.projects[i ].footage[x] + '");');
+                footage += ('require.resolve("../../../' + this.projects[i ].footage[x] + '");');
             }
         }
 
