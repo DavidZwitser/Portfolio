@@ -42,7 +42,7 @@ export namespace MovingUp
                 externalLink: 'http://spele.nl/moving-up-spel/'
             },
             <ViewerCustomization>{
-                backgroundColor: '#333333'
+                backgroundColor: '#333344'
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create],

@@ -324,11 +324,11 @@ export default class ProjectViewer
         {
             if (shouldBeLight == true)
             {
-                paragraphs[i].style.color = '#ffffff';
+                paragraphs[i].style.color = '#eeeeee';
             }
             else
             {
-                paragraphs[i].style.color = '#000000';
+                paragraphs[i].style.color = '#111111';
             }
         }
 
