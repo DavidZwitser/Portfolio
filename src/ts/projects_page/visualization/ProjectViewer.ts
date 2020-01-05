@@ -51,6 +51,7 @@ export default class ProjectViewer
     variablesSection: HTMLDivElement;
     client: HTMLParagraphElement;
     duration: HTMLParagraphElement;
+    date: HTMLParagraphElement;
     teamSize: HTMLParagraphElement;
     learnedValue: HTMLParagraphElement;
     endResultValue: HTMLParagraphElement;
@@ -182,6 +183,17 @@ export default class ProjectViewer
         this.duration = this.variablesSection.appendChild(document.createElement('p'));
         this.duration.className = 'project-viewer-variable';
         this.duration.innerHTML = '';
+    
+        lineBetween = this.variablesSection.appendChild(document.createElement('div'));
+        lineBetween.className = 'project-viewer-variable-line-between';
+
+        title = this.variablesSection.appendChild(document.createElement('h4'));
+        title.className = 'project-viewer-variable-title';
+        title.innerHTML = 'DATE';
+    
+        this.date = this.variablesSection.appendChild(document.createElement('p'));
+        this.date.className = 'project-viewer-variable';
+        this.date.innerHTML = '';
     
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
@@ -391,6 +403,7 @@ export default class ProjectViewer
 
         this.client.innerHTML = newProject.client;
         this.duration.innerHTML = newProject.durationHrs + 'H';
+        this.date.innerHTML = newProject.day + ' / ' + (newProject.month < 10 ? '0' : '') +  newProject.month + ' / ' + newProject.year;
         this.teamSize.innerHTML = newProject.teamSize + ' Members';
         this.learnedValue.innerHTML = newProject.learnedValue + '-10';
         this.endResultValue.innerHTML = newProject.endResultValue + '-10';

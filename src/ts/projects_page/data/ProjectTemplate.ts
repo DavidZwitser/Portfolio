@@ -18,6 +18,10 @@ export interface ProjectText
 
 export interface ProjectVariables
 {
+    day: number;
+    month: number;
+    year: number;
+
     durationHrs: number;
     teamSize: number;
     learnedValue: number;
@@ -58,6 +62,9 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     whatWentBad: string;
     whatILearned: string;
 
+    day: number;
+    month: number;
+    year: number;
     durationHrs: number;
     teamSize: number;
     endResultValue: number;
@@ -77,7 +84,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
 
     constructor(
         text: ProjectText = {name: 'not found'},
-        variables: ProjectVariables = {durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1, client: 'me'},
+        variables: ProjectVariables = {day: 0, month: 0, year: 0, durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1, client: 'me'},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
         customization: ViewerCustomization = {backgroundColor: '#333'},
         tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}
@@ -93,6 +100,9 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         this.whatWentBad = text.whatWentBad;
         this.whatILearned = text.whatILearned;
 
+        this.day = variables.day;
+        this.month = variables.month;
+        this.year = variables.year;
         this.durationHrs = variables.durationHrs;
         this.teamSize = variables.teamSize;
         this.endResultValue = variables.endResultValue;

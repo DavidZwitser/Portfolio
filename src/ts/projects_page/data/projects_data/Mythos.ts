@@ -21,6 +21,9 @@ export namespace Mythos
                 whatWentGood: 'The team work in this project was excellent. We made lots of good decisions.',
             },
             <ProjectVariables>{
+                day: 25,
+                month: 3,
+                year: 2019,
                 durationHrs: 120,
                 teamSize: 3,
                 endResultValue: 8,

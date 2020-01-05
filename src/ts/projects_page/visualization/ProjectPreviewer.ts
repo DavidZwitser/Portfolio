@@ -24,6 +24,8 @@ export default class ProjectPreviewer
     teamSize: HTMLDivElement;
     teamSizeIcon: HTMLImageElement;
 
+    date: HTMLParagraphElement;
+
     constructor(parent: HTMLDivElement, project: Project)
     {
         this.parent = parent;
@@ -85,6 +87,10 @@ export default class ProjectPreviewer
         // this.teamSizeIcon = this.teamSize.appendChild(document.createElement('img'));
         // this.teamSizeIcon.className = 'overview-container-project-preview-teamsize-icon';
         // this.teamSizeIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/teamsize-icon.png';
+
+        this.date = this.infoBar.appendChild(document.createElement('p'));
+        this.date.className = 'overview-container-project-preview-date';
+        this.date.innerHTML = (project.month < 10 ? '0' : '') + project.month + ' / ' + project.year;
 
     }
 

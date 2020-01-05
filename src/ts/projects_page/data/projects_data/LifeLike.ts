@@ -22,6 +22,9 @@ export namespace LifeLike
                 outcome: 'The result is a physical multi media installation which has a unique effect on the viewer.',
             },
             <ProjectVariables>{
+                day: 10,
+                month: 6,
+                year: 2019,
                 durationHrs: 999,
                 teamSize: 1,
                 endResultValue: 8,

@@ -41,6 +41,12 @@
     }
 }
 
+.overview-container-highlight:hover
+{
+    cursor: pointer;
+    transform: scale(.98);
+}
+
 .viewer-projects-separator
 {
     height: 1px;
@@ -78,6 +84,7 @@
     .overview-categories-category-selector:hover
     {
         cursor: pointer;
+        transform: scale(.97);
     }
 }
 
@@ -134,12 +141,18 @@
 
         }
 
+        .overview-container-project-preview-thumbnail:hover
+        {
+            transform: scale(.99);
+            cursor: pointer;
+        }
+
         
         .overview-container-project-preview-infobar
         {
             width: 100%;
             padding-top: 5%;
-            
+
             div, p
             {
                 float: left;
@@ -183,15 +196,24 @@
     
                 width: auto;
 
-                border-radius: .2vmin;
+                border-radius: .3vmin;
 
                 padding: .4vmin;
-                margin: .2vmin;
+                margin: .3vmin;
 
                 font-weight: 800;
 
-                font-size: 70%;
+                font-size: 1.2vmin;
 
+            }
+
+            @media (orientation: portrait)
+            {
+                .overview-container-project-preview-tools, .overview-container-project-preview-themes
+                {
+                    font-size: 2.5vmin;
+                    border-radius: .8vmin;
+                }
             }
 
             .overview-container-project-preview-tools
@@ -204,41 +226,41 @@
                 background-color: orangered;
             }
     
-            .overview-container-project-preview-duration
+            .overview-container-project-preview-duration, .overview-container-project-preview-teamsize,
+            .overview-container-project-preview-date
             {
                 font-weight: 800;
-                font-size: 100%;
+                font-size: 1.5vmin;
 
                 margin: 0;
+                padding: .4vmin;
 
                 /* For some reason the with is way to big by default */
                 // width: 20%;
 
-                color: rgb(204, 204, 204);
+                color: rgb(255, 255, 255);
 
-                clear: left;
+                background-color: darkgreen;
 
-                .overview-container-project-preview-duration-icon {
-                    width: 31%;
-                }
             }
     
-            .overview-container-project-preview-teamsize
+            .overview-container-project-preview-duration, .overview-container-project-preview-date
             {
-                font-weight: 800;
-                font-size: 100%;
+                clear: left;
+            }
 
-                margin: 0;
-
-                /* For some reason the with is way to big by default */
-                // width: 20%;
-
-                color: rgb(204, 204, 204);
-    
-    
-                .overview-container-project-preview-teamsize-icon
+            @media (orientation: portrait)
+            {
+                .overview-container-project-preview-duration, .overview-container-project-preview-teamsize,
+                .overview-container-project-preview-date
                 {
-                    width: 35%;
+                    font-size: 2.5vmin;
+
+                }
+
+                .overview-container-project-preview-date
+                {
+                    padding-top: .1vmin;
                 }
             }
         }
@@ -247,7 +269,6 @@
 
     @media (orientation: portrait)
     {
-
         .overview-container-project-preview
         {
             width: 80vw;
