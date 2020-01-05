@@ -1,6 +1,6 @@
 import Highlight from "./highlight";
-import FilterTags from "./FilterTags";
-import { tools } from "../../data/Enums";
+import FilterTag from "./FilterTags";
+import { tools, themes, pages } from "../../data/Enums";
 import Project from "../data/ProjectTemplate";
 import ProjectPreviewer from "./projectPreviewer";
 import ProjectViewer from "./ProjectViewer";
@@ -15,7 +15,8 @@ export default class ProjectsOverview
     private highlightsTitle: HTMLParagraphElement;
     private highlights: Highlight[];
 
-    private filterTags: FilterTags[];
+    private filterTagsContainer: HTMLDivElement;
+    private filterTags: FilterTag[];
 
     private projectPreviewer: HTMLDivElement;
     private previews: ProjectPreviewer[];
@@ -24,9 +25,12 @@ export default class ProjectsOverview
 
     public projects: Project[];
 
+    private footer: HTMLDivElement;
+    private footerText: HTMLParagraphElement;
+
     filterClickedCallback: Function;
 
-    constructor(parent: HTMLDivElement, highlights: Project[], projects: Project[], categoryLinks: tools[])
+    constructor(parent: HTMLDivElement, highlights: Project[], projects: Project[], selectableTools: tools[], selectableThemes: themes[])
     {
         this.parent = parent;
 
@@ -35,10 +39,15 @@ export default class ProjectsOverview
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.id = 'viewer-projects-overview';
 
+        let separator: HTMLDivElement;
+
+        separator = this.myElement.appendChild(document.createElement('div'));
+        separator.className = 'viewer-projects-separator';
+
         /* Highlights */
-        this.highlightsTitle = this.myElement.appendChild(document.createElement('p'));
-        this.highlightsTitle.innerHTML = 'Highlights';
-        this.highlightsTitle.id = 'overview-title-highlight';
+        // this.highlightsTitle = this.myElement.appendChild(document.createElement('p'));
+        // this.highlightsTitle.innerHTML = 'Highlights';
+        // this.highlightsTitle.id = 'overview-title-highlight';
 
         this.highlights = [];
         for(let i = 0; i < highlights.length; i++)
@@ -46,14 +55,25 @@ export default class ProjectsOverview
             this.highlights.push(new Highlight(this.myElement, highlights[i]));
         }
 
+        this.filterTagsContainer = this.myElement.appendChild(document.createElement('div'));
+        this.filterTagsContainer.id = 'viewer-projects-filter-tags-container';
         /* Filter tags */
         this.filterTags = [];
-        for (let i = 0; i < categoryLinks.length; i++)
+        for (let i = 0; i < selectableTools.length; i++)
         {
-            this.filterTags.push(new FilterTags(this.myElement, categoryLinks[i], (tool: tools) => {
+            this.filterTags.push(new FilterTag(this.filterTagsContainer, selectableTools[i], '#bbb', (tool: tools) => {
                 this.filterClickedCallback([tool]);
             }));
         }
+        for (let i = 0; i < selectableThemes.length; i++)
+        {
+            this.filterTags.push(new FilterTag(this.filterTagsContainer, selectableThemes[i], '#ff4500', (theme: themes) => {
+                this.filterClickedCallback([theme]);
+            }));
+        }
+
+        separator = this.myElement.appendChild(document.createElement('div'));
+        separator.className = 'viewer-projects-separator';
 
         /* Project previews */
         this.projectPreviewer = this.myElement.appendChild(document.createElement('div'));
@@ -65,6 +85,14 @@ export default class ProjectsOverview
         {
             this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i] ));
         }
+
+        this.footer = this.myElement.appendChild(document.createElement('div'));
+        this.footer.id = 'viewer-projects-footer';
+
+        this.footerText = this.footer.appendChild(document.createElement('p'));
+        this.footerText.id = 'viewer-projects-footer-text';
+        this.footerText.innerHTML = '©David Zwitser <br> @Coelepinda <br> davidzwitser@gmail.com';
+
 
         /* Project viewer  */
         this.projectViewer = new ProjectViewer(this.parent);

@@ -1,23 +1,25 @@
-import { tools } from "../../data/Enums";
+import { tools, themes } from "../../data/Enums";
 
 /* Clickable tags to filter the projects */
-export default class FilterTags
+export default class FilterTag
 {
     parent: HTMLDivElement;
-    myElement: HTMLDivElement;
+    myElement: HTMLButtonElement;
 
-    tool: tools;
+    tag: tools|themes;
 
-    constructor(parent: HTMLDivElement, tool: tools, gotClickedCallback: Function)
+    constructor(parent: HTMLDivElement, tag: tools|themes, color: string, gotClickedCallback: Function)
     {
         this.parent = parent;
 
-        this.tool = tool;
+        this.tag = tag;
 
-        this.myElement = this.parent.appendChild(document.createElement('div'));
-        this.myElement.innerHTML = tool.toString();
+        this.myElement = this.parent.appendChild(document.createElement('button'));
+        this.myElement.innerHTML = tag.toString();
         this.myElement.className = 'overview-categories-category-selector';
 
-        this.myElement.addEventListener('click', () => gotClickedCallback(this.tool));
+        this.myElement.style.backgroundColor = color;
+
+        this.myElement.addEventListener('click', () => gotClickedCallback(this.tag));
     }
 }

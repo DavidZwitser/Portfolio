@@ -10,7 +10,7 @@ import GridViewer from './dailies_page/GridViewer';
 import GridPopup from './dailies_page/Popup';
 
 import Constants from './data/Constants';
-import { pages, tools } from './data/Enums';
+import { pages, tools, themes } from './data/Enums';
 import ProjectsOverview from './projects_page/visualization/ProjectsOverview';
 
 import ProjectFetcher from './projects_page/data/ProjectFetcher';
@@ -81,21 +81,6 @@ class Main
             this.gridViewer.createGridTilesForPreloadedProjects();
         }
         
-        /* The toosl shown in the project overview */
-        let categories: tools[] = [
-            tools.AffinityDesigner,
-            tools.Blender,
-            tools.Touchdesigner,
-            tools.Houdini,
-            tools.Krita,
-            tools.Processing,
-            tools.SuperCollider,
-            tools.AffinityPublisher,
-            tools.Typescript,
-            tools.Webpack,
-            tools.Phaser,
-        ];
-        
         /* Setting up project page logic */
         this.projectsFetcher = new ProjectFetcher();
         
@@ -103,7 +88,26 @@ class Main
             <HTMLDivElement>document.getElementById(pages.projects), 
             this.projectsFetcher.getProjects().slice().splice(0, 3), /* Highlights */ 
             this.projectsFetcher.getProjects(), 
-            categories
+            [
+                tools.AffinityDesigner,
+                tools.Blender,
+                tools.Touchdesigner,
+                tools.Houdini,
+                tools.Krita,
+                tools.Processing,
+                tools.SuperCollider,
+                tools.AffinityPublisher,
+                tools.Typescript,
+                tools.Webpack,
+                tools.Phaser
+            ],
+            [
+                themes.adventure,
+                themes.drama,
+                themes.interactive,
+                themes.philosophy,
+                themes.puzzle
+            ]
         );
             
         this.hashHandler.openProject = (id: string) => { 

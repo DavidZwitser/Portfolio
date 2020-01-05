@@ -41,7 +41,7 @@ export namespace Mythos
                 externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ViewerCustomization>{
-                backgroundColor: '#b87777'
+                backgroundColor: '#8c866c'
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create],

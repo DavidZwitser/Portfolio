@@ -41,9 +41,9 @@ export enum tools
 export enum themes
 {
     none = 'none',
-    philosophy = 'philosophy',
-    drama = 'drama',
-    interactive = 'interactive',
+    philosophy = 'Philosophy',
+    drama = 'Drama',
+    interactive = 'Interactive',
     adventure = 'Adventure',
     puzzle = 'Puzzle'
 }

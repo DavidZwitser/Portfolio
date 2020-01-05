@@ -1,21 +1,21 @@
 #viewer-projects-overview
 {
-    // background-color: purple;
+    background-color: rgb(19, 58, 70);
     position: absolute;
     width: 100%;
     height: 100%;
 
-    overflow: scroll;
+    overflow-y: scroll;
 
-    #overview-title-highlight {
-        color: white;
+    // #overview-title-highlight {
+    //     color: white;
 
-        font-size: 5vmin;
+    //     font-size: 5vmin;
 
-        margin-top: 5vmin;
-        margin-bottom: 2vmin;;
-        margin-left: 2vmin;
-    }
+    //     margin-top: 5vmin;
+    //     margin-bottom: 2vmin;;
+    //     margin-left: 2vmin;
+    // }
 }
 
 .overview-container-highlight
@@ -33,51 +33,75 @@
 
     overflow: hidden;
 
+    box-shadow: 0 0 5px;
+
     img {
         width: 100%;
         // margin-top: -30%;
     }
 }
 
-.overview-categories-category-selector
+.viewer-projects-separator
 {
-    border-radius: 5px;
+    height: 1px;
 
-    background-color: rgb(165, 165, 165);
-    
-    font-weight: 800;
-    font-size: 1.2min;
+    margin: 3vmin;
 
-    padding: 1vmin;
-
-    margin-top: 2vmin;
-    margin-left: 2vmin;
-
-    display: inline-block;
+    background-color: #eee;
 }
 
-.overview-categories-category-selector:hover
+#viewer-projects-filter-tags-container
 {
-    cursor: pointer;
+    width: 80vw;
+    margin: 10vw;
+
+    margin-top: 20vmin;
+    margin-bottom: 5vmin;
+
+    .overview-categories-category-selector
+    {
+        border-radius: 1vmin;
+    
+        background-color: rgb(165, 165, 165);
+        
+        font-weight: 800;
+    
+        padding: 1vmin;
+    
+        margin: .5vmin;
+    
+        display: inline-block;
+    
+        border: none;
+    }
+    
+    .overview-categories-category-selector:hover
+    {
+        cursor: pointer;
+    }
 }
 
 .overview-container-previewer
 {
+    // position: relative;
 
-    position: relative;
-
-    width: 80vw;
+    width: 60vw;
     height: auto;
 
-    // margin-left: 15vmin;
+    margin-left: 20vw;
+    margin-right: 20vw;
 
     clear: left;
     float: left;
+    
+    margin-top: 0vmin;
 
-    
-    // margin-top: 30vmin;
-    
-    
+    background-color: #1d5e69;
+
+    border-radius: 1vmin;
+
+    box-shadow: 0 0 5px;
+
     .overview-container-project-preview
     {
         // width: 35vmin;
@@ -85,7 +109,7 @@
     
         // border-style: solid;
 
-        width: 20%;
+        width: 30%;
         
         margin-top: 3vmin;
         margin-bottom: 2.5vmin;
@@ -98,8 +122,7 @@
         float: left;
     
         overflow: hidden;
-    
-        
+
         .overview-container-project-preview-thumbnail
         {
             width: 100%;
@@ -130,28 +153,55 @@
 
             .overview-container-project-preview-name
             {
-    
-                background-color: rgb(86, 98, 102);
+                // background-color: rgba(86, 98, 102, .2);
                 border-radius: 0px;
+
+                color: white;
     
                 font-weight: 800;
-                font-size: 120%;
+                font-size: 3vmin;
+
+                margin-top: -12%;
 
                 margin-bottom: 0px;
             }
-    
-            .overview-container-project-preview-tools
+
+            @media (orientation: landscape) 
             {
+                .overview-container-project-preview-name
+                {
+                    margin-top: -15%;
+
+                    font-size: 120%;
+                }
+
+            }
     
-                background-color: orange;
-                border-radius: 2vmin;
-    
+            .overview-container-project-preview-tools, .overview-container-project-preview-themes
+            {
                 display: inline-block;
     
                 width: auto;
-    
+
+                border-radius: .2vmin;
+
+                padding: .4vmin;
+                margin: .2vmin;
+
                 font-weight: 800;
-    
+
+                font-size: 70%;
+
+            }
+
+            .overview-container-project-preview-tools
+            {
+                background-color: rgb(109, 109, 109);
+            }
+
+            .overview-container-project-preview-themes
+            {
+                background-color: orangered;
             }
     
             .overview-container-project-preview-duration
@@ -159,8 +209,12 @@
                 font-weight: 800;
                 font-size: 100%;
 
+                margin: 0;
+
                 /* For some reason the with is way to big by default */
-                width: 20%;
+                // width: 20%;
+
+                color: rgb(204, 204, 204);
 
                 clear: left;
 
@@ -173,8 +227,13 @@
             {
                 font-weight: 800;
                 font-size: 100%;
+
+                margin: 0;
+
                 /* For some reason the with is way to big by default */
-                width: 20%;
+                // width: 20%;
+
+                color: rgb(204, 204, 204);
     
     
                 .overview-container-project-preview-teamsize-icon
@@ -188,10 +247,44 @@
 
     @media (orientation: portrait)
     {
+
         .overview-container-project-preview
         {
-            width: 60vw;
-            margin-left: 20vw;
+            width: 80vw;
+            margin-left: 10vw;
+            margin-right: 10vw;
+        
         }
+    }
+
+    
+}
+
+#viewer-projects-footer
+{
+    clear: left;
+    height: 15vh;
+    width: 100vw;
+
+    p
+    {
+        text-align: center;
+
+        color: white;
+
+        font-size: 1vh;
+
+        padding: 6vh;
+    }
+}
+
+@media (orientation: portrait)
+{
+    .overview-container-previewer
+    {
+        margin-left: 0vw;
+        margin-right: 0vw;
+        width: 100vw;
+
     }
 }

@@ -16,6 +16,7 @@ export default class ProjectPreviewer
     name: HTMLParagraphElement;
 
     tools: HTMLParagraphElement[];
+    themes: HTMLParagraphElement[];
 
     duration: HTMLDivElement;
     durationIcon: HTMLImageElement;
@@ -57,22 +58,33 @@ export default class ProjectPreviewer
             this.tools.push(tool);
         }
 
+        this.themes = [];
+        for(let i = 0; i < this.project.tags.themes.length; i++)
+        {
+            let theme: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
+            
+            theme.className = 'overview-container-project-preview-themes';
+            theme.innerHTML = this.project.tags.themes[i];
+
+            this.themes.push(theme);
+        }
+
         this.duration = this.infoBar.appendChild(document.createElement('div'));
         this.duration.className = 'overview-container-project-preview-duration';
         this.duration.innerHTML = project.durationHrs + 'H';
         
-        this.durationIcon = this.duration.appendChild(document.createElement('img'));
-        this.durationIcon.className = 'overview-container-project-preview-duration-icon';
-        this.durationIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/duration-icon.png';
+        // this.durationIcon = this.duration.appendChild(document.createElement('img'));
+        // this.durationIcon.className = 'overview-container-project-preview-duration-icon';
+        // this.durationIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/duration-icon.png';
 
 
         this.teamSize = this.infoBar.appendChild(document.createElement('div'));
         this.teamSize.className = 'overview-container-project-preview-teamsize';
-        this.teamSize.innerHTML = project.teamSize + '';
+        this.teamSize.innerHTML = project.teamSize + 'TM';
 
-        this.teamSizeIcon = this.teamSize.appendChild(document.createElement('img'));
-        this.teamSizeIcon.className = 'overview-container-project-preview-teamsize-icon';
-        this.teamSizeIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/teamsize-icon.png';
+        // this.teamSizeIcon = this.teamSize.appendChild(document.createElement('img'));
+        // this.teamSizeIcon.className = 'overview-container-project-preview-teamsize-icon';
+        // this.teamSizeIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/teamsize-icon.png';
 
     }
 
