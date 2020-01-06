@@ -87,7 +87,8 @@ class Main
         this.projectsOverview = new ProjectsOverview(
             <HTMLDivElement>document.getElementById(pages.projects), 
             this.projectsFetcher.getProjects().slice().splice(0, 3), /* Highlights */ 
-            this.projectsFetcher.getProjects(), 
+            //this.gridViewer.notLoadedProjects, 
+            this.projectsFetcher.getProjects(),
             [
                 tools.AffinityDesigner,
                 tools.Blender,
@@ -122,9 +123,9 @@ class Main
 
         /* Filter projects handler */
         this.projectsOverview.filterClickedCallback = (tags: any[]) => {
-            let filtertProjects: Project[] = this.projectsFetcher.getProjectsWithTags(tags);
+            let filterProjects: Project[] = this.projectsFetcher.getProjectsWithTags(tags);
             
-            this.projectsOverview.reinitPreviews(filtertProjects);
+            this.projectsOverview.reinitPreviews(filterProjects);
         }
 
     }

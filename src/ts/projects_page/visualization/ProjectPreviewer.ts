@@ -50,47 +50,62 @@ export default class ProjectPreviewer
         this.name.className = 'overview-container-project-preview-name';
 
         this.tools = [];
-        for(let i = 0; i < this.project.tags.tools.length; i++)
+        if (this.project.tags.tools !== undefined)
         {
-            let tool: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
-            
-            tool.className = 'overview-container-project-preview-tools';
-            tool.innerHTML = this.project.tags.tools[i];
+            for(let i = 0; i < this.project.tags.tools.length; i++)
+            {
+                let tool: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
+                
+                tool.className = 'overview-container-project-preview-tools';
+                tool.innerHTML = this.project.tags.tools[i];
 
-            this.tools.push(tool);
+                this.tools.push(tool);
+            }
         }
 
         this.themes = [];
-        for(let i = 0; i < this.project.tags.themes.length; i++)
+        if (this.project.tags.themes !== undefined)
         {
-            let theme: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
-            
-            theme.className = 'overview-container-project-preview-themes';
-            theme.innerHTML = this.project.tags.themes[i];
-
-            this.themes.push(theme);
+            for(let i = 0; i < this.project.tags.themes.length; i++)
+            {
+                let theme: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
+                
+                theme.className = 'overview-container-project-preview-themes';
+                theme.innerHTML = this.project.tags.themes[i];
+    
+                this.themes.push(theme);
+            }
         }
 
-        this.duration = this.infoBar.appendChild(document.createElement('div'));
-        this.duration.className = 'overview-container-project-preview-duration';
-        this.duration.innerHTML = project.durationHrs + 'H';
+        if (project.durationHrs !== -1)
+        {
+            this.duration = this.infoBar.appendChild(document.createElement('div'));
+            this.duration.className = 'overview-container-project-preview-duration';
+            this.duration.innerHTML = project.durationHrs + 'H';
+        }
         
         // this.durationIcon = this.duration.appendChild(document.createElement('img'));
         // this.durationIcon.className = 'overview-container-project-preview-duration-icon';
         // this.durationIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/duration-icon.png';
 
 
-        this.teamSize = this.infoBar.appendChild(document.createElement('div'));
-        this.teamSize.className = 'overview-container-project-preview-teamsize';
-        this.teamSize.innerHTML = project.teamSize + 'TM';
+        if (project.teamSize !== -1)
+        {
+            this.teamSize = this.infoBar.appendChild(document.createElement('div'));
+            this.teamSize.className = 'overview-container-project-preview-teamsize';
+            this.teamSize.innerHTML = project.teamSize + 'TM';
+        }
 
         // this.teamSizeIcon = this.teamSize.appendChild(document.createElement('img'));
         // this.teamSizeIcon.className = 'overview-container-project-preview-teamsize-icon';
         // this.teamSizeIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/teamsize-icon.png';
 
-        this.date = this.infoBar.appendChild(document.createElement('p'));
-        this.date.className = 'overview-container-project-preview-date';
-        this.date.innerHTML = (project.month < 10 ? '0' : '') + project.month + ' / ' + project.year;
+        if (project.year !== 0)
+        {
+            this.date = this.infoBar.appendChild(document.createElement('p'));
+            this.date.className = 'overview-container-project-preview-date';
+            this.date.innerHTML = (project.month < 10 ? '0' : '') + project.month + ' / ' + project.year;
+        }
 
     }
 

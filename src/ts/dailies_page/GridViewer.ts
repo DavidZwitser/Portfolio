@@ -27,10 +27,12 @@ export default class GridViewer
 
     hasMoved: boolean;
 
+    elementSizeMultiplier: number = .30;
+
     currentProjectCenter: {x: number, y: number};
     movingToCenterAnimationLoopID: number;
     projectClosestToCenter: GridProject;
-    foccusedProjectChangedCalllback: Function[];
+    focusedProjectChangedCallback: Function[];
 
     openMoreInfo: (project: Project, foreceOpen?: boolean) => void;
     closeMoreInfo: () => void;
@@ -45,7 +47,7 @@ export default class GridViewer
 
         this.projects = [];
 
-        this.foccusedProjectChangedCalllback = [];
+        this.focusedProjectChangedCallback = [];
         this.currentProjectCenter = this.calculateGridCenter();
 
         this.notLoadedProjects = [];
@@ -222,9 +224,9 @@ export default class GridViewer
             }
         }
 
-        for (let i = 0; i < this.foccusedProjectChangedCalllback.length; i++)
+        for (let i = 0; i < this.focusedProjectChangedCallback.length; i++)
         {
-            this.foccusedProjectChangedCalllback[i](nearestElement.content);
+            this.focusedProjectChangedCallback[i](nearestElement.content);
         }
 
         return nearestElement;
@@ -325,7 +327,7 @@ export default class GridViewer
         }
 
         let vmin: number = Math.min(window.innerWidth, window.innerHeight);
-        let size: number = vmin * .25;
+        let size: number = vmin * this.elementSizeMultiplier;
 
         if (offsetX) { this.positionX += offsetX; }
         if (offsetY) { this.positionY += offsetY; }

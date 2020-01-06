@@ -370,31 +370,37 @@ export default class ProjectViewer
 
         this.banner.src = newProject.thumbnail;
 
-        for(let i = 0; i < this.themes.length; i++)
+        if (newProject.tags.themes !== undefined)
         {
-            if (newProject.tags.themes[i] !== undefined)
+            for(let i = 0; i < this.themes.length; i++)
             {
-                this.themes[i].innerHTML = newProject.tags.themes[i];
-                this.themes[i].style.visibility = 'visible';
-            }
-            else
-            {
-                this.themes[i].innerHTML = '';
-                this.themes[i].style.visibility = 'hidden';
+                if (newProject.tags.themes[i] !== undefined)
+                {
+                    this.themes[i].innerHTML = newProject.tags.themes[i];
+                    this.themes[i].style.visibility = 'visible';
+                }
+                else
+                {
+                    this.themes[i].innerHTML = '';
+                    this.themes[i].style.visibility = 'hidden';
+                }
             }
         }
 
-        for(let i = 0; i < this.tools.length; i++)
+        if (newProject.tags.tools !== undefined)
         {
-            if (newProject.tags.tools[i] !== undefined)
+            for(let i = 0; i < this.tools.length; i++)
             {
-                this.tools[i].innerHTML = newProject.tags.tools[i];
-                this.tools[i].style.visibility = 'visible';
-            }
-            else
-            {
-                this.tools[i].innerHTML = '';
-                this.tools[i].style.visibility = 'hidden';
+                if (newProject.tags.tools[i] !== undefined)
+                {
+                    this.tools[i].innerHTML = newProject.tags.tools[i];
+                    this.tools[i].style.visibility = 'visible';
+                }
+                else
+                {
+                    this.tools[i].innerHTML = '';
+                    this.tools[i].style.visibility = 'hidden';
+                }
             }
         }
 
