@@ -1,6 +1,6 @@
 #viewer-projects-overview
 {
-    background-color: rgb(19, 58, 70);
+    background-color: rgb(53, 60, 66);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -68,9 +68,10 @@
     {
         border-radius: 1vmin;
     
-        background-color: rgb(165, 165, 165);
+        background-color: rgb(19, 112, 189);
         
-        font-weight: 800;
+        font-weight: lighter;
+        color: white;
     
         padding: 1vmin;
     
@@ -103,7 +104,7 @@
     
     margin-top: 0vmin;
 
-    background-color: #1d5e69;
+    background-color: rgba(35, 85, 161, 0.377);
 
     border-radius: 1vmin;
 
@@ -271,9 +272,9 @@
     {
         .overview-container-project-preview
         {
-            width: 80vw;
-            margin-left: 10vw;
-            margin-right: 10vw;
+            width: 70vw;
+            margin-left: 15vw;
+            margin-right: 15vw;
         
         }
     }

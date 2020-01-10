@@ -1,7 +1,7 @@
-import { tools, themes } from "../../data/Enums";
+import { tools, themes } from "../data/Enums";
 
 /* Clickable tags to filter the projects */
-export default class FilterTag
+export default class ListFilterTag
 {
     parent: HTMLDivElement;
     myElement: HTMLButtonElement;

@@ -2,8 +2,9 @@ export enum pages
 {
     none = 'none',
     home = 'home',
-    dailies = 'dailies',
-    projects = 'projects',
+    grid = 'grid',
+    list = 'list',
+    timeline = 'timeline',
     about = 'about'
 }
 
@@ -41,9 +42,11 @@ export enum tools
 export enum themes
 {
     none = 'none',
+    daily = 'Daily',
     philosophy = 'Philosophy',
     drama = 'Drama',
     interactive = 'Interactive',
     adventure = 'Adventure',
-    puzzle = 'Puzzle'
+    puzzle = 'Puzzle',
+    generative = 'Generative'
 }

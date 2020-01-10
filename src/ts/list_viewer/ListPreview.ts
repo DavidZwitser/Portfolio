@@ -1,13 +1,14 @@
-import Project, { ProjectSources } from "../data/ProjectTemplate";
-import { pages } from "../../data/Enums";
+import Project, { ProjectSources } from "../projects/ProjectTemplate";
+import { pages } from "../data/Enums";
 
 /* A small representation of a project to give the most valueble information */
-export default class ProjectPreviewer
+export default class ListPreview
 {
     parent: HTMLDivElement;
     myElement: HTMLDivElement;
 
     imgElement: HTMLImageElement;
+    videoElement: HTMLVideoElement;
 
     project: Project;
 
@@ -35,12 +36,34 @@ export default class ProjectPreviewer
         this.myElement.className = 'overview-container-project-preview';
 
         this.myElement.addEventListener('mouseup', () => {
-            window.location.hash = pages.projects + '|' + this.project.id;
+            if (this.project.isFullProject == true)
+            {
+                window.location.hash = pages.list + '|' + this.project.id;
+            }
         });
 
-        this.imgElement = this.myElement.appendChild(document.createElement('img'));
-        this.imgElement.className = 'overview-container-project-preview-thumbnail';
-        this.imgElement.src = project.thumbnail;
+        if (project.localVideo !== undefined)
+        {
+            this.videoElement = this.myElement.appendChild(document.createElement('video'));
+            this.videoElement.className = 'overview-container-project-preview-thumbnail';
+            this.videoElement.src = project.localVideo;
+            // this.videoElement.play();
+            this.videoElement.loop = true;
+            this.videoElement.muted = true;
+
+            this.myElement.onmouseover = () => {
+                this.videoElement.play();
+            };
+            this.myElement.onmouseleave = () => {
+                this.videoElement.pause();
+            }
+        }
+        else
+        {
+            this.imgElement = this.myElement.appendChild(document.createElement('img'));
+            this.imgElement.className = 'overview-container-project-preview-thumbnail';
+            this.imgElement.src = project.thumbnail;
+        }
 
         this.infoBar = this.myElement.appendChild(document.createElement('div'));
         this.infoBar.className =  'overview-container-project-preview-infobar';

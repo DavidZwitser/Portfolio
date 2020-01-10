@@ -1,5 +1,5 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ViewerCustomization, ProjectTags } from "../ProjectTemplate";
-import { goals, tools, themes } from "../../../data/Enums";
+import { goals, tools, themes } from "../../data/Enums";
 
 export namespace MovingUp
 {
@@ -45,7 +45,8 @@ export namespace MovingUp
                 externalLink: 'http://spele.nl/moving-up-spel/'
             },
             <ViewerCustomization>{
-                backgroundColor: '#333344'
+                backgroundColor: '#333344',
+                isFullProject: true
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create],

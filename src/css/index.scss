@@ -8,14 +8,14 @@ html, body {
 
   position: static;
 
-  background-color: rgb(165, 85, 85);
+  background-color: rgb(165, 85, 85);   
   
   height: 100%;
   
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   // font-family: 'Roboto', sans-serif;
 
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-ou  t;
 
   // user-select: none;
   
@@ -27,12 +27,12 @@ html, body {
 @import './general/navigationBar.scss';
 @import './general/defaultPageSettigns.scss';
 
-@import './landing_page/landingPage.scss';
+@import './home_page/homePage.scss';
 @import './about_page/aboutPage.scss';
 
-@import './dailies_page/gridViewer.scss';
-@import './dailies_page/gridPopup.scss';
-@import './dailies_page/gridLoadingScreen.scss';
+@import './grid_viewer/gridViewer.scss';
+@import './grid_viewer/gridPopup.scss';
+@import './grid_viewer/gridLoadingScreen.scss';
 
-@import './projects_page/projectsOverview.scss';
-@import './projects_page/projectViewer.scss';
+@import './list_viewer/listViewer.scss';
+@import './projects_viewer/projectViewer.scss';

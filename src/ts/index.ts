@@ -4,16 +4,16 @@ import '../css/index.scss';
 import InputEvents from './InputEvents';
 import HashHandler from './data/HashHandler';
 
-import Project from './projects_page/data/ProjectTemplate';
+import Project from './projects/ProjectTemplate';
 
-import GridViewer from './dailies_page/GridViewer';
-import GridPopup from './dailies_page/Popup';
+import GridViewer from './grid_viewer/GridViewer';
+import GridPopup from './grid_viewer/GridPopup';
 
 import Constants from './data/Constants';
 import { pages, tools, themes } from './data/Enums';
-import ProjectsOverview from './projects_page/visualization/ProjectsOverview';
+import ListViewer from './list_viewer/ListViewer';
 
-import ProjectFetcher from './projects_page/data/ProjectFetcher';
+import ProjectFetcher from './projects/ProjectFetcher';
 
 import AboutEyes from './about_page/AboutEyes';
 import LoadingScreen from './loading_screen/LoadingScreen';
@@ -28,7 +28,7 @@ class Main
     eyes: AboutEyes;
     loadingScreen: LoadingScreen;
     
-    projectsOverview: ProjectsOverview;    
+    projectsOverview: ListViewer;    
     projectsFetcher: ProjectFetcher;
 
     gridViewer: GridViewer;
@@ -76,19 +76,19 @@ class Main
         
         this.gridViewer.moveGrid();
         this.gridViewer.letGoOfGrid(0, 0);
-        if (Constants.CURRENT_PAGE == pages.dailies)
-        {
-            this.gridViewer.createGridTilesForPreloadedProjects();
-        }
         
         /* Setting up project page logic */
         this.projectsFetcher = new ProjectFetcher();
+
+        if (Constants.CURRENT_PAGE == pages.grid)
+        {
+            this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
+        }
         
-        this.projectsOverview = new ProjectsOverview(
-            <HTMLDivElement>document.getElementById(pages.projects), 
+        this.projectsOverview = new ListViewer(
+            <HTMLDivElement>document.getElementById(pages.list), 
             this.projectsFetcher.getProjects().slice().splice(0, 3), /* Highlights */ 
             //this.gridViewer.notLoadedProjects, 
-            this.projectsFetcher.getProjects(),
             [
                 tools.AffinityDesigner,
                 tools.Blender,
@@ -104,8 +104,8 @@ class Main
             ],
             [
                 themes.adventure,
-                themes.drama,
                 themes.interactive,
+                themes.generative,
                 themes.philosophy,
                 themes.puzzle
             ]
@@ -132,14 +132,19 @@ class Main
 
     /* Website transitioned to new page */
     private pageTransitioned(): void
-    {
-        if (Constants.CURRENT_PAGE == pages.dailies)
+    {   
+        if (Constants.CURRENT_PAGE == pages.grid)
         {
             if (this.gridViewer.loaded == false)
             {
                 this.gridPopup.closePopup();
             }
-            this.gridViewer.createGridTilesForPreloadedProjects();
+            this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
+        }
+
+        if (Constants.CURRENT_PAGE == pages.list)
+        {
+            this.projectsOverview.loadProjects(this.projectsFetcher.getProjects());
         }
     }
 

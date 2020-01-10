@@ -1,7 +1,7 @@
-import Project from '../projects_page/data/ProjectTemplate';
+import Project from '../projects/ProjectTemplate';
 
 /* A popup which shows more information about a project */
-export default class Popup
+export default class GridPopup
 {
     private parent: HTMLDivElement;
 
@@ -29,7 +29,7 @@ export default class Popup
 
         let video: HTMLVideoElement = document.createElement('video');
         video.className = 'grid-popup-video';
-        video.src = 'v';
+        video.src = '';
         imageWindow.appendChild(video);
         video.play();
         video.loop = true;
@@ -117,7 +117,7 @@ export default class Popup
         this.parent.style.left = '0px';
         this.parent.style.top = '0px';
 
-        this.videoElement.play();
+        this.videoElement.play();   
 
         if (this.videoElement.src == project.footage[0]) { return; }
         this.videoElement.src = project.footage[0];        

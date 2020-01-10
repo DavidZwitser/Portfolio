@@ -15,14 +15,19 @@ export default class Constants
                 this.CURRENT_PAGE = pages.home;
                 break;
 
-            case pages.dailies:
+            case pages.grid:
 
-                this.CURRENT_PAGE = pages.dailies;
+                this.CURRENT_PAGE = pages.grid;
                 break;
 
-            case pages.projects:
+            case pages.list:
                 
-                this.CURRENT_PAGE = pages.projects;
+                this.CURRENT_PAGE = pages.list;
+                break;
+
+            case pages.list:
+                
+                this.CURRENT_PAGE = pages.list;
                 break;
 
             case pages.about:

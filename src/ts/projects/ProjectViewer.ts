@@ -1,5 +1,5 @@
-import Project from "../data/ProjectTemplate";
-import { pages } from "../../data/Enums";
+import Project from "./ProjectTemplate";
+import { pages } from "../data/Enums";
 
 /* A windows in which to show-off projects */
 export default class ProjectViewer
@@ -105,7 +105,7 @@ export default class ProjectViewer
         this.closeButton.innerHTML = 'X';
         this.closeButton.className = 'project-viewer-close-button';
         this.closeButton.onclick = () => {
-            window.location.hash = pages.projects;
+            window.location.hash = pages.list;
         };
     
         this.banner = this.container.appendChild(document.createElement('img'));

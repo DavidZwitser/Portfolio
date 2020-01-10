@@ -22,7 +22,28 @@
 
     <div id="home" class="page">
         <!-- <img src="./images/page-home/closeup-me.png"> -->
-        <p id="home-slogan"></p>
+        <!-- <p id="home-text-order-by">order projects by</p> -->
+        <!-- <p id="home-text-view-as">view projects as</p> -->
+        <p id="home-name" onclick="window.location.hash='about'">David Zwitser</p>
+        <p id="home-slogan">Creative coder, visual artist</p>
+        
+        <button id="home-button-list" onclick="window.location.hash= 'list'">List</button>
+        <img src="../footage/icons/list.svg" id="home-icon-list" onclick="window.location.hash= 'list'">
+        
+        <button id="home-button-timeline" >Timeline</button>
+        <img src="../footage/icons/timeline.svg" id="home-icon-timeline" >
+        
+        <button id="home-button-grid" onclick="window.location.hash= 'grid'">Grid</button>
+        <img src="../footage/icons/grid.svg" id="home-icon-grid" onclick="window.location.hash= 'grid'">
+        
+        <select name="Order projects by" id="home-dropdown-order-by">
+            <option value="Duration">Duration</option>
+            <option value="Learned value">Learned value</option>
+            <option value="End result value">End result value</option>
+            <option value="Date">Date</option>
+            <option value="Team size">Team size</option>
+
+        </select>
     </div>
 
     <div id="about" class="content-page">
@@ -44,10 +65,14 @@
             <div id="about-bottom-fill-in"></div>
         </div>
     </div>
-    <div id="projects" class="content-page">
+    <div id="list" class="content-page">
     </div>
 
-    <div id="dailies" class="content-page">
+    <div id="timeline" class="content-page">
+        
+    </div>
+
+    <div id="grid" class="content-page">
 
         <div id="grid"></div>
         <div id="grid-popup"></div>
@@ -63,13 +88,14 @@
 
         <div id="navigation-bar-links">
             <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#dailies">Dailies</a></li>
+                <!-- <li><a href="#about">About</a></li>
+                <li><a href="#projects">List</a></li>
+                <li><a href="#dailies">Timeline</a></li>
+                <li><a href="#dailies">Grid</a></li> -->
             </ul>
         </div>
 
-        <div id="navigation-bar-back-button">
+        <div id="navigation-bar-back-button" onclick="window.location.hash = 'home'">
             <a href="#home"><p>^</p></a>
         </div>
 

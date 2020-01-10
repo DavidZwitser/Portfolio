@@ -1,4 +1,4 @@
-import { goals, tools, themes } from "../../data/Enums";
+import { goals, tools, themes } from "../data/Enums";
 
 export interface ProjectText
 {
@@ -34,6 +34,7 @@ export interface ProjectSources
     thumbnail: string;
     footage?: string[];
     video?: string;
+    localVideo?: string;
     externalLink?: string;
 }
 
@@ -47,6 +48,7 @@ export interface ProjectTags
 export interface ViewerCustomization
 {
     backgroundColor: string;
+    isFullProject: boolean;
 }
 
 export default class Project implements ProjectVariables, ProjectText, ProjectSources
@@ -73,10 +75,12 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     thumbnail: string;
     footage: string[];
     video: string;
+    localVideo: string;
     externalLink: string;
     client: string;
 
     backgroundColor: string;
+    isFullProject: boolean;
 
     tags: ProjectTags;
 
@@ -86,7 +90,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         text: ProjectText = {name: 'not found'},
         variables: ProjectVariables = {day: 0, month: 0, year: 0, durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1, client: 'me'},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
-        customization: ViewerCustomization = {backgroundColor: '#333'},
+        customization: ViewerCustomization = {backgroundColor: '#333', isFullProject: false},
         tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}
     ) {
         this.id = text.name.replace(/\s+/g, '');
@@ -112,9 +116,11 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         this.thumbnail = sources.thumbnail;
         this.footage = sources.footage;
         this.video = sources.video;
+        this.localVideo = sources.localVideo;
         this.externalLink = sources.externalLink;
 
         this.backgroundColor = customization.backgroundColor;
+        this.isFullProject = this.isFullProject;
         
         this.tags = {
             goals: tags.goals,

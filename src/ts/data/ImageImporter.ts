@@ -7,7 +7,7 @@ export default class ImageImporter
         require.resolve("../../../footage/projects/MovingUp/endless_mode.jpg"); 
         require.resolve("../../../footage/projects/LifeLike/Front_projection.png"); 
 
-        // // Project images
+        // // Project images 
         require.resolve("../../../footage/projects/Mythos/3.jpg");require.resolve("../../../footage/projects/Mythos/2.jpg");require.resolve("../../../footage/projects/Mythos/1.jpg");require.resolve("../../../footage/projects/Mythos/4.jpg");require.resolve("../../../footage/projects/Mythos/5.jpg");require.resolve("../../../footage/projects/MovingUp/level_select.jpg");require.resolve("../../../footage/projects/MovingUp/endless_mode.jpg");require.resolve("../../../footage/projects/MovingUp/level12.jpg");require.resolve("../../../footage/projects/MovingUp/startscreen.jpg");require.resolve("../../../footage/projects/MovingUp/level16.jpg");require.resolve("../../../footage/projects/MovingUp/pausemenu.jpg");require.resolve("../../../footage/projects/LifeLike/Life_action.png");require.resolve("../../../footage/projects/LifeLike/Sensors.jpg");require.resolve("../../../footage/projects/LifeLike/Sensors_top.jpg");require.resolve("../../../footage/projects/LifeLike/Process_behind.png");
         
         // // Dailies videos

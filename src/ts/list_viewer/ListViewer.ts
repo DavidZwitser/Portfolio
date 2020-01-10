@@ -1,25 +1,25 @@
-import Highlight from "./highlight";
-import FilterTag from "./FilterTags";
-import { tools, themes, pages } from "../../data/Enums";
-import Project from "../data/ProjectTemplate";
-import ProjectPreviewer from "./projectPreviewer";
-import ProjectViewer from "./ProjectViewer";
+import ListHighlight from "./ListHighlight";
+import ListFilterTag from "./ListFilterTag";
+import { tools, themes, pages } from "../data/Enums";
+import Project from "../projects/ProjectTemplate";
+import ListPreview from "./ListPreview";
+import ProjectViewer from "../projects/ProjectViewer";
 
 /* An overview of all the projects */
-export default class ProjectsOverview
+export default class ListViewer
 {
     private parent: HTMLDivElement;
 
     private myElement: HTMLDivElement;
 
     private highlightsTitle: HTMLParagraphElement;
-    private highlights: Highlight[];
+    private highlights: ListHighlight[];
 
     private filterTagsContainer: HTMLDivElement;
-    private filterTags: FilterTag[];
+    private filterTags: ListFilterTag[];
 
     private projectPreviewer: HTMLDivElement;
-    private previews: ProjectPreviewer[];
+    private previews: ListPreview[];
 
     private projectViewer: ProjectViewer;
 
@@ -28,13 +28,13 @@ export default class ProjectsOverview
     private footer: HTMLDivElement;
     private footerText: HTMLParagraphElement;
 
+    private isLoaded: boolean = false;
+
     filterClickedCallback: Function;
 
-    constructor(parent: HTMLDivElement, highlights: Project[], projects: Project[], selectableTools: tools[], selectableThemes: themes[])
+    constructor(parent: HTMLDivElement, highlights: Project[], selectableTools: tools[], selectableThemes: themes[])
     {
         this.parent = parent;
-
-        this.projects = projects;
 
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.id = 'viewer-projects-overview';
@@ -52,7 +52,7 @@ export default class ProjectsOverview
         this.highlights = [];
         for(let i = 0; i < highlights.length; i++)
         {
-            this.highlights.push(new Highlight(this.myElement, highlights[i]));
+            this.highlights.push(new ListHighlight(this.myElement, highlights[i]));
         }
 
         this.filterTagsContainer = this.myElement.appendChild(document.createElement('div'));
@@ -61,13 +61,13 @@ export default class ProjectsOverview
         this.filterTags = [];
         for (let i = 0; i < selectableTools.length; i++)
         {
-            this.filterTags.push(new FilterTag(this.filterTagsContainer, selectableTools[i], '#bbb', (tool: tools) => {
+            this.filterTags.push(new ListFilterTag(this.filterTagsContainer, selectableTools[i], 'rgb(19, 112, 189)', (tool: tools) => {
                 this.filterClickedCallback([tool]);
             }));
         }
         for (let i = 0; i < selectableThemes.length; i++)
         {
-            this.filterTags.push(new FilterTag(this.filterTagsContainer, selectableThemes[i], '#ff4500', (theme: themes) => {
+            this.filterTags.push(new ListFilterTag(this.filterTagsContainer, selectableThemes[i], '#ff4500', (theme: themes) => {
                 this.filterClickedCallback([theme]);
             }));
         }
@@ -81,11 +81,6 @@ export default class ProjectsOverview
 
         this.previews = [];
 
-        for(let i = 0; i < projects.length; i++)
-        {
-            this.previews.push(new ProjectPreviewer(this.projectPreviewer, projects[i] ));
-        }
-
         this.footer = this.myElement.appendChild(document.createElement('div'));
         this.footer.id = 'viewer-projects-footer';
 
@@ -97,6 +92,18 @@ export default class ProjectsOverview
         /* Project viewer  */
         this.projectViewer = new ProjectViewer(this.parent);
 
+    }
+
+    public loadProjects(projects: Project[]): void
+    {
+        if (this.isLoaded == true) { return; }
+
+        for(let i = 0; i < projects.length; i++)
+        {
+            this.previews.push(new ListPreview(this.projectPreviewer, projects[i] ));
+        }
+
+        this.isLoaded = true;
     }
 
     /* Open project with given ID */
@@ -136,7 +143,7 @@ export default class ProjectsOverview
 
         for(let i = 0; i < newPreviews.length; i++)
         {
-            this.previews.push(new ProjectPreviewer(this.projectPreviewer, newPreviews[i]));
+            this.previews.push(new ListPreview(this.projectPreviewer, newPreviews[i]));
         }
     }
 

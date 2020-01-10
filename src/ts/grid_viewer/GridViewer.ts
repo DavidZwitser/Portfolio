@@ -1,8 +1,6 @@
 import Constants from '../data/Constants';
 import { pages } from '../data/Enums';
-import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects_page/data/ProjectTemplate';
-
-import * as projectData from '../../JSON/projects.json';
+import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects/ProjectTemplate';
 
 interface GridProject
 {
@@ -38,7 +36,6 @@ export default class GridViewer
     closeMoreInfo: () => void;
     toggleMoreInfo: (project?: Project) => void;
 
-    notLoadedProjects: Project[];
     loaded: boolean = false;
 
     constructor(parent: HTMLDivElement)
@@ -50,14 +47,12 @@ export default class GridViewer
         this.focusedProjectChangedCallback = [];
         this.currentProjectCenter = this.calculateGridCenter();
 
-        this.notLoadedProjects = [];
-
         this.positionX = this.currentProjectCenter.x;
         this.positionY = this.currentProjectCenter.y;
 
         Constants.PAGE_CHANGED_CALLBACK.push((page: pages) => {
             
-            if (page == pages.dailies)
+            if (page == pages.grid)
             {
                 if (this.projectClosestToCenter !== null)
                 {
@@ -72,7 +67,8 @@ export default class GridViewer
             }
         });
 
-        this.loadProjectsData();
+        this.hideLoadingScreen();
+
     }
 
     private hideLoadingScreen(): void
@@ -95,56 +91,14 @@ export default class GridViewer
         }));
     }
 
-    private loadProjectsData(logProjectsData: boolean = false): void
-    {
-        let videos: String = '';
-        let thumbnails: String = '';
-        
-        /* Getting data from dailies JSON file */
-        let dailiesKeys = Object.keys(projectData.dailies);
-        for (let i: number = 0; i < dailiesKeys.length; i++)
-        {
-            let daily = projectData.dailies[dailiesKeys[i]];
-        
-            let splitURL: string[] = daily.url.split('/');
-
-            if (logProjectsData == true)
-            {
-                videos += "require.resolve('../footage/dailies/" + splitURL[4] + ".mp4');"
-                thumbnails += "require.resolve('../footage/dailies/thumbnails/" + splitURL[4] + ".jpg');"
-            }
-
-            daily.footage = ['../footage/dailies/' + splitURL[4] + '.mp4'];
-            daily.thumbnail = '../footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
-        
-            /* Adding project to not loaded list */
-            this.notLoadedProjects.push(new Project((<ProjectText>{
-                name: daily.description
-            }), undefined, (<ProjectSources>{
-                thumbnail: daily.thumbnail,
-                footage: daily.footage,
-                externalLink: daily.url
-            }), undefined, 
-            (<ProjectTags> {
-                tools: daily.tags
-            })));
-        }
-
-        if (logProjectsData == true)
-        {
-            console.log(videos);
-            console.log(thumbnails);
-        }
-    }
-
     /* Loop through not loaded projects and add them to the grid */
-    public createGridTilesForPreloadedProjects(): void
+    public createGridTilesForPreloadedProjects(projects: Project[]): void
     {
         if (this.loaded == true) { return; }
         
-        for (let i: number = 0; i < this.notLoadedProjects.length; i++)
+        for (let i: number = 0; i < projects.length; i++)
         {
-            this.addProjectToGrid(this.notLoadedProjects[i]);
+            this.addProjectToGrid(projects[i]);
         }
         
         this.loaded = true;
@@ -196,7 +150,7 @@ export default class GridViewer
     /* The logic that fires when a project is clicked */
     private clickedOnProjectHandler(elementID: number): void
     {
-        if (this.hasMoved == true || Constants.CURRENT_PAGE !== pages.dailies) { return; }
+        if (this.hasMoved == true || Constants.CURRENT_PAGE !== pages.grid) { return; }
         let element: GridProject = this.getProjectByID(elementID);
 
         if (element == this.projectClosestToCenter) {
@@ -235,7 +189,7 @@ export default class GridViewer
     /* Centers the grid to the element whicih is the closest to the screen */
     public centerProjectClosestToTheCenterOfTheScreen(overwriteElement: GridProject = null)
     {
-        if (Constants.CURRENT_PAGE !== pages.dailies) { return; }
+        if (Constants.CURRENT_PAGE !== pages.grid) { return; }
         if (this.projectClosestToCenter == null)
         {
             this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen();
@@ -318,7 +272,7 @@ export default class GridViewer
     public moveGrid(offsetX?: number, offsetY?: number, didResize: boolean = false, triggeredByMouseEvent: boolean = true): void
     {
         if (this.projects.length < 0) { return; }
-        if (Constants.CURRENT_PAGE !== pages.dailies) { return; }
+        if (Constants.CURRENT_PAGE !== pages.grid) { return; }
 
         if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
         {
