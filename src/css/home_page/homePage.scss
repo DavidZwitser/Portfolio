@@ -137,7 +137,7 @@ $textColor: rgb(19, 112, 189);
     #home-icon-list
     {
         width: $listIconWidth;
-        margin-left: -$listIconWidth / 2 -$buttonsDistanceMultiplier * $buttonsWidth;
+        margin-left: -$listIconWidth / 2 - $buttonsDistanceMultiplier * $buttonsWidth;
     }
 
     #home-button-timeline
@@ -164,7 +164,7 @@ $textColor: rgb(19, 112, 189);
     }
 
 
-    @media (orientation: portrait) 
+    @media (max-aspect-ratio: 5/6) 
     {
         #home-button-list, #home-button-timeline, #home-button-grid
         {
@@ -186,36 +186,37 @@ $textColor: rgb(19, 112, 189);
 
         #home-button-list
         {
-            top: 44vh;
+            top: 40vh;
         }
         #home-icon-list
         {
             width: 2vh;
             margin-left: -1vh;
 
-            top: 52vh;
+            top: 48vh;
         }
 
         #home-button-timeline
         {
-            top: 61vh;
+            top: 54vh;
         }
         #home-icon-timeline
         {
             width: 20vh;
             margin-left: -10vh;
 
-            top: 69vh;
+            top: 63vh;
         }
 
         #home-button-grid
         {
-            top: 75vh;
+            top: 67vh;
         }
         #home-icon-grid
         {
-            margin-left: -$gridIconWidth / 2;
-            top: 83vh;
+            width: 2vh;
+            margin-left: -1vh;
+            top: 75vh;
         }
     }
 
@@ -248,6 +249,19 @@ $textColor: rgb(19, 112, 189);
 
         width: 50vmin;
         margin-left: -25vmin - 7vmin;
+    }
+
+    @media (max-aspect-ratio: 2/3)
+    {
+        #home-name, #home-slogan
+        {
+            font-size: 8vmin;
+        }
+
+        #home-name
+        {
+            top: 20vmin;
+        }
     }
 
     img {
