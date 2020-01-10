@@ -120,7 +120,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         this.externalLink = sources.externalLink;
 
         this.backgroundColor = customization.backgroundColor;
-        this.isFullProject = this.isFullProject;
+        this.isFullProject = customization.isFullProject;
         
         this.tags = {
             goals: tags.goals,

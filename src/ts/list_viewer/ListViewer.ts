@@ -39,6 +39,8 @@ export default class ListViewer
         this.myElement = this.parent.appendChild(document.createElement('div'));
         this.myElement.id = 'viewer-projects-overview';
 
+        this.projects = [];
+
         let separator: HTMLDivElement;
 
         separator = this.myElement.appendChild(document.createElement('div'));
@@ -102,6 +104,8 @@ export default class ListViewer
         {
             this.previews.push(new ListPreview(this.projectPreviewer, projects[i] ));
         }
+
+        this.projects = projects;
 
         this.isLoaded = true;
     }
