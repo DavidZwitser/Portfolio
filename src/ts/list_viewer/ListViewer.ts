@@ -8,9 +8,9 @@ import ProjectViewer from "../projects/ProjectViewer";
 /* An overview of all the projects */
 export default class ListViewer
 {
-    private parent: HTMLDivElement;
+    public parent: HTMLDivElement;
 
-    private myElement: HTMLDivElement;
+    public myElement: HTMLDivElement;
 
     private highlightsTitle: HTMLParagraphElement;
     private highlights: ListHighlight[];
@@ -20,9 +20,6 @@ export default class ListViewer
 
     private projectPreviewer: HTMLDivElement;
     private previews: ListPreview[];
-
-    private projectViewer: ProjectViewer;
-
     public projects: Project[];
 
     private footer: HTMLDivElement;
@@ -41,26 +38,14 @@ export default class ListViewer
 
         this.projects = [];
 
-        let separator: HTMLDivElement;
-
-        separator = this.myElement.appendChild(document.createElement('div'));
-        separator.className = 'viewer-projects-separator';
-
-        /* Highlights */
-        // this.highlightsTitle = this.myElement.appendChild(document.createElement('p'));
-        // this.highlightsTitle.innerHTML = 'Highlights';
-        // this.highlightsTitle.id = 'overview-title-highlight';
-
-        this.highlights = [];
-        for(let i = 0; i < highlights.length; i++)
-        {
-            this.highlights.push(new ListHighlight(this.myElement, highlights[i]));
-        }
-
         this.filterTagsContainer = this.myElement.appendChild(document.createElement('div'));
         this.filterTagsContainer.id = 'viewer-projects-filter-tags-container';
         /* Filter tags */
         this.filterTags = [];
+
+        this.filterTags.push(new ListFilterTag(this.filterTagsContainer, 'All', 'green', (all: string) => {
+            this.filterClickedCallback([all]);
+        } ));
         for (let i = 0; i < selectableTools.length; i++)
         {
             this.filterTags.push(new ListFilterTag(this.filterTagsContainer, selectableTools[i], 'rgb(19, 112, 189)', (tool: tools) => {
@@ -73,10 +58,6 @@ export default class ListViewer
                 this.filterClickedCallback([theme]);
             }));
         }
-
-        separator = this.myElement.appendChild(document.createElement('div'));
-        separator.className = 'viewer-projects-separator';
-
         /* Project previews */
         this.projectPreviewer = this.myElement.appendChild(document.createElement('div'));
         this.projectPreviewer.className = 'overview-container-previewer';
@@ -89,10 +70,6 @@ export default class ListViewer
         this.footerText = this.footer.appendChild(document.createElement('p'));
         this.footerText.id = 'viewer-projects-footer-text';
         this.footerText.innerHTML = '©David Zwitser <br> @Coelepinda <br> davidzwitser@gmail.com';
-
-
-        /* Project viewer  */
-        this.projectViewer = new ProjectViewer(this.parent);
 
     }
 
@@ -110,29 +87,9 @@ export default class ListViewer
         this.isLoaded = true;
     }
 
-    /* Open project with given ID */
-    public openProjectByID(id: string)
-    {
-        for(let i = 0; i < this.projects.length; i++)
-        {
-            if (id == this.projects[i].id)
-            {
-                this.projectViewer.showNewProject(this.projects[i]);
-                this.blurBackground();
-            }
-        }
-    }
-
     private blurBackground()
     {
         this.myElement.style.filter = 'blur(2px)';
-    }
-
-    /* Close the project viewer */
-    public closeProjectViewer(): void
-    {
-        this.projectViewer.close();
-        this.myElement.style.filter = 'none';
     }
 
     /* Reload previews */

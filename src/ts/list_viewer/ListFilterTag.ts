@@ -6,9 +6,9 @@ export default class ListFilterTag
     parent: HTMLDivElement;
     myElement: HTMLButtonElement;
 
-    tag: tools|themes;
+    tag: string;
 
-    constructor(parent: HTMLDivElement, tag: tools|themes, color: string, gotClickedCallback: Function)
+    constructor(parent: HTMLDivElement, tag: string, color: string, gotClickedCallback: Function)
     {
         this.parent = parent;
 

@@ -1,9 +1,4 @@
-#list {
-    background-color: rgb(54, 54, 54);
-    margin-top: 6vh;
-}
-
-#project-viewer
+.project-viewer
 {
     position: absolute;
 
@@ -108,7 +103,7 @@
     
             .project-viewer-tool, .project-viewer-theme
             {
-                color: rgb(124, 124, 124);
+                color: rgb(255, 255, 255);
     
                 font-size: .8em;
     

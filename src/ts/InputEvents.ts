@@ -17,7 +17,7 @@ export default class MouseEvents
     draggingCallback: Function[];
     mouseMovingCallback: Function[];
 
-    keyPressedCallback: ((keycode: number) => void)[];
+    keyPressedCallback: ((keycode: string) => void)[];
 
     onMobile: boolean;
 
@@ -116,7 +116,7 @@ export default class MouseEvents
     {
         for (let i: number = this.keyPressedCallback.length; i--; )
         {
-            this.keyPressedCallback[i](ev.keyCode);
+            this.keyPressedCallback[i](ev.key);
         }
     }
 }

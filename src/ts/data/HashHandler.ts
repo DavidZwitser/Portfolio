@@ -16,7 +16,7 @@ export default class HashHandler
         }
 
         let rawHash = window.location.hash.split('#')[1];
-        let hashParts = rawHash.split('|');
+        let hashParts = rawHash.split(Constants.HASH_SEPARATOR);
 
         let hash = hashParts[0];
         let projectVariable = hashParts[1];

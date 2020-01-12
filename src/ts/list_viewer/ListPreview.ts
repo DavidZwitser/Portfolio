@@ -1,5 +1,6 @@
 import Project, { ProjectSources } from "../projects/ProjectTemplate";
 import { pages } from "../data/Enums";
+import Constants from "../data/Constants";
 
 /* A small representation of a project to give the most valueble information */
 export default class ListPreview
@@ -12,19 +13,16 @@ export default class ListPreview
 
     project: Project;
 
-    infoBar: HTMLDivElement;
-
+    
     name: HTMLParagraphElement;
-
+    
+    tagsBar: HTMLDivElement;
     tools: HTMLParagraphElement[];
     themes: HTMLParagraphElement[];
 
+    infoBar: HTMLDivElement;
     duration: HTMLDivElement;
-    durationIcon: HTMLImageElement;
-
     teamSize: HTMLDivElement;
-    teamSizeIcon: HTMLImageElement;
-
     date: HTMLParagraphElement;
 
     constructor(parent: HTMLDivElement, project: Project)
@@ -33,14 +31,15 @@ export default class ListPreview
         this.project = project;
 
         this.myElement = this.parent.appendChild(document.createElement('div'));
-        this.myElement.className = 'overview-container-project-preview';
-
-        this.myElement.addEventListener('mouseup', () => {
-            if (this.project.isFullProject == true)
-            {
-                window.location.hash = pages.list + '|' + this.project.id;
-            }
-        });
+        
+        if (this.project.isFullProject == true)
+        {
+            this.myElement.className = 'overview-container-project-preview';
+        } 
+        else 
+        {
+            this.myElement.className += ' overview-container-project-preview-small';
+        }
 
         if (project.localVideo !== undefined)
         {
@@ -65,19 +64,45 @@ export default class ListPreview
             this.imgElement.src = project.thumbnail;
         }
 
-        this.infoBar = this.myElement.appendChild(document.createElement('div'));
-        this.infoBar.className =  'overview-container-project-preview-infobar';
-
-        this.name = this.infoBar.appendChild(document.createElement('p'));
+        /* NAME */
+        this.name = this.myElement.appendChild(document.createElement('p'));
         this.name.innerHTML = project.name;
         this.name.className = 'overview-container-project-preview-name';
+        
+        /* Information */
+        this.infoBar = this.myElement.appendChild(document.createElement('div'));
+        this.infoBar.className = 'overview-container-project-preview-infobar';
+        
+        if (project.year !== undefined)
+        {
+            this.date = this.infoBar.appendChild(document.createElement('p'));
+            this.date.className = 'overview-container-project-preview-date';
+            this.date.innerHTML = (project.month < 10 ? '0' : '') + project.month + ' / ' + project.year;
+        }
+        if (project.durationHrs !== undefined)
+        {
+            this.duration = this.infoBar.appendChild(document.createElement('div'));
+            this.duration.className = 'overview-container-project-preview-duration';
+            this.duration.innerHTML = project.durationHrs + 'H';
+        }
+        if (project.teamSize !== undefined)
+        {
+            this.teamSize = this.infoBar.appendChild(document.createElement('div'));
+            this.teamSize.className = 'overview-container-project-preview-teamsize';
+            this.teamSize.innerHTML = project.teamSize + 'TM';
+        }
+
+
+        /* TAGS */
+        this.tagsBar = this.myElement.appendChild(document.createElement('div'));
+        this.tagsBar.className =  'overview-container-project-preview-tagsbar';
 
         this.tools = [];
         if (this.project.tags.tools !== undefined)
         {
             for(let i = 0; i < this.project.tags.tools.length; i++)
             {
-                let tool: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
+                let tool: HTMLParagraphElement = this.tagsBar.appendChild(document.createElement('div'));
                 
                 tool.className = 'overview-container-project-preview-tools';
                 tool.innerHTML = this.project.tags.tools[i];
@@ -91,7 +116,7 @@ export default class ListPreview
         {
             for(let i = 0; i < this.project.tags.themes.length; i++)
             {
-                let theme: HTMLParagraphElement = this.infoBar.appendChild(document.createElement('div'));
+                let theme: HTMLParagraphElement = this.tagsBar.appendChild(document.createElement('div'));
                 
                 theme.className = 'overview-container-project-preview-themes';
                 theme.innerHTML = this.project.tags.themes[i];
@@ -100,36 +125,24 @@ export default class ListPreview
             }
         }
 
-        if (project.durationHrs !== -1)
+        if (this.imgElement !== undefined)
         {
-            this.duration = this.infoBar.appendChild(document.createElement('div'));
-            this.duration.className = 'overview-container-project-preview-duration';
-            this.duration.innerHTML = project.durationHrs + 'H';
+            this.imgElement.addEventListener('mouseup', () => {
+                if (this.project.isFullProject == true)
+                {
+                    window.location.hash = pages.list + Constants.HASH_SEPARATOR + this.project.id;
+                }
+            });
         }
-        
-        // this.durationIcon = this.duration.appendChild(document.createElement('img'));
-        // this.durationIcon.className = 'overview-container-project-preview-duration-icon';
-        // this.durationIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/duration-icon.png';
-
-
-        if (project.teamSize !== -1)
+        if (this.videoElement !== undefined) 
         {
-            this.teamSize = this.infoBar.appendChild(document.createElement('div'));
-            this.teamSize.className = 'overview-container-project-preview-teamsize';
-            this.teamSize.innerHTML = project.teamSize + 'TM';
+            this.name.addEventListener('mouseup', () => {
+                if (this.project.isFullProject == true)
+                {
+                    window.location.hash = pages.list + Constants.HASH_SEPARATOR + this.project.id;
+                }
+            })
         }
-
-        // this.teamSizeIcon = this.teamSize.appendChild(document.createElement('img'));
-        // this.teamSizeIcon.className = 'overview-container-project-preview-teamsize-icon';
-        // this.teamSizeIcon.src = 'https://github.com/DavidZwitser/Portfolio/raw/master/footage/icons/teamsize-icon.png';
-
-        if (project.year !== 0)
-        {
-            this.date = this.infoBar.appendChild(document.createElement('p'));
-            this.date.className = 'overview-container-project-preview-date';
-            this.date.innerHTML = (project.month < 10 ? '0' : '') + project.month + ' / ' + project.year;
-        }
-
     }
 
     public destroy()

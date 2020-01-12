@@ -2,6 +2,8 @@ import { pages } from "./Enums";
 
 export default class Constants
 {
+    public static HASH_SEPARATOR = '|';
+
     public static CURRENT_PAGE: pages = pages.home;
     public static LAST_PAGE: pages =  pages.none;
 

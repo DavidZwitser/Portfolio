@@ -1,67 +1,22 @@
 #viewer-projects-overview
 {
-    background-color: rgb(53, 60, 66);
+    background-color: rgb(255, 255, 255);
     position: absolute;
     width: 100%;
     height: 100%;
 
     overflow-y: scroll;
-
-    // #overview-title-highlight {
-    //     color: white;
-
-    //     font-size: 5vmin;
-
-    //     margin-top: 5vmin;
-    //     margin-bottom: 2vmin;;
-    //     margin-left: 2vmin;
-    // }
-}
-
-.overview-container-highlight
-{
-    // border-style: solid;
-    border-radius: 20px;
-    // box-shadow: 0px 0px 10px;
-
-    margin-left: 2vw;
-
-    float: left;
-
-    width: 30vw;
-    height: 10vw;
-
-    overflow: hidden;
-
-    box-shadow: 0 0 5px;
-
-    img {
-        width: 100%;
-        // margin-top: -30%;
-    }
-}
-
-.overview-container-highlight:hover
-{
-    cursor: pointer;
-    transform: scale(.98);
-}
-
-.viewer-projects-separator
-{
-    height: 1px;
-
-    margin: 3vmin;
-
-    background-color: #eee;
 }
 
 #viewer-projects-filter-tags-container
 {
-    width: 80vw;
+    width: 60vw;
     margin: 10vw;
 
-    margin-top: 20vmin;
+    margin-left: 20vw;
+    margin-right: 20vw;
+
+    margin-top: 10vmin;
     margin-bottom: 5vmin;
 
     .overview-categories-category-selector
@@ -89,6 +44,14 @@
     }
 }
 
+@media (orientation: portrait)
+{
+    #viewer-projects-filter-tags-container
+    {
+        margin-left: 15vw;
+    }
+}
+
 .overview-container-previewer
 {
     // position: relative;
@@ -104,11 +67,11 @@
     
     margin-top: 0vmin;
 
-    background-color: rgba(35, 85, 161, 0.377);
+    background-color: rgba(255, 255, 255, 0);
 
     border-radius: 1vmin;
 
-    box-shadow: 0 0 5px;
+    // box-shadow: 0 0 5px;
 
     .overview-container-project-preview
     {
@@ -117,7 +80,7 @@
     
         // border-style: solid;
 
-        width: 30%;
+        width: 60vw;
         
         margin-top: 3vmin;
         margin-bottom: 2.5vmin;
@@ -133,12 +96,18 @@
 
         .overview-container-project-preview-thumbnail
         {
-            width: 100%;
-            border-radius: 20px;
+            width: 40vmin;
+            height: 40vmin;
+
+            object-fit: cover;
+
+            // border-radius: 20px;
 
             // border-style: 
 
             float: left;
+
+            margin-right: 3vmin;
 
         }
 
@@ -148,100 +117,46 @@
             cursor: pointer;
         }
 
-        
+        .overview-container-project-preview-name
+        {
+            // background-color: rgba(86, 98, 102, .2);
+            border-radius: 0px;
+
+            color: rgb(0, 0, 0);
+
+            font-weight: lighter;
+            font-size: 5vmin;
+
+            margin: 0;
+            // margin-bottom: .2vmin;
+            
+        }
+
+        .overview-container-project-preview-name:hover
+        {
+            cursor: pointer;
+        }
+
         .overview-container-project-preview-infobar
         {
-            width: 100%;
-            padding-top: 5%;
+            margin-bottom: 1vmin;
 
-            div, p
-            {
-                float: left;
-    
-                padding: 1.5%;
-                margin-left: 2%;
-                margin-top: 3%;
-    
-                font-size: 80%;
-            }
-
-            .overview-container-project-preview-name
-            {
-                // background-color: rgba(86, 98, 102, .2);
-                border-radius: 0px;
-
-                color: white;
-    
-                font-weight: 800;
-                font-size: 3vmin;
-
-                margin-top: -12%;
-
-                margin-bottom: 0px;
-            }
-
-            @media (orientation: landscape) 
-            {
-                .overview-container-project-preview-name
-                {
-                    margin-top: -15%;
-
-                    font-size: 120%;
-                }
-
-            }
-    
-            .overview-container-project-preview-tools, .overview-container-project-preview-themes
-            {
-                display: inline-block;
-    
-                width: auto;
-
-                border-radius: .3vmin;
-
-                padding: .4vmin;
-                margin: .3vmin;
-
-                font-weight: 800;
-
-                font-size: 1.2vmin;
-
-            }
-
-            @media (orientation: portrait)
-            {
-                .overview-container-project-preview-tools, .overview-container-project-preview-themes
-                {
-                    font-size: 2.5vmin;
-                    border-radius: .8vmin;
-                }
-            }
-
-            .overview-container-project-preview-tools
-            {
-                background-color: rgb(109, 109, 109);
-            }
-
-            .overview-container-project-preview-themes
-            {
-                background-color: orangered;
-            }
-    
             .overview-container-project-preview-duration, .overview-container-project-preview-teamsize,
             .overview-container-project-preview-date
             {
-                font-weight: 800;
+                display: inline-block;
+
+                font-weight: lighter;
                 font-size: 1.5vmin;
 
                 margin: 0;
-                padding: .4vmin;
+                padding-left: .4vmin;
+                padding-right: .4vmin;
 
                 /* For some reason the with is way to big by default */
                 // width: 20%;
 
-                color: rgb(255, 255, 255);
-
-                background-color: darkgreen;
+                color: rgb(0, 0, 0);
 
             }
     
@@ -265,6 +180,62 @@
                 }
             }
         }
+        
+        .overview-container-project-preview-tagsbar
+        {
+            width: 100%;
+            // padding-top: 5%;
+
+            @media (orientation: portrait) 
+            {
+                .overview-container-project-preview-name
+                {
+                    margin-top: -15%;
+
+                    font-size: 120%;
+                }
+
+            }
+    
+            .overview-container-project-preview-tools, .overview-container-project-preview-themes
+            {
+                display: inline-block;
+
+                width: auto;
+
+                border-radius: 1vmin;
+
+                padding: .5vmin;
+                margin: .3vmin;
+
+                font-weight: 800;
+
+                font-size: 1vmin;
+
+                color: white;
+
+            }
+
+            @media (orientation: portrait)
+            {
+                .overview-container-project-preview-tools, .overview-container-project-preview-themes
+                {
+                    font-size: 1.5vmin;
+                    border-radius: .8vmin;
+                }
+            }
+
+            .overview-container-project-preview-tools
+            {
+                background-color: rgb(19, 112, 189);
+            }
+
+            .overview-container-project-preview-themes
+            {
+                background-color: orangered;
+            }
+
+        }
 
     }
 
@@ -278,9 +249,75 @@
         
         }
     }
-
     
+    .overview-container-project-preview-small
+    {
+        width: 20vmin;
+        height: 20vmin;
+
+        margin-top: 4vmin;
+    
+        float: left;
+        
+        .overview-container-project-preview-thumbnail
+        {
+            width: 20vmin;
+            height: 20vmin;
+    
+            object-fit: cover;
+        }
+    
+        .overview-container-project-preview-name
+        {
+            display: none;
+        }
+
+        .overview-container-project-preview-tools, .overview-container-project-preview-themes
+        {
+            float: left;
+
+            user-select: none;
+
+            font-size: 1vmin;
+            border-radius: 1vmin;
+
+            padding-right: 1vmin;
+            padding-left: 1vmin;
+            padding-bottom: .15vmin;
+            color: white;
+        }
+
+        .overview-container-project-preview-tools
+        {
+            background-color: rgb(19, 112, 189);
+        }
+
+        .overview-container-project-preview-themes
+        {
+            background-color: orangered;
+
+        }
+
+        
+    }
+
+    @media (orientation: portrait) 
+    {
+        .overview-container-project-preview-small
+        {
+            width: 33vmin;
+            height: 33vmin;
+
+            
+            .overview-container-project-preview-thumbnail
+            {
+                width: 33vmin;
+                height: 33vmin;   
+            }
+        }
+    }
 }
+
 
 #viewer-projects-footer
 {
@@ -292,12 +329,13 @@
     {
         text-align: center;
 
-        color: white;
+        color: rgb(121, 121, 121);
 
-        font-size: 1vh;
+        font-size: .8vh;
 
         padding: 6vh;
     }
+
 }
 
 @media (orientation: portrait)

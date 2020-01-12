@@ -317,13 +317,13 @@ export default class ProjectViewer
     }
 
     /* Change the elements with new project informatoin */
-    showNewProject(newProject: Project): void
+    public showNewProject(newProject: Project): void
     {
         this.project = newProject;
-        
-        this.myElement.style.display = 'block';
-        this.myElement.scrollTop =  0; 
 
+        this.myElement.style.display = 'block';
+        this.myElement.scrollTop =  0;
+        
         this.infoSection.style.backgroundColor = this.project.backgroundColor;
 
         let hashTo0x: string = '0x' + this.project.backgroundColor.split('#')[1];

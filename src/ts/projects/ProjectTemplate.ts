@@ -18,15 +18,15 @@ export interface ProjectText
 
 export interface ProjectVariables
 {
-    day: number;
-    month: number;
-    year: number;
+    day?: number;
+    month?: number;
+    year?: number;
 
-    durationHrs: number;
-    teamSize: number;
-    learnedValue: number;
-    endResultValue: number;
-    client: string;
+    durationHrs?: number;
+    teamSize?: number;
+    learnedValue?: number;
+    endResultValue?: number;
+    client?: string;
 }
 
 export interface ProjectSources
@@ -88,7 +88,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
 
     constructor(
         text: ProjectText = {name: 'not found'},
-        variables: ProjectVariables = {day: 0, month: 0, year: 0, durationHrs: -1, teamSize: -1, endResultValue: -1, learnedValue: -1, client: 'me'},
+        variables: ProjectVariables = {},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
         customization: ViewerCustomization = {backgroundColor: '#333', isFullProject: false},
         tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}

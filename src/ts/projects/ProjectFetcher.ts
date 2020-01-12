@@ -125,6 +125,17 @@ export default class ProjectFetcher
         return this.projects;
     }
 
+    public getProjectByID(id: string): Project
+    {
+        for (let i = 0; i < this.projects.length; i++)
+        {
+            if (this.projects[i].id == id)
+            {
+                return this.projects[i];
+            }
+        }
+    }
+
     /* Find the projects one or more of these tags */
     public getProjectsWithTags(tags: any[]): Project[]
     {

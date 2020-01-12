@@ -19,6 +19,7 @@ import AboutEyes from './about_page/AboutEyes';
 import LoadingScreen from './loading_screen/LoadingScreen';
 
 import ImageImporter from './data/ImageImporter';
+import ProjectViewer from './projects/ProjectViewer';
 
 class Main
 {
@@ -28,11 +29,13 @@ class Main
     eyes: AboutEyes;
     loadingScreen: LoadingScreen;
     
-    projectsOverview: ListViewer;    
+    listViewer: ListViewer;    
     projectsFetcher: ProjectFetcher;
 
     gridViewer: GridViewer;
     gridPopup: GridPopup;
+
+    projectViewer: ProjectViewer;
     
     constructor()
     {   
@@ -85,49 +88,35 @@ class Main
             this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
         }
         
-        this.projectsOverview = new ListViewer(
+        this.listViewer = new ListViewer(
             <HTMLDivElement>document.getElementById(pages.list), 
             this.projectsFetcher.getProjects().slice().splice(0, 3), /* Highlights */ 
             //this.gridViewer.notLoadedProjects, 
             [
-                tools.AffinityDesigner,
                 tools.Blender,
                 tools.Touchdesigner,
                 tools.Houdini,
                 tools.Krita,
                 tools.Processing,
-                tools.SuperCollider,
-                tools.AffinityPublisher,
                 tools.Typescript,
-                tools.Webpack,
                 tools.Phaser
             ],
             [
                 themes.adventure,
-                themes.interactive,
                 themes.generative,
                 themes.philosophy,
-                themes.puzzle
             ]
         );
-            
+
+        /* Project viewer  */
+        this.projectViewer = new ProjectViewer(this.listViewer.myElement);
+
         this.hashHandler.openProject = (id: string) => { 
-            this.projectsOverview.openProjectByID(id);
+            this.projectViewer.showNewProject(this.projectsFetcher.getProjectByID(id));
         }
         this.hashHandler.closeProject = () => {
-            this.projectsOverview.closeProjectViewer();
+            this.projectViewer.close();
         }
-        // this.input.keyPressedCallback.push((keyCode: number) => {   
-        //     this.projectsOverview.closeProjectViewer();
-        // });
-
-        /* Filter projects handler */
-        this.projectsOverview.filterClickedCallback = (tags: any[]) => {
-            let filterProjects: Project[] = this.projectsFetcher.getProjectsWithTags(tags);
-            
-            this.projectsOverview.reinitPreviews(filterProjects);
-        }
-
     }
 
     /* Website transitioned to new page */
@@ -144,7 +133,7 @@ class Main
 
         if (Constants.CURRENT_PAGE == pages.list)
         {
-            this.projectsOverview.loadProjects(this.projectsFetcher.getProjects());
+            this.listViewer.loadProjects(this.projectsFetcher.getProjects());
         }
     }
 
