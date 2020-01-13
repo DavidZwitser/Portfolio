@@ -12,6 +12,8 @@ export default class ProjectViewer
 
     project: Project;
 
+    backdrop: HTMLDivElement;
+
     closeButton: HTMLButtonElement;
 
     banner: HTMLImageElement;
@@ -95,8 +97,11 @@ export default class ProjectViewer
             this.images.push(newImage);
         }
     
-        this.myElement = this.parent.appendChild(document.createElement('div'));
-        this.myElement.id = 'project-viewer';
+        this.myElement = this.parent;
+        // this.myElement.id = 'project-/viewer';
+
+        this.backdrop = this.myElement.appendChild(document.createElement('div'));
+        this.backdrop.className = 'project-viewer-backdrop';
 
         this.container = this.myElement.appendChild(document.createElement('div'));
         this.container.id  = 'project-viewer-container';

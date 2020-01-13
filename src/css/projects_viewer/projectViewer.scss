@@ -1,8 +1,8 @@
-.project-viewer
+#project-viewer
 {
-    position: absolute;
-
+    // position: static;
     top: 0;
+    z-index: 1;
 
     width: 100vw;
     height: 100%;
@@ -16,6 +16,20 @@
     color: rgb(207, 207, 207);
 
     display: none;
+
+    .project-viewer-backdrop    
+    {
+        position: absolute;
+        
+        top: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        background-color: rgba(0, 0, 0, 0.527);
+
+        filter: blur(5);
+    }
 
     #project-viewer-container
     {
@@ -33,7 +47,7 @@
         .project-viewer-banner
         {
             display:  block;
-            width: 100vmin;
+            width: 100vmin; 
             position: fixed;
 
             margin-top: -2vmin;

@@ -109,7 +109,7 @@ class Main
         );
 
         /* Project viewer  */
-        this.projectViewer = new ProjectViewer(this.listViewer.parent);
+        this.projectViewer = new ProjectViewer(<HTMLDivElement>document.getElementById('project-viewer'));
 
         this.hashHandler.openProject = (id: string) => { 
             this.projectViewer.showNewProject(this.projectsFetcher.getProjectByID(id));
