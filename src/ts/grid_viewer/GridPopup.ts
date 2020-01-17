@@ -1,4 +1,7 @@
 import Project from '../projects/ProjectTemplate';
+import { pages } from '../data/Enums';
+import Constants from '../data/Constants';
+import HashHandler from '../data/HashHandler';
 
 /* A popup which shows more information about a project */
 export default class GridPopup
@@ -7,7 +10,10 @@ export default class GridPopup
 
     private currentProject: Project;
 
+    private footageWindow: HTMLDivElement;
     private videoElement: HTMLVideoElement;
+    private moreInfoImageBackground: HTMLImageElement;
+    private moreInfoElement: HTMLDivElement;
 
     private description: HTMLParagraphElement;
     private tags: HTMLParagraphElement;
@@ -23,18 +29,26 @@ export default class GridPopup
         this.parent = parent;
 
         /* Creating dom elements */
-        let imageWindow: HTMLDivElement = document.createElement('div');
-        imageWindow.className = 'grid-popup-image';
-        parent.appendChild(imageWindow);
+        this.footageWindow = document.createElement('div');
+        this.footageWindow.className = 'grid-popup-image';
+        parent.appendChild(this.footageWindow);
 
         let video: HTMLVideoElement = document.createElement('video');
         video.className = 'grid-popup-video';
         video.src = '';
-        imageWindow.appendChild(video);
+        this.footageWindow.appendChild(video);
         video.play();
         video.loop = true;
-
         this.videoElement = video;
+
+        this.moreInfoImageBackground = document.createElement('img');
+        this.moreInfoImageBackground.className = 'grid-popup-more-info-background';
+        this.footageWindow.appendChild(this.moreInfoImageBackground);
+
+        this.moreInfoElement = document.createElement('div');
+        this.moreInfoElement.className = 'grid-popup-more-info';
+        this.moreInfoElement.innerHTML = 'MORE INFO';
+        this.footageWindow.appendChild(this.moreInfoElement);
 
         this.description = document.createElement('p');
         this.description.className = 'grid-popup-description';
@@ -78,7 +92,10 @@ export default class GridPopup
             }
         });
 
-        this.parent.addEventListener('mousedown', () => {
+        this.pullOutIndicatorDown.addEventListener('mousedown', () => {
+            this.togglePopup();
+        });
+        this.pullOutIndicatorRight.addEventListener('mousedown', () => {
             this.togglePopup();
         });
     }
@@ -110,6 +127,7 @@ export default class GridPopup
     public openPopup(project: Project, forceOpen?: boolean)
     {
         this.currentProject = project;
+        this.parent.style.display = 'block';
 
         if (forceOpen == true) { this.active = true; }
         if (this.active == false) { return; }
@@ -117,10 +135,32 @@ export default class GridPopup
         this.parent.style.left = '0px';
         this.parent.style.top = '0px';
 
-        this.videoElement.play();   
+        if (project.localVideo !== undefined)
+        {
+            this.moreInfoElement.style.display = 'none';
+            this.videoElement.style.display = 'block';
 
-        if (this.videoElement.src == project.footage[0]) { return; }
-        this.videoElement.src = project.footage[0];        
+            this.videoElement.src = project.footage[0];                    
+            this.videoElement.play();
+        }
+        else
+        {
+            this.videoElement.style.display = 'none';
+            this.moreInfoElement.style.display = 'block';
+            
+            // this.moreInfoElement.innerHTML = project.
+            this.moreInfoImageBackground.src = project.thumbnail;
+
+            let openMoreInfoFunction: (this: GlobalEventHandlers, ev: Event) => any = () => {
+                this.closePopup();
+                this.active = false;
+                this.parent.style.display = 'none';
+                HashHandler.CHANGE_PAGE(pages.grid, project.id);
+            };
+
+            this.moreInfoImageBackground.onclick = openMoreInfoFunction;
+            this.moreInfoElement.onclick = openMoreInfoFunction;
+        }
         
         this.description.innerHTML = project.name;
         
@@ -137,8 +177,6 @@ export default class GridPopup
 
         this.pullOutIndicatorDown.innerHTML = '^';
         this.pullOutIndicatorRight.innerHTML = '<';
-        
-        this.videoElement.play();
 
     }
 

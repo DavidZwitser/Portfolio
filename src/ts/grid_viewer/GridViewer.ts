@@ -32,7 +32,7 @@ export default class GridViewer
     projectClosestToCenter: GridProject;
     focusedProjectChangedCallback: Function[];
 
-    openMoreInfo: (project: Project, foreceOpen?: boolean) => void;
+    openMoreInfo: (project: Project, forceOpen?: boolean) => void;
     closeMoreInfo: () => void;
     toggleMoreInfo: (project?: Project) => void;
 
@@ -52,12 +52,14 @@ export default class GridViewer
 
         Constants.PAGE_CHANGED_CALLBACK.push((page: pages) => {
             
-            if (page == pages.grid)
+            if (page == pages.grid && Constants.CURRENT_PROJECT == '')
             {
                 if (this.projectClosestToCenter !== null)
                 {
                     if  (this.openMoreInfo !== null)
+                    {
                         this.openMoreInfo(this.projectClosestToCenter.content);
+                    }
                 }
             }
             else
@@ -120,6 +122,8 @@ export default class GridViewer
         img.draggable = false;
         img.src = content.thumbnail;    
         gridElement.appendChild(img);
+
+        gridElement.style.borderColor = content.isFullProject == true ? 'rgb(19, 112, 189)' : '#ff4500';
 
         let id: number = this.idCounter ++;
 
@@ -280,8 +284,8 @@ export default class GridViewer
                 this.closeMoreInfo();
         }
 
-        let vmin: number = Math.min(window.innerWidth, window.innerHeight);
-        let size: number = vmin * this.elementSizeMultiplier;
+        let vmax: number = Math.max(window.innerWidth, window.innerHeight);
+        let size: number = vmax * this.elementSizeMultiplier;
 
         if (offsetX) { this.positionX += offsetX; }
         if (offsetY) { this.positionY += offsetY; }
@@ -312,7 +316,8 @@ export default class GridViewer
             let distanceFromCenter = (parseInt(style.left) - this.currentProjectCenter.x) ** 2 + (parseInt(style.top) - this.currentProjectCenter.y) ** 2;
             curr.distanceFromCenter = distanceFromCenter;
             /* Setting size as the distance */
-            let elementSize: number = size - distanceFromCenter * .001;
+            let elementSize: number = size - distanceFromCenter * .0008;
+            if (curr.content.isFullProject == false) { elementSize *= .7; }
             
             if (elementSize < 10) { elementSize = 10; }
 

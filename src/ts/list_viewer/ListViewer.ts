@@ -27,7 +27,7 @@ export default class ListViewer
 
     private isLoaded: boolean = false;
 
-    filterClickedCallback: Function;
+    filterClickedCallback: (filters: string[]) => Project[];
 
     constructor(parent: HTMLDivElement, highlights: Project[], selectableTools: tools[], selectableThemes: themes[])
     {
@@ -44,18 +44,18 @@ export default class ListViewer
         this.filterTags = [];
 
         this.filterTags.push(new ListFilterTag(this.filterTagsContainer, 'All', 'green', (all: string) => {
-            this.filterClickedCallback([all]);
+            this.reinitPreviews(this.filterClickedCallback([all]));
         } ));
         for (let i = 0; i < selectableTools.length; i++)
         {
             this.filterTags.push(new ListFilterTag(this.filterTagsContainer, selectableTools[i], 'rgb(19, 112, 189)', (tool: tools) => {
-                this.filterClickedCallback([tool]);
+                this.reinitPreviews(this.filterClickedCallback([tool]));
             }));
         }
         for (let i = 0; i < selectableThemes.length; i++)
         {
             this.filterTags.push(new ListFilterTag(this.filterTagsContainer, selectableThemes[i], '#ff4500', (theme: themes) => {
-                this.filterClickedCallback([theme]);
+                this.reinitPreviews(this.filterClickedCallback([theme]));
             }));
         }
         /* Project previews */

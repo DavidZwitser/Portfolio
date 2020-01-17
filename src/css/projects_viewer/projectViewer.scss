@@ -4,12 +4,13 @@
     top: 0;
     z-index: 1;
 
+    margin-top: 0;
+
     width: 100vw;
     height: 100%;
 
     // overflow-y: scroll;
     overflow-x: hidden;
-    scrollbar-width: 0px;
 
     background-color: rgba(0, 0, 0, 0.418);
 
@@ -73,6 +74,10 @@
             font-size: 4vmin;
     
             background-color: rgb(110, 110, 110);
+        }
+        .project-viewer-close-button:hover
+        {
+            cursor: pointer;
         }
     
         .project-viewer-info-section

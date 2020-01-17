@@ -1,5 +1,15 @@
 {
     "dailies": {
+        "daily55": {
+            "url": "https://www.instagram.com/p/BtBxhGKlxZn/",
+            "footage": [
+            ],
+            "description": "*Recognizing objects in algorithms*",
+            "tags": [
+                "touchdesigner",
+                "generativeart"
+            ]
+        },
         "daily0": {
             "url": "https://www.instagram.com/p/BvSWzDdFza0/",
             "footage": [
@@ -497,16 +507,6 @@
             ],
             "description": "Idk",
             "tags": []
-        },
-        "daily55": {
-            "url": "https://www.instagram.com/p/BtBxhGKlxZn/",
-            "footage": [
-            ],
-            "description": "*Recognizing objects in algorithms*",
-            "tags": [
-                "touchdesigner",
-                "generativeart"
-            ]
         },
         "daily56": {
             "url": "https://www.instagram.com/p/Bs_g6lql7HC/",

@@ -1,5 +1,7 @@
 import Project from "./ProjectTemplate";
 import { pages } from "../data/Enums";
+import HashHandler from "../data/HashHandler";
+import Constants from "../data/Constants";
 
 /* A windows in which to show-off projects */
 export default class ProjectViewer
@@ -109,9 +111,6 @@ export default class ProjectViewer
         this.closeButton = this.container.appendChild(document.createElement('button'));
         this.closeButton.innerHTML = 'X';
         this.closeButton.className = 'project-viewer-close-button';
-        this.closeButton.onclick = () => {
-            window.location.hash = pages.list;
-        };
     
         this.banner = this.container.appendChild(document.createElement('img'));
         this.banner.className = 'project-viewer-banner';
@@ -324,10 +323,18 @@ export default class ProjectViewer
     /* Change the elements with new project informatoin */
     public showNewProject(newProject: Project): void
     {
-        this.project = newProject;
-
         this.myElement.style.display = 'block';
-        this.myElement.scrollTop =  0;
+        
+        if (this.project && this.project.id !== newProject.id)
+        {   
+            this.myElement.scrollTop = 0;
+        }
+        
+        this.project = newProject;
+        
+        this.closeButton.onclick = () => {
+            HashHandler.REMOVE_PROJECT_FROM_HASH();
+        };
         
         this.infoSection.style.backgroundColor = this.project.backgroundColor;
 

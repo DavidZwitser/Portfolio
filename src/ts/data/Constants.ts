@@ -5,43 +5,15 @@ export default class Constants
     public static HASH_SEPARATOR = '|';
 
     public static CURRENT_PAGE: pages = pages.home;
+    public static CURRENT_PROJECT: string = '';
     public static LAST_PAGE: pages =  pages.none;
 
-    public static CHANGE_PAGE(hashKey: string)
+    public static CHANGE_PAGE(hashKey: pages, projectVariable?: string)
     {
         this.LAST_PAGE = this.CURRENT_PAGE;
-        switch(hashKey)
-        {
-            case pages.home:
+        this.CURRENT_PAGE = hashKey;
 
-                this.CURRENT_PAGE = pages.home;
-                break;
-
-            case pages.grid:
-
-                this.CURRENT_PAGE = pages.grid;
-                break;
-
-            case pages.list:
-                
-                this.CURRENT_PAGE = pages.list;
-                break;
-
-            case pages.list:
-                
-                this.CURRENT_PAGE = pages.list;
-                break;
-
-            case pages.about:
-
-                this.CURRENT_PAGE = pages.about;
-                break;
-
-            default:
-
-                this.CURRENT_PAGE = pages.home;
-                break;
-        }
+        if (projectVariable !== undefined) { this.CURRENT_PROJECT = projectVariable; }
 
         for(let i = 0; i < this.PAGE_CHANGED_CALLBACK.length; i++)
         {

@@ -1,6 +1,7 @@
 import Project, { ProjectSources } from "../projects/ProjectTemplate";
 import { pages } from "../data/Enums";
 import Constants from "../data/Constants";
+import HashHandler from "../data/HashHandler";
 
 /* A small representation of a project to give the most valueble information */
 export default class ListPreview
@@ -130,7 +131,7 @@ export default class ListPreview
             this.imgElement.addEventListener('mouseup', () => {
                 if (this.project.isFullProject == true)
                 {
-                    window.location.hash = pages.list + Constants.HASH_SEPARATOR + this.project.id;
+                    HashHandler.CHANGE_PAGE(pages.list, this.project.id);
                 }
             });
         }
@@ -139,7 +140,7 @@ export default class ListPreview
             this.name.addEventListener('mouseup', () => {
                 if (this.project.isFullProject == true)
                 {
-                    window.location.hash = pages.list + Constants.HASH_SEPARATOR + this.project.id;
+                    HashHandler.CHANGE_PAGE(pages.list, this.project.id);
                 }
             })
         }

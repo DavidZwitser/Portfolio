@@ -58,7 +58,7 @@ class Main
         
         this.gridViewer = new GridViewer(<HTMLDivElement>document.getElementById('grid'));
         this.gridPopup  = new GridPopup(<HTMLDivElement> document.getElementById('grid-popup'));
-        
+
         /* Asigning mouse events */
         this.input.mouseMovingCallback.push(() => {
             if (Constants.CURRENT_PAGE !== pages.about) { return; }
@@ -107,6 +107,14 @@ class Main
                 themes.philosophy,
             ]
         );
+        this.listViewer.filterClickedCallback = (filters: string[]) => { 
+            if (filters[0] == 'All')
+            {
+                return this.projectsFetcher.getProjects();
+            }
+
+            return this.projectsFetcher.getProjectsWithTags(filters); 
+        }
 
         /* Project viewer  */
         this.projectViewer = new ProjectViewer(<HTMLDivElement>document.getElementById('project-viewer'));

@@ -31,21 +31,55 @@ $popup-speed: .3s;
 
     transition: top $popup-speed;
 
+    
     .grid-popup-image {
-        background-color: rgb(102, 102, 102);
+        background-color: rgb(212, 212, 212);
         height: 40vmin;
         width: 40vmin;
-
+        
         position: relative;
-
+        
         overflow: hidden;
-
+        
         margin: 5vmin;
-
+        
         .grid-popup-video
         {
             width: 100%;
             height: 100%;
+        }
+
+        .grid-popup-more-info-background
+        {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .grid-popup-more-info
+        {
+            // position: absolute;
+            text-align: center;
+            font-weight: lighter;
+            font-size: 5vmin;
+
+            color: white;
+            -webkit-user-drag: none;
+            background-color: black;
+    
+            width: 100%;
+            height: 100%;
+    
+            margin-top: -58%;
+        }
+    
+        .grid-popup-more-info:hover
+        {
+            cursor: pointer;
+        }
+        .grid-popup-more-info-background:hover
+        {
+            cursor: pointer;
         }
 
         float: left;
@@ -63,7 +97,7 @@ $popup-speed: .3s;
         margin-top: 3%;
 
         font-size: 3vmin;
-        font-weight: 800;
+        font-weight: 300;
     }
 
     .grid-popup-tags {
@@ -71,7 +105,7 @@ $popup-speed: .3s;
         margin-left: 0px;
         margin-top: 0px;
 
-        font-size: 2vmin;
+        font-size: 1.2vmin;
 
     }
 
@@ -97,11 +131,19 @@ $popup-speed: .3s;
         color: rgb(0, 0, 0);
 
     }
+    .grid-popup-pullout-down:hover
+    {
+        cursor: pointer;
+    }
 
     .grid-popup-pullout-right
     {
         display: none;
         color: rgb(0, 0, 0);
+    }
+    .grid-popup-pullout-right
+    {
+        cursor: pointer;
     }
 
 }

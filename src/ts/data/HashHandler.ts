@@ -7,6 +7,16 @@ export default class HashHandler
     public openProject: (id: string) => void;
     public closeProject: () => void;
 
+    public static CHANGE_PAGE(page: pages = pages.home, projectID: string = '')
+    {
+        window.location.hash = page + Constants.HASH_SEPARATOR + projectID;
+    }
+
+    public static REMOVE_PROJECT_FROM_HASH(): void
+    {
+        window.location.hash = Constants.CURRENT_PAGE;
+    }
+
     /* The url hash changed */
     public hashChanged(): void
     {
@@ -18,10 +28,10 @@ export default class HashHandler
         let rawHash = window.location.hash.split('#')[1];
         let hashParts = rawHash.split(Constants.HASH_SEPARATOR);
 
-        let hash = hashParts[0];
+        let hash = <pages>hashParts[0];
         let projectVariable = hashParts[1];
     
-        Constants.CHANGE_PAGE(hash);
+        Constants.CHANGE_PAGE(hash, projectVariable);
         
         let navbar = document.getElementById("navigation-bar");
         let navbar_links = document.getElementById('navigation-bar-links');
@@ -44,25 +54,21 @@ export default class HashHandler
             navbar_back.style.display = 'block';            
         }
 
-        /* Check for url variables */
-        if (Constants.CURRENT_PAGE == pages.list)
+        if (hashParts.length > 1)
         {
-            if (hashParts.length > 1)
-            {
-                if (this.openProject !== undefined)
-                    this.openProject(projectVariable);
-            }   
-            else
-            {
-                if (this.closeProject !== undefined)
-                    this.closeProject();
-            }
+            if (this.openProject !== undefined)
+                this.openProject(projectVariable);
+        }   
+        else
+        {
+            if (this.closeProject !== undefined)
+                this.closeProject();
         }
 
         /* -------------- */
         if (Constants.LAST_PAGE == Constants.CURRENT_PAGE) { return; }
 
-        navbar.addEventListener('transitionend', () => { if (this.pageTransitioned !== null) this.pageTransitioned() } );
+        navbar.addEventListener('transitionend', () => { if (this.pageTransitioned !== null) this.pageTransitioned() }, {once: true} );
 
         document.getElementById(pages.about).style.height = '0%';
         document.getElementById(pages.list).style.height = '0%';
