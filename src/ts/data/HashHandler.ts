@@ -36,11 +36,11 @@ export default class HashHandler
 
         if (projectVariable == undefined) 
         {
-            (<any>ga)('set', 'page', hash);
+            (<any>ga)('set', 'page', '/' + hash);
         }
         else 
         {
-            (<any>ga)('set', 'page', hash + Constants.HASH_SEPARATOR + projectVariable);
+            (<any>ga)('set', 'page', '/' + hash + Constants.HASH_SEPARATOR + projectVariable);
         }
         (<any>ga)('send', 'pageview');
 
