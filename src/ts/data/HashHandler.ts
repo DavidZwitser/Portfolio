@@ -25,13 +25,25 @@ export default class HashHandler
             window.location.hash = pages.home;
         }
 
+        
         let rawHash = window.location.hash.split('#')[1];
         let hashParts = rawHash.split(Constants.HASH_SEPARATOR);
-
+        
         let hash = <pages>hashParts[0];
         let projectVariable = hashParts[1];
-    
+        
         Constants.CHANGE_PAGE(hash, projectVariable);
+
+        if (projectVariable == undefined) 
+        {
+            (<any>ga)('set', 'page', hash);
+        }
+        else 
+        {
+            (<any>ga)('set', 'page', hash + Constants.HASH_SEPARATOR + projectVariable);
+        }
+        (<any>ga)('send', 'pageview');
+
         
         let navbar = document.getElementById("navigation-bar");
         let navbar_links = document.getElementById('navigation-bar-links');
