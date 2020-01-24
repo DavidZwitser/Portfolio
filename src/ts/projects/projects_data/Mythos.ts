@@ -13,6 +13,8 @@ export namespace Mythos
                 context: 'Initiated through a school project we made a twist off of the old mythological story of Narcissus. We centered it around ethical egoism and out came this interactive story.',
 
                 goal: "Our goal is to conflict the player with their own actions. You are presented with choices with no clear 'good or bad' side. Even if you try to be good, isn't that because you are in the end, satisfying yourself? \n We also made sure to make it as accessible and immersive as possible by making all the important characters their genders up for imagination.",
+                myRoll: 'We worked together on the storylines and making them coherent. Furthermore I made the interactive system which supports audio storylines and visuals.',
+
                 outcome: 'The result is an immersive rich story where you are emerged by a soothing voice and abstract visuals and tons of decisions to make. It really is something you must experience in person.',
 
                 whatILearned: 'This project teached me most about narrative. Writing an interactive story with branching and merging storylines which need to keep feeling coherent is definitely not a simple task.',
@@ -50,7 +52,7 @@ export namespace Mythos
             <ProjectTags>{
                 goals: [goals.learn, goals.create],
                 tools: [tools.Touchdesigner, tools.Twine],
-                themes: [themes.philosophy]
+                themes: [themes.philosophy, themes.interactive]
             }
         );
     }

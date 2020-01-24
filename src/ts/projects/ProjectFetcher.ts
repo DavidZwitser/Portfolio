@@ -3,6 +3,7 @@ import Project, { ProjectText, ProjectSources, ProjectTags } from "./ProjectTemp
 import {Mythos} from './projects_data/Mythos';
 import {MovingUp} from './projects_data/MovingUp';
 import {LifeLike} from './projects_data/LifeLike';
+import { PersonalSharedPhysical } from "./projects_data/PersonalSharedPhysical";
 
 import * as projectData from '../../JSON/projects.json';
 import { themes, goals, tools } from "../data/Enums";
@@ -46,7 +47,8 @@ export default class ProjectFetcher
         this.projects.push(
             Mythos.getProject(),
             MovingUp.getProject(),
-            LifeLike.getProject()
+            LifeLike.getProject(),
+            PersonalSharedPhysical.getProject()
         );
     }
 

@@ -6,6 +6,8 @@ export interface ProjectText
 
     description?: string;
 
+    myRoll?: string;
+
     goal?: string;
     outcome?: string;
 
@@ -59,6 +61,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     description: string;
     context: string;
     goal: string;
+    myRoll: string;
     outcome: string;
     whatWentGood: string;
     whatWentBad: string;
@@ -87,7 +90,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
     private static ID_COUNTER: number = 0;
 
     constructor(
-        text: ProjectText = {name: 'not found'},
+        text: ProjectText = {name: 'not found', myRoll: ''},
         variables: ProjectVariables = {},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
         customization: ViewerCustomization = {backgroundColor: '#333', isFullProject: false},
@@ -99,6 +102,7 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         this.description =  text.description;
         this.context = text.context;
         this.goal = text.goal;
+        this.myRoll = text.myRoll;
         this.outcome = text.outcome;
         this.whatWentGood = text.whatWentGood;
         this.whatWentBad = text.whatWentBad;

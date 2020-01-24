@@ -105,6 +105,8 @@
     
                 padding-top: 4vmin;
                 margin-left: 5vmin;
+
+                overflow-wrap: none;
             }
     
             .project-viewer-theme-container
@@ -139,29 +141,51 @@
     
                 margin-bottom: 5vmin;
             }
-            
-            .project-viewer-variable-title
-            {
-                color: rgb(124, 123, 123);
-    
-                margin-left: 5vmin;
-    
-                margin-bottom: 1vmin;
-            }
 
-            .project-viewer-variable
+            .project-viewer-variable-section
             {
-                margin-left: 5vmin;
-                margin-top: 1vmin;
+                width: 100vw;
+                height: 10vmin;
+
+                padding-left: 5vmin;
+                padding-right: 5vmin;
+            }
+            
+            .project-viewer-variable-container
+            {
+                float: left;
+
+                width: 15vmin;
+                font-size: 2vmin;
+
+                text-align: center;
+
+                .project-viewer-variable-title
+                {
+                    color: rgb(124, 123, 123);
+        
+                    // margin-bottom: 1vmin;
+                    margin-top: 0vmin;
+    
+                }
+    
+                .project-viewer-variable
+                {
+                    // margin-top: 
+                }
             }
     
             .project-viewer-variable-line-between
             {
-                width: auto;
+                width: 1px;
+                height: 9vmin;
+
+                
                 margin-left: 5vmin;
                 margin-right: 5vmin;
-    
-                height: 1px;
+                margin: 0;
+
+                float: left;
     
                 background-color: rgb(224, 224, 224);
             }
@@ -222,7 +246,7 @@
                 background-color: rgba(224, 224, 224, 0.602);
             }
 
-            .project-viewer-goal-title
+            .project-viewer-goal-title, .project-viewer-my-roll-title
             {
                 // width: 50vh;
 
@@ -236,7 +260,7 @@
                 margin-right: 20vh;
             }
 
-            .project-viewer-goal
+            .project-viewer-goal, .project-viewer-my-roll
             {
                 font-size: 2vh;
 
@@ -247,7 +271,7 @@
             }
 
             @media (orientation: portrait) {
-                .project-viewer-goal, .project-viewer-goal-title
+                .project-viewer-goal, .project-viewer-goal-title, .project-viewer-my-roll-title, .project-viewer-my-roll
                 {
                     margin-left: 20vw;
                     margin-right: 20vw;

@@ -32,6 +32,9 @@ export default class ProjectViewer
     goalTitle: HTMLParagraphElement;
     goal: HTMLParagraphElement;
 
+    myRollTitle: HTMLParagraphElement;
+    myRoll: HTMLParagraphElement;
+
     seperatorElement0: HTMLDivElement;
 
     whatWentGoodTitle: HTMLParagraphElement;
@@ -166,70 +169,93 @@ export default class ProjectViewer
         this.variablesSection = this.infoSection.appendChild(document.createElement('div'));
         this.variablesSection.className = 'project-viewer-variable-section';
     
+        let variableInfoContainer: HTMLDivElement;
         let title: HTMLParagraphElement;
         let lineBetween: HTMLDivElement;
+
+        variableInfoContainer = this.variablesSection.appendChild(document.createElement('div'));
+        variableInfoContainer.className = 'project-viewer-variable-container';
     
-        title = this.variablesSection.appendChild(document.createElement('h4'));
+        title = variableInfoContainer.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'CLIENT';
     
-        this.client = this.variablesSection.appendChild(document.createElement('p'));
+        this.client = variableInfoContainer.appendChild(document.createElement('p'));
         this.client.className = 'project-viewer-variable';
         this.client.innerHTML = '';
     
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
+
+        variableInfoContainer = this.variablesSection.appendChild(document.createElement('div'));
+        variableInfoContainer.className = 'project-viewer-variable-container';
     
-        title = this.variablesSection.appendChild(document.createElement('h4'));
+        title = variableInfoContainer.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'DURATION';
     
-        this.duration = this.variablesSection.appendChild(document.createElement('p'));
+        this.duration = variableInfoContainer.appendChild(document.createElement('p'));
         this.duration.className = 'project-viewer-variable';
         this.duration.innerHTML = '';
     
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
 
-        title = this.variablesSection.appendChild(document.createElement('h4'));
+        variableInfoContainer = this.variablesSection.appendChild(document.createElement('div'));
+        variableInfoContainer.className = 'project-viewer-variable-container';
+
+        title = variableInfoContainer.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'DATE';
     
-        this.date = this.variablesSection.appendChild(document.createElement('p'));
+        this.date = variableInfoContainer.appendChild(document.createElement('p'));
         this.date.className = 'project-viewer-variable';
         this.date.innerHTML = '';
     
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
+
+        variableInfoContainer = this.variablesSection.appendChild(document.createElement('div'));
+        variableInfoContainer.className = 'project-viewer-variable-container';
     
-        title = this.variablesSection.appendChild(document.createElement('h4'));
+        title = variableInfoContainer.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'TEAM SIZE';
     
-        this.teamSize = this.variablesSection.appendChild(document.createElement('p'));
+        this.teamSize = variableInfoContainer.appendChild(document.createElement('p'));
         this.teamSize.className = 'project-viewer-variable';
         this.teamSize.innerHTML = '';
     
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
+
+        variableInfoContainer = this.variablesSection.appendChild(document.createElement('div'));
+        variableInfoContainer.className = 'project-viewer-variable-container';
     
-        title = this.variablesSection.appendChild(document.createElement('h4'));
+        title = variableInfoContainer.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'LEARNED VALUE';
     
-        this.learnedValue = this.variablesSection.appendChild(document.createElement('p'));
+        this.learnedValue = variableInfoContainer.appendChild(document.createElement('p'));
         this.learnedValue.className = 'project-viewer-variable';
+        this.learnedValue.style.fontSize = '3vmin';
+        this.learnedValue.style.marginTop = '-.5vmin';
         this.learnedValue.innerHTML = '';
     
         lineBetween = this.variablesSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-variable-line-between';
+
+        variableInfoContainer = this.variablesSection.appendChild(document.createElement('div'));
+        variableInfoContainer.className = 'project-viewer-variable-container';
     
-        title = this.variablesSection.appendChild(document.createElement('h4'));
+        title = variableInfoContainer.appendChild(document.createElement('h4'));
         title.className = 'project-viewer-variable-title';
         title.innerHTML = 'RESULT VALUE';
     
-        this.endResultValue = this.variablesSection.appendChild(document.createElement('p'));
+        this.endResultValue = variableInfoContainer.appendChild(document.createElement('p'));
         this.endResultValue.className = 'project-viewer-variable';
+        this.endResultValue.style.fontSize = '3vmin';
+        this.endResultValue.style.marginTop = '-.5vmin';
         this.endResultValue.innerHTML = '';
     
         this.titleBodyWrapperContext = this.infoSection.appendChild(document.createElement('div'));
@@ -261,6 +287,13 @@ export default class ProjectViewer
         this.goal = this.infoSection.appendChild(document.createElement('p'));
         this.goal.className = 'project-viewer-goal';
         this.goal.innerHTML = '';
+
+        this.myRollTitle = this.infoSection.appendChild(document.createElement('p'));
+        this.myRollTitle.className = 'project-viewer-my-roll-title';
+        this.myRollTitle.innerHTML = 'Roll';
+
+        this.myRoll = this.infoSection.appendChild(document.createElement('p'));
+        this.myRoll.className = 'project-viewer-my-roll';
 
         lineBetween = this.infoSection.appendChild(document.createElement('div'));
         lineBetween.className = 'project-viewer-goal-line-between';
@@ -422,12 +455,15 @@ export default class ProjectViewer
         this.client.innerHTML = newProject.client;
         this.duration.innerHTML = newProject.durationHrs + 'H';
         this.date.innerHTML = newProject.day + ' / ' + (newProject.month < 10 ? '0' : '') +  newProject.month + ' / ' + newProject.year;
-        this.teamSize.innerHTML = newProject.teamSize + ' Members';
+        this.teamSize.innerHTML = newProject.teamSize + (newProject.teamSize > 1 ? ' members' : ' member');
         this.learnedValue.innerHTML = newProject.learnedValue + '-10';
         this.endResultValue.innerHTML = newProject.endResultValue + '-10';
 
         this.context.innerHTML = newProject.context;
         this.goal.innerHTML = newProject.goal;
+        this.myRoll.innerHTML = newProject.myRoll;
+        if (this.myRoll.innerHTML == '') { this.myRollTitle.style.display = 'none'; }
+        else { this.myRollTitle.style.display = 'block'; }
 
         this.whatWentGood.innerHTML = newProject.whatWentGood;
         this.whatWentBad.innerHTML = newProject.whatWentBad;
