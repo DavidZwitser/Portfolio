@@ -20,26 +20,23 @@ export default class ProjectFetcher
         this.loadBigProjects();
         this.loadDailies();
 
-        // this.requireProjectFiles();
+        // this.logProjectFiles();
     }
 
     /* Log project files for imoprting files */
     private logProjectFiles(): void
     {
-        let thumbnais: String = '';     
         let footage: String = '';
         for (let i: number = 0; i < this.projects.length; i++)
         {
-            thumbnais += ('require.resolve("../../../' + this.projects[i].thumbnail + '"); \n');
+            footage += ('require.resolve("../../../' + this.projects[i].thumbnail + '"); \n');
             for(let x: number = 0; x < this.projects[i].footage.length; x++)
             {
-                footage += ('require.resolve("../../../' + this.projects[i ].footage[x] + '");');
+                footage += ('require.resolve("../../../' + this.projects[i ].footage[x] + '"); \n');
             }
         }
 
-        console.log(thumbnais);
         console.log(footage);
-        
     }
 
     private loadBigProjects()
@@ -67,12 +64,12 @@ export default class ProjectFetcher
 
             if (logProjectsData == true)
             {
-                videos += "require.resolve('../footage/dailies/" + splitURL[4] + ".mp4');"
-                thumbnails += "require.resolve('../footage/dailies/thumbnails/" + splitURL[4] + ".jpg');"
+                videos += "require.resolve('footage/dailies/" + splitURL[4] + ".mp4');"
+                thumbnails += "require.resolve('footage/dailies/thumbnails/" + splitURL[4] + ".jpg');"
             }
 
-            daily.footage = ['../footage/dailies/' + splitURL[4] + '.mp4'];
-            daily.thumbnail = '../footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
+            daily.footage = ['footage/dailies/' + splitURL[4] + '.mp4'];
+            daily.thumbnail = 'footage/dailies/thumbnails/' + splitURL[4] + '.jpg';
 
             let tags: string[] = daily.tags;
             let toolTags: tools[] = [];
