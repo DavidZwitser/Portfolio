@@ -152,11 +152,10 @@ $textColor: rgb(19, 112, 189);
         margin: 0;
         height: auto;
 
-        margin-top: -10vh;
+        margin-top: -8.5vh;
 
         top: 12vh;
 
-        
         box-shadow: none;
         
         -webkit-user-drag: none;
@@ -292,7 +291,7 @@ $textColor: rgb(19, 112, 189);
         #home-name-hover
         {
             opacity: 0;
-            transition: all .3s;
+            transition: opacity .3s, margin-top .3s;
 
             margin-top: -2vmin;
 
@@ -341,6 +340,15 @@ $textColor: rgb(19, 112, 189);
         #home-name
         {
             top: 20vmin;
+        }
+
+        #home-name:hover > #home-name-text
+        {
+            margin-top: -.1vh;
+        }
+        #home-name:hover > #home-name-hover
+        {
+            margin-top: -9vmin;
         }
     }
 
