@@ -54,44 +54,24 @@ $textColor: rgb(19, 112, 189);
         }
     }
 
-    #home-text-view-as
-    {
-        position: absolute;
-
-        font-size: 8vmin;
-
-        text-align: center;
-
-        height: 10vh;
-        top: 35vh;
-
-        left: 50vw;
-        width: 60vmin;
-        margin-left: -30vmin;
-    }
-
-    @media (orientation: portrait)
+    @media (max-aspect-ratio: 5/6)
     {
         #home-dropdown-order-by
         {
             top: 95vh;
             font-size: 1.8vmin;
         }
+
         #home-text-view-as
         {
-            top: 25vh;
-
-            font-size: 5vh;
+            top: 38vh;
         }
-    }
 
-    #home-button-list, #home-button-timeline, #home-button-grid, #home-icon-timeline, #home-icon-list, #home-icon-grid:hover
-    {
-        cursor: pointer;
     }
-
+    
     #home-button-list, #home-button-timeline, #home-button-grid
     {
+        cursor: pointer;
         position: absolute;
 
         font-size: 2.5vmin;
@@ -110,25 +90,85 @@ $textColor: rgb(19, 112, 189);
         color: $textColor;
 
         user-select: none;
+
+        @media (pointer: fine)
+        {
+            .home-button-hover-text
+            {
+                opacity: 0;
+    
+                margin-top: 0;
+                transition: opacity .3s;
+            }
+    
+            .home-button-standard-text
+            {
+                margin-bottom: 0;
+                transition: margin-top .3s;
+            }
+        }
+
+        @media(pointer: coarse)
+        {
+            .home-button-standard-text
+            {
+                opacity: 0;
+            }
+        }
+
+    }
+
+    @media (pointer: fine)
+    {
+        #home-button-list:hover > .home-button-hover-text,
+        #home-button-timeline:hover > .home-button-hover-text, 
+        #home-button-grid:hover > .home-button-hover-text
+        {
+            opacity: 1;
+        }
+
+        #home-button-timeline:hover > #home-icon-timeline,
+        #home-button-grid:hover > #home-icon-grid,
+        #home-button-list:hover > #home-icon-list
+        {
+            opacity: 1;
+            margin-top: -12.5vh;
+        }
+
+        
+        #home-button-list:hover > .home-button-standard-text, 
+        #home-button-timeline:hover > .home-button-standard-text, 
+        #home-button-grid:hover > .home-button-standard-text
+        {
+            opacity: 0;
+            margin-top: -.2vmin;
+        }
     }
 
     #home-icon-timeline, #home-icon-list, #home-icon-grid
     {
-        margin: 0;
-
         position: absolute;
 
+        margin: 0;
         height: auto;
 
-        left: 50vw;
+        margin-top: -10vh;
 
+        top: 12vh;
+
+        
         box-shadow: none;
-
-        top: 70vh;
-
+        
         -webkit-user-drag: none;
         user-select: none;
+        
+        @media (pointer: fine)
+        {
+            opacity: 0;
+            transition: opacity .3s, margin-top .3s;
+        }
     }
+
 
     #home-button-list
     {
@@ -138,17 +178,17 @@ $textColor: rgb(19, 112, 189);
     #home-icon-list
     {
         width: $listIconWidth;
-        margin-left: -$listIconWidth / 2 - $buttonsDistanceMultiplier * $buttonsWidth;
+        margin-left: -$listIconWidth * .5;
     }
 
     #home-button-timeline
     {
-        margin-left: (-$buttonsWidth / 2);
+        margin-left: (-$buttonsWidth * .5);
     }
     $timelineIconWidth: $buttonsWidth * 1.3;
     #home-icon-timeline
     {
-        top: 71vh;
+        // top: 71vh;
         width: $timelineIconWidth;
         margin-left: -$timelineIconWidth / 2;
     }
@@ -161,7 +201,7 @@ $textColor: rgb(19, 112, 189);
     #home-icon-grid
     {
         width: $gridIconWidth;
-        margin-left: -$gridIconWidth / 2 + $buttonsDistanceMultiplier * $buttonsWidth;
+        margin-left: -$gridIconWidth * .5;
     }
 
 
@@ -178,6 +218,19 @@ $textColor: rgb(19, 112, 189);
             margin-left: 10vw;
 
             height: 10vh;
+
+            @media (pointer: course)
+            {
+                // position: absolute;
+            }
+        }
+
+        #home-icon-list, #home-icon-timeline, #home-icon-grid
+        {
+            @media (pointer: course)
+            {
+                margin-top: 15vmin;
+            }
         }
 
         #home-icon-list #home-icon-timeline, #home-icon-grid
@@ -194,7 +247,6 @@ $textColor: rgb(19, 112, 189);
             width: 2vh;
             margin-left: -1vh;
 
-            top: 48vh;
         }
 
         #home-button-timeline
@@ -206,7 +258,6 @@ $textColor: rgb(19, 112, 189);
             width: 20vh;
             margin-left: -10vh;
 
-            top: 63vh;
         }
 
         #home-button-grid
@@ -217,7 +268,6 @@ $textColor: rgb(19, 112, 189);
         {
             width: 2vh;
             margin-left: -1vh;
-            top: 75vh;
         }
     }
 
@@ -233,10 +283,39 @@ $textColor: rgb(19, 112, 189);
 
         width: 50vmin;
         margin-left: -25vmin - 7vmin;
+
+        #home-name-text
+        {
+            transition: all .3s;
+        }
+
+        #home-name-hover
+        {
+            opacity: 0;
+            transition: all .3s;
+
+            margin-top: -2vmin;
+
+            @media (max-aspect-ratio: 2/3)
+            {
+                margin-top: -9vh;
+            }
+        }
     }
     #home-name:hover
     {
         cursor: pointer;
+    }
+    #home-name:hover > #home-name-text
+    {
+        cursor: pointer;
+        opacity: 0;
+        margin-top: -.1vmin;
+    }
+    #home-name:hover > #home-name-hover
+    {
+        opacity: 1;
+        margin-top: -5vmin;
     }
     
     #home-slogan {

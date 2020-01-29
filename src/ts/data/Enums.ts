@@ -35,8 +35,11 @@ export enum tools
     Phaser = 'Phaser',
     Webpack = 'Webpack',
     RaspberryPI = 'Raspberry PI',
+    Arduino = 'Arduino',
     Networking = 'Networking',
-    ProjectionMapping = 'Projection mapping'
+    ProjectionMapping = 'Projection mapping',
+    Filming = 'Filming',
+    Building = 'Building'
 }
 
 export enum themes
