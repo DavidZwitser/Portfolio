@@ -100,10 +100,7 @@
             height: 40vmin;
 
             object-fit: cover;
-
-            // border-radius: 20px;
-
-            // border-style: 
+            
 
             float: left;
 
@@ -115,6 +112,33 @@
         {
             transform: scale(.99);
             cursor: pointer;
+        }
+
+        .overview-container-project-preview-thumbnail-overlay
+        {
+            @extend .overview-container-project-preview-thumbnail;
+
+            position: absolute;
+
+            margin-top: 0;
+            padding-top: 17.5vmin;
+            height: 22.5vmin;
+
+            color: white;
+            background-color: #0000007c;
+
+            text-align: center;
+            vertical-align: center;
+            align-content: center;
+            font-size: 5vmin;
+
+            transition: opacity .2s;
+            opacity: 0;
+        }
+        
+        .overview-container-project-preview-thumbnail-overlay:hover
+        {
+            opacity: 1;
         }
 
         .overview-container-project-preview-name

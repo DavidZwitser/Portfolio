@@ -9,12 +9,12 @@ export default class ListPreview
     parent: HTMLDivElement;
     myElement: HTMLDivElement;
 
-    imgElement: HTMLImageElement;
+    thumbnail: HTMLImageElement;
+    moreInfoLayover: HTMLParagraphElement;
     videoElement: HTMLVideoElement;
 
     project: Project;
 
-    
     name: HTMLParagraphElement;
     
     tagsBar: HTMLDivElement;
@@ -60,9 +60,13 @@ export default class ListPreview
         }
         else
         {
-            this.imgElement = this.myElement.appendChild(document.createElement('img'));
-            this.imgElement.className = 'overview-container-project-preview-thumbnail';
-            this.imgElement.src = project.thumbnail;
+            this.thumbnail = this.myElement.appendChild(document.createElement('img'));
+            this.thumbnail.className = 'overview-container-project-preview-thumbnail';
+            this.thumbnail.src = project.thumbnail;
+
+            this.moreInfoLayover = this.myElement.appendChild(document.createElement('p'));
+            this.moreInfoLayover.className = 'overview-container-project-preview-thumbnail-overlay';
+            this.moreInfoLayover.innerHTML = 'MORE INFO';
         }
 
         /* NAME */
@@ -126,9 +130,9 @@ export default class ListPreview
             }
         }
 
-        if (this.imgElement !== undefined)
+        if (this.thumbnail !== undefined)
         {
-            this.imgElement.addEventListener('mouseup', () => {
+            this.moreInfoLayover.addEventListener('mouseup', () => {
                 if (this.project.isFullProject == true)
                 {
                     HashHandler.CHANGE_PAGE(pages.list, this.project.id);
