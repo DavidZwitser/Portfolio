@@ -18,6 +18,26 @@
     margin-top: 6vh;
 }
 
+#drag-to-navigate-icon
+{
+    position: absolute;
+
+    width: 20vmin;
+    height: 20vmin;
+    
+
+    left: 50vw;
+    margin-left: -10vmin;
+
+    top: 50vh;
+    margin-top: -10vmin;
+
+    z-index: 2;
+
+    transition: opacity .5s;
+    transition-delay: 1.2s;
+}
+
 .element-grid
 {
     position: absolute;

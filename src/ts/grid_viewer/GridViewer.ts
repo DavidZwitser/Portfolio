@@ -25,6 +25,8 @@ export default class GridViewer
 
     hasMoved: boolean;
 
+    moveIconHidden: boolean = false;
+
     elementSizeMultiplier: number = .40;
 
     currentProjectCenter: {x: number, y: number};
@@ -277,6 +279,12 @@ export default class GridViewer
     {
         if (this.projects.length < 0) { return; }
         if (Constants.CURRENT_PAGE !== pages.grid) { return; }
+
+        if (this.moveIconHidden == false)
+        {
+            this.moveIconHidden = true;
+            document.getElementById('drag-to-navigate-icon').style.opacity = '0';
+        }
 
         if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
         {
