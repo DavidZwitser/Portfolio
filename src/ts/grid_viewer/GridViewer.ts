@@ -25,7 +25,7 @@ export default class GridViewer
 
     hasMoved: boolean;
 
-    elementSizeMultiplier: number = .30;
+    elementSizeMultiplier: number = .40;
 
     currentProjectCenter: {x: number, y: number};
     movingToCenterAnimationLoopID: number;
@@ -284,7 +284,7 @@ export default class GridViewer
                 this.closeMoreInfo();
         }
 
-        let vmax: number = Math.max(window.innerWidth, window.innerHeight);
+        let vmax: number = Math.min(window.innerWidth, window.innerHeight);
         let size: number = vmax * this.elementSizeMultiplier;
 
         if (offsetX) { this.positionX += offsetX; }
@@ -312,11 +312,11 @@ export default class GridViewer
             style.left = Math.sin(rot) * dist + this.positionX + 'px';
             style.top = Math.cos(rot) * dist + this.positionY + 'px';
             
-            /* Calculating distance with pytagoras */
+            /* Calculating distance with pythagoras */
             let distanceFromCenter = (parseInt(style.left) - this.currentProjectCenter.x) ** 2 + (parseInt(style.top) - this.currentProjectCenter.y) ** 2;
             curr.distanceFromCenter = distanceFromCenter;
             /* Setting size as the distance */
-            let elementSize: number = size - distanceFromCenter * .0008;
+            let elementSize: number = size - distanceFromCenter * .0012;
             if (curr.content.isFullProject == false) { elementSize *= .7; }
             
             if (elementSize < 10) { elementSize = 10; }
@@ -336,6 +336,8 @@ export default class GridViewer
                 if (i == 6) { check = 18; }
                 if (i == 18) { check = 36; }
                 if (i == 36) { check = 72; }
+                if (i == 72) { check = 144; }
+                if (i == 144) { check = 288; }
 
                 dist += size * 1.05;
                 rotationSpeed += 3;

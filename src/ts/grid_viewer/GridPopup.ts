@@ -92,6 +92,13 @@ export default class GridPopup
             }
         });
 
+        this.parent.addEventListener('mouseup', () => {
+            
+            if (this.active == true) { return; }
+            this.togglePopup();
+
+        });
+
         this.pullOutIndicatorDown.addEventListener('mousedown', () => {
             this.togglePopup();
         });

@@ -8,24 +8,24 @@
 
         user-select: text;
 
-        float: left;
-        margin: 5vmin;
-        left: 0px;
-
-        margin-right: 70vw;
+        width: 40vw;
+        left: 50vw;
+        margin-left: -40vw;
+        
         margin-top: 10vmin;
-
         padding: 1vmin;
 
         font-weight: lighter;
 
         font-size: 2vmin;
 
+        background-color: rgba(126, 167, 164, 0.554);
+
         // outline-width: thin;
         // outline-color: grey;
         // outline-style: dashed;
 
-        color: #333333;
+        color: #ffffff;
     }
 
     #about-image
@@ -118,7 +118,7 @@
     {
         position: static;
 
-        background-color: orange;
+        background-color: rgb(19, 112, 189);
         width: 100vw;
         height: 30vmin;
     }

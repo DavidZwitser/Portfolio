@@ -14,13 +14,21 @@ $textColor: rgb(19, 112, 189);
     {
         position: absolute;
 
-        font-size: 4vmin;
+        display: none;
+
+        font-size: 1.6vmin;
+
+        text-align: center;
+
+        letter-spacing: .55vw;
+
+        text-decoration: underline;
         
         left: 50vw;
-        width: 30vmin;
-        margin-left: -15vmin;
+        width: 15vw;
+        margin-left: -7.5vw;
 
-        top: 25vh;
+        top: 98vh;
         height: 10vmin;
         margin-top: -5vmin;
     }
@@ -29,20 +37,21 @@ $textColor: rgb(19, 112, 189);
     {
         position: absolute;
 
-        font-size: 1.6vmin;
+        font-size: 1.2vmin;
         font-weight: thin;
 
         left: 50vw;
-        width: 15vw;
-        margin-left: -7.5vw;
+        width: 15vmin;
+        margin-left: -7.5vmin;
 
-        top: 93vh;
+        top: 93.5vh;
         // height: 5vmin;
         margin-top: -2.5vmin;
 
         text-align-last: center;
 
-        border-width: 0;
+        border-width: .01vw;
+        border-color: $textColor;
         background-color: transparent;
         // color: white;
         color: $textColor;
@@ -54,12 +63,22 @@ $textColor: rgb(19, 112, 189);
         }
     }
 
-    @media (max-aspect-ratio: 5/6)
+    @media (max-aspect-ratio: 2/3)
     {
+        #home-text-order-by
+        {
+            font-size: 3vmin;
+
+            width: 40vw;
+            margin-left: -20vw;
+        }
         #home-dropdown-order-by
         {
             top: 95vh;
-            font-size: 1.8vmin;
+            font-size: 3vmin;
+
+            width: 30vw;
+            margin-left: -15vw;
         }
 
         #home-text-view-as
@@ -105,6 +124,8 @@ $textColor: rgb(19, 112, 189);
             {
                 margin-bottom: 0;
                 transition: margin-top .3s;
+
+                // text-align: left;
             }
         }
 
@@ -213,8 +234,8 @@ $textColor: rgb(19, 112, 189);
             font-size: 2.5vh;
             
             left: 0;
-            width: 80vw;
-            margin-left: 10vw;
+            width: 70vw;
+            margin-left: 12vw;
 
             height: 10vh;
 
@@ -280,12 +301,14 @@ $textColor: rgb(19, 112, 189);
         left: 50vw;
         top: 25vmin;
 
-        width: 50vmin;
-        margin-left: -25vmin - 7vmin;
+        width: 30vmin;
+        margin-left: -25vmin - 12vmin;
+
+        height: 10vmin;
 
         #home-name-text
         {
-            transition: all .3s;
+            transition: opacity .3s, margin-top .3s;
         }
 
         #home-name-hover
@@ -294,6 +317,8 @@ $textColor: rgb(19, 112, 189);
             transition: opacity .3s, margin-top .3s;
 
             margin-top: -2vmin;
+
+            width: 10vw;
 
             @media (max-aspect-ratio: 2/3)
             {
@@ -327,7 +352,7 @@ $textColor: rgb(19, 112, 189);
         top: 30vmin;
 
         width: 50vmin;
-        margin-left: -25vmin - 7vmin;
+        margin-left: -25vmin - 12vmin;
     }
 
     @media (max-aspect-ratio: 2/3)
@@ -340,6 +365,7 @@ $textColor: rgb(19, 112, 189);
         #home-name
         {
             top: 20vmin;
+            width: 25vh;
         }
 
         #home-name:hover > #home-name-text
