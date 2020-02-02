@@ -356,6 +356,7 @@ export default class ProjectViewer
     /* Change the elements with new project informatoin */
     public showNewProject(newProject: Project): void
     {
+        if (Constants.CURRENT_PROJECT !== newProject.id) { return; }
         this.myElement.style.display = 'block';
         
         if (this.project && this.project.id !== newProject.id)

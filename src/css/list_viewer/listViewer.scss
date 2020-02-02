@@ -1,374 +1,367 @@
-#viewer-projects-overview
+#list
 {
-    background-color: rgb(255, 255, 255);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    overflow-y: scroll;
-}
-
-#viewer-projects-filter-tags-container
-{
-    width: 60vw;
-    margin: 10vw;
-
-    margin-left: 20vw;
-    margin-right: 20vw;
-
-    margin-top: 10vmin;
-    margin-bottom: 5vmin;
-
-    .overview-categories-category-selector
+    #listViewer
     {
-        border-radius: 1vmin;
+        background-color: rgb(255, 255, 255);
+        position: absolute;
+        width: 100%;
+        height: 100%;
     
-        background-color: rgb(19, 112, 189);
+        overflow-y: scroll;
+    
+        /* 
+            Filter tags 
+        */
+        #listViewer-filterTags-container
+        {
+            width: 60vw;
+            margin: 10vw;
         
-        font-weight: lighter;
-        color: white;
-    
-        padding: 1vmin;
-    
-        margin: .5vmin;
-    
-        display: inline-block;
-    
-        border: none;
-    }
-    
-    .overview-categories-category-selector:hover
-    {
-        cursor: pointer;
-        transform: scale(.97);
-    }
-}
-
-@media (orientation: portrait)
-{
-    #viewer-projects-filter-tags-container
-    {
-        margin-left: 15vw;
-    }
-}
-
-.overview-container-previewer
-{
-    // position: relative;
-
-    width: 60vw;
-    height: auto;
-
-    margin-left: 20vw;
-    margin-right: 20vw;
-
-    clear: left;
-    float: left;
-    
-    margin-top: 0vmin;
-
-    background-color: rgba(255, 255, 255, 0);
-
-    border-radius: 1vmin;
-
-    // box-shadow: 0 0 5px;
-
-    .overview-container-project-preview
-    {
-        // width: 35vmin;
-        // height: 35vmin;
-    
-        // border-style: solid;
-
-        width: 60vw;
+            margin-left: 20vw;
+            margin-right: 20vw;
         
-        margin-top: 3vmin;
-        margin-bottom: 2.5vmin;
-    
-        margin-left: 1.5vmin;
-        margin-right: 0vmin;
-    
-        padding: 0px;
-
-        float: left;
-    
-        overflow: hidden;
-
-        .overview-container-project-preview-thumbnail
-        {
-            width: 40vmin;
-            height: 40vmin;
-
-            object-fit: cover;
-            
-
-            float: left;
-
-            margin-right: 3vmin;
-
-        }
-
-        .overview-container-project-preview-thumbnail:hover
-        {
-            transform: scale(.99);
-            cursor: pointer;
-        }
-
-        .overview-container-project-preview-thumbnail-overlay
-        {
-            @extend .overview-container-project-preview-thumbnail;
-
-            position: absolute;
-
-            margin-top: 0;
-            padding-top: 17.5vmin;
-            height: 22.5vmin;
-
-            color: white;
-            background-color: #0000007c;
-
-            text-align: center;
-            vertical-align: center;
-            align-content: center;
-            font-size: 5vmin;
-
-            transition: opacity .2s;
-            opacity: 0;
-        }
+            margin-top: 10vmin;
+            margin-bottom: 5vmin;
         
-        .overview-container-project-preview-thumbnail-overlay:hover
-        {
-            opacity: 1;
-        }
-
-        .overview-container-project-preview-name
-        {
-            // background-color: rgba(86, 98, 102, .2);
-            border-radius: 0px;
-
-            color: rgb(0, 0, 0);
-
-            font-weight: lighter;
-            font-size: 5vmin;
-
-            margin: 0;
-            // margin-bottom: .2vmin;
-            
-        }
-
-        .overview-container-project-preview-name:hover
-        {
-            cursor: pointer;
-        }
-
-        .overview-container-project-preview-infobar
-        {
-            margin-bottom: 1vmin;
-
-            .overview-container-project-preview-duration, .overview-container-project-preview-teamsize,
-            .overview-container-project-preview-date
+            .listViewer-filterTag
             {
-                display: inline-block;
-
+                border-radius: 1vmin;
+            
+                background-color: rgb(19, 112, 189);
+                
                 font-weight: lighter;
-                font-size: 1.5vmin;
-
-                margin: 0;
-                padding-left: .4vmin;
-                padding-right: .4vmin;
-
-                /* For some reason the with is way to big by default */
-                // width: 20%;
-
-                color: rgb(0, 0, 0);
-
+                color: white;
+            
+                padding: 1vmin;
+            
+                margin: .5vmin;
+            
+                display: inline-block;
+            
+                border: none;
             }
-    
-            .overview-container-project-preview-duration, .overview-container-project-preview-date
+            
+            .listViewer-filterTag:hover
             {
-                clear: left;
+                cursor: pointer;
+                transform: scale(.97);
             }
+        }
+        
+        @media (orientation: portrait)
+        {
+            #listViewer-filterTags-container
+            {
+                margin-left: 15vw;
+            }
+        }
+        
+        /* 
+            Previews 
+        */
+        #listViewer-previews-container
+        {
+            width: 60vw;
+            height: auto;
+        
+            margin-left: 20vw;
+            margin-right: 20vw;
+        
+            clear: left;
+            float: left;
+            
+            margin-top: 0vmin;
+        
+            background-color: rgba(255, 255, 255, 0);
+        
+            border-radius: 1vmin;
+        
+            /* Big previews */
+            .listViewer-preview-big
+            {
+                width: 60vw;
+                
+                margin-top: 3vmin;
+                margin-bottom: 2.5vmin;
+            
+                margin-left: 1.5vmin;
+                margin-right: 0vmin;
+            
+                padding: 0px;
+        
+                float: left;
+            
+                overflow: hidden;
+        
+                .listViewer-preview-big-thumbnail
+                {
+                    width: 40vmin;
+                    height: 40vmin;
+        
+                    object-fit: cover;
+                    
+        
+                    float: left;
+        
+                    margin-right: 3vmin;
+        
+                }
+        
+                .listViewer-preview-big-thumbnail:hover
+                {
+                    transform: scale(.99);
+                    cursor: pointer;
+                }
+        
+                .listViewer-preview-big-thumbnail-overlay
+                {
+                    @extend .listViewer-preview-big-thumbnail;
+        
+                    position: absolute;
+        
+                    margin-top: 0;
+                    padding-top: 17.5vmin;
+                    height: 22.5vmin;
+        
+                    color: white;
+                    background-color: #0000007c;
+        
+                    text-align: center;
+                    vertical-align: center;
+                    align-content: center;
+                    font-size: 5vmin;
+        
+                    transition: opacity .2s;
+                    opacity: 0;
+                }
+                
+                .listViewer-preview-big-thumbnail-overlay:hover
+                {
+                    opacity: 1;
+                }
+        
+                .listViewer-preview-big-name
+                {
+                    border-radius: 0px;
+        
+                    color: rgb(0, 0, 0);
+        
+                    font-weight: lighter;
+                    font-size: 5vmin;
+        
+                    margin: 0;
+                }
 
+                .listViewer-preview-big-name:hover
+                {
+                    cursor: pointer;
+                }
+
+                @media (orientation: portrait) 
+                {
+                    .listViewer-preview-big-name
+                    {
+                        // margin-top: -15%;
+                        // font-size: 120%;
+                    }
+                }
+        
+                .listViewer-preview-big-info-container
+                {
+                    margin-bottom: 1vmin;
+        
+                    .listViewer-preview-big-info-date, .listViewer-preview-big-info-duration,
+                    .listViewer-preview-big-info-teamSize
+                    {
+                        display: inline-block;
+        
+                        font-weight: lighter;
+                        font-size: 1.5vmin;
+        
+                        margin: 0;
+                        padding-left: .4vmin;
+                        padding-right: .4vmin;
+        
+                        color: rgb(0, 0, 0);
+        
+                    }
+            
+                    .listViewer-preview-big-info-date, .listViewer-preview-big-info-duration
+                    {
+                        clear: left;
+                    }
+        
+                    @media (orientation: portrait)
+                    {
+                        .listViewer-preview-big-info-date, .listViewer-preview-big-info-duration,
+                        .listViewer-preview-big-info-teamSize
+                        {
+                            font-size: 2.5vmin;
+                        }
+        
+                        .listViewer-preview-big-info-date
+                        {
+                            padding-top: .1vmin;
+                        }
+                    }
+                }
+                
+                .listViewer-preview-tags-container
+                {
+                    width: 100%;
+            
+                    .listViewer-preview-big-tag-tools, .listViewer-preview-big-tag-themes
+                    {
+                        display: inline-block;
+        
+                        width: auto;
+        
+                        border-radius: 1vmin;
+        
+                        padding: .5vmin;
+                        margin: .3vmin;
+        
+                        font-weight: 800;
+        
+                        font-size: 1vmin;
+        
+                        color: white;
+        
+                    }
+        
+                    .listViewer-preview-big-tag-tools
+                    {
+                        background-color: rgb(19, 112, 189);
+                    }
+                    
+                    .listViewer-preview-big-tag-themes
+                    {
+                        background-color: orangered;
+                    }
+                    
+                    @media (orientation: portrait)
+                    {
+                        .listViewer-preview-big-tag-tools, .listViewer-preview-big-tag-themes
+                        {
+                            font-size: 1.5vmin;
+                            border-radius: .8vmin;
+                        }
+                    }
+                }
+        
+            }
+        
             @media (orientation: portrait)
             {
-                .overview-container-project-preview-duration, .overview-container-project-preview-teamsize,
-                .overview-container-project-preview-date
+                .listViewer-preview-big
                 {
-                    font-size: 2.5vmin;
-
-                }
-
-                .overview-container-project-preview-date
-                {
-                    padding-top: .1vmin;
+                    width: 70vw;
+                    margin-left: 20vw;
+                    margin-right: 15vw;
+                
                 }
             }
-        }
+            
+            /* 
+                Small previews 
+            */
+            .listViewer-preview-small
+            {
+                width: 20vmin;
+                height: 20vmin;
         
-        .overview-container-project-preview-tagsbar
-        {
-            width: 100%;
-            // padding-top: 5%;
+                margin-top: 4vmin;
+            
+                float: left;
+                
+                .listViewer-preview-small-thumbnail
+                {
+                    width: 20vmin;
+                    height: 20vmin;
+            
+                    object-fit: cover;
+                }
 
+                @media (orientation: portrait)
+                {
+                    .listViewer-preview-small-thumbnail
+                    {
+                        width: 33vmin;
+                        height: 33vmin;   
+                    }
+                }
+
+                .listViewer-preview-small-tags-container
+                {
+                    .listViewer-preview-small-tag-tools, .listViewer-preview-small-tag-themes
+                    {
+                        float: left;
+            
+                        user-select: none;
+            
+                        font-size: 1vmin;
+                        border-radius: 1vmin;
+            
+                        padding-right: 1vmin;
+                        padding-left: 1vmin;
+                        padding-bottom: .15vmin;
+                        color: white;
+                    }
+            
+                    .listViewer-preview-small-tag-tools
+                    {
+                        background-color: rgb(19, 112, 189);
+                    }
+            
+                    .listViewer-preview-small-tag-themes
+                    {
+                        background-color: orangered;
+            
+                    }
+                }
+            }
+        
             @media (orientation: portrait) 
             {
-                .overview-container-project-preview-name
+                .listViewer-preview-small
                 {
-                    margin-top: -15%;
-
-                    font-size: 120%;
-                }
-
-            }
-    
-            .overview-container-project-preview-tools, .overview-container-project-preview-themes
-            {
-                display: inline-block;
-
-                width: auto;
-
-                border-radius: 1vmin;
-
-                padding: .5vmin;
-                margin: .3vmin;
-
-                font-weight: 800;
-
-                font-size: 1vmin;
-
-                color: white;
-
-            }
-
-            @media (orientation: portrait)
-            {
-                .overview-container-project-preview-tools, .overview-container-project-preview-themes
-                {
-                    font-size: 1.5vmin;
-                    border-radius: .8vmin;
+                    width: 33vmin;
+                    height: 33vmin;
                 }
             }
+        }
 
-            .overview-container-project-preview-tools
+        @media (orientation: portrait)
+        {
+            #listViewer-previews-container
             {
-                background-color: rgb(19, 112, 189);
-            }
-
-            .overview-container-project-preview-themes
-            {
-                background-color: orangered;
-            }
-
-        }
-
-    }
-
-    @media (orientation: portrait)
-    {
-        .overview-container-project-preview
-        {
-            width: 70vw;
-            margin-left: 15vw;
-            margin-right: 15vw;
-        
-        }
-    }
-    
-    .overview-container-project-preview-small
-    {
-        width: 20vmin;
-        height: 20vmin;
-
-        margin-top: 4vmin;
-    
-        float: left;
-        
-        .overview-container-project-preview-thumbnail
-        {
-            width: 20vmin;
-            height: 20vmin;
-    
-            object-fit: cover;
-        }
-    
-        .overview-container-project-preview-name
-        {
-            display: none;
-        }
-
-        .overview-container-project-preview-tools, .overview-container-project-preview-themes
-        {
-            float: left;
-
-            user-select: none;
-
-            font-size: 1vmin;
-            border-radius: 1vmin;
-
-            padding-right: 1vmin;
-            padding-left: 1vmin;
-            padding-bottom: .15vmin;
-            color: white;
-        }
-
-        .overview-container-project-preview-tools
-        {
-            background-color: rgb(19, 112, 189);
-        }
-
-        .overview-container-project-preview-themes
-        {
-            background-color: orangered;
-
-        }
-
-        
-    }
-
-    @media (orientation: portrait) 
-    {
-        .overview-container-project-preview-small
-        {
-            width: 33vmin;
-            height: 33vmin;
-
-            
-            .overview-container-project-preview-thumbnail
-            {
-                width: 33vmin;
-                height: 33vmin;   
+                margin-left: 0vw;
+                margin-right: 0vw;
+                width: 100vw;
             }
         }
-    }
-}
-
-
-#viewer-projects-footer
-{
-    clear: left;
-    height: 15vh;
-    width: 100vw;
-
-    p
-    {
-        text-align: center;
-
-        color: rgb(121, 121, 121);
-
-        font-size: .8vh;
-
-        padding: 6vh;
-    }
-
-}
-
-@media (orientation: portrait)
-{
-    .overview-container-previewer
-    {
-        margin-left: 0vw;
-        margin-right: 0vw;
-        width: 100vw;
-
+        
+        /* 
+            Footer 
+        */
+        #listViewer-footer-container
+        {
+            clear: left;
+            height: 15vh;
+            width: 100vw;
+        
+            #listViewer-footer-text
+            {
+                text-align: center;
+        
+                color: rgb(121, 121, 121);
+        
+                font-size: .8vh;
+        
+                padding: 6vh;
+            }
+        
+        }
+        
     }
 }

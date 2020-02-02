@@ -11,7 +11,6 @@ import GridPopup from './grid_viewer/GridPopup';
 
 import Constants from './data/Constants';
 import { pages, tools, themes } from './data/Enums';
-import ListViewer from './list_viewer/ListViewer';
 
 import ProjectFetcher from './projects/ProjectFetcher';
 
@@ -21,6 +20,11 @@ import LoadingScreen from './loading_screen/LoadingScreen';
 import ImageImporter from './data/ImageImporter';
 import ProjectViewer from './projects/ProjectViewer';
 
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
+import {ListViewerReact, ListViewerProps} from './list_viewer/ListViewer';
+
 class Main
 {
     input: InputEvents;
@@ -29,13 +33,14 @@ class Main
     eyes: AboutEyes;
     loadingScreen: LoadingScreen;
     
-    listViewer: ListViewer;    
     projectsFetcher: ProjectFetcher;
 
     gridViewer: GridViewer;
     gridPopup: GridPopup;
 
     projectViewer: ProjectViewer;
+
+    listLoaded: boolean = false;
     
     constructor()
     {   
@@ -87,34 +92,6 @@ class Main
         {
             this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
         }
-        
-        this.listViewer = new ListViewer(
-            <HTMLDivElement>document.getElementById(pages.list), 
-            this.projectsFetcher.getProjects().slice().splice(0, 3), /* Highlights */ 
-            //this.gridViewer.notLoadedProjects, 
-            [
-                tools.Blender,
-                tools.Touchdesigner,
-                tools.Houdini,
-                tools.Krita,
-                tools.Processing,
-                tools.Typescript,
-                tools.Phaser
-            ],
-            [
-                themes.adventure,
-                themes.generative,
-                themes.philosophy,
-            ]
-        );
-        this.listViewer.filterClickedCallback = (filters: string[]) => { 
-            if (filters[0] == 'All')
-            {
-                return this.projectsFetcher.getProjects();
-            }
-
-            return this.projectsFetcher.getProjectsWithTags(filters); 
-        }
 
         /* Project viewer  */
         this.projectViewer = new ProjectViewer(<HTMLDivElement>document.getElementById('project-viewer'));
@@ -141,7 +118,34 @@ class Main
 
         if (Constants.CURRENT_PAGE == pages.list)
         {
-            this.listViewer.loadProjects(this.projectsFetcher.getProjects());
+            if (this.listLoaded == false)
+            {
+                ReactDOM.render(
+                    React.createElement(ListViewerReact, <ListViewerProps>{
+        
+                        filterTools: [ tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser ],
+                        filterThemes: [ themes.adventure, themes.generative, themes.philosophy ],
+                        projects: this.projectsFetcher.getProjects(),
+        
+                        getFilteredProjects: (filters: string[]) => { 
+                            if (filters[0] == 'All')
+                            {
+                                return this.projectsFetcher.getProjects();
+                            }
+                
+                            return this.projectsFetcher.getProjectsWithTags(filters); 
+                        },
+        
+                        openProjectViewer: (projectID: string) => {
+                            HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
+                        }
+                    }, null),
+        
+                    document.getElementById("list")
+                );
+
+                this.listLoaded = true;
+            }
         }
     }
 
