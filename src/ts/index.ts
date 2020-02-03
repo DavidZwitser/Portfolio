@@ -18,7 +18,7 @@ import AboutEyes from './about_page/AboutEyes';
 import LoadingScreen from './loading_screen/LoadingScreen';
 
 import ImageImporter from './data/ImageImporter';
-import ProjectViewer from './projects/ProjectViewer';
+import ProjectViewer, {ProjectViewerProps} from './projects/ProjectViewer';
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -71,9 +71,11 @@ class Main
         }); 
         
         this.input.draggingCallback.push(() => {
+            if (Constants.CURRENT_PAGE !== pages.grid) { return; }
             this.gridViewer.moveGrid(this.input.velocityX, this.input.velocityY, true);
         });
         this.input.mouseUpCallback.push(() => {
+            if (Constants.CURRENT_PAGE !== pages.grid) { return; }
             this.gridViewer.letGoOfGrid(this.input.velocityX, this.input.velocityY);
         });
         
@@ -93,15 +95,17 @@ class Main
             this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
         }
 
-        /* Project viewer  */
-        this.projectViewer = new ProjectViewer(<HTMLDivElement>document.getElementById('project-viewer'));
-
-        this.hashHandler.openProject = (id: string) => { 
-            this.projectViewer.showNewProject(this.projectsFetcher.getProjectByID(id));
-        }
-        this.hashHandler.closeProject = () => {
-            this.projectViewer.close();
-        }
+        
+        /* Project viewer  */            
+        ReactDOM.render(
+            React.createElement(ProjectViewer, <ProjectViewerProps>{
+                project: this.projectsFetcher.getProjectByID(Constants.CURRENT_PROJECT),
+                getProjectByID: (id: string) => {
+                    return this.projectsFetcher.getProjectByID(id);
+                }
+            }),
+            document.getElementById('project-viewer')
+        );
     }
 
     /* Website transitioned to new page */

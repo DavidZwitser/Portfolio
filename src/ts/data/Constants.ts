@@ -14,6 +14,7 @@ export default class Constants
         this.CURRENT_PAGE = hashKey;
 
         if (projectVariable !== undefined) { this.CURRENT_PROJECT = projectVariable; }
+        else { this.CURRENT_PROJECT = ''; }
 
         for(let i = 0; i < this.PAGE_CHANGED_CALLBACK.length; i++)
         {

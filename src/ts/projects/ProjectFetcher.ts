@@ -126,6 +126,8 @@ export default class ProjectFetcher
 
     public getProjectByID(id: string): Project
     {
+        if (id == '') { return null; }
+
         for (let i = 0; i < this.projects.length; i++)
         {
             if (this.projects[i].id == id)

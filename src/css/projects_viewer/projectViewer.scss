@@ -1,6 +1,6 @@
 #project-viewer
 {
-    // position: static;
+    position: static;
     top: 0;
     z-index: 1;
 
@@ -16,469 +16,476 @@
 
     color: rgb(207, 207, 207);
 
-    display: none;
+    // display: none;
 
-    .project-viewer-backdrop    
+    #project-viewer-react-container
     {
-        position: absolute;
-        
-        top: 0;
 
-        width: 100vw;
-        height: 100vh;
-
-        background-color: rgba(0, 0, 0, 0.527);
-
-        filter: blur(5);
-    }
-
-    #project-viewer-container
-    {
-        display: block;
-        
-        width: 100vmin;
-        height: auto;
-        margin-left: auto;
-        margin-right: auto;
-        
-        opacity: 1;
-
-        box-shadow: 0 0 20px black;
-       
-        .project-viewer-banner
+        #project-viewer-backdrop    
         {
-            display:  block;
-            width: 100vmin; 
-            position: fixed;
+            position: absolute;
+            
+            top: 0;
 
-            margin-top: -2vmin;
+            width: 100vw;
+            height: 100vh;
 
-            filter: brightness(80%);
+            background-color: rgba(0, 0, 0, 0.527);
+
+            filter: blur(5);
         }
-    
-        .project-viewer-close-button
+
+        #project-viewer-container
         {
-            z-index: 1;
-    
-            position: fixed;
-    
-            margin: 1vmin;
-            font-weight: bolder;
-    
-            border-radius: 20%;
-            border-style: none;
-            border-color: black;
-
-            width: 5vmin;
-            height: 5vmin;
-            font-size: 4vmin;
-    
-            background-color: rgb(110, 110, 110);
-        }
-        .project-viewer-close-button:hover
-        {
-            cursor: pointer;
-        }
-    
-        .project-viewer-info-section
-        {   
-            position: relative;
-            top: 35vh;
-    
             display: block;
+            
             width: 100vmin;
+            height: auto;
             margin-left: auto;
-            // height: 800%;
-    
-            background-color: rgb(30, 54, 97);
-
-            p{
-                color: black;
-            }
+            margin-right: auto;
             
-    
-            .project-viewer-title
-            {
-                font-size: 15vmin;
+            opacity: 1;
 
-                margin: 2vmin;
-    
-                padding-top: 4vmin;
-                margin-left: 5vmin;
-
-                overflow-wrap: none;
-            }
-    
-            .project-viewer-theme-container
-            {
-                float: right;
-    
-                margin-right: 4vmin;
-            }
-    
-            .project-viewer-tool-container
-            {
-                border-style: solid;
-                margin-right: 0px;
-            }
-    
-            .project-viewer-tool, .project-viewer-theme
-            {
-                color: rgb(255, 255, 255);
-    
-                font-size: .8em;
-    
-                border-width: 1px;
-            }
-    
-            .project-viewer-description
-            {
-                padding-top: 2vmin;
-                margin-left: 5vmin;
-                margin-right: 5vmin;
-    
-                font-weight: lighter;
-    
-                margin-bottom: 5vmin;
-            }
-
-            .project-viewer-variable-section
-            {
-                width: 100vw;
-                height: 10vmin;
-
-                padding-left: 5vmin;
-                padding-right: 5vmin;
-            }
-            
-            .project-viewer-variable-container
-            {
-                float: left;
-
-                width: 15vmin;
-                font-size: 2vmin;
-
-                text-align: center;
-
-                .project-viewer-variable-title
-                {
-                    color: rgb(124, 123, 123);
+            box-shadow: 0 0 20px black;
         
-                    // margin-bottom: 1vmin;
-                    margin-top: 0vmin;
-    
-                }
-    
-                .project-viewer-variable
-                {
-                    // margin-top: 
-                }
-            }
-    
-            .project-viewer-variable-line-between
+            .project-viewer-banner
             {
-                width: 1px;
-                height: 9vmin;
+                display:  block;
+                width: 100vmin; 
+                height: 40vh;
+                position: fixed;
 
-                
-                margin-left: 5vmin;
-                margin-right: 5vmin;
-                margin: 0;
-
-                float: left;
-    
-                background-color: rgb(224, 224, 224);
-            }
-
-            .project-viewer-context-title
-            {
-                width: 50vh;
-
-
-                margin-right: 2vh;
-                margin-top: 3vh;
-                margin-bottom: 1vh;
-    
-                font-size: 6vh;
-                // font-weight: bold;
-    
-                display: inline-block;
-            }
-    
-            .project-viewer-context
-            {
-                width: 50vh;
-
-                margin-right: 2vh;
-                margin-top: 1vh;
-    
-                font-size: 2vh;
-                // font-weight: bold;
-    
-                display: inline-block;
-            }
-    
-            .project-viewer-image-1
-            {
                 object-fit: cover;
 
-                width: 35vh;
-                height: 35vh;
-    
-                margin-right: 5%;
-                margin-top: 3vh;
-    
-                float: right;
-    
-            }
+                margin-top: -2vmin;
 
-            .project-viewer-goal-line-between
+                filter: brightness(80%);
+            }
+        
+            .project-viewer-close-button
             {
-                width: auto;
-                margin-left: 5vmin;
-                margin-right: 5vmin;
+                z-index: 1;
+        
+                position: fixed;
+        
+                margin: 1vmin;
+                font-weight: bolder;
+        
+                border-radius: 20%;
+                border-style: none;
+                border-color: black;
 
-                margin-top: 3vh;
-                margin-bottom: 3vh;
-    
-                height: 1px;
-    
-                background-color: rgba(224, 224, 224, 0.602);
+                width: 5vmin;
+                height: 5vmin;
+                font-size: 4vmin;
+        
+                background-color: rgb(110, 110, 110);
             }
-
-            .project-viewer-goal-title, .project-viewer-my-roll-title
+            .project-viewer-close-button:hover
             {
-                // width: 50vh;
-
-                font-size: 6vh;
-                // font-weight: bold;
-
-                margin-top: 3vh;
-                margin-bottom: 1vh;
-
-                margin-left: 20vh;
-                margin-right: 20vh;
+                cursor: pointer;
             }
-
-            .project-viewer-goal, .project-viewer-my-roll
-            {
-                font-size: 2vh;
-
-                margin-left: 20vh;
-                margin-right: 20vh;
-                margin-top: 1vh;
-                margin-bottom: 3vh;
-            }
-
-            @media (orientation: portrait) {
-                .project-viewer-goal, .project-viewer-goal-title, .project-viewer-my-roll-title, .project-viewer-my-roll
-                {
-                    margin-left: 20vw;
-                    margin-right: 20vw;
-                }
-            }
-
-            .project-viewer-video
-            {
-                clear: left;
-
+        
+            .project-viewer-info-section
+            {   
+                position: relative;
+                top: 35vh;
+        
                 display: block;
-    
-                // height: 60vh;
-                // height: 50vmin;
-                width: 60vh;
-                height: 35vh;
-                // object-fit: scale-down;
-    
-                // margin-left: 20vw;
-                // margin-right: 20vw;
-                margin: auto;
-    
-                margin-top: 5%;
-                // margin-bottom: 5vh;
-    
-                // border: none;
-    
-            }
+                width: 100vmin;
+                margin-left: auto;
+                // height: 800%;
+        
+                background-color: rgb(30, 54, 97);
 
-            @media (orientation: portrait) {
+                p{
+                    color: black;
+                }
+                
+        
+                .project-viewer-title
+                {
+                    font-size: 15vmin;
+
+                    margin: 2vmin;
+        
+                    padding-top: 4vmin;
+                    margin-left: 5vmin;
+
+                    overflow-wrap: none;
+                }
+        
+                .project-viewer-theme-container
+                {
+                    float: right;
+        
+                    margin-right: 4vmin;
+                }
+        
+                .project-viewer-tool-container
+                {
+                    border-style: solid;
+                    margin-right: 0px;
+                }
+        
+                .project-viewer-tools, .project-viewer-themes
+                {
+                    // color: rgb(255, 255, 255);
+        
+                    font-size: .8em;
+        
+                    border-width: 1px;
+                }
+        
+                .project-viewer-description
+                {
+                    padding-top: 2vmin;
+                    margin-left: 5vmin;
+                    margin-right: 5vmin;
+        
+                    font-weight: lighter;
+        
+                    margin-bottom: 5vmin;
+                }
+
+                .project-viewer-variable-section
+                {
+                    width: 100vw;
+                    height: 10vmin;
+
+                    padding-left: 5vmin;
+                    padding-right: 5vmin;
+                }
+                
+                .project-viewer-variable-container
+                {
+                    float: left;
+
+                    width: 15vmin;
+                    font-size: 2vmin;
+
+                    text-align: center;
+
+                    .project-viewer-variable-title
+                    {
+                        color: rgb(124, 123, 123);
+            
+                        // margin-bottom: 1vmin;
+                        margin-top: 0vmin;
+        
+                    }
+        
+                    .project-viewer-variable
+                    {
+                        // margin-top: 
+                    }
+                }
+        
+                .project-viewer-variable-line-between
+                {
+                    width: 1px;
+                    height: 9vmin;
+                    
+                    margin: 0;
+
+                    margin-top: -10vmin;
+
+
+                    float: left;
+        
+                    background-color: rgb(224, 224, 224);
+                }
+
+                .project-viewer-context-title
+                {
+                    width: 50vh;
+
+
+                    margin-right: 2vh;
+                    margin-top: 3vh;
+                    margin-bottom: 1vh;
+        
+                    font-size: 6vh;
+                    // font-weight: bold;
+        
+                    display: inline-block;
+                }
+        
                 .project-viewer-context
                 {
-                    display: block;
-                    width: 88vmin;
+                    width: 50vh;
+
+                    margin-right: 2vh;
+                    margin-top: 1vh;
+        
+                    font-size: 2vh;
+                    // font-weight: bold;
+        
+                    display: inline-block;
                 }
+        
                 .project-viewer-image-1
                 {
-                    float: none;
-                    width: 70vmin;
-                    margin-left: 15vmin;
+                    object-fit: cover;
+
+                    width: 35vh;
+                    height: 35vh;
+        
+                    margin-right: 5%;
+                    margin-top: 3vh;
+        
+                    float: right;
+        
+                }
+
+                .project-viewer-goal-line-between
+                {
+                    width: auto;
+                    margin-left: 5vmin;
+                    margin-right: 5vmin;
+
+                    margin-top: 3vh;
+                    margin-bottom: 3vh;
+        
+                    height: 1px;
+        
+                    background-color: rgba(224, 224, 224, 0.602);
+                }
+
+                .project-viewer-goal-title, .project-viewer-my-roll-title
+                {
+                    // width: 50vh;
+
+                    font-size: 6vh;
+                    // font-weight: bold;
+
+                    margin-top: 3vh;
+                    margin-bottom: 1vh;
+
+                    margin-left: 20vh;
+                    margin-right: 20vh;
+                }
+
+                .project-viewer-goal, .project-viewer-my-roll
+                {
+                    font-size: 2vh;
+
+                    margin-left: 20vh;
+                    margin-right: 20vh;
+                    margin-top: 1vh;
+                    margin-bottom: 3vh;
+                }
+
+                @media (orientation: portrait) {
+                    .project-viewer-goal, .project-viewer-goal-title, .project-viewer-my-roll-title, .project-viewer-my-roll
+                    {
+                        margin-left: 20vw;
+                        margin-right: 20vw;
+                    }
                 }
 
                 .project-viewer-video
                 {
-                    width: 70vw;
-                    height: 40vw;
-                }
-            }
-    
-    
-            .project-viewer-image-2
-            {
-                object-fit: cover;
-    
-                width: 40vh;
-                height: 40vh;
-    
-                margin: 5vh;
-    
-                float: left;
-    
-            }
-    
-            .project-viewer-whatWentGood-title
-            {
-                font-size: 6vh;
-                margin-top: 6vh;
-                margin-bottom: 0;
-                margin-left: 5vh;
-                margin-right: 5vh;
-
-    
-                // font-weight: bold;
-            }
-    
-            .project-viewer-whatWentGood
-            {
-                margin-top: 1vw;
-                margin-left: 6vh;
-                margin-right: 5vh;
-                font-size: 2vh;
-            }
-            
-            .project-viewer-seperatorElement
-            {
-                clear: left;
-                width: 100vw;
-                height: 1vh;
-            }
-
-            .project-viewer-titleBodyWrapper
-            {
-                float: left;
-
-                width: 40vh;
-                // height: 1vh;
-                
-                margin-left: 5vh;
-                margin-right: 5vh;
-                // margin-bottom: 5vh; 
-            }
-
-            
-            .project-viewer-whatWentBad-title
-            {
-                margin: 0;
-                font-size: 6vh;
-
-                
-                // font-weight: bold;
-            }
-            
-            .project-viewer-whatWentBad
-            {    
-                margin: 0;
-                
-                margin-top: 1vh;
-                margin-left: 1vh;
-
-                font-size: 2vh;
-            }
-            
-            .project-viewer-image-3
-            {
-                object-fit: cover;
-                
-                width: 40vh;
-                height: 40vh; 
-                
-                margin-right: 5vh;
-                
-                float: right;
-            }
-            
-            @media (orientation: portrait) 
-            {
-                .project-viewer-whatWentGood, .project-viewer-whatWentGood-title
-                {
                     clear: left;
+
+                    display: block;
+        
+                    // height: 60vh;
+                    // height: 50vmin;
+                    width: 60vh;
+                    height: 35vh;
+                    // object-fit: scale-down;
+        
+                    // margin-left: 20vw;
+                    // margin-right: 20vw;
+                    margin: auto;
+        
+                    margin-top: 5%;
+                    // margin-bottom: 5vh;
+        
+                    // border: none;
+        
                 }
+
+                @media (orientation: portrait) {
+                    .project-viewer-context
+                    {
+                        display: block;
+                        width: 88vmin;
+                    }
+                    .project-viewer-image-1
+                    {
+                        float: none;
+                        width: 70vmin;
+                        margin-left: 15vmin;
+                    }
+
+                    .project-viewer-video
+                    {
+                        width: 70vw;
+                        height: 40vw;
+                    }
+                }
+        
+        
                 .project-viewer-image-2
                 {
-                    width: 50vw;
-                    height: 50vw;
+                    object-fit: cover;
+        
+                    width: 40vh;
+                    height: 40vh;
+        
+                    margin: 5vh;
+        
+                    float: left;
+        
+                }
+        
+                .project-viewer-whatWentGood-title
+                {
+                    font-size: 6vh;
+                    margin-top: 6vh;
+                    margin-bottom: 0;
+                    margin-left: 5vh;
+                    margin-right: 5vh;
 
-                    margin-left: 25vw;
+        
+                    // font-weight: bold;
+                }
+        
+                .project-viewer-whatWentGood
+                {
+                    margin-top: 1vw;
+                    margin-left: 6vh;
+                    margin-right: 5vh;
+                    font-size: 2vh;
+                }
+                
+                .project-viewer-separatorElement
+                {
+                    clear: left;
+                    width: 100vw;
+                    height: 1vh;
                 }
 
                 .project-viewer-titleBodyWrapper
                 {
-                    width: 100vw;
+                    float: left;
+
+                    width: 40vh;
+                    // height: 1vh;
+                    
+                    margin-left: 5vh;
+                    margin-right: 5vh;
+                    // margin-bottom: 5vh; 
                 }
-                .project-viewer-whatWentBad, .project-viewer-whatWentBad-title
+
+                
+                .project-viewer-whatWentBad-title
                 {
-                    margin-right: 15vw;
+                    margin: 0;
+                    font-size: 6vh;
+
+                    
+                    // font-weight: bold;
                 }
+                
+                .project-viewer-whatWentBad
+                {    
+                    margin: 0;
+                    
+                    margin-top: 1vh;
+                    margin-left: 1vh;
+
+                    font-size: 2vh;
+                }
+                
                 .project-viewer-image-3
                 {
-                    width: 50vw;
-                    height: 50vw;
-                    float: left;
-                    object-position: center;
-                    margin-left: 25vw;
-                    margin-top: 5vw;
-
+                    object-fit: cover;
+                    
+                    width: 40vh;
+                    height: 40vh; 
+                    
+                    margin-right: 5vh;
+                    
+                    float: right;
                 }
-            }
-
-            .project-viewer-seperatorElement2
-            {
-                clear: right;
-                width: 100vw;
-                height: 1vh;
-            }
-    
-            .project-viewer-whatILearned
-            {
-                margin: 5vmin;
-                font-size: 2vmin;
-                clear: left;
-                clear: right;
-                float: left;
-    
-            }
-    
-            .project-viewer-endresult
-            {
-                font-size: 5vmin;
-    
-                margin: 5vmin;
-                margin-right: 40vmin;
-            }
-    
-            .project-viewer-image-rest
-            {
-                display: block;
-                height: auto;
-                width: 60vmin;
-
-                margin-top: 5vh;
-    
-                object-fit: scale-down;
                 
-                margin-left: auto;
-                margin-right: auto;
+                @media (orientation: portrait) 
+                {
+                    .project-viewer-whatWentGood, .project-viewer-whatWentGood-title
+                    {
+                        clear: left;
+                    }
+                    .project-viewer-image-2
+                    {
+                        width: 50vw;
+                        height: 50vw;
+
+                        margin-left: 25vw;
+                    }
+
+                    .project-viewer-titleBodyWrapper
+                    {
+                        width: 100vw;
+                    }
+                    .project-viewer-whatWentBad, .project-viewer-whatWentBad-title
+                    {
+                        margin-right: 15vw;
+                    }
+                    .project-viewer-image-3
+                    {
+                        width: 50vw;
+                        height: 50vw;
+                        float: left;
+                        object-position: center;
+                        margin-left: 25vw;
+                        margin-top: 5vw;
+
+                    }
+                }
+
+                .project-viewer-separatorElement2
+                {
+                    clear: right;
+                    width: 100vw;
+                    height: 1vh;
+                }
+        
+                .project-viewer-whatILearned
+                {
+                    margin: 5vmin;
+                    font-size: 2vmin;
+                    clear: left;
+                    clear: right;
+                    float: left;
+        
+                }
+        
+                .project-viewer-endresult
+                {
+                    font-size: 5vmin;
+        
+                    margin: 5vmin;
+                    margin-right: 40vmin;
+                }
+        
+                .project-viewer-image-rest
+                {
+                    display: block;
+                    height: auto;
+                    width: 60vmin;
+
+                    margin-top: 5vh;
+        
+                    object-fit: scale-down;
+                    
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                
             }
-            
         }
     }
 }

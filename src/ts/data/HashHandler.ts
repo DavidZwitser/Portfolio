@@ -3,6 +3,11 @@ import {pages} from './Enums';
 
 export default class HashHandler
 {
+    constructor()
+    {
+        this.hashChanged();
+    }
+
     public pageTransitioned: () => void;
     public openProject: (id: string) => void;
     public closeProject: () => void;
@@ -24,7 +29,6 @@ export default class HashHandler
         {
             window.location.hash = pages.home;
         }
-
         
         let rawHash = window.location.hash.split('#')[1];
         let hashParts = rawHash.split(Constants.HASH_SEPARATOR);
