@@ -20,7 +20,6 @@
 
     #project-viewer-react-container
     {
-
         #project-viewer-backdrop    
         {
             position: absolute;
@@ -92,13 +91,16 @@
                 top: 35vh;
         
                 display: block;
+
                 width: 100vmin;
+                
+                // padding-bottom: 10vh;
+                
                 margin-left: auto;
-                // height: 800%;
         
                 background-color: rgb(30, 54, 97);
 
-                p{
+                p {
                     color: black;
                 }
                 
@@ -397,6 +399,8 @@
                     margin-top: 1vh;
                     margin-left: 1vh;
 
+                    margin-bottom: 4vh;
+
                     font-size: 2vh;
                 }
                 
@@ -478,6 +482,7 @@
                     width: 60vmin;
 
                     margin-top: 5vh;
+                    padding-bottom: 5vh;
         
                     object-fit: scale-down;
                     

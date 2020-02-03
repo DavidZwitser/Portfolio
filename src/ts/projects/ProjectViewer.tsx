@@ -4,7 +4,6 @@ import HashHandler from "../data/HashHandler";
 import Constants from "../data/Constants";
 
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
 
 interface IVariables
 {
@@ -138,7 +137,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
         return (
             <div id = 'project-viewer-react-container'>
-                <div id = 'project-viewer-backdrop' />
+                <div id = 'project-viewer-backdrop' onClick = {HashHandler.REMOVE_PROJECT_FROM_HASH} />
 
                 <div id = 'project-viewer-container'>
                     <button className = 'project-viewer-close-button' onClick = {HashHandler.REMOVE_PROJECT_FROM_HASH}>X</button>

@@ -4,6 +4,8 @@ import '../css/index.scss';
 import InputEvents from './InputEvents';
 import HashHandler from './data/HashHandler';
 
+import HomePage from './home_page/HomePage'
+
 import Project from './projects/ProjectTemplate';
 
 import GridViewer from './grid_viewer/GridViewer';
@@ -56,7 +58,12 @@ class Main
         window.addEventListener("load", () => this.loadingScreen.endLoadingScreen() );
         
         /* Creating objects */
-        let imageLoader: ImageImporter = new ImageImporter();
+        new ImageImporter();
+
+        ReactDOM.render(
+            React.createElement(HomePage),
+            document.getElementById('home')
+        );
         
         this.eyes = new AboutEyes(); 
         this.input = new InputEvents();
