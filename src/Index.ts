@@ -1,26 +1,26 @@
 /* Load scss files */
-import '../css/index.scss';
+import './index.scss';
 
-import InputEvents from './InputEvents';
-import HashHandler from './data/HashHandler';
+import InputEvents from './misc/InputEvents';
+import HashHandler from './data_handling/HashHandler';
 
 import HomePage from './home_page/HomePage'
 
-import Project from './projects/ProjectTemplate';
+import Project from './projects_management/ProjectTemplate';
 
 import GridViewer from './grid_viewer/GridViewer';
 import GridPopup from './grid_viewer/GridPopup';
 
-import Constants from './data/Constants';
-import { pages, tools, themes } from './data/Enums';
+import Constants from './data_handling/Constants';
+import { pages, tools, themes } from './data_handling/Enums';
 
-import ProjectFetcher from './projects/ProjectFetcher';
+import ProjectFetcher from './projects_management/ProjectFetcher';
 
 import AboutEyes from './about_page/AboutEyes';
 import LoadingScreen from './loading_screen/LoadingScreen';
 
-import ImageImporter from './data/ImageImporter';
-import ProjectViewer, {ProjectViewerProps} from './projects/ProjectViewer';
+import ImageImporter from './data_handling/ImageImporter';
+import ProjectViewer, {ProjectViewerProps} from './project_viewer/ProjectViewer';
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";

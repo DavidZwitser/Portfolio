@@ -1,6 +1,6 @@
-import Constants from '../data/Constants';
-import { pages } from '../data/Enums';
-import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects/ProjectTemplate';
+import Constants from '../data_handling/Constants';
+import { pages } from '../data_handling/Enums';
+import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects_management/ProjectTemplate';
 
 interface GridProject
 {

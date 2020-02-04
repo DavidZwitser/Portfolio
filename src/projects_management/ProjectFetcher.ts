@@ -5,8 +5,8 @@ import {MovingUp} from './projects_data/MovingUp';
 import {LifeLike} from './projects_data/LifeLike';
 import { PersonalSharedPhysical } from "./projects_data/PersonalSharedPhysical";
 
-import * as projectData from '../../JSON/projects.json';
-import { themes, goals, tools } from "../data/Enums";
+import * as projectData from '../JSON/projects.json';
+import { themes, goals, tools } from "../data_handling/Enums";
 
 /* Load and manage project data */
 export default class ProjectFetcher
@@ -26,13 +26,14 @@ export default class ProjectFetcher
     /* Log project files for imoprting files */
     private logProjectFiles(): void
     {
+        console.log(' logginf files')
         let footage: String = '';
         for (let i: number = 0; i < this.projects.length; i++)
         {
-            footage += ('require.resolve("../../../' + this.projects[i].thumbnail + '"); \n');
+            footage += ('require.resolve("../../' + this.projects[i].thumbnail + '"); \n');
             for(let x: number = 0; x < this.projects[i].footage.length; x++)
             {
-                footage += ('require.resolve("../../../' + this.projects[i ].footage[x] + '"); \n');
+                footage += ('require.resolve("../../' + this.projects[i ].footage[x] + '"); \n');
             }
         }
 

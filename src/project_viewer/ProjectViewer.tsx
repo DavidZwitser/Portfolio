@@ -1,7 +1,7 @@
-import Project from "./ProjectTemplate";
-import { pages, themes, tools } from "../data/Enums";
-import HashHandler from "../data/HashHandler";
-import Constants from "../data/Constants";
+import Project from "../projects_management/ProjectTemplate";
+import { pages, themes, tools } from "../data_handling/Enums";
+import HashHandler from "../data_handling/HashHandler";
+import Constants from "../data_handling/Constants";
 
 import * as React from 'react';
 

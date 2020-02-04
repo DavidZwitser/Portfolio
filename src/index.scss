@@ -8,7 +8,7 @@ html, body {
 
   position: static;
 
-  background-color: rgb(165, 85, 85);   
+  background-color: orangered;
   
   height: 100%;
   
@@ -27,11 +27,33 @@ html, body {
   }
 }
 
+/* Pages */
+.page {
+  position: absolute;
+  overflow: hidden;
 
-@import './general/loadingScreen.scss';
+  width: 100%;
+  height: 100%;
 
-@import './general/navigationBar.scss';
-@import './general/defaultPageSettigns.scss';
+  transition: top .7s;
+}
+
+/* All pages which are not the home page */
+.content-page {
+  @extend .page;
+
+  transition: all .7s;
+
+  top: 100%;
+  height: 0%;
+
+}  
+
+
+@import './loading_screen/loadingScreen.scss';
+
+@import './nav-bar/navigationBar.scss';
+@import './misc/defaultPageSettigns.scss';
 
 @import './home_page/homePage.scss';
 @import './about_page/aboutPage.scss';
@@ -43,4 +65,4 @@ html, body {
 @import './timeline_viewer/timelineViewer.scss';
 
 @import './list_viewer/listViewer.scss';
-@import './projects_viewer/projectViewer.scss';
+@import './project_viewer/projectViewer.scss';

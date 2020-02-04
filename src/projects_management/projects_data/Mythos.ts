@@ -1,5 +1,5 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags, ViewerCustomization } from "../ProjectTemplate";
-import { goals, tools, themes } from "../../data/Enums"
+import { goals, tools, themes } from "../../data_handling/Enums"
 
 export namespace Mythos
 {

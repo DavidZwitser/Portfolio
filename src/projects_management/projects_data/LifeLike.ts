@@ -1,5 +1,5 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ViewerCustomization, ProjectTags } from "../ProjectTemplate";
-import { goals, tools, themes } from "../../data/Enums"
+import { goals, tools, themes } from "../../data_handling/Enums"
 
 export namespace LifeLike
 {
