@@ -16,7 +16,7 @@ import { pages, tools, themes } from './data_handling/Enums';
 
 import ProjectFetcher from './projects_management/ProjectFetcher';
 
-import AboutEyes from './about_page/AboutEyes';
+import AboutPage from './about_page/About';
 import LoadingScreen from './loading_screen/LoadingScreen';
 
 import ImageImporter from './data_handling/ImageImporter';
@@ -32,7 +32,6 @@ class Main
     input: InputEvents;
     hashHandler: HashHandler;
  
-    eyes: AboutEyes;
     loadingScreen: LoadingScreen;
     
     projectsFetcher: ProjectFetcher;
@@ -65,18 +64,17 @@ class Main
             document.getElementById('home')
         );
         
-        this.eyes = new AboutEyes(); 
+        ReactDOM.render(
+            React.createElement(AboutPage),
+            document.getElementById('about')
+        );
+
         this.input = new InputEvents();
         
         this.gridViewer = new GridViewer(<HTMLDivElement>document.getElementById('grid'));
         this.gridPopup  = new GridPopup(<HTMLDivElement> document.getElementById('grid-popup'));
 
-        /* Asigning mouse events */
-        this.input.mouseMovingCallback.push(() => {
-            if (Constants.CURRENT_PAGE !== pages.about) { return; }
-            this.eyes.moveEyes(this.input.mouseX, this.input.mouseY);
-        }); 
-        
+        /* Asigning mouse events */        
         this.input.draggingCallback.push(() => {
             if (Constants.CURRENT_PAGE !== pages.grid) { return; }
             this.gridViewer.moveGrid(this.input.velocityX, this.input.velocityY, true);
@@ -164,7 +162,6 @@ class Main
     private resized(): void
     {
         this.gridViewer.moveGrid(0, 0, true);
-        this.eyes.resize();
     }
 }
 

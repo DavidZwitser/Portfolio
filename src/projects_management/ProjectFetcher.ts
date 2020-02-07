@@ -26,7 +26,6 @@ export default class ProjectFetcher
     /* Log project files for imoprting files */
     private logProjectFiles(): void
     {
-        console.log(' logginf files')
         let footage: String = '';
         for (let i: number = 0; i < this.projects.length; i++)
         {
