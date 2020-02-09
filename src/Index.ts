@@ -102,7 +102,10 @@ class Main
         }
 
         ReactDOM.render(
-            React.createElement(TimelineViewer, {zoomSensitivity: .01, projects: this.projectsFetcher.getProjects()}),
+            React.createElement(TimelineViewer, {
+                zoomSensitivity: .02, 
+                projects: this.projectsFetcher.getProjects()
+            }),
             document.getElementById('timeline')
         );
         

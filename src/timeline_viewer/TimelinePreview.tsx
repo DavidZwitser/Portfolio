@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Project from '../projects_management/ProjectTemplate';
+import Project, { ProjectVariables } from '../projects_management/ProjectTemplate';
 import Constants from '../data_handling/Constants';
-import { pages } from '../data_handling/Enums';
+import { pages, projectVariables } from '../data_handling/Enums';
 import ProjectFetcher from '../projects_management/ProjectFetcher';
 import HashHandler from '../data_handling/HashHandler';
 
@@ -12,7 +12,7 @@ export interface ITimelinePreviewProps
     zoomLevel: number;
     leftOffset: number;
 
-    zIndex: number;
+    sortingProperty: projectVariables;
 
     highlightPreview: () => void;
 }
@@ -24,7 +24,7 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
         super(props);
 
         this.state = {
-            index: 0
+            sortingValue: projectVariables.learnedValue
         };
     }
 
@@ -41,14 +41,13 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
     render()
     {
         return (
-            <div id = 'timeline-preview' key = {this.props.project.id   } style = { {
-                    zIndex: this.props.zIndex,
+            <div className = 'timeline-preview' key = {this.props.project.id} style = { {
 
                     width: 2 * this.props.zoomLevel,
-                    left: this.props.leftOffset + this.props.project.learnedValue * this.props.zoomLevel - (1 * this.props.zoomLevel),
+                    left: this.props.leftOffset + this.props.project[this.props.sortingProperty] * this.props.zoomLevel - (1 * this.props.zoomLevel),
                     
                     height: .3 * this.props.zoomLevel + 'vh',
-                    top: -Math.abs(Math.sin(this.props.project.learnedValue * (10 / Math.PI)) * 30) - (.3 * this.props.zoomLevel) + 'vh'
+                    top: -Math.abs(Math.sin(this.props.project[this.props.sortingProperty] * (10 / Math.PI)) * 50) - (.3 * this.props.zoomLevel) + 'vh'
                 }}
                 onClick = {this.openProjectViewer.bind(this)} 
                 onMouseOver = {() => this.handleHover()}

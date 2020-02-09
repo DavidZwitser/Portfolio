@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import TimelinePreview from './TimelinePreview';
 import Project from '../projects_management/ProjectTemplate';
+import { projectVariables } from '../data_handling/Enums';
 
 interface ITimelineViewerProps
 {
@@ -14,12 +15,11 @@ interface ITimelineViewerStates
     zoomLevel: number;
     leftOffset: number;
     highlightedPreview: string;
+    sortingProperty: projectVariables;
 }
 
 export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimelineViewerStates>
 {
-    private previewElements: TimelinePreview[];
-
     constructor(props: ITimelineViewerProps)
     {
         super(props);
@@ -27,7 +27,8 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
         this.state = {
             zoomLevel: 40,
             leftOffset: -window.innerWidth * .1,
-            highlightedPreview: ''
+            highlightedPreview: '',
+            sortingProperty: projectVariables.learnedValue
         }
     }
 
@@ -103,7 +104,7 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
                             highlightedPreview: currentProject.id
                         })
                     }}
-                    zIndex = { 0 }
+                    sortingProperty = {this.state.sortingProperty}
                     project = {currentProject}
                     zoomLevel = {this.state.zoomLevel}
                     leftOffset = {-this.state.leftOffset}
@@ -131,6 +132,26 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
         this.setState({ zoomLevel: this.state.zoomLevel });
     }
 
+    private orderChanged(e: React.ChangeEvent<HTMLSelectElement>): void
+    {
+        this.setState({
+            sortingProperty: (e.target.value as projectVariables)
+        });
+
+        let previews: HTMLCollectionOf<Element> = document.getElementsByClassName('timeline-preview');
+
+        for(let i = 0; i < previews.length; i++)
+        {
+            let preview: HTMLDivElement = (previews.item(i) as HTMLDivElement);
+
+            preview.style.transition = 'left .6s, top .6s';
+            preview.ontransitionend = () => 
+            {
+                preview.style.transition = 'none';
+            };
+        }
+    }
+
     componentDidMount()
     {
         window.addEventListener('wheel', this.scroll.bind(this));
@@ -147,6 +168,12 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
     {
         return (<div id = 'timeline-viewer'>
 
+            <select id = 'timeline-sortBy-dropdown' onChange = {this.orderChanged.bind(this) }>
+                <option value = {projectVariables.learnedValue}>Learned value</option>
+                <option value = {projectVariables.endResultValue}>End result value</option>
+                {/* <option value = {projectVariables.durationHrs}>Time spent</option> */}
+                <option value = {projectVariables.teamSize}>Team size</option> 
+            </select>
 
             <div id = 'timeline-timeline'>
                 {this.createPreviews()}

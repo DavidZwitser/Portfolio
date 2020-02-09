@@ -53,3 +53,15 @@ export enum themes
     puzzle = 'Puzzle',
     generative = 'Generative'
 }
+
+export enum projectVariables
+{
+    day = 'day',
+    month = 'month',
+    year = 'year',
+
+    durationHrs = 'durationHrs',
+    teamSize = 'teamSize',
+    learnedValue = 'learnedValue',
+    endResultValue = 'endResultValue',
+}

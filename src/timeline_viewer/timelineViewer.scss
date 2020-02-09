@@ -32,15 +32,37 @@
 
     #timeline-viewer
     {
-        
+        #timeline-sortBy-dropdown
+        {
+            position: absolute;
+
+            color: rgb(19, 112, 189);
+
+            width: 20vw;
+            height: 3vw;
+
+            left: 50vw;
+            top: 20vh;
+
+            margin-left: -10vw;
+            margin-top: -5vw;
+
+            option
+            {
+                color: rgb(19, 112, 189);
+            }
+        }
+
         #timeline-timeline
         {
             position: absolute;
             top: 80vh;
 
-            #timeline-preview
+            .timeline-preview
             {
                 position: absolute;
+
+                // transition: left .6s, top .6s;
     
                 border-style: solid;
                 border-color: rgb(19, 112, 189);
