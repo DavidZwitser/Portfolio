@@ -2,12 +2,15 @@
 {
     position: absolute;
 
-    width: 100vw;
+    width: 200vw;
     height: 100vh;
+
+    overflow: scroll;
+
+    overscroll-behavior-x: none;
 
     background-color: white;
 
-    
     #work-in-progress-text
     {
         font-family: monospace;
@@ -25,5 +28,85 @@
         top: 50vh;
         margin-top: -2.5vh;
         
+    }
+
+    #timeline-viewer
+    {
+        
+        #timeline-timeline
+        {
+            position: absolute;
+            top: 80vh;
+
+            #timeline-preview
+            {
+                position: absolute;
+    
+                border-style: solid;
+                border-color: rgb(19, 112, 189);
+                background-color: rgb(19, 112, 189);
+    
+                border-radius: 5%;
+    
+                #timeline-preview-thumbnail
+                {
+                    width: 100%;
+                    height: 80%;
+    
+                    object-fit: cover;
+                }
+    
+                #timeline-preview-title
+                {
+                    color: white;
+    
+                    font-weight: lighter;
+    
+                    margin-top: 0;
+                }
+    
+                #timeline-preview-positionLine
+                {
+                    position: absolute;
+    
+                    width: 2px;
+                    height: 10vh;
+    
+                    background-color: rgb(19, 112, 189);
+                }
+            }
+
+
+            #timeline-baseline
+            {
+                background-color: rgb(19, 112, 189);
+                
+                height: 2px;
+
+                .timeline-separatorStripes
+                {
+                    float: left;
+
+                    position: absolute;
+
+                    width: 2px;
+                    
+                    background-color: rgb(19, 112, 189);
+
+                    .timeline-separatorStripes-values
+                    {   
+                        color: rgb(19, 112, 189);
+
+                        margin-top: 0;
+                        margin-left: 1vw;
+
+                        font-weight: lighter;
+
+                        user-select: none;
+                    }
+                }
+            }
+
+        }
     }
 }

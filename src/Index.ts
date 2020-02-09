@@ -26,6 +26,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import {ListViewerReact, ListViewerProps} from './list_viewer/ListViewer';
+import { TimelineViewer } from './timeline_viewer/TimelineViewer';
 
 class Main
 {
@@ -49,7 +50,7 @@ class Main
 
         this.hashHandler = new HashHandler();
         this.hashHandler.pageTransitioned = () => this.pageTransitioned();
-        
+
         /* Listners */
         window.addEventListener('hashchange', () => this.hashHandler.hashChanged() );
         window.addEventListener('load', () => this.hashHandler.hashChanged());
@@ -100,6 +101,10 @@ class Main
             this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
         }
 
+        ReactDOM.render(
+            React.createElement(TimelineViewer, {zoomSensitivity: .01, projects: this.projectsFetcher.getProjects()}),
+            document.getElementById('timeline')
+        );
         
         /* Project viewer  */            
         ReactDOM.render(

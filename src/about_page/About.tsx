@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import Constants from '../data_handling/Constants';
 import { pages } from '../data_handling/Enums';
 

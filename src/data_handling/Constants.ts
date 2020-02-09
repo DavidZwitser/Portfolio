@@ -8,6 +8,7 @@ export default class Constants
     public static CURRENT_PROJECT: string = '';
     public static LAST_PAGE: pages =  pages.none;
 
+    /* DON'T USE THIS ONE */
     public static CHANGE_PAGE(hashKey: pages, projectVariable?: string)
     {
         this.LAST_PAGE = this.CURRENT_PAGE;

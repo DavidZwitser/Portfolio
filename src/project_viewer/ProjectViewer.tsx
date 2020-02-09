@@ -198,12 +198,14 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
                         <div className = 'project-viewer-goal-line-between'></div>
 
-                        <iframe 
-                            src = {this.state.project.video}
-                            className = 'project-viewer-video' 
-                            frameBorder = 'hidden' 
-                            allowFullScreen = {true} 
-                        />    
+                        {this.state.project.video && 
+                            <iframe 
+                                src = {this.state.project.video}
+                                className = 'project-viewer-video' 
+                                frameBorder = 'hidden' 
+                                allowFullScreen = {true} 
+                            />    
+                        }
 
                         {imageElements.length > 1 && imageElements[1]}
 
