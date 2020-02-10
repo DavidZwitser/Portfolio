@@ -12,6 +12,10 @@ export interface ITimelinePreviewProps
     zoomLevel: number;
     leftOffset: number;
 
+    orientation: 'landscape' | 'portrait';
+
+    indexOnScale: number;
+
     sortingProperty: projectVariables;
 
     highlightPreview: () => void;
@@ -43,11 +47,13 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
         return (
             <div className = 'timeline-preview' key = {this.props.project.id} style = { {
 
-                    width: 2 * this.props.zoomLevel,
+                    transform: (this.props.orientation == 'portrait' ? 'rotate(-90deg)' : 'none'),
+
+                    width: 1 * this.props.zoomLevel,
                     left: this.props.leftOffset + this.props.project[this.props.sortingProperty] * this.props.zoomLevel - (1 * this.props.zoomLevel),
                     
-                    height: .3 * this.props.zoomLevel + 'vh',
-                    top: -Math.abs(Math.sin(this.props.project[this.props.sortingProperty] * (10 / Math.PI)) * 50) - (.3 * this.props.zoomLevel) + 'vh'
+                    height: .15 * this.props.zoomLevel + 'vh',
+                    top: -10 -(.2 * this.props.zoomLevel * this.props.indexOnScale) - (.15 * this.props.zoomLevel) + 'vh'
                 }}
                 onClick = {this.openProjectViewer.bind(this)} 
                 onMouseOver = {() => this.handleHover()}
@@ -60,13 +66,15 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
                         fontSize: this.props.zoomLevel * .2,
                     }}> {this.props.project.name} </p>
 
-                <div id = 'timeline-preview-positionLine' style = {{
+                {/* <div id = 'timeline-preview-positionLine' style = {{
 
-                    top: .3 * this.props.zoomLevel + 'vh',
-                    left: this.props.zoomLevel * 1,
+                    top: .15 * this.props.zoomLevel + 'vh',
+                    left: this.props.zoomLevel * .5,
                     height: this.props.zoomLevel
 
-                }}></div>
+                }}></div> */}
+
+                <div id = 'timeline-preview-value'></div>
 
             </div>
         );

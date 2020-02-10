@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 import TimelinePreview from './TimelinePreview';
-import Project from '../projects_management/ProjectTemplate';
-import { projectVariables } from '../data_handling/Enums';
+import Project, { ProjectVariables } from '../projects_management/ProjectTemplate';
+import { projectVariables, pages } from '../data_handling/Enums';
+import Constants from '../data_handling/Constants';
 
 interface ITimelineViewerProps
 {
@@ -16,41 +17,53 @@ interface ITimelineViewerStates
     leftOffset: number;
     highlightedPreview: string;
     sortingProperty: projectVariables;
+    orientation: 'landscape' | 'portrait';
 }
 
 export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimelineViewerStates>
 {
+    private previewRenderArray: Project[];
+    private windowReferenceSize: number;
+
     constructor(props: ITimelineViewerProps)
     {
         super(props);
 
+        this.windowReferenceSize = Math.max(window.innerWidth, window.innerHeight);
+
+        this.previewRenderArray = Object.assign([], this.props.projects);
+
         this.state = {
             zoomLevel: 40,
-            leftOffset: -window.innerWidth * .1,
+            leftOffset: -this.windowReferenceSize * .1,
             highlightedPreview: '',
-            sortingProperty: projectVariables.learnedValue
+            sortingProperty: projectVariables.learnedValue,
+            orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
         }
     }
 
     getTimelineStripes(timelineViewWidth: number): JSX.Element[]
     {
         let stripes: JSX.Element[] = [];
-
-        let amountOfStripes: number = Math.round((window.innerWidth * (timelineViewWidth / 100) + this.state.leftOffset) / (this.state.zoomLevel));
+        let amountOfStripes: number = Math.round((this.windowReferenceSize * (timelineViewWidth / 100) + this.state.leftOffset) / (this.state.zoomLevel));
 
         for(let i = 0; i < amountOfStripes; i++)
         {
             let lineStyle: {left: number, height: number, top: number} = {
                 left: -this.state.leftOffset + this.state.zoomLevel * i,
-                height: this.state.zoomLevel,
-                top: -this.state.zoomLevel * .5
+                height: this.state.zoomLevel * .5,
+                top: -this.state.zoomLevel * .25
             };
 
-            let valueCustomStyle: any = {fontSize: this.state.zoomLevel * .4 };
+            let valueCustomStyle: any = {
+                fontSize: this.state.zoomLevel * .2,
+                transform: (this.state.orientation == 'portrait' ? 'rotate(-90deg)' : 'none'),
+                marginLeft: (this.state.orientation == 'portrait' ? '1vh' : 'none')
+            };
 
             if (i % 10 == 0) { 
-                lineStyle.height = this.state.zoomLevel * 2;
-                lineStyle.top = -this.state.zoomLevel;
+                lineStyle.height = this.state.zoomLevel * 1;
+                lineStyle.top = -this.state.zoomLevel * .5;
 
                 valueCustomStyle = {
                     fontSize: valueCustomStyle.fontSize,
@@ -58,10 +71,10 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
                     fontWeight: 'normal'
                 }
             }
-            else if (i == amountOfStripes - 1) 
-            { 
-                // lineStyle = {/
-            }
+            // else if (i == amountOfStripes - 1) 
+            // { 
+            //     // lineStyle = {/
+            // }
 
             stripes.push(
                 <div 
@@ -81,35 +94,71 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
     {
         let previewElements: JSX.Element[] = [];
 
-        for (let i = 0; i < this.props.projects.length; i++)
-        {
-            let currentProject: Project = this.props.projects[i];
+        let placesOnScaleUsed: number[] = [];
+        let projectYIndexes: {projectID: string, yIndexOnScale: number}[] = [];
 
-            if (currentProject.isFullProject == false) { continue; }
+        /* Handling the Y index on the scale */
+        for (let i: number = 0; i < this.props.projects.length; i++)
+        {
+            let proj: Project = this.props.projects[i];
+            if (proj.isFullProject == false) { continue; }
+
+            let placesUsed: number = 0;
+            for (let x: number = 0; x < placesOnScaleUsed.length; x++)
+            {
+                if (placesOnScaleUsed[x] == Math.floor(proj[this.state.sortingProperty]))
+                {
+                    placesUsed ++;
+                }
+            }
+            
+            placesOnScaleUsed.push(Math.floor(proj[this.state.sortingProperty]));
+            projectYIndexes.push( {projectID: this.props.projects[i].id, yIndexOnScale: placesUsed} );
+        }
+
+        /* Creating the array */
+        for (let i = 0; i < this.previewRenderArray.length; i++)
+        {
+            let proj: Project = this.previewRenderArray[i];
+
+            if (proj.isFullProject == false) { continue; }
+
+            let yIndex: number = 0;
+            for (let x: number = projectYIndexes.length; x--; )
+            {
+                if (projectYIndexes[x].projectID == proj.id)
+                {
+                    yIndex = projectYIndexes[x].yIndexOnScale;
+                }
+            }
 
             previewElements.push(
                 <TimelinePreview 
                     highlightPreview = {() => { 
-                        for(let i = 0; i < this.props.projects.length; i++)
+                        /* Finding preview and brining it to the top of the render array */
+                        for(let i = 0; i < this.previewRenderArray.length; i++)
                         {
-                            let curr: Project = this.props.projects[i];
+                            let curr: Project = this.previewRenderArray[i];
 
-                            if (curr.id == currentProject.id)
+                            if (curr.id == proj.id)
                             {
-                                this.props.projects.splice(i, 1);
-                                this.props.projects.push(curr);
+                                this.previewRenderArray.splice(i, 1);
+                                this.previewRenderArray.push(curr);
                             }
                         }
                         this.setState({
-                            highlightedPreview: currentProject.id
+                            highlightedPreview: proj.id
                         })
                     }}
+                    orientation = {this.state.orientation}
                     sortingProperty = {this.state.sortingProperty}
-                    project = {currentProject}
+                    project = {proj}
                     zoomLevel = {this.state.zoomLevel}
                     leftOffset = {-this.state.leftOffset}
+                    indexOnScale = { yIndex }
                 />
             );
+
         }
 
         return previewElements;
@@ -117,29 +166,54 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
 
     private scroll(e: WheelEvent): void
     {
+        if (Constants.CURRENT_PAGE !== pages.timeline || Constants.CURRENT_PROJECT !== '') { return; }
+
         let newValue: number = this.state.zoomLevel + e.deltaY * this.props.zoomSensitivity;
 
         if (newValue <=  20 || newValue >= 200) { return; }
 
+        let xDelta: number = this.state.orientation == 'portrait' ? e.deltaX : e.deltaY;
+        let yDelta: number = this.state.orientation == 'landscape' ? e.deltaX : e.deltaY;
+
         this.setState({
-            zoomLevel: this.state.zoomLevel + e.deltaY * this.props.zoomSensitivity,
-            leftOffset: this.state.leftOffset + e.deltaX
+            zoomLevel: this.state.zoomLevel + xDelta * this.props.zoomSensitivity,
+            leftOffset: this.state.leftOffset + yDelta
         });
     }
 
     private resize(): void
     {
-        this.setState({ zoomLevel: this.state.zoomLevel });
+        this.windowReferenceSize = Math.max(window.innerWidth, window.innerHeight);
+
+        if (Constants.CURRENT_PAGE !== pages.timeline || Constants.CURRENT_PROJECT !== '') { return; }
+
+        this.setState({ 
+            zoomLevel: this.state.zoomLevel, 
+            orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait' 
+        });
     }
 
     private orderChanged(e: React.ChangeEvent<HTMLSelectElement>): void
     {
+        let sortingProperty: projectVariables = (e.target.value as projectVariables);
+        let highestValue: number = 0;
+
+        for (let i: number = 0; i < this.props.projects.length; i++)
+        {
+            let currentProject: Project = this.props.projects[i];
+
+            if (currentProject[sortingProperty] > highestValue) 
+            { 
+                highestValue = currentProject[sortingProperty]; 
+            }
+        }
+
         this.setState({
             sortingProperty: (e.target.value as projectVariables)
+            // zoomLevel: (1 - highestValue * .1) * 350
         });
 
         let previews: HTMLCollectionOf<Element> = document.getElementsByClassName('timeline-preview');
-
         for(let i = 0; i < previews.length; i++)
         {
             let preview: HTMLDivElement = (previews.item(i) as HTMLDivElement);
@@ -175,12 +249,12 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
                 <option value = {projectVariables.teamSize}>Team size</option> 
             </select>
 
-            <div id = 'timeline-timeline'>
+            <div id = 'timeline-timeline' style = {{transform: (this.state.orientation == 'portrait' ? 'rotate(90deg) translateY(300px)' : 'none')}}>
                 {this.createPreviews()}
 
                 <div id = 'timeline-baseline' style = {{
                     marginLeft: -this.state.leftOffset, 
-                    width: window.innerWidth * .9 + this.state.leftOffset
+                    width: this.windowReferenceSize * .9 + this.state.leftOffset
                 }} >
 
                     {this.getTimelineStripes( 90 )}
