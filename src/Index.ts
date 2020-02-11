@@ -43,6 +43,7 @@ class Main
     projectViewer: ProjectViewer;
 
     listLoaded: boolean = false;
+    timelineViewerLoaded: boolean = false;
     
     constructor()
     {   
@@ -100,14 +101,6 @@ class Main
         {
             this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
         }
-
-        ReactDOM.render(
-            React.createElement(TimelineViewer, {
-                zoomSensitivity: .02, 
-                projects: this.projectsFetcher.getProjects()
-            }),
-            document.getElementById('timeline')
-        );
         
         /* Project viewer  */            
         ReactDOM.render(
@@ -162,6 +155,21 @@ class Main
                 );
 
                 this.listLoaded = true;
+            }
+        }
+
+        if (Constants.CURRENT_PAGE == pages.timeline)
+        {
+            if (this.timelineViewerLoaded == false)
+            {
+                ReactDOM.render(
+                    React.createElement(TimelineViewer, {
+                        zoomSensitivity: .02, 
+                        projects: this.projectsFetcher.getProjects()
+                    }),
+                    document.getElementById('timeline')
+                );
+                this.timelineViewerLoaded = true;
             }
         }
     }

@@ -27,9 +27,11 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
     {
         super(props);
 
-        this.state = {
-            sortingValue: projectVariables.learnedValue
-        };
+        if (this.props.project[this.props.sortingProperty] > 30) 
+        { 
+            this.props.project[this.props.sortingProperty] /= 10; 
+        }
+
     }
 
     openProjectViewer(): void

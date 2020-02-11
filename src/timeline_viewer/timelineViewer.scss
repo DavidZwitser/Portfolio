@@ -2,12 +2,10 @@
 {
     position: absolute;
 
-    width: 200vw;
+    width: 100vw;
     height: 100vh;
 
     overflow: scroll;
-
-    overscroll-behavior-x: none;
 
     background-color: white;
 
@@ -17,7 +15,7 @@
 
         position: absolute;
 
-        font-size: 3vmin;
+        font-size: 5vmin;
         text-align: center;
 
         width: 60vw;
