@@ -157,7 +157,6 @@ class Main
 
         if (Constants.CURRENT_PAGE == pages.timeline)
         {
-            console.log('current tpage is timeline', this.timelineViewerLoaded);
             if (this.timelineViewerLoaded == false)
             {
                 ReactDOM.render(

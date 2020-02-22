@@ -1,5 +1,5 @@
 import Constants from '../data_handling/Constants';
-import { pages } from '../data_handling/Enums';
+import { pages, projectVariables } from '../data_handling/Enums';
 import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects_management/ProjectTemplate';
 import HashHandler from '../data_handling/HashHandler';
 
@@ -162,15 +162,18 @@ export default class GridViewer
         if (this.hasMoved == true || Constants.CURRENT_PAGE !== pages.grid) { return; }
         let element: GridProject = this.getProjectByID(elementID);
 
-        if (element.content.isFullProject == true) 
-        { 
-            HashHandler.CHANGE_PAGE(pages.grid, element.content.id); 
-            return;
-        }
-
-        if (element == this.projectClosestToCenter) {
-            if (this.openMoreInfo !== null)
+        
+        if (element == this.projectClosestToCenter) 
+        {
+            if (element.content.isFullProject == true) 
+            { 
+                HashHandler.CHANGE_PAGE(pages.grid, element.content.id); 
+                return;
+            }
+            else if (true)
+            {
                 this.toggleMoreInfo(element.content);
+            }
         }
 
         this.centerProjectClosestToTheCenterOfTheScreen(element);
@@ -208,7 +211,6 @@ export default class GridViewer
         if (this.projectClosestToCenter == null || this.projectClosestToCenter == undefined)
         {
             this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen();
-            console.log(this.projectClosestToCenter);
         }
 
         if (overwriteElement !== null && typeof overwriteElement === "object") 
@@ -293,7 +295,7 @@ export default class GridViewer
         if (this.moveIconHidden == false)
         {
             this.moveIconHidden = true;
-            document.getElementById('drag-to-navigate-icon').style.opacity = '0';
+            // document.getElementById('drag-to-navigate-icon').style.opacity = '0';
         }
 
         if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
@@ -335,7 +337,7 @@ export default class GridViewer
             curr.distanceFromCenter = distanceFromCenter;
             /* Setting size as the distance */
             let elementSize: number = size - distanceFromCenter * .0012;
-            if (curr.content.isFullProject == false) { elementSize *= .7; }
+            if (curr.content.isFullProject == false) { elementSize *= .5; }
             
             if (elementSize < 10) { elementSize = 10; }
 
@@ -357,7 +359,14 @@ export default class GridViewer
                 if (i == 72) { check = 144; }
                 if (i == 144) { check = 288; }
 
-                dist += size * 1.05;
+                if (curr.content.isFullProject == true)
+                {
+                    dist += size * .9;
+                }
+                else
+                {
+                    dist += size * .4;
+                }
                 rotationSpeed += 3;
             }
 
