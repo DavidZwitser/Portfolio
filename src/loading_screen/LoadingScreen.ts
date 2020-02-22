@@ -8,8 +8,6 @@ export default class LoadingScreen
     {
         this.parent = <HTMLDivElement>document.getElementById('loading-screen');
         this.loadingScreenVisual = <HTMLDivElement>document.getElementsByClassName('loading-screen-visual')[0];
-
-        setTimeout(this.endLoadingScreen, 200);
     }
 
     public endLoadingScreen()

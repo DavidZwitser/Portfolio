@@ -4,6 +4,7 @@ import {Mythos} from './projects_data/Mythos';
 import {MovingUp} from './projects_data/MovingUp';
 import {LifeLike} from './projects_data/LifeLike';
 import { PersonalSharedPhysical } from "./projects_data/PersonalSharedPhysical";
+import { CONFINED_SPACE } from "./projects_data/CONFINEDSPACE";
 
 import * as projectData from '../JSON/projects.json';
 import { themes, goals, tools } from "../data_handling/Enums";
@@ -35,16 +36,17 @@ export default class ProjectFetcher
                 footage += ('require.resolve("../../' + this.projects[i ].footage[x] + '"); \n');
             }
         }
-
+        console.log(footage);
     }
 
     private loadBigProjects()
     {
         this.projects.push(
-            Mythos.getProject(),
-            MovingUp.getProject(),
+            CONFINED_SPACE.getProject(),
             LifeLike.getProject(),
-            PersonalSharedPhysical.getProject()
+            MovingUp.getProject(),
+            Mythos.getProject(),
+            PersonalSharedPhysical.getProject(),
         );
     }
 

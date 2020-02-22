@@ -39,7 +39,8 @@ export enum tools
     Networking = 'Networking',
     ProjectionMapping = 'Projection mapping',
     Filming = 'Filming',
-    Building = 'Building'
+    Building = 'Building',
+    Woodwork = 'Woodwork'
 }
 
 export enum themes
@@ -51,7 +52,9 @@ export enum themes
     interactive = 'Interactive',
     adventure = 'Adventure',
     puzzle = 'Puzzle',
-    generative = 'Generative'
+    generative = 'Generative',
+    tactile = 'Tactile',
+    Analogue = 'Analogue'
 }
 
 export enum projectVariables
