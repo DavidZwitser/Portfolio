@@ -50,7 +50,6 @@ export default class HashHandler
 
         
         let navbar = document.getElementById("navigation-bar");
-        let navbar_links = document.getElementById('navigation-bar-links');
         let navbar_back = document.getElementById('navigation-bar-back-button');
 
         if (Constants.CURRENT_PAGE == pages.home)
@@ -58,16 +57,23 @@ export default class HashHandler
             navbar.style.bottom = "0";
             
             navbar.style.height = "0";
-            navbar_links.style.display = 'block';
             navbar_back.style.display = 'none';
         }
         else
         {
-            navbar.style.bottom = "94vh";
-            navbar.style.height = "auto";
+            navbar.style.bottom = "93vh";
+            navbar.style.height = "7vh";
             
-            navbar_links.style.display = 'none';
             navbar_back.style.display = 'block';            
+        }
+
+        if (Constants.CURRENT_PAGE == pages.about)
+        {
+            document.getElementById('viewer-type-buttons').style.display = 'none';
+        }
+        else
+        {
+            document.getElementById('viewer-type-buttons').style.display = 'block';
         }
 
         if (hashParts.length > 1)
@@ -85,11 +91,16 @@ export default class HashHandler
         if (Constants.LAST_PAGE == Constants.CURRENT_PAGE) { return; }
 
         navbar.addEventListener('transitionend', () => { if (this.pageTransitioned !== null) this.pageTransitioned() }, {once: true} );
+        if (Constants.LAST_PAGE !== pages.home && Constants.CURRENT_PAGE !== pages.home )
+        {
+            if (this.pageTransitioned !== null) { this.pageTransitioned(); }
+        }
 
         document.getElementById(pages.about).style.height = '0%';
         document.getElementById(pages.list).style.height = '0%';
         document.getElementById(pages.timeline).style.height = '0%';
         document.getElementById(pages.grid).style.height = '0%';
+
         document.getElementById(pages.about).style.top = '100vh';
         document.getElementById(pages.list).style.top = '100vh';
         document.getElementById(pages.timeline).style.top = '100vh';

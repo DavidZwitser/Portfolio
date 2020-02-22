@@ -29,7 +29,7 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
 
         if (this.props.project[this.props.sortingProperty] > 30) 
         { 
-            this.props.project[this.props.sortingProperty] /= 10; 
+            this.props.project[this.props.sortingProperty] = this.props.project[this.props.sortingProperty] ; 
         }
 
     }

@@ -1,10 +1,10 @@
 export enum pages
 {
-    none = 'none',
+    // none = 'none',
     home = 'home',
     grid = 'grid',
     list = 'list',
-    timeline = 'timeline',
+    timeline = 'scale',
     about = 'about'
 }
 

@@ -145,7 +145,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                     <img className = 'project-viewer-banner' src={this.state.project.thumbnail} />
 
                     <div className = 'project-viewer-info-section' style = {{
-                        backgroundColor: this.state.project.backgroundColor,
+                        backgroundColor: 'white', //this.state.project.backgroundColor,
                         color: this.getTextColor(this.state.project.backgroundColor)
                     }}>
                         <div className = 'project-viewer-theme-container'>

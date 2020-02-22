@@ -36,7 +36,6 @@ export default class ProjectFetcher
             }
         }
 
-        console.log(footage);
     }
 
     private loadBigProjects()

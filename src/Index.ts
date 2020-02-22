@@ -91,12 +91,9 @@ class Main
         this.gridViewer.closeMoreInfo = () => this.gridPopup.closePopup();
         this.gridViewer.toggleMoreInfo = (project: Project) => this.gridPopup.togglePopup(project);
         
-        this.gridViewer.moveGrid();
-        this.gridViewer.letGoOfGrid(0, 0);
-        
-        /* Setting up project page logic */
         this.projectsFetcher = new ProjectFetcher();
 
+        /* Setting up project page logic */
         if (Constants.CURRENT_PAGE == pages.grid)
         {
             this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
@@ -160,6 +157,7 @@ class Main
 
         if (Constants.CURRENT_PAGE == pages.timeline)
         {
+            console.log('current tpage is timeline', this.timelineViewerLoaded);
             if (this.timelineViewerLoaded == false)
             {
                 ReactDOM.render(
@@ -167,7 +165,7 @@ class Main
                         zoomSensitivity: .02, 
                         projects: this.projectsFetcher.getProjects()
                     }),
-                    document.getElementById('timeline')
+                    document.getElementById('scale')
                 );
                 this.timelineViewerLoaded = true;
             }

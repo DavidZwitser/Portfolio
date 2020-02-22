@@ -1,6 +1,7 @@
 import Constants from '../data_handling/Constants';
 import { pages } from '../data_handling/Enums';
 import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects_management/ProjectTemplate';
+import HashHandler from '../data_handling/HashHandler';
 
 interface GridProject
 {
@@ -11,7 +12,7 @@ interface GridProject
     distanceFromCenter: number;
 }
 
-/* Visualises projects in a movable grid */
+/* Visualizes projects in a movable grid */
 export default class GridViewer
 {
     parent: HTMLDivElement;
@@ -53,7 +54,9 @@ export default class GridViewer
         this.positionY = this.currentProjectCenter.y;
 
         Constants.PAGE_CHANGED_CALLBACK.push((page: pages) => {
-            
+
+            if (this.loaded == false) { return; }
+
             if (page == pages.grid && Constants.CURRENT_PROJECT == '')
             {
                 if (this.projectClosestToCenter !== null)
@@ -89,7 +92,7 @@ export default class GridViewer
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
 
-                this.centerProjectClosestToTheCenterOfTheScreen();
+                // this.centerProjectClosestToTheCenterOfTheScreen();
             }, 1000);
             
         }));
@@ -159,6 +162,12 @@ export default class GridViewer
         if (this.hasMoved == true || Constants.CURRENT_PAGE !== pages.grid) { return; }
         let element: GridProject = this.getProjectByID(elementID);
 
+        if (element.content.isFullProject == true) 
+        { 
+            HashHandler.CHANGE_PAGE(pages.grid, element.content.id); 
+            return;
+        }
+
         if (element == this.projectClosestToCenter) {
             if (this.openMoreInfo !== null)
                 this.toggleMoreInfo(element.content);
@@ -196,9 +205,10 @@ export default class GridViewer
     public centerProjectClosestToTheCenterOfTheScreen(overwriteElement: GridProject = null)
     {
         if (Constants.CURRENT_PAGE !== pages.grid) { return; }
-        if (this.projectClosestToCenter == null)
+        if (this.projectClosestToCenter == null || this.projectClosestToCenter == undefined)
         {
             this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen();
+            console.log(this.projectClosestToCenter);
         }
 
         if (overwriteElement !== null && typeof overwriteElement === "object") 

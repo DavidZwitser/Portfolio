@@ -6,15 +6,15 @@ export default class Constants
 
     public static CURRENT_PAGE: pages = pages.home;
     public static CURRENT_PROJECT: string = '';
-    public static LAST_PAGE: pages =  pages.none;
+    public static LAST_PAGE: pages =  pages.home;
 
     /* DON'T USE THIS ONE */
-    public static CHANGE_PAGE(hashKey: pages, projectVariable?: string)
+    public static CHANGE_PAGE(hashKey: pages, projectVariable: string = null)
     {
         this.LAST_PAGE = this.CURRENT_PAGE;
         this.CURRENT_PAGE = hashKey;
 
-        if (projectVariable !== undefined) { this.CURRENT_PROJECT = projectVariable; }
+        if (projectVariable !== null) { this.CURRENT_PROJECT = projectVariable; }
         else { this.CURRENT_PROJECT = ''; }
 
         for(let i = 0; i < this.PAGE_CHANGED_CALLBACK.length; i++)
