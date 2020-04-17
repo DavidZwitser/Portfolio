@@ -18,6 +18,24 @@ $marginSides: 3.5vmin;
         //
     }
 
+    #socials
+    {
+        // float: left;
+
+        position: absolute;
+        top: 94vh;
+        left: 2vmin;
+
+        color: $textColor;
+
+        font-size: 1.7vmin;
+
+        a
+        {
+            text-decoration: none;
+        }
+    }
+
     
     #home-name
     {

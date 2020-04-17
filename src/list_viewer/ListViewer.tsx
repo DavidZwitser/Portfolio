@@ -11,7 +11,8 @@ interface FilterTagProps { name: string; color: string; clickedCallback: (name: 
 class FilterTag extends React.Component<FilterTagProps>
 {
     render() 
-    { return <button 
+    { 
+        return <button 
             className = 'listViewer-filterTag' 
             onClick = {() => this.props.clickedCallback(this.props.name)} 
             style = {{backgroundColor: this.props.color}}

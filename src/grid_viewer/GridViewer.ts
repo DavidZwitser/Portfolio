@@ -128,7 +128,7 @@ export default class GridViewer
         img.src = content.thumbnail;    
         gridElement.appendChild(img);
 
-        gridElement.style.borderColor = content.isFullProject == true ? 'rgb(19, 112, 189)' : '#ff4500';
+        // gridElement.style.borderColor = content.isFullProject == true ? 'rgb(19, 112, 189)' : '#ff4500';
 
         let id: number = this.idCounter ++;
 

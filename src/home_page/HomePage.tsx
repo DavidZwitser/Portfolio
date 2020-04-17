@@ -10,8 +10,14 @@ export default class HomePage extends React.Component
                 <p id="home-name">David Zwitser</p>
                 <p id="home-slogan">Creative coder, visual artist</p>
 
-                <p id="home-button-view-projects" onClick= {() => window.location.hash= 'list'}> Projects </p>
-                <p id="home-button-view-about" onClick= {() => window.location.hash= 'about'}> About </p>                
+                <p id="home-button-view-projects" onClick= {() => window.location.hash = 'list'}> Projects </p>
+                <p id="home-button-view-about" onClick= {() => window.location.hash = 'about'}> About </p>  
+
+                <div id = 'socials'>
+                    <a target = 'blank' href="https://www.instagram.com/coelepinda/">Instagram</a>
+                    <br/>
+                    <a target = 'blank' href="mailto:davidzwitser@gmail.com">E-mail</a>              
+                </div>
                 
                 {/* <select name="Order projects by" id="home-dropdown-order-by">
                     <option value="Duration">Duration</option>

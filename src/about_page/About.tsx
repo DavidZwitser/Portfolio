@@ -83,14 +83,16 @@ export default class About extends React.Component<null, AboutStates>
             <div id="about-image">
                 
                 <p id="about-description">
-                    The meaning of life is to live.<br />
+                    {/* The meaning of life is to live.<br />
                     That is what every cell in our body and consequently we are here for.
                     <br/><br/>
                     For this reason I aim to do the things that make me feel the most alive which end up being exploring and playing around with the fundamentals of our world. Be that fundamentals of logic, philosophy or creativity.
                     <br/><br/>
                     The tools I have learned to express my explorations with, root in computer code. Besides that, I have gained the addiction of learning to use creative software which quite frankly is growing a bit out of hand.
                     <br/><br/>
-                    I am curious and knowledge hungry. When I start doing something, I get sucked up in it and get really enthusiastic about it. I also like working in teams where I love discussing and learning from/with other team members to bring the product and my knowledge to a higher level.
+                    I am curious and knowledge hungry. When I start doing something, I get sucked up in it and get really enthusiastic about it. I also like working in teams where I love discussing and learning from/with other team members to bring the product and my knowledge to a higher level. */}
+
+                    Exploring the world through creativity technology and philosophy.
                     
                 </p>
                 <img src="src/images/page-about/me.png" alt="" />
