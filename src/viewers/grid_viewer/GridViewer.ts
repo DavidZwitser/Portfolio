@@ -50,11 +50,6 @@ export default class GridViewer
         this.focusedProjectChangedCallback = [];
         this.currentProjectCenter = this.calculateGridCenter();
 
-        // this.focusedProjectChangedCallback.push(() => {
-        //     if (this.projectClosestToCenter == null) { return; }
-        //     this.parent.style.backgroundColor = this.projectClosestToCenter.content.backgroundColor
-        // });
-
         this.positionX = this.currentProjectCenter.x;
         this.positionY = this.currentProjectCenter.y;
 
@@ -88,14 +83,17 @@ export default class GridViewer
         let loadingScreen: HTMLDivElement = <HTMLDivElement>document.getElementById('grid-loading-screen');
         let loadingScreenPart: HTMLDivElement = <HTMLDivElement>document.getElementById('grid-loading-screen-part');
         
+        loadingScreen.style.display = 'none';
+        loadingScreenPart.style.display = 'none';
+
+
         loadingScreenPart.addEventListener('animationiteration', (() => {
             loadingScreenPart.style.opacity = '0';
-            loadingScreenPart.style.display = 'none';
 
             loadingScreen.style.opacity = '0';
+            loadingScreen.style.display = 'none';
 
             setTimeout(() => {
-                loadingScreen.style.display = 'none';
 
                 // this.centerProjectClosestToTheCenterOfTheScreen();
             }, 1000);
@@ -192,7 +190,6 @@ export default class GridViewer
         if (overwriteElement !== null) { nearestElement = overwriteElement; }
         else
         {
-            console.log('bananaas ar bervy big');
             for(let i = 1; i < this.projects.length; i++ )
             {
                 if (Math.abs(this.projects[i].distanceFromCenter) < Math.abs(nearestElement.distanceFromCenter))
@@ -201,6 +198,8 @@ export default class GridViewer
                 }
             }
         }
+
+        this.projectClosestToCenter = nearestElement;
 
         for (let i = 0; i < this.focusedProjectChangedCallback.length; i++)
         {

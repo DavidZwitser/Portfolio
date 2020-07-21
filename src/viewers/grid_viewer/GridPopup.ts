@@ -134,6 +134,7 @@ export default class GridPopup
     {
         this.currentProject = project;
         this.parent.style.display = 'block';
+        this.parent.style.opacity = '1';
 
         if (forceOpen == true) { this.active = true; }
         if (this.active == false) { return; }

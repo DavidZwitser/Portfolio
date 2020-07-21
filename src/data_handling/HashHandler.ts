@@ -88,6 +88,7 @@ export default class HashHandler
         /* resetting keys */
         for(let key of Object.keys(pages))
         {
+            if (key == 'home') continue;
             document.getElementById(key).style.height = '0%';
             document.getElementById(key).style.top = '100vh';
         }
@@ -97,10 +98,12 @@ export default class HashHandler
 
         if (hash !== pages.home)
         {
+            document.getElementById(pages.home).style.transitionDuration = '1.7s';
             document.getElementById(pages.home).style.top = '-100%';
         }
         else
         {
+            document.getElementById(pages.home).style.transitionDuration = '.3s';
             document.getElementById(pages.home).style.top = '0px';
         }
     }

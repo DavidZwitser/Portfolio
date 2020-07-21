@@ -126,15 +126,11 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
     animateOut(): void
     {
-        document.getElementById('project-viewer-banner').style.transform = 'scale(.7)';
-        document.getElementById('project-viewer-banner').classList.add('shadow-on-hover');
-        // document.getElementById('project-viewer-banner').style.filter = 'grayscale(100%)';
-        document.getElementById('project-viewer-banner').style.height = '5vh';
-        
-        if (this.state.project == null)
-        {
-            // document.getElementById('project-viewer-banner').style.opacity = '0';
-        }
+        let banner: HTMLElement = document.getElementById('project-viewer-banner');
+        banner.style.transform = 'scale(.7)';
+        banner.classList.add('shadow-on-hover');
+        banner.style.height = '5vh';
+        banner.style.borderRadius = '4vmin';
 
         document.getElementById('project-viewer-container').style.boxShadow = 'none';
         document.getElementById('project-viewer-container').style.transitionDelay = '0s';
@@ -147,7 +143,6 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         }, 400);
         document.getElementById('project-viewer-backdrop').style.opacity = '0';
 
-        document.getElementById('project-viewer-banner').style.borderRadius = '4vmin';
         
         let viewer: HTMLElement = document.getElementById('project-viewer');
         
@@ -161,10 +156,11 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
     {
         window.requestAnimationFrame(() => {
 
-            document.getElementById('project-viewer-banner').style.transform = 'scale(1)';
-            document.getElementById('project-viewer-banner').classList.remove('shadow-on-hover'); 
-            document.getElementById('project-viewer-banner').style.filter = 'grayscale(0%)'; 
-            document.getElementById('project-viewer-banner').style.height = '40vh';
+            let banner: HTMLElement = document.getElementById('project-viewer-banner');
+            banner.style.transform = 'scale(1)';
+            banner.classList.remove('shadow-on-hover'); 
+            banner.style.height = '40vh';
+            banner.style.borderRadius = '0';
             
             document.getElementById('project-viewer-backdrop').style.top = '0';
             document.getElementById('project-viewer-backdrop').style.opacity = '1';
@@ -174,7 +170,6 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
             document.getElementById('project-viewer-container').style.boxShadow = '0 0 20px black';
             document.getElementById('project-viewer-container').style.transitionDelay = '.2s';
             
-            document.getElementById('project-viewer-banner').style.borderRadius = '0';
             
             let viewer: HTMLElement = document.getElementById('project-viewer');
 

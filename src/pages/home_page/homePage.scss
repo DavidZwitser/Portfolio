@@ -13,6 +13,8 @@ $marginSides: 3.5vmin;
     color: $textColor;
     top: -100%; 
 
+    transition: top .4s;
+
     #home-container
     {
         //

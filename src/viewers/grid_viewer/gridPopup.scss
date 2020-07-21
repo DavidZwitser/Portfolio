@@ -24,12 +24,15 @@ $popup-speed: .3s;
     box-shadow: 0px 0px 15px;
 
     left: 0px;
-    top: -47vw;
+    top: -54vw;
+
+    opacity: 0;
 
     overflow-y: scroll;
 
 
-    transition: top $popup-speed;
+    transition-duration: $popup-speed;
+    transition-property: top opacity;
 
     
     .grid-popup-image {
@@ -162,7 +165,7 @@ $popup-speed: .3s;
         transition: left $popup-speed;
         
         top: 0px;
-        left: -39vh;
+        left: -45vh;
         
         width: 40vh;
         height: 100vh;

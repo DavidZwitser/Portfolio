@@ -48,10 +48,14 @@
 
             transition: box-shadow .1s ease-in-out;
             
+            
+            .shadow-on-hover:hover
+            {
+                transform: scale(.72) !important;
+            }
             .shadow-on-hover
             {
                 box-shadow: 0vmin 0vmin .7vmin black;
-                transform: translateY(5%);
             }
         
             #project-viewer-banner
@@ -68,7 +72,7 @@
 
                 transform: scale(.3);
                 transition: all .2s ease-in-out;
-                transition-property: transform, border-radius, filter, height;
+                transition-property: transform, border-radius, filter, height, bottom;
 
                 cursor: pointer;
 
