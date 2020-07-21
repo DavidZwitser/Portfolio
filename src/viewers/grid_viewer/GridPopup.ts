@@ -1,7 +1,6 @@
-import Project from '../projects_management/ProjectTemplate';
-import { pages } from '../data_handling/Enums';
-import Constants from '../data_handling/Constants';
-import HashHandler from '../data_handling/HashHandler';
+import Project from '../../projects_management/ProjectTemplate';
+import { pages } from '../../data_handling/Enums';
+import HashHandler from '../../data_handling/HashHandler';
 
 /* A popup which shows more information about a project */
 export default class GridPopup

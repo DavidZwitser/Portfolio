@@ -1,7 +1,7 @@
-import Constants from '../data_handling/Constants';
-import { pages, projectVariables } from '../data_handling/Enums';
-import Project, { ProjectSources, ProjectText, ProjectTags } from '../projects_management/ProjectTemplate';
-import HashHandler from '../data_handling/HashHandler';
+import Constants from '../../data_handling/Constants';
+import { pages, projectVariables } from '../../data_handling/Enums';
+import Project, { ProjectSources, ProjectText, ProjectTags } from '../../projects_management/ProjectTemplate';
+import HashHandler from '../../data_handling/HashHandler';
 
 interface GridProject
 {
@@ -49,6 +49,11 @@ export default class GridViewer
 
         this.focusedProjectChangedCallback = [];
         this.currentProjectCenter = this.calculateGridCenter();
+
+        // this.focusedProjectChangedCallback.push(() => {
+        //     if (this.projectClosestToCenter == null) { return; }
+        //     this.parent.style.backgroundColor = this.projectClosestToCenter.content.backgroundColor
+        // });
 
         this.positionX = this.currentProjectCenter.x;
         this.positionY = this.currentProjectCenter.y;
@@ -187,6 +192,7 @@ export default class GridViewer
         if (overwriteElement !== null) { nearestElement = overwriteElement; }
         else
         {
+            console.log('bananaas ar bervy big');
             for(let i = 1; i < this.projects.length; i++ )
             {
                 if (Math.abs(this.projects[i].distanceFromCenter) < Math.abs(nearestElement.distanceFromCenter))

@@ -1,6 +1,6 @@
 #project-viewer
 {
-    position: static;
+    position: fixed;
     top: 0;
     z-index: 1;
 
@@ -12,7 +12,12 @@
     // overflow-y: scroll;
     overflow-x: hidden;
 
-    background-color: rgba(0, 0, 0, 0.418);
+    top: 100vh;
+
+    transition: all .3s ease-in-out;
+    transition-property: top;
+
+    // background-color: rgba(0, 0, 0, 0.418);
 
     color: rgb(207, 207, 207);
 
@@ -22,16 +27,14 @@
     {
         #project-viewer-backdrop    
         {
-            position: absolute;
-            
-            top: 0;
+            position: fixed;
+
+            transition: opacity .4s ease-in-out;
 
             width: 100vw;
             height: 100vh;
 
             background-color: rgba(0, 0, 0, 0.527);
-
-            filter: blur(5);
         }
 
         #project-viewer-container
@@ -42,12 +45,16 @@
             height: auto;
             margin-left: auto;
             margin-right: auto;
-            
-            opacity: 1;
 
-            box-shadow: 0 0 20px black;
+            transition: box-shadow .1s ease-in-out;
+            
+            .shadow-on-hover
+            {
+                box-shadow: 0vmin 0vmin .7vmin black;
+                transform: translateY(5%);
+            }
         
-            .project-viewer-banner
+            #project-viewer-banner
             {
                 display:  block;
                 width: 100vmin; 
@@ -58,14 +65,23 @@
 
                 margin-top: -2vmin;
 
+
+                transform: scale(.3);
+                transition: all .2s ease-in-out;
+                transition-property: transform, border-radius, filter, height;
+
+                cursor: pointer;
+
                 filter: brightness(80%);
             }
         
-            .project-viewer-close-button
+            #project-viewer-close-button
             {
                 z-index: 1;
         
                 position: fixed;
+
+                display: none;
         
                 margin: 1vmin;
                 font-weight: bolder;
@@ -77,6 +93,8 @@
                 width: 5vmin;
                 height: 5vmin;
                 font-size: 4vmin;
+
+                transition: transform .2s;
         
                 background-color: rgb(110, 110, 110);
             }
@@ -85,7 +103,7 @@
                 cursor: pointer;
             }
         
-            .project-viewer-info-section
+           #project-viewer-info-section
             {   
                 position: relative;
                 top: 35vh;
@@ -93,8 +111,6 @@
                 display: block;
 
                 width: 100vmin;
-                
-                // padding-bottom: 10vh;
                 
                 margin-left: auto;
         
@@ -107,12 +123,12 @@
         
                 .project-viewer-title
                 {
-                    font-size: 15vmin;
+                    font-size: 12vmin;
 
                     margin: 2vmin;
         
-                    padding-top: 4vmin;
-                    margin-left: 5vmin;
+                    padding-top: 2vmin;
+                    margin-left: 4vmin;
 
                     overflow-wrap: none;
                 }
@@ -210,7 +226,8 @@
         
                     font-size: 6vh;
                     // font-weight: bold;
-        
+
+                    
                     display: inline-block;
                 }
         

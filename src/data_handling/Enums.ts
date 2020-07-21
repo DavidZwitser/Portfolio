@@ -4,7 +4,8 @@ export enum pages
     home = 'home',
     grid = 'grid',
     list = 'list',
-    timeline = 'scale',
+    circle = 'circle',
+    range = 'range',
     about = 'about'
 }
 

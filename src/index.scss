@@ -12,6 +12,7 @@ html, body {
   height: 100%;
   
   font-family: 'Open Sans';
+  font-family: 'Lora', serif;
 
   transition-timing-function: ease-in-out;
 
@@ -47,19 +48,21 @@ html, body {
 }  
 
 
-@import './loading_screen/loadingScreen.scss';
+@import './pages/loading_screen/loadingScreen.scss';
 
-@import './nav-bar/navigationBar.scss';
-@import './misc/defaultPageSettigns.scss';
+@import './misc/navigationBar.scss';
+@import './misc/defaultPageSettings.scss';
 
-@import './home_page/homePage.scss';
-@import './about_page/aboutPage.scss';
+@import './pages/home_page/homePage.scss';
+@import './pages/about_page/aboutPage.scss';
 
-@import './grid_viewer/gridViewer.scss';
-@import './grid_viewer/gridPopup.scss';
-@import './grid_viewer/gridLoadingScreen.scss';
+@import './viewers/circle_viewer/circleViewer.scss';
 
-@import './timeline_viewer/timelineViewer.scss';
+@import './viewers/grid_viewer/gridViewer.scss';
+@import './viewers/grid_viewer/gridPopup.scss';
+@import './viewers/grid_viewer/gridLoadingScreen.scss';
 
-@import './list_viewer/listViewer.scss';
-@import './project_viewer/projectViewer.scss';
+@import './viewers/range_viewer/rangeViewer.scss';
+
+@import './viewers/list_viewer/listViewer.scss';
+@import './viewers/project_viewer/projectViewer.scss';

@@ -1,13 +1,13 @@
-import Project, { ProjectText, ProjectSources, ProjectTags } from "./ProjectTemplate";
+import Project, { ProjectText, ProjectSources, ProjectTags, ViewerCustomization } from "../projects_management/ProjectTemplate";
 
-import {Mythos} from './projects_data/Mythos';
-import {MovingUp} from './projects_data/MovingUp';
-import {LifeLike} from './projects_data/LifeLike';
-import { PersonalSharedPhysical } from "./projects_data/PersonalSharedPhysical";
-import { CONFINED_SPACE } from "./projects_data/CONFINEDSPACE";
+import {Mythos} from '../projects_management/projects_data/Mythos';
+import {MovingUp} from '../projects_management/projects_data/MovingUp';
+import {LifeLike} from '../projects_management/projects_data/LifeLike';
+import { PersonalSharedPhysical } from "../projects_management/projects_data/PersonalSharedPhysical";
+import { CONFINED_SPACE } from "../projects_management/projects_data/CONFINEDSPACE";
 
-import * as projectData from '../JSON/projects.json';
-import { themes, goals, tools } from "../data_handling/Enums";
+import * as projectData from '../projects_management/projects_data/dailies.json';
+import { themes, goals, tools } from "./Enums";
 
 /* Load and manage project data */
 export default class ProjectFetcher
@@ -20,8 +20,6 @@ export default class ProjectFetcher
 
         this.loadBigProjects();
         this.loadDailies();
-
-        // this.logProjectFiles();
     }
 
     /* Log project files for imoprting files */
@@ -93,7 +91,6 @@ export default class ProjectFetcher
                 if (tags[i] == 'krita')
                     toolTags.push(tools.Krita);
 
-
                 if (tags[i] == 'interactiveart')
                     themeTags.push(themes.interactive);
 
@@ -106,17 +103,22 @@ export default class ProjectFetcher
             /* Adding project to not loaded list */
             this.projects.push(new Project((<ProjectText>{
                 name: daily.description
-            }), undefined, (<ProjectSources>{
-                thumbnail: daily.thumbnail,
-                footage: daily.footage,
-                localVideo: daily.footage[0],
-                externalLink: daily.url
-            }), undefined, 
-            (<ProjectTags> {
-                tools: toolTags,
-                themes: themeTags,
-                goals: [goals.entertain]
-            })));
+                }), undefined, (<ProjectSources>{
+                    thumbnail: daily.thumbnail,
+                    footage: daily.footage,
+                    localVideo: daily.footage[0],
+                    externalLink: daily.url
+                }), 
+                (<ViewerCustomization> {
+                    backgroundColor: ['#173f5f', '#20639b', '#3caea3', '#f6d55c', '#ed553b'][Math.floor(Math.random() * 5)],
+                    isFullProject: false
+                }),
+                (<ProjectTags> {
+                    goals: [goals.entertain],
+                    tools: toolTags,
+                    themes: themeTags
+                })
+            ));
         }
     }
 
@@ -137,6 +139,11 @@ export default class ProjectFetcher
             }
         }
     }
+
+    // public getProjectsSortedBy(tagType: any): Projects[]
+    // {
+
+    // }
 
     /* Find the projects one or more of these tags */
     public getProjectsWithTags(tags: any[]): Project[]

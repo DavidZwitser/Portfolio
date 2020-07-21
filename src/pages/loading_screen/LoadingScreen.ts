@@ -24,7 +24,7 @@ export default class LoadingScreen
             
         }, 500);
 
-        document.getElementById('about-page-indicator-icon').style.opacity = '0';
+        // document.getElementById('about-page-indicator-icon').style.opacity = '0';
 
     }
 }

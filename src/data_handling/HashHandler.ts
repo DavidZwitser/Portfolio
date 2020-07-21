@@ -37,17 +37,6 @@ export default class HashHandler
         let projectVariable = hashParts[1];
         
         Constants.CHANGE_PAGE(hash, projectVariable);
-
-        // if (projectVariable == undefined) 
-        // {
-        //     (<any>ga)('set', 'page', '/' + hash);
-        // }
-        // else 
-        // {
-        //     (<any>ga)('set', 'page', '/' + hash + Constants.HASH_SEPARATOR + projectVariable);
-        // }
-        // (<any>ga)('send', 'pageview');
-
         
         let navbar = document.getElementById("navigation-bar");
         let navbar_back = document.getElementById('navigation-bar-back-button');
@@ -96,16 +85,13 @@ export default class HashHandler
             if (this.pageTransitioned !== null) { this.pageTransitioned(); }
         }
 
-        document.getElementById(pages.about).style.height = '0%';
-        document.getElementById(pages.list).style.height = '0%';
-        document.getElementById(pages.timeline).style.height = '0%';
-        document.getElementById(pages.grid).style.height = '0%';
+        /* resetting keys */
+        for(let key of Object.keys(pages))
+        {
+            document.getElementById(key).style.height = '0%';
+            document.getElementById(key).style.top = '100vh';
+        }
 
-        document.getElementById(pages.about).style.top = '100vh';
-        document.getElementById(pages.list).style.top = '100vh';
-        document.getElementById(pages.timeline).style.top = '100vh';
-        document.getElementById(pages.grid).style.top = '100vh';
-        
         document.getElementById(hash).style.height = '100%';
         document.getElementById(hash).style.top = '0px';
 

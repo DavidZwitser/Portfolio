@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Constants from '../data_handling/Constants';
-import { pages } from '../data_handling/Enums';
+import Constants from '../../data_handling/Constants';
+import { pages } from '../../data_handling/Enums';
 
 export interface AboutStates
 {

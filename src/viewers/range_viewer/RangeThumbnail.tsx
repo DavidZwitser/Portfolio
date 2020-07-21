@@ -1,11 +1,9 @@
 import * as React from 'react';
-import Project, { ProjectVariables } from '../projects_management/ProjectTemplate';
-import Constants from '../data_handling/Constants';
-import { pages, projectVariables } from '../data_handling/Enums';
-import ProjectFetcher from '../projects_management/ProjectFetcher';
-import HashHandler from '../data_handling/HashHandler';
+import Project, { ProjectVariables } from '../../projects_management/ProjectTemplate';
+import { pages, projectVariables } from '../../data_handling/Enums';
+import HashHandler from '../../data_handling/HashHandler';
 
-export interface ITimelinePreviewProps
+export interface IRangePreviewProps
 {
     project: Project;
 
@@ -21,9 +19,9 @@ export interface ITimelinePreviewProps
     highlightPreview: () => void;
 }
 
-export default class TimelinePreview extends React.Component<ITimelinePreviewProps> 
+export default class RangePreview extends React.Component<IRangePreviewProps> 
 {
-    constructor(props: ITimelinePreviewProps)
+    constructor(props: IRangePreviewProps)
     {
         super(props);
 
@@ -36,7 +34,7 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
 
     openProjectViewer(): void
     {
-        HashHandler.CHANGE_PAGE(pages.timeline, this.props.project.id);
+        HashHandler.CHANGE_PAGE(pages.range, this.props.project.id);
     }
 
     handleHover(): void
@@ -47,7 +45,7 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
     render()
     {
         return (
-            <div className = 'timeline-preview' key = {this.props.project.id} style = { {
+            <div className = 'range-preview' key = {this.props.project.id} style = { {
 
                     transform: (this.props.orientation == 'portrait' ? 'rotate(-90deg)' : 'none'),
 
@@ -61,14 +59,14 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
                 onMouseOver = {() => this.handleHover()}
             >
 
-                <img id = 'timeline-preview-thumbnail' src = {this.props.project.thumbnail} 
+                <img id = 'range-preview-thumbnail' src = {this.props.project.thumbnail} 
                 />
-                <p id = 'timeline-preview-title' 
+                <p id = 'range-preview-title' 
                     style = {{
                         fontSize: this.props.zoomLevel * .2,
                     }}> {this.props.project.name} </p>
 
-                {/* <div id = 'timeline-preview-positionLine' style = {{
+                {/* <div id = 'range-preview-positionLine' style = {{
 
                     top: .15 * this.props.zoomLevel + 'vh',
                     left: this.props.zoomLevel * .5,
@@ -76,7 +74,7 @@ export default class TimelinePreview extends React.Component<ITimelinePreviewPro
 
                 }}></div> */}
 
-                <div id = 'timeline-preview-value'></div>
+                <div id = 'range-preview-value'></div>
 
             </div>
         );

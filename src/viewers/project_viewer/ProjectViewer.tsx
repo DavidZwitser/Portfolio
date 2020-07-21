@@ -1,21 +1,9 @@
-import Project from "../projects_management/ProjectTemplate";
-import { pages, themes, tools } from "../data_handling/Enums";
-import HashHandler from "../data_handling/HashHandler";
-import Constants from "../data_handling/Constants";
+import Project from "../../projects_management/ProjectTemplate";
+import { pages, themes, tools } from "../../data_handling/Enums";
+import HashHandler from "../../data_handling/HashHandler";
+import Constants from "../../data_handling/Constants";
 
 import * as React from 'react';
-
-interface IVariables
-{
-    client: string;
-    duration: number;
-    day: number;
-    month: number;
-    year: number;
-    teamSize: number;
-    learnedValue: number;
-    resultValue: number;
-}
 
 export interface ProjectViewerProps
 {
@@ -25,17 +13,20 @@ export interface ProjectViewerProps
 export interface ProjectViewerStates
 {
     project: Project;
+    hidden: boolean;
 }
 
 export default class ProjectViewer extends React.Component<ProjectViewerProps, ProjectViewerStates>
 {
+
 
     constructor(props: ProjectViewerProps)
     {   
         super(props);
 
         this.state = {
-            project: this.props.project
+            project: this.props.project,
+            hidden: false
         };
     }
 
@@ -109,13 +100,16 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         if (Constants.CURRENT_PROJECT !== '')
         {
             this.setState({
-                project: this.props.getProjectByID(Constants.CURRENT_PROJECT)
+                project: this.props.getProjectByID(Constants.CURRENT_PROJECT),
+                hidden: false
             });
         }
         else
         {   
+            if (this.state.hidden == true) { return; }
+
             this.setState({
-                project: null
+                hidden: true
             });
         }
     }
@@ -130,9 +124,81 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         window.removeEventListener('hashchange', this.hideOrShow.bind(this));
     }
 
+    animateOut(): void
+    {
+        document.getElementById('project-viewer-banner').style.transform = 'scale(.7)';
+        document.getElementById('project-viewer-banner').classList.add('shadow-on-hover');
+        // document.getElementById('project-viewer-banner').style.filter = 'grayscale(100%)';
+        document.getElementById('project-viewer-banner').style.height = '5vh';
+        
+        if (this.state.project == null)
+        {
+            // document.getElementById('project-viewer-banner').style.opacity = '0';
+        }
+
+        document.getElementById('project-viewer-container').style.boxShadow = 'none';
+        document.getElementById('project-viewer-container').style.transitionDelay = '0s';
+        
+        document.getElementById('project-viewer-close-button').style.transform = 'scale(0)';
+
+
+        setTimeout(() => {
+            document.getElementById('project-viewer-backdrop').style.top = '100vh'
+        }, 400);
+        document.getElementById('project-viewer-backdrop').style.opacity = '0';
+
+        document.getElementById('project-viewer-banner').style.borderRadius = '4vmin';
+        
+        let viewer: HTMLElement = document.getElementById('project-viewer');
+        
+        viewer.style.top = '94.5vh';
+        setTimeout( () => viewer.scrollTop = 0, 200);
+
+        viewer.removeEventListener("wheel", this.handleScrollClosing)
+    }
+
+    animateIn(): void
+    {
+        window.requestAnimationFrame(() => {
+
+            document.getElementById('project-viewer-banner').style.transform = 'scale(1)';
+            document.getElementById('project-viewer-banner').classList.remove('shadow-on-hover'); 
+            document.getElementById('project-viewer-banner').style.filter = 'grayscale(0%)'; 
+            document.getElementById('project-viewer-banner').style.height = '40vh';
+            
+            document.getElementById('project-viewer-backdrop').style.top = '0';
+            document.getElementById('project-viewer-backdrop').style.opacity = '1';
+            
+            document.getElementById('project-viewer-close-button').style.transform = 'scale(1)';
+            
+            document.getElementById('project-viewer-container').style.boxShadow = '0 0 20px black';
+            document.getElementById('project-viewer-container').style.transitionDelay = '.2s';
+            
+            document.getElementById('project-viewer-banner').style.borderRadius = '0';
+            
+            let viewer: HTMLElement = document.getElementById('project-viewer');
+
+            viewer.style.top = '0';
+
+            viewer.addEventListener("wheel", this.handleScrollClosing)
+        });
+    }
+
+    handleScrollClosing(e: WheelEvent): void
+    {
+        let viewer = document.getElementById('project-viewer');
+        if ( viewer.scrollTop == 0 && e.deltaY < 0)
+        {
+            HashHandler.REMOVE_PROJECT_FROM_HASH();
+        }
+    }
+    
     render()
     {
-        if (this.state.project == null) { return <div />; }
+        if (this.state.project == null) { return <div/>; }
+
+        this.state.hidden == true ? this.animateOut() : this.animateIn();
+
         let imageElements = this.getImages(this.state.project.footage);
 
         return (
@@ -140,12 +206,16 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                 <div id = 'project-viewer-backdrop' onClick = {HashHandler.REMOVE_PROJECT_FROM_HASH} />
 
                 <div id = 'project-viewer-container'>
-                    <button className = 'project-viewer-close-button' onClick = {HashHandler.REMOVE_PROJECT_FROM_HASH}>X</button>
+                    <button id = 'project-viewer-close-button' onClick = {() => {
+                        HashHandler.REMOVE_PROJECT_FROM_HASH()
+                    }}>X</button>
 
-                    <img className = 'project-viewer-banner' src={this.state.project.thumbnail} />
+                    <img id = 'project-viewer-banner' src={this.state.project.thumbnail} onClick = {() => {
+                        this.state.hidden == false ? HashHandler.REMOVE_PROJECT_FROM_HASH() : HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, this.state.project.id)
+                    }} />
 
-                    <div className = 'project-viewer-info-section' style = {{
-                        backgroundColor: 'white', //this.state.project.backgroundColor,
+                    <div id = 'project-viewer-info-section' style = {{
+                        backgroundColor: 'white',
                         color: this.getTextColor(this.state.project.backgroundColor)
                     }}>
                         <div className = 'project-viewer-theme-container'>

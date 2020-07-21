@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from 'react-dom';
-import { tools, themes } from "../data_handling/Enums";
+import { tools, themes } from "../../data_handling/Enums";
 import { ListPreviewBig } from "./ListPreviewBig";
 
 export interface HoverableVideoThumbnailProps { videoThumbnailSource: string; }

@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import TimelinePreview from './TimelinePreview';
-import Project, { ProjectVariables } from '../projects_management/ProjectTemplate';
-import { projectVariables, pages } from '../data_handling/Enums';
-import Constants from '../data_handling/Constants';
+import RangePreview from './RangeThumbnail';
+import Project, { ProjectVariables } from '../../projects_management/ProjectTemplate';
+import { projectVariables, pages } from '../../data_handling/Enums';
+import Constants from '../../data_handling/Constants';
 
-interface ITimelineViewerProps
+interface IRangeViewerProps
 {
     zoomSensitivity: number;
     projects: Project[];
 }
 
-interface ITimelineViewerStates
+interface IRangeViewerStates
 {
     zoomLevel: number;
     leftOffset: number;
@@ -20,12 +20,12 @@ interface ITimelineViewerStates
     orientation: 'landscape' | 'portrait';
 }
 
-export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimelineViewerStates>
+export class RangeViewer extends React.Component<IRangeViewerProps, IRangeViewerStates>
 {
     private previewRenderArray: Project[];
     private windowReferenceSize: number;
 
-    constructor(props: ITimelineViewerProps)
+    constructor(props: IRangeViewerProps)
     {
         super(props);
 
@@ -34,7 +34,7 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
         this.previewRenderArray = Object.assign([], this.props.projects);
 
         this.state = {
-            zoomLevel: 40,
+            zoomLevel: 80,
             leftOffset: -this.windowReferenceSize * .1,
             highlightedPreview: '',
             sortingProperty: projectVariables.learnedValue,
@@ -42,10 +42,10 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
         }
     }
 
-    getTimelineStripes(timelineViewWidth: number): JSX.Element[]
+    getRangeStripes(rangeViewWidth: number): JSX.Element[]
     {
         let stripes: JSX.Element[] = [];
-        let amountOfStripes: number = Math.round((this.windowReferenceSize * (timelineViewWidth / 100) + this.state.leftOffset) / (this.state.zoomLevel));
+        let amountOfStripes: number = Math.round((this.windowReferenceSize * (rangeViewWidth / 100) + this.state.leftOffset) / (this.state.zoomLevel));
 
         for(let i = 0; i < amountOfStripes; i++)
         {
@@ -78,11 +78,11 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
 
             stripes.push(
                 <div 
-                    className = 'timeline-separatorStripes' 
+                    className = 'range-separatorStripes' 
                     key = {i} 
                     style = {lineStyle} 
                 >
-                    <p style = {valueCustomStyle} className = 'timeline-separatorStripes-values'>{i}</p>
+                    <p style = {valueCustomStyle} className = 'range-separatorStripes-values'>{i}</p>
                 </div>
             );
         }
@@ -133,7 +133,7 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
             }
 
             previewElements.push(
-                <TimelinePreview 
+                <RangePreview 
                     highlightPreview = {() => { 
                         /* Finding preview and brining it to the top of the render array */
                         for(let i = 0; i < this.previewRenderArray.length; i++)
@@ -166,7 +166,7 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
 
     private scroll(e: WheelEvent): void
     {
-        if (Constants.CURRENT_PAGE !== pages.timeline || Constants.CURRENT_PROJECT !== '') { return; }
+        if (Constants.CURRENT_PAGE !== pages.range || Constants.CURRENT_PROJECT !== '') { return; }
 
         let newValue: number = this.state.zoomLevel + e.deltaY * this.props.zoomSensitivity;
 
@@ -185,7 +185,7 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
     {
         this.windowReferenceSize = Math.max(window.innerWidth, window.innerHeight);
 
-        if (Constants.CURRENT_PAGE !== pages.timeline || Constants.CURRENT_PROJECT !== '') { return; }
+        if (Constants.CURRENT_PAGE !== pages.range || Constants.CURRENT_PROJECT !== '') { return; }
 
         this.setState({ 
             zoomLevel: this.state.zoomLevel, 
@@ -213,7 +213,7 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
             // zoomLevel: (1 - highestValue * .1) * 350
         });
 
-        let previews: HTMLCollectionOf<Element> = document.getElementsByClassName('timeline-preview');
+        let previews: HTMLCollectionOf<Element> = document.getElementsByClassName('range-preview');
         for(let i = 0; i < previews.length; i++)
         {
             let preview: HTMLDivElement = (previews.item(i) as HTMLDivElement);
@@ -240,24 +240,24 @@ export class TimelineViewer extends React.Component<ITimelineViewerProps, ITimel
 
     render()
     {
-        return (<div id = 'timeline-viewer'>
+        return (<div id = 'range-viewer'>
 
-            <select id = 'timeline-sortBy-dropdown' onChange = {this.orderChanged.bind(this) }>
+            <select id = 'range-sortBy-dropdown' onChange = {this.orderChanged.bind(this) }>
                 <option value = {projectVariables.learnedValue}>Learned value</option>
                 <option value = {projectVariables.endResultValue}>End result value</option>
                 {/* <option value = {projectVariables.durationHrs}>Time spent</option> */}
                 <option value = {projectVariables.teamSize}>Team size</option> 
             </select>
 
-            <div id = 'timeline-timeline' style = {{transform: (this.state.orientation == 'portrait' ? 'rotate(90deg) translateY(300px)' : 'none')}}>
+            <div id = 'range-range' style = {{transform: (this.state.orientation == 'portrait' ? 'rotate(90deg) translateY(300px)' : 'none')}}>
                 {this.createPreviews()}
 
-                <div id = 'timeline-baseline' style = {{
+                <div id = 'range-baseline' style = {{
                     marginLeft: -this.state.leftOffset, 
                     width: this.windowReferenceSize * .9 + this.state.leftOffset
                 }} >
 
-                    {this.getTimelineStripes( 90 )}
+                    {this.getRangeStripes( 90 )}
 
                 </div>
             </div>

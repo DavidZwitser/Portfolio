@@ -1,10 +1,10 @@
-import Project, { ProjectSources } from "../projects_management/ProjectTemplate";
+import Project, { ProjectSources } from "../../projects_management/ProjectTemplate";
 
 import {ListPreviewBig} from './ListPreviewBig';
 
 import * as React from 'react';
 import { ListPreviewSmall } from "./ListPreviewSmall";
-import { tools, themes } from "../data_handling/Enums";
+import { tools, themes } from "../../data_handling/Enums";
 
 /* Filter tag element */
 interface FilterTagProps { name: string; color: string; clickedCallback: (name: string) => void }
