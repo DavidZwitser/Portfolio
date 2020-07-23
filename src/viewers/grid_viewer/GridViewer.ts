@@ -59,7 +59,7 @@ export default class GridViewer
 
             if (page == pages.grid && Constants.CURRENT_PROJECT == '')
             {
-                if (this.projectClosestToCenter !== null)
+                if (this.projectClosestToCenter !== null && this.projectClosestToCenter.content.isFullProject == false)
                 {
                     if  (this.openMoreInfo !== null)
                     {
@@ -234,8 +234,9 @@ export default class GridViewer
             this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen();
 
             /* TEMPORARY */
-            if (this.openMoreInfo !== null)
+            if (this.openMoreInfo !== null && this.projectClosestToCenter.content.isFullProject == false)
                 this.openMoreInfo(this.projectClosestToCenter.content);
+
             return;
         }
 

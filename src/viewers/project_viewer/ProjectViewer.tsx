@@ -149,7 +149,10 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         viewer.style.top = '94.5vh';
         setTimeout( () => viewer.scrollTop = 0, 200);
 
-        viewer.removeEventListener("wheel", this.handleScrollClosing)
+        viewer.removeEventListener("wheel", this.handleScrollClosing);
+        
+        let activePage: HTMLElement = document.getElementById(Constants.CURRENT_PAGE);
+        activePage.style.filter = 'none';
     }
 
     animateIn(): void
@@ -176,6 +179,11 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
             viewer.style.top = '0';
 
             viewer.addEventListener("wheel", this.handleScrollClosing)
+
+            if (window.innerWidth > window.innerHeight && /Mobi/.test(navigator.userAgent) == false)
+            {
+                document.getElementById(Constants.CURRENT_PAGE).style.filter = 'blur(4px)';
+            }
         });
     }
 

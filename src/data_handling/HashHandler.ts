@@ -5,7 +5,7 @@ export default class HashHandler
 {
     constructor()
     {
-        this.hashChanged();
+        // this.hashChanged();
     }
 
     public pageTransitioned: () => void;
@@ -28,8 +28,9 @@ export default class HashHandler
         if (window.location.hash == '')
         {
             window.location.hash = pages.home;
+            return;
         }
-        
+
         let rawHash = window.location.hash.split('#')[1];
         let hashParts = rawHash.split(Constants.HASH_SEPARATOR);
         
@@ -43,15 +44,20 @@ export default class HashHandler
 
         if (Constants.CURRENT_PAGE == pages.home)
         {
-            navbar.style.bottom = "0";
-            
-            navbar.style.height = "0";
-            navbar_back.style.display = 'none';
+            navbar.style.bottom = "100vh";
+            navbar.style.height = "7vh";
+            navbar.style.opacity = '0';
+            navbar.style.transitionDelay = '0s';
+
+            navbar_back.style.opacity= 'none';
         }
         else
         {
             navbar.style.bottom = "93vh";
             navbar.style.height = "7vh";
+
+            navbar.style.opacity = '.9';
+            navbar.style.transitionDelay = '.6s';
             
             navbar_back.style.display = 'block';            
         }
@@ -91,20 +97,25 @@ export default class HashHandler
             if (key == 'home') continue;
             document.getElementById(key).style.height = '0%';
             document.getElementById(key).style.top = '100vh';
+            // if (key == hash) { break}
         }
 
         document.getElementById(hash).style.height = '100%';
         document.getElementById(hash).style.top = '0px';
 
+        let home: HTMLElement = document.getElementById(pages.home);
+
         if (hash !== pages.home)
         {
-            document.getElementById(pages.home).style.transitionDuration = '1.7s';
-            document.getElementById(pages.home).style.top = '-100%';
+            home.style.transitionDuration = '.5s';
+            home.style.transform = 'scale(.8)';
+            home.style.opacity = '.4';
         }
         else
         {
-            document.getElementById(pages.home).style.transitionDuration = '.3s';
-            document.getElementById(pages.home).style.top = '0px';
+            home.style.transitionDuration = '.5s';
+            home.style.transform = 'scale(1)';
+            home.style.opacity = '1';
         }
     }
 }

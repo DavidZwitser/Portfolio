@@ -56,10 +56,10 @@ class Main
 
         /* Listners */
         window.addEventListener('hashchange', () => this.hashHandler.hashChanged() );
-        window.addEventListener('load', () => this.hashHandler.hashChanged());
+        window.addEventListener('load', () => this.hashHandler.hashChanged() );
         window.addEventListener('resize', this.resized.bind(this));
         window.addEventListener("load", () => this.loadingScreen.endLoadingScreen() );
-        
+
         /* Creating objects */
         new ImageImporter();
 

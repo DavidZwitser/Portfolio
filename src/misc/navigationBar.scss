@@ -2,14 +2,16 @@
     width: 100%;
     /* Keep away, this is dependent on some anime code */
   
-    transition: all .7s;
+    transition-duration: .5s;
+    transition-property: opacity, bottom;
 
     position: fixed;
 
     background-color: rgb(255, 255, 255);
-    opacity: .9;
+    // opacity: .9;
 
     text-align: center;
+    user-select: none;
 
     // text-overflow: wrap;
 

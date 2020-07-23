@@ -4,9 +4,9 @@ export default class Constants
 {
     public static HASH_SEPARATOR = '|';
 
-    public static CURRENT_PAGE: pages = pages.home;
+    public static CURRENT_PAGE: pages = null;
     public static CURRENT_PROJECT: string = '';
-    public static LAST_PAGE: pages =  pages.home;
+    public static LAST_PAGE: pages =  null;
 
     /* DON'T USE THIS ONE */
     public static CHANGE_PAGE(hashKey: pages, projectVariable: string = null)
