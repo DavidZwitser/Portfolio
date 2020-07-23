@@ -73,17 +73,6 @@ export default class HashHandler
             document.getElementById('viewer-type-buttons').style.display = 'block';
         }
 
-        if (hashParts.length > 1)
-        {
-            if (this.openProject !== undefined)
-                this.openProject(projectVariable);
-        }   
-        else
-        {
-            if (this.closeProject !== undefined)
-                this.closeProject();
-        }
-
         /* -------------- */
         if (Constants.LAST_PAGE == Constants.CURRENT_PAGE) { return; }
 

@@ -60,6 +60,17 @@ class Main
         window.addEventListener('resize', this.resized.bind(this));
         window.addEventListener("load", () => this.loadingScreen.endLoadingScreen() );
 
+        let resizeTimer: NodeJS.Timeout;
+        window.addEventListener("resize", () => {
+            document.body.classList.add("resize-animation-stopper");
+
+            clearTimeout(resizeTimer);
+
+            resizeTimer = setTimeout(() => {
+                document.body.classList.remove("resize-animation-stopper");
+            }, 200);
+        });
+
         let logProjects: boolean = true;
 
         /* COMMENT THESE TO TOGGLE BETWEEN LOG AND LOAD */
@@ -111,7 +122,8 @@ class Main
                 project: this.projectsFetcher.getProjectByID(Constants.CURRENT_PROJECT),
                 getProjectByID: (id: string) => {
                     return this.projectsFetcher.getProjectByID(id);
-                }
+                },
+                mouseDragCallback: this.input.draggingCallback
             }),
             document.getElementById('project-viewer')
         );

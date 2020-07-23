@@ -9,6 +9,7 @@ export interface ProjectViewerProps
 {
     project: Project;
     getProjectByID: (id: string) => Project;
+    mouseDragCallback: ((velX: number, velY: number) => void)[];
 }
 export interface ProjectViewerStates
 {
@@ -19,7 +20,6 @@ export interface ProjectViewerStates
 export default class ProjectViewer extends React.Component<ProjectViewerProps, ProjectViewerStates>
 {
 
-
     constructor(props: ProjectViewerProps)
     {   
         super(props);
@@ -28,6 +28,10 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
             project: this.props.project,
             hidden: false
         };
+
+        this.props.mouseDragCallback.push((velX: number, velY: number) => {
+            this.handleScrollClosing(-velY);
+        });
     }
 
     getTags(type: 'tools' | 'themes'): JSX.Element[]
@@ -117,6 +121,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
     componentDidMount() 
     {
         window.addEventListener('hashchange', this.hideOrShow.bind(this));
+        window.setTimeout(() => this.hideOrShow(), 1000);
     }
 
     componentWillUnmount()
@@ -149,7 +154,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         viewer.style.top = '94.5vh';
         setTimeout( () => viewer.scrollTop = 0, 200);
 
-        viewer.removeEventListener("wheel", this.handleScrollClosing);
+        viewer.removeEventListener("wheel", this.wheelScrollEvent.bind(this));
         
         // let activePage: HTMLElement = document.getElementById(Constants.CURRENT_PAGE);
         // activePage.style.filter = 'none';
@@ -178,7 +183,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
             viewer.style.top = '0';
 
-            viewer.addEventListener("wheel", this.handleScrollClosing)
+            viewer.addEventListener("wheel", this.wheelScrollEvent.bind(this));
 
             // if (window.innerWidth > window.innerHeight && /Mobi/.test(navigator.userAgent) == false)
             // {
@@ -187,10 +192,15 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         });
     }
 
-    handleScrollClosing(e: WheelEvent): void
+    wheelScrollEvent(e: WheelEvent)
+    {
+        this.handleScrollClosing(e.deltaY);
+    }
+
+    handleScrollClosing(deltaY: number): void
     {
         let viewer = document.getElementById('project-viewer');
-        if ( viewer.scrollTop == 0 && e.deltaY < 0)
+        if ( viewer.scrollTop == 0 && deltaY < 0)
         {
             HashHandler.REMOVE_PROJECT_FROM_HASH();
         }

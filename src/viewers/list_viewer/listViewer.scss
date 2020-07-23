@@ -298,14 +298,16 @@
 
                 .listViewer-preview-small-tags-container
                 {
+                    
                     .listViewer-preview-small-tag-tools, .listViewer-preview-small-tag-themes
                     {
                         float: left;
-            
+                        
                         user-select: none;
-            
+                        
                         font-size: 1vmin;
                         border-radius: 1vmin;
+                        font-weight: lighter;
             
                         padding-right: 1vmin;
                         padding-left: 1vmin;

@@ -7,7 +7,10 @@ html, body {
 
   position: static;
 
-  background-color: rgb(57, 144, 214);
+  background-color: rgb(69, 136, 180);
+
+  background: rgb(47,167,209);
+  background: linear-gradient(207deg, rgba(47,167,209,1) 0%, rgba(140,200,169,0.987941066066066) 47%, rgba(29,101,87,1) 100%);
   
   height: 100%;
   
@@ -23,6 +26,10 @@ html, body {
   {
     // background-color: lightgray;
   }
+}
+
+.resize-animation-stopper * {
+  transition: none !important;
 }
 
 /* Pages */

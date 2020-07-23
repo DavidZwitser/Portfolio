@@ -14,7 +14,7 @@ export default class MouseEvents
 
     mouseUpCallback: Function[];
     mouseDownCallback: Function[];
-    draggingCallback: Function[];
+    draggingCallback: ((velX: number, velY: number) => void)[];
     mouseMovingCallback: Function[];
 
     keyPressedCallback: ((keycode: string) => void)[];
@@ -107,7 +107,7 @@ export default class MouseEvents
         {
             for (let i = this.draggingCallback.length; i--; )
             {
-                this.draggingCallback[i]();
+                this.draggingCallback[i](this.velocityX, this.velocityY);
             }
         }
     }
