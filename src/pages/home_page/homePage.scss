@@ -11,13 +11,12 @@ $marginSides: 3.5vmin;
     // background: linear-gradient(42deg, rgba(215,69,69,1) 0%, rgba(6,53,128,1) 53%, rgba(0,255,238,1) 100%);
 
     color: $textColor;
-    top: -100%; 
 
     transform: scale(1);
     opacity: 1;
 
-    transition-property: transform, opacity;
-    transition-duration: .4s;
+    // transition-property: transform, opacity;
+    // transition-duration: .4s;
 
     #home-container
     {

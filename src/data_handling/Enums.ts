@@ -2,11 +2,11 @@ export enum pages
 {
     // none = 'none',
     home = 'home',
-    grid = 'grid',
+    about = 'about',
     list = 'list',
     circle = 'circle',
     range = 'range',
-    about = 'about'
+    grid = 'grid',
 }
 
 export enum goals

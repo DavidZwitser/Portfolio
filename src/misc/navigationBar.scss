@@ -20,7 +20,7 @@
     #viewer-type-buttons
     {
       font-size: 2vh;
-
+      
       // height: 2vh;
       
       a
@@ -28,17 +28,17 @@
         display: inline-flex;
         color: rgb(19, 112, 189);
         text-decoration: none;
-
+        
         margin-top: .0vh;
-
+        
         padding-left: 3vw;
         padding-right: 3vw;
-    
+        
         
         p {
           // height: 1vh;
+          transition: font-size .3s;
 
-          font-size: 2vh;
           margin: 0;
           padding: 0;
         }
@@ -58,7 +58,7 @@
         
         p
         {
-          height: 4vh;
+          height: 3vh;
   
           margin: 0;
           padding: 0;
