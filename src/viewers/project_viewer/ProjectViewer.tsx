@@ -1,5 +1,5 @@
 import Project from "../../projects_management/ProjectTemplate";
-import { pages, themes, tools } from "../../data_handling/Enums";
+import { pages, themes, tools, projectVariables } from "../../data_handling/Enums";
 import HashHandler from "../../data_handling/HashHandler";
 import Constants from "../../data_handling/Constants";
 
@@ -308,6 +308,9 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
                         <p className = 'project-viewer-whatILearned'> {this.state.project.whatILearned} </p>
                         <p className = 'project-viewer-endresult'> {this.state.project.outcome} </p>
+                        
+                        
+                        {this.state.project.externalLink && <a id = "project-viewer-externalLink" target = "blank" href = {this.state.project.externalLink}>try it yourself</a>}
 
                         {this.getRestImages(imageElements)}               
 

@@ -499,6 +499,47 @@
                     margin-right: 40vmin;
                 }
         
+                #project-viewer-externalLink
+                {
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    text-decoration-line: none;
+
+                    background-color: rgba(213, 231, 218, 0);
+                    color: black;
+                    // font-weight: bolder;
+                    text-transform: uppercase;
+
+                    left: 50vw;
+                    margin-left: 5vmin;
+                    margin-right: 5vmin;
+                    margin-bottom: 9vh;
+                    margin-top: 10vh;
+                    object-position: center;
+
+                    transition: box-shadow .1s, padding .2s;
+                    box-shadow: .15vmin .15vmin .2vmin;
+                    
+                    font-size: 6vmin;
+                    border-radius: 3vmin;
+                    padding: 1.5vmin;
+
+                    // font-family: 'Open Sans';
+
+                    font-weight: bolder;
+                }
+                
+                #project-viewer-externalLink:hover
+                {
+                    box-shadow: .1vmin .1vmin 1vmin;
+                }
+
+                #project-viewer-externalLink:active
+                {
+                    box-shadow: .1vmin .1vmin 0vmin;
+                }
+
                 .project-viewer-image-rest
                 {
                     display: block;

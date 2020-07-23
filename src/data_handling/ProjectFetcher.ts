@@ -5,6 +5,8 @@ import {MovingUp} from '../projects_management/projects_data/MovingUp';
 import {LifeLike} from '../projects_management/projects_data/LifeLike';
 import { PersonalSharedPhysical } from "../projects_management/projects_data/PersonalSharedPhysical";
 import { CONFINED_SPACE } from "../projects_management/projects_data/CONFINEDSPACE";
+import { FallingFood } from "../projects_management/projects_data/FallingFood";
+import { ExpositionWebsite } from "../projects_management/projects_data/ExpositionWebsite";
 
 import * as projectData from '../projects_management/projects_data/dailies.json';
 import { themes, goals, tools } from "./Enums";
@@ -46,11 +48,13 @@ export default class ProjectFetcher
     private loadBigProjects()
     {
         this.projects.push(
-            CONFINED_SPACE.getProject(),
             LifeLike.getProject(),
-            MovingUp.getProject(),
+            ExpositionWebsite.getProject(),
             Mythos.getProject(),
+            CONFINED_SPACE.getProject(),
             PersonalSharedPhysical.getProject(),
+            MovingUp.getProject(),
+            FallingFood.getProject(),
         );
     }
 

@@ -1,3 +1,5 @@
+$defaultColor: rgb(19, 112, 189);
+
 #navigation-bar {
     width: 100%;
     /* Keep away, this is dependent on some anime code */
@@ -6,7 +8,6 @@
     transition-property: opacity, bottom;
 
     position: fixed;
-
     background-color: rgb(255, 255, 255);
     // opacity: .9;
 
@@ -26,7 +27,7 @@
       a
       {
         display: inline-flex;
-        color: rgb(19, 112, 189);
+        color: $defaultColor;
         text-decoration: none;
         
         margin-top: .0vh;
@@ -53,8 +54,7 @@
       {
         text-decoration: none;
 
-        color: rgb(19, 112, 189);
-
+        color: $defaultColor;
         
         p
         {

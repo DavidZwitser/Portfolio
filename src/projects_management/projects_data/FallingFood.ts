@@ -1,7 +1,7 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags, ViewerCustomization } from "../ProjectTemplate";
 import { goals, tools, themes } from "../../data_handling/Enums"
 
-export namespace PersonalSharedPhysical
+export namespace FallingFood
 {
     export function getProject(): Project
     {
@@ -33,13 +33,12 @@ export namespace PersonalSharedPhysical
                 client: 'BYOB Utrecht'
             },
             <ProjectSources>{
-                thumbnail: 'footage/projects/PersonalSharedPhysical/Personal.jpg',
+                thumbnail: 'footage/projects/FallingFood/frontaal_groot.jpg',
                 footage: [
-                    'footage/projects/PersonalSharedPhysical/Physical_chop.jpg',
-                    'footage/projects/PersonalSharedPhysical/Personal_smalltree.jpg',
-                    'footage/projects/PersonalSharedPhysical/Shared.jpg',
-                    'footage/projects/PersonalSharedPhysical/Physical_3d.jpg',
-                    'footage/projects/PersonalSharedPhysical/Physical_dat.jpg',
+                    'footage/projects/FallingFood/sfeer.jpg',
+                    'footage/projects/FallingFood/laag.jpg',
+                    'footage/projects/FallingFood/indruk.jpg',
+                    'footage/projects/FallingFood/sfeer.jpg',
 
                 ],
                 // video: 'https://drive.google.com/file/d/1m9eNn0D4h-wgrt44Wi0WJvZCQAGlQsDx/preview',

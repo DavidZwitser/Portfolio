@@ -42,7 +42,7 @@ export namespace LifeLike
                     'footage/projects/LifeLike/Process_behind.jpg'
                 ],
                 video: 'https://drive.google.com/file/d/13tezZHLSNdhvX405-tALrMa05jJgp8Nl/preview',
-                externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
+                // externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ViewerCustomization>{
                 backgroundColor: '#334433',
