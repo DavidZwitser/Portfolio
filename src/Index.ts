@@ -60,8 +60,13 @@ class Main
         window.addEventListener('resize', this.resized.bind(this));
         window.addEventListener("load", () => this.loadingScreen.endLoadingScreen() );
 
-        /* Creating objects */
+        let logProjects: boolean = true;
+
+        /* COMMENT THESE TO TOGGLE BETWEEN LOG AND LOAD */
+        logProjects = false;
         new ImageImporter();
+
+        this.projectsFetcher = new ProjectFetcher(logProjects);
 
         ReactDOM.render(
             React.createElement(HomePage),
@@ -93,7 +98,6 @@ class Main
         this.gridViewer.closeMoreInfo = () => this.gridPopup.closePopup();
         this.gridViewer.toggleMoreInfo = (project: Project) => this.gridPopup.togglePopup(project);
         
-        this.projectsFetcher = new ProjectFetcher();
 
         /* Setting up project page logic */
         if (Constants.CURRENT_PAGE == pages.grid)

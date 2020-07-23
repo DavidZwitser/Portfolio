@@ -41,6 +41,8 @@ export namespace CONFINED_SPACE
                     'footage/projects/CONFINED_SPACE/Full_standalone.jpg',
                     'footage/projects/CONFINED_SPACE/Inside_tha_tube.jpg',
                     'footage/projects/CONFINED_SPACE/Holo.jpg',
+                    'footage/projects/CONFINED_SPACE/Tube.jpg',
+                    'footage/projects/CONFINED_SPACE/Deep_dive.jpg',
                 ],
                 // video: 'https://drive.google.com/file/d/1m9eNn0D4h-wgrt44Wi0WJvZCQAGlQsDx/preview',
                 // externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'

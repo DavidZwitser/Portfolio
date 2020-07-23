@@ -14,12 +14,18 @@ export default class ProjectFetcher
 {
     private projects: Project[];
 
-    constructor()
+    constructor(logProjects: boolean = false)
     {
         this.projects = [];
 
         this.loadBigProjects();
         this.loadDailies();
+
+        if (logProjects == true)
+        {
+            this.logProjectFiles();
+        }
+
     }
 
     /* Log project files for imoprting files */

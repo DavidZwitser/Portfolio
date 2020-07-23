@@ -42,6 +42,8 @@ export default class HashHandler
         let navbar = document.getElementById("navigation-bar");
         let navbar_back = document.getElementById('navigation-bar-back-button');
 
+        // navbar.addEventListener('transitionend')
+
         if (Constants.CURRENT_PAGE == pages.home)
         {
             navbar.style.bottom = "100vh";
@@ -109,7 +111,7 @@ export default class HashHandler
         {
             home.style.transitionDuration = '.5s';
             home.style.transform = 'scale(.8)';
-            home.style.opacity = '.4';
+            home.style.opacity = '0';
         }
         else
         {

@@ -33,13 +33,13 @@ export namespace PersonalSharedPhysical
                 client: 'HKU'
             },
             <ProjectSources>{
-                thumbnail: 'footage/projects/PersonalSharedPhysical/Personal.png',
+                thumbnail: 'footage/projects/PersonalSharedPhysical/Personal.jpg',
                 footage: [
-                    'footage/projects/PersonalSharedPhysical/Physical_chop.png',
-                    'footage/projects/PersonalSharedPhysical/Personal_smalltree.png',
-                    'footage/projects/PersonalSharedPhysical/Shared.png',
-                    'footage/projects/PersonalSharedPhysical/Physical_3d.png',
-                    'footage/projects/PersonalSharedPhysical/Physical_dat.png',
+                    'footage/projects/PersonalSharedPhysical/Physical_chop.jpg',
+                    'footage/projects/PersonalSharedPhysical/Personal_smalltree.jpg',
+                    'footage/projects/PersonalSharedPhysical/Shared.jpg',
+                    'footage/projects/PersonalSharedPhysical/Physical_3d.jpg',
+                    'footage/projects/PersonalSharedPhysical/Physical_dat.jpg',
 
                 ],
                 // video: 'https://drive.google.com/file/d/1m9eNn0D4h-wgrt44Wi0WJvZCQAGlQsDx/preview',

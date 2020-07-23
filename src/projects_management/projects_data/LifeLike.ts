@@ -33,13 +33,13 @@ export namespace LifeLike
                 client: 'HKU'
             },
             <ProjectSources>{
-                thumbnail: 'footage/projects/LifeLike/Front_projection.png',
+                thumbnail: 'footage/projects/LifeLike/Front_projection.jpg',
                 footage: [
-                    'footage/projects/LifeLike/Life_action.png',
+                    'footage/projects/LifeLike/Life_action.jpg',
                     'footage/projects/LifeLike/Sensors.jpg',
                     'footage/projects/LifeLike/Sensors_top.jpg',
-                    'footage/projects/LifeLike/Front_projection.png',
-                    'footage/projects/LifeLike/Process_behind.png'
+                    'footage/projects/LifeLike/Front_projection.jpg',
+                    'footage/projects/LifeLike/Process_behind.jpg'
                 ],
                 video: 'https://drive.google.com/file/d/13tezZHLSNdhvX405-tALrMa05jJgp8Nl/preview',
                 externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
