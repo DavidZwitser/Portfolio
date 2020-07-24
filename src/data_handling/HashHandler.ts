@@ -114,15 +114,18 @@ export default class HashHandler
                 }
                 else
                 {
-                    currElement.style.transform = 'scale(.7)';
-                    setTimeout(() => {
-                        currElement.style.left = 100 * dist + 'vw';
+                    currElement.style.transform = 'scale(.9)';
+                    currElement.style.opacity = '.9';
+                    currElement.style.left = 100 * dist + 'vw';
+                    // setTimeout(() => {
     
                         setTimeout(() => {
                             
                             currElement.style.transform = 'scale(' + (1 - .3 * Math.abs(dist)) + ')';
-                        }, 400);
-                    }, 270);
+                            currElement.style.opacity = '1';
+
+                        }, 500);
+                    // }, 270);
                 }
 
                 document.getElementById(curr + '-button').style.fontSize = curr == currPage ? '2.2vh' : '1.5vh';;

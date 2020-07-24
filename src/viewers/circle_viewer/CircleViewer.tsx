@@ -147,7 +147,9 @@ export default class ListViewerReact extends React.Component<CircleViewerProps, 
     {
         console.log('rendering' );
         return (
-            <div id = "CircleViewer" style = {{backgroundColor: this.state.activeProject.backgroundColor}}>
+            <div id = "CircleViewer" style = {{borderColor: this.state.activeProject.backgroundColor}}>
+                {this.getBarsOnCircle()}
+
                 <div id = "the_circle"
                     onClick = {() => this.viewProject(this.state.activeProject)}
                     style = {{
@@ -161,7 +163,6 @@ export default class ListViewerReact extends React.Component<CircleViewerProps, 
                     }}
                 ></div> 
 
-                {this.getBarsOnCircle()}
 
             </div>
         );

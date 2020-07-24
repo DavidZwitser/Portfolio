@@ -45,7 +45,7 @@ html, body {
 .content-page {
   @extend .page;
 
-  transition-property: left, transform, top;
+  transition-property: left, transform, top, opacity;
   transition-duration: .7s, .5s, .6s;
 
   top: 100%;
