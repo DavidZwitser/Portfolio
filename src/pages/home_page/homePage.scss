@@ -3,6 +3,7 @@ $buttonsDistanceMultiplier: 2;
 
 $textColor: rgb(23, 125, 209);
 // $textColor: rgb(0, 0, 0);
+// $textColor: rgb(255, 255, 255);
 
 $marginTop: 5vmin;
 $marginSides: 3.5vmin;
@@ -10,6 +11,11 @@ $marginSides: 3.5vmin;
 #home {
     background-color: rgb(255, 255, 255);
     // background: linear-gradient(42deg, rgba(215,69,69,1) 0%, rgba(6,53,128,1) 53%, rgba(0,255,238,1) 100%);
+
+    // background-image: url('./images/Cat and skateboard.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: exclusion;
 
     color: $textColor;
 
@@ -29,8 +35,8 @@ $marginSides: 3.5vmin;
         // float: left;
 
         position: absolute;
-        top: 90vh;
-        left: 2vmin;
+        top: 92vmin;
+        left: $marginSides;
 
         color: $textColor;
 
@@ -57,10 +63,22 @@ $marginSides: 3.5vmin;
         margin-left: $marginSides;
         margin-top: $marginTop;
 
+        transition: all .4s;
     }
-    #home-name:hover
+
+    img
     {
-        cursor: pointer;
+        position: absolute;
+        opacity: 0;
+        transition: opacity .4s;
+
+        width: 20vmin;
+
+        left: $marginSides;
+        top: $marginTop;
+
+        user-select: none;
+
     }
     
     #home-slogan {
@@ -73,6 +91,8 @@ $marginSides: 3.5vmin;
         
         margin-left: $marginSides;
         margin-top: $marginTop + 5vmin;
+
+        transition: margin-top .4s;
     }
     
     #home-button-view-projects, #home-button-view-about
@@ -86,18 +106,22 @@ $marginSides: 3.5vmin;
 
         color: $textColor;
 
-        font-size: 3vmin;
+        font-size: 4vmin;
+
+        transition: all .4s;
     }
 
     #home-button-view-about
     {
         margin-top: 0;
-    }
-
-    #home-button-view-about
-    {
         clear: right;
     }
+
+    #home-button-view-projects:hover, #home-button-view-about:hover
+    {
+        // transform: scale(5);
+        // font-size: 10vmin;
+    }   
 
     #home-button-view-projects:hover, #home-button-view-about:hover
     {
@@ -133,84 +157,7 @@ $marginSides: 3.5vmin;
         }
         
     }
-
-    #home-text-order-by
-    {
-        position: absolute;
-
-        display: none;
-
-        font-size: 1.6vmin;
-
-        text-align: center;
-
-        letter-spacing: .55vw;
-
-        text-decoration: underline;
-        
-        left: 50vw;
-        width: 15vw;
-        margin-left: -7.5vw;
-
-        top: 98vh;
-        height: 10vmin;
-        margin-top: -5vmin;
-    }
-
-    #home-dropdown-order-by
-    {
-        position: absolute;
-
-        font-size: 1.2vmin;
-        font-weight: thin;
-
-        left: 50vw;
-        width: 15vmin;
-        margin-left: -7.5vmin;
-
-        top: 93.5vh;
-        // height: 5vmin;
-        margin-top: -2.5vmin;
-
-        text-align-last: center;
-
-        border-width: .01vw;
-        border-color: $textColor;
-        background-color: transparent;
-        // color: white;
-        color: $textColor;
-
-        option
-        {
-            color: $textColor;
-            text-align: center;
-        }
-    }
-
-    @media (max-aspect-ratio: 2/3)
-    {
-        #home-text-order-by
-        {
-            font-size: 3vmin;
-
-            width: 40vw;
-            margin-left: -20vw;
-        }
-        #home-dropdown-order-by
-        {
-            top: 95vh;
-            font-size: 3vmin;
-
-            width: 30vw;
-            margin-left: -15vw;
-        }
-
-        #home-text-view-as
-        {
-            top: 38vh;
-        }
-
-    }
+   
 }
 #home:target {
     top: 0%;

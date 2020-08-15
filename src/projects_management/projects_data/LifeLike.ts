@@ -9,7 +9,7 @@ export namespace LifeLike
             <ProjectText>{
                 name: 'Life like',
 
-                description: "In a search for finding simulated life, I found a computer algorithm named Reaction Diffusion and tried to bring it into the real world. The algorithm is projected unto a cube from 4 sides and senses the physical presence of other creatures. If you give it space, flourish and grow, but if you come to close, it'll have a hard time.",
+                description: "In the search for finding simulated life, I found a computer algorithm named Reaction Diffusion and tried to bring it into the real world. The algorithm is projected unto a cube from 4 sides and senses the physical presence of other creatures. If you give it space, flourish and grow, but if you come to close, it'll have a hard time.",
                 context: 'As the final test of the first year of my current education, we went through a long research process, finding out the things that resonate with us personally. I ended up stranding on a search for life in computers.',
 
                 goal: "The goal of this project is to convince the viewer that life is made out of complexity and can be simulated through a computer.",
@@ -41,7 +41,7 @@ export namespace LifeLike
                     'footage/projects/LifeLike/Front_projection.jpg',
                     'footage/projects/LifeLike/Process_behind.jpg'
                 ],
-                video: 'https://drive.google.com/file/d/13tezZHLSNdhvX405-tALrMa05jJgp8Nl/preview',
+                video: 'https://player.vimeo.com/video/448149976',
                 // externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ViewerCustomization>{
