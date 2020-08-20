@@ -42,7 +42,7 @@ export namespace Mythos
                     'footage/projects/Mythos/5.jpg',
 
                 ],
-                video: 'https://drive.google.com/file/d/1m9eNn0D4h-wgrt44Wi0WJvZCQAGlQsDx/preview',
+                video: 'https://www.youtube.com/embed/uGiwsh1c3y8',
                 // externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ViewerCustomization>{
