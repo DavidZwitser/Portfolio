@@ -79,7 +79,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
         for(let i = 0; i < images.length; i++)
         {
-            if (i + 1 < 3)
+            if (i + 1 <= 3)
             {
                 imageElements.push(
                     <img src= {images[i]} className = {'project-viewer-image-' + (i + 1)} key = {i} />
@@ -271,7 +271,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
                         <div className = 'project-viewer-separatorElement2'></div>
 
-                        <div className = 'project-viewer-goal-line-between'></div>
+                        {/* <div className = 'project-viewer-goal-line-between'></div> */}
 
                         <p className = 'project-viewer-goal-title'>Goal</p>
                         <p className = 'project-viewer-goal'> {this.state.project.goal} </p>
@@ -281,16 +281,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                         }
                         <p className = 'project-viewer-my-roll'> {this.state.project.myRoll} </p>
 
-                        <div className = 'project-viewer-goal-line-between'></div>
-
-                        {this.state.project.video && 
-                            <iframe 
-                                src = {this.state.project.video}
-                                className = 'project-viewer-video' 
-                                frameBorder = 'hidden' 
-                                allowFullScreen = {true} 
-                            />    
-                        }
+                        {/* <div className = 'project-viewer-goal-line-between'></div> */}
 
                         {imageElements.length > 1 && imageElements[1]}
 
@@ -305,8 +296,17 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                         </div>
 
                         {imageElements.length > 2 && imageElements[2]}
-
+                        
                         <div className = 'project-viewer-separatorElement2'></div>
+
+                        {this.state.project.video && 
+                            <iframe 
+                                src = {this.state.project.video}
+                                className = 'project-viewer-video' 
+                                frameBorder = 'hidden' 
+                                allowFullScreen = {true} 
+                            />    
+                        }
 
                         <p className = 'project-viewer-whatILearned'> {this.state.project.whatILearned} </p>
                         <p className = 'project-viewer-endresult'> {this.state.project.outcome} </p>

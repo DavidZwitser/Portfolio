@@ -20,6 +20,7 @@ export default class HomePage extends React.Component
         return (
             <div id='home-container'>
 
+
                 <img id = "home-name-hover-image" src="./src/images/page-about/me.png" alt=""/>
 
                 <p id="home-name" onMouseOver = {() => this.nameHover(true)} onMouseLeave = {() => this.nameHover(false)}>David Zwitser</p>
@@ -33,6 +34,9 @@ export default class HomePage extends React.Component
                     <br/>
                     <a target = 'blank' href="mailto:davidzwitser@gmail.com">E-mail</a>              
                 </div>
+
+                {/* <div id = 'home-circle'></div> */}
+
 
                 {/* <div id = 'home-bottom-container'>
                     <p id = "home-bottom-string">D1NLH93480936DKLJ9098DFA06434KKLDVW89343</p>

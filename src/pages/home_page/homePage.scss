@@ -19,11 +19,31 @@ $marginSides: 3.5vmin;
 
     color: $textColor;
 
-    transform: scale(1);
+    // transform: scale(1);
     opacity: 1;
+
+    pointer-events: none;
 
     // transition-property: transform, opacity;
     // transition-duration: .4s;
+
+    // #home-circle
+    // {
+    //     width: 130vmin;
+    //     height: 130vmin;
+
+    //     right: -32.5vw;
+    //     top: -82.5vh;
+
+    //     filter: none;
+
+    //     transform: scale(0);
+    // }
+
+    // #home-circle:hover
+    // {
+    //     transform: scale(1);
+    // }
 
     #home-container
     {
@@ -64,6 +84,8 @@ $marginSides: 3.5vmin;
         margin-top: $marginTop;
 
         transition: all .4s;
+
+        pointer-events: auto;
     }
 
     img
@@ -78,6 +100,8 @@ $marginSides: 3.5vmin;
         top: $marginTop;
 
         user-select: none;
+
+        transform: scaleX(-1);
 
     }
     
@@ -109,6 +133,8 @@ $marginSides: 3.5vmin;
         font-size: 4vmin;
 
         transition: all .4s;
+
+        pointer-events: auto;
     }
 
     #home-button-view-about
@@ -159,6 +185,19 @@ $marginSides: 3.5vmin;
     }
    
 }
+
+#home:hover
+{
+    width: 95vw;
+    height: 95vh;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    margin-top: 2.5vh;
+    margin-bottom: 2.5vh;
+    // background: yellow;
+}
+
+
 #home:target {
     top: 0%;
 }
