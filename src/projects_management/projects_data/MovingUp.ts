@@ -42,7 +42,7 @@ export namespace MovingUp
                     'footage/projects/MovingUp/pausemenu.jpg',
 
                 ],
-                video: 'https://drive.google.com/file/d/1QRNTLk1BmLlY_IegU7JCyb0ZjkIhBnOG/preview',
+                video: 'https://www.youtube.com/embed/AYHFLWNOQzc"',
                 externalLink: 'http://spele.nl/moving-up-spel/'
             },
             <ViewerCustomization>{

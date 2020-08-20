@@ -8,21 +8,44 @@
     {
         background-color: rgb(255, 255, 255);
         position: absolute;
-        width: 100%;
+        width: 100vw;
         height: 100%;
-    
+
         overflow-y: scroll;
     
         /* 
             Filter tags 
         */
+
+        $pageMarginPortrait: 15vw;
+        $pageMarginLandscape: 23vw;
+
+        @media (orientation: portrait)
+        {
+            #listViewerMargins
+            {
+                margin-right: $pageMarginPortrait;
+                margin-left: $pageMarginPortrait;
+    
+                width: 100vw - $pageMarginPortrait * 2;
+    
+            }
+        }
+
+        @media (orientation: landscape)
+        {
+            #listViewerMargins
+            {
+                margin-right: $pageMarginLandscape;
+                margin-left: $pageMarginLandscape;
+    
+                width: 100vw - $pageMarginLandscape * 2;
+            }
+        }
+
         #listViewer-filterTags-container
         {
-            width: 60vw;
-            margin: 10vw;
-        
-            margin-left: 20vw;
-            margin-right: 20vw;
+            // width: 60vw;
         
             margin-top: 10vmin;
             margin-bottom: 5vmin;
@@ -38,8 +61,10 @@
             
                 padding: 1vmin;
             
-                margin: .5vmin;
-            
+                margin-top: .5vmin;
+                margin-right: .5vmin;
+                margin-bottom: .5vmin;
+
                 display: inline-block;
             
                 border: none;
@@ -52,24 +77,13 @@
             }
         }
         
-        @media (orientation: portrait)
-        {
-            #listViewer-filterTags-container
-            {
-                margin-left: 15vw;
-            }
-        }
-        
         /* 
             Previews 
         */
         #listViewer-previews-container
         {
-            width: 60vw;
+            // width: 60vw;
             height: auto;
-        
-            margin-left: 20vw;
-            margin-right: 20vw;
         
             clear: left;
             float: left;
@@ -83,31 +97,30 @@
             /* Big previews */
             .listViewer-preview-big
             {
-                width: 60vw;
                 
                 margin-top: 3vmin;
                 margin-bottom: 2.5vmin;
             
-                margin-left: 1.5vmin;
-                margin-right: 0vmin;
             
                 padding: 0px;
         
                 float: left;
             
                 overflow: hidden;
+
+                $bigThumbnailSize: 25vw;
         
                 .listViewer-preview-big-thumbnail
                 {
-                    width: 40vmin;
-                    height: 40vmin;
+                    width: $bigThumbnailSize;
+                    height: $bigThumbnailSize;
         
                     object-fit: cover;
                     
         
                     float: left;
         
-                    margin-right: 3vmin;
+                    margin-right: 3vw;
         
                 }
         
@@ -123,20 +136,28 @@
         
                     position: absolute;
         
-                    margin-top: 0;
-                    padding-top: 17.5vmin;
-                    height: 22.5vmin;
+                    height: $bigThumbnailSize;
+                    width: $bigThumbnailSize;
         
                     color: white;
                     background-color: #0000007c;
         
                     text-align: center;
-                    vertical-align: center;
+                    vertical-align: middle;
                     align-content: center;
+                    justify-content: center;
                     font-size: 5vmin;
-        
+
                     transition: opacity .2s;
                     opacity: 0;
+
+                    margin: 0;
+
+                    p
+                    {
+                        padding-top: $bigThumbnailSize * .5;
+                        margin-top: -2.5vmin;
+                    }
                 }
                 
                 .listViewer-preview-big-thumbnail-overlay:hover
@@ -147,27 +168,32 @@
                 .listViewer-preview-big-name
                 {
                     border-radius: 0px;
+
+                    display: inline-block;
         
                     color: rgb(0, 0, 0);
         
                     font-weight: lighter;
                     font-size: 5vmin;
+
+                    // margin-top: 2vmin;
+
+                    width: (100vw - $pageMarginLandscape * 2) - 3vw - $bigThumbnailSize;
         
                     margin: 0;
+                }
+
+                @media (orientation: portrait)
+                {
+                    .listViewer-preview-big-name
+                    {
+                        width: (100vw -$pageMarginPortrait * 2) - 3vw - $bigThumbnailSize;
+                    }
                 }
 
                 .listViewer-preview-big-name:hover
                 {
                     cursor: pointer;
-                }
-
-                @media (orientation: portrait) 
-                {
-                    .listViewer-preview-big-name
-                    {
-                        // margin-top: -15%;
-                        // font-size: 120%;
-                    }
                 }
         
                 .listViewer-preview-big-info-container
@@ -209,11 +235,20 @@
                         }
                     }
                 }
+
+                #listViewer-preview-big-description
+                {
+                    font-size: 1.5vmin;
+
+                    margin-bottom: 1vmin;
+
+                    color: grey;
+                }
                 
                 .listViewer-preview-tags-container
                 {
                     width: 100%;
-            
+
                     .listViewer-preview-big-tag-tools, .listViewer-preview-big-tag-themes
                     {
                         display: inline-block;
@@ -223,7 +258,9 @@
                         border-radius: 1vmin;
         
                         padding: .5vmin;
-                        margin: .3vmin;
+                        margin-top: .3vmin;
+                        margin-right: .3vmin;
+                        margin-bottom: .3vmin;
         
                         font-weight: 800;
         
@@ -260,7 +297,7 @@
                 .listViewer-preview-big
                 {
                     width: 70vw;
-                    margin-left: 20vw;
+                    // margin-left: 15vw;
                     margin-right: 15vw;
                 
                 }
@@ -269,10 +306,14 @@
             /* 
                 Small previews 
             */
+
+            $smallPreviewLandscapeSize: (100vw - ($pageMarginLandscape * 2)) / 6;
+            $smallPreviewPortraitSize: (100vw - ($pageMarginPortrait * 2)) / 3;
+
             .listViewer-preview-small
             {
-                width: 20vmin;
-                height: 20vmin;
+                width: $smallPreviewLandscapeSize;
+                height: $smallPreviewLandscapeSize;
         
                 margin-top: 4vmin;
             
@@ -280,8 +321,8 @@
                 
                 .listViewer-preview-small-thumbnail
                 {
-                    width: 20vmin;
-                    height: 20vmin;
+                    width: $smallPreviewLandscapeSize;
+                    height: $smallPreviewLandscapeSize;
             
                     object-fit: cover;
                 }
@@ -290,8 +331,8 @@
                 {
                     .listViewer-preview-small-thumbnail
                     {
-                        width: 33vmin;
-                        height: 33vmin;   
+                        width: $smallPreviewPortraitSize;
+                        height: $smallPreviewPortraitSize;   
                     }
                 }
 
@@ -331,8 +372,8 @@
             {
                 .listViewer-preview-small
                 {
-                    width: 33vmin;
-                    height: 33vmin;
+                    width: $smallPreviewPortraitSize;
+                    height: $smallPreviewPortraitSize;
                 }
             }
         }
@@ -343,7 +384,6 @@
             {
                 margin-left: 0vw;
                 margin-right: 0vw;
-                width: 100vw;
             }
         }
         
@@ -354,7 +394,6 @@
         {
             clear: left;
             height: 15vh;
-            width: 100vw;
         
             #listViewer-footer-text
             {
@@ -367,6 +406,7 @@
                 padding: 6vh;
             }
         
+
         }
         
     }

@@ -95,6 +95,7 @@ export class ListViewerReact extends React.Component<ListViewerProps, ListViewer
                         openProjectViewer = {this.props.openProjectViewer}
 
                         projectName = {project.name}
+                        projectDescription = {project.description}
                         
                         dateDay = {project.day}
                         dateMonth = {project.month}
@@ -131,24 +132,28 @@ export class ListViewerReact extends React.Component<ListViewerProps, ListViewer
     {
         return (
             <div id = 'listViewer'>
+
+                <div id = 'listViewerMargins'>
     
-                <div id = 'listViewer-filterTags-container'>
+                    <div id = 'listViewer-filterTags-container'>
 
-                    <FilterTag name = 'All' color = 'green' clickedCallback = {this.handleClickedTag.bind(this)} />
-                    {this.getFilterTags('filterTools')}
-                    {this.getFilterTags('filterThemes')}
+                        <FilterTag name = 'All' color = 'green' clickedCallback = {this.handleClickedTag.bind(this)} />
+                        {this.getFilterTags('filterTools')}
+                        {this.getFilterTags('filterThemes')}
 
-                </div>           
-                
-                <div id = 'listViewer-previews-container'>
+                    </div>           
+                    
+                    <div id = 'listViewer-previews-container'>
 
-                    {this.getPreviews()}
+                        {this.getPreviews()}
 
-                </div>
-    
-                <div id='listViewer-footer-container'>
+                    </div>
+        
+                    <div id='listViewer-footer-container'>
 
-                    <p id = 'listViewer-footer-text'> ©David Zwitser <br/> @Coelepinda <br/> davidzwitser@gmail.com </p>
+                        <p id = 'listViewer-footer-text'> ©David Zwitser <br/> @Coelepinda <br/> davidzwitser@gmail.com </p>
+
+                    </div>
 
                 </div>
             </div>

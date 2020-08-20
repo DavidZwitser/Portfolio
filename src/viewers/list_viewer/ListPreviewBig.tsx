@@ -9,6 +9,7 @@ export interface ListPreviewerProps
     openProjectViewer: (projectID: string) => void;
 
     projectName: string;
+    projectDescription: string;
 
     dateDay: number;
     dateMonth: number;
@@ -24,7 +25,6 @@ export interface ListPreviewerProps
 
 export class ListPreviewBig extends React.Component<ListPreviewerProps, {}>
 {
-
     getTags(tagName: 'tools' | 'themes'): JSX.Element[]
     {
         let tags: JSX.Element[] = [];
@@ -51,24 +51,28 @@ export class ListPreviewBig extends React.Component<ListPreviewerProps, {}>
                 
                 <img className = 'listViewer-preview-big-thumbnail' src = {this.props.thumbnailPhotoSource} />
                 <p className = 'listViewer-preview-big-thumbnail-overlay' onClick = {() => this.props.openProjectViewer(this.props.projectID)} >
-                    MORE INFO
+                    <p>MORE INFO</p>
                 </p>
 
-                <p className = 'listViewer-preview-big-name'>{this.props.projectName}</p>
 
-                <div className = 'listViewer-preview-big-info-container'>
+                {/* <div className = 'listViewer-preview-big-info-container'>
             
-                    <p className = 'listViewer-preview-big-info-date'>{this.formatDate()}</p>
-                    <p className = 'listViewer-preview-big-info-duration'>{this.props.duration}H</p>
-                    <p className = 'listViewer-preview-big-info-teamSize'>{this.props.teamSize}TM</p>
+            <p className = 'listViewer-preview-big-info-date'>{this.formatDate()}</p>
+            <p className = 'listViewer-preview-big-info-duration'>{this.props.duration}H</p>
+            <p className = 'listViewer-preview-big-info-teamSize'>{this.props.teamSize}TM</p>
+            
+        </div> */}
 
-                </div>
+                <p className = 'listViewer-preview-big-name'>{this.props.projectName}</p>
+                
+                {/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+                    <div id = 'listViewer-preview-big-description'>{this.props.projectDescription}</div>
+                }
                 <div className = 'listViewer-preview-tags-container'>
-
                     {this.getTags('tools')}
                     {this.getTags('themes')}
-
                 </div>
+
 
             </div>
             

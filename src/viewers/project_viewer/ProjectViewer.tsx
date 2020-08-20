@@ -34,13 +34,13 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         });
     }
 
-    getTags(type: 'tools' | 'themes'): JSX.Element[]
+    getTags(type: 'tools' | 'themes'): string
     {
-        let tags: JSX.Element[] = [];
+        let tags: string = '';
 
         for( let i = 0; i < this.state.project.tags[type].length; i++)
         {
-            tags.push( <div className = {'project-viewer-' + type} key = {i}> {this.state.project.tags[type][i]} </div> );
+            tags += this.state.project.tags[type][i] + '\n';
         }
         
         return tags;
@@ -54,8 +54,10 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                 <h4 className = 'project-viewer-variable-title'>{title}</h4>
                 
                 <p className = 'project-viewer-variable'>{value}</p>
+
+                {/* <div className = 'project-viewer-variable-line-between'></div> */}
+
                 
-                <div className = 'project-viewer-variable-line-between'></div>
             </div>
         );
     }
@@ -231,7 +233,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                         backgroundColor: 'white',
                         color: this.getTextColor(this.state.project.backgroundColor)
                     }}>
-                        <div className = 'project-viewer-theme-container'>
+                        {/* <div className = 'project-viewer-theme-container'>
 
                             <p className = 'project-viewer-themes-title'>Themes</p>
                             {this.getTags('themes' )}
@@ -243,22 +245,22 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                             <p className = 'project-viewer-tools-title'>Tools</p>
                             {this.getTags('tools')}
 
-                        </div>
-
-                        <p className = 'project-viewer-title'>{this.state.project.name}</p>
-
-                        <p className = 'project-viewer-description'>{this.state.project.description}</p>
-
+                        </div> */}
                         <div className = 'project-viewer-variable-section'>
 
                             {this.createVariableSection('client', this.state.project.client)}
                             {this.createVariableSection('duration', this.state.project.durationHrs + 'H')}
                             {this.createVariableSection('date', this.state.project.day + ' / ' + this.state.project.month + ' / ' + this.state.project.year)}
-                            {this.createVariableSection('team size', this.state.project.teamSize + 'members')}
+                            {this.createVariableSection('team size', this.state.project.teamSize + ' Member' + (this.state.project.teamSize > 1 ? 's' : ''))}
                             {this.createVariableSection('learned value', this.state.project.learnedValue + '-10')}
                             {this.createVariableSection('result value', this.state.project.endResultValue + '-10')}
+                            {this.createVariableSection('Tools', this.getTags('themes'))}
+                            {this.createVariableSection('Themes', this.getTags('tools'))}
 
                         </div>
+
+                        <p className = 'project-viewer-title'>{this.state.project.name}</p>
+                        <p className = 'project-viewer-description'>{this.state.project.description}</p>
 
                         <div className = 'project-viewer-titleBodyWrapper'>
                             <p className = 'project-viewer-context-title'>Context</p>

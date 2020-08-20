@@ -21,7 +21,8 @@
 
         font-size: 2vmin;
 
-        background-color: rgba(126, 167, 164, 0.554);
+        // background-color: rgba(126, 167, 164, 0.554);
+        box-shadow: -2px -1px 3px black;
 
         // outline-width: thin;
         // outline-color: grey;
@@ -126,7 +127,7 @@
     {
         position: static;
 
-        background-color: rgb(197, 113, 16);
+        background-color: rgb(23, 125, 209);
         width: 100vw;
         height: 30vmin;
     }

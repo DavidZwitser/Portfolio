@@ -26,7 +26,7 @@ export namespace LifeLike
                 day: 10,
                 month: 6,
                 year: 2019,
-                durationHrs: 999,
+                durationHrs: 320,
                 teamSize: 1,
                 endResultValue: 8,
                 learnedValue: 9,
@@ -41,7 +41,7 @@ export namespace LifeLike
                     'footage/projects/LifeLike/Front_projection.jpg',
                     'footage/projects/LifeLike/Process_behind.jpg'
                 ],
-                video: 'https://player.vimeo.com/video/448149976',
+                video: 'https://www.youtube.com/embed/tvdirJkZqG4',
                 // externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ViewerCustomization>{

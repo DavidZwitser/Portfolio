@@ -12,7 +12,7 @@ export default class HomePage extends React.Component
 
         name.style.opacity = show ? '0' : '1';
         image.style.opacity = show ? '1' : '0';
-        slogan.style.marginTop = show ? '25vmin' : '10vmin';
+        slogan.style.marginTop = show ? '27vmin' : '10vmin';
     }
 
     render()
