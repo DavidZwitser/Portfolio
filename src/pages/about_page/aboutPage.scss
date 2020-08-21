@@ -1,5 +1,5 @@
 #about {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
 
     width: 100vw;
     height: 100vh;
@@ -22,13 +22,14 @@
         font-size: 2vmin;
 
         // background-color: rgba(126, 167, 164, 0.554);
-        box-shadow: -2px -1px 3px black;
+        // box-shadow: -2px -1px 3px black;
 
         // outline-width: thin;
         // outline-color: grey;
         // outline-style: dashed;
 
         color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.274);
     }
 
     #about-image
@@ -127,8 +128,12 @@
     {
         position: static;
 
-        background-color: rgb(23, 125, 209);
+        background-color: rgb(255, 255, 255);
+
+        margin-top: 40vh;
         width: 100vw;
-        height: 30vmin;
+        height: 60vmin;
+
+        box-shadow: 0px 0px 1vmin;
     }
 }
