@@ -233,19 +233,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                         backgroundColor: 'white',
                         color: this.getTextColor(this.state.project.backgroundColor)
                     }}>
-                        {/* <div className = 'project-viewer-theme-container'>
-
-                            <p className = 'project-viewer-themes-title'>Themes</p>
-                            {this.getTags('themes' )}
-
-                        </div>
-
-                        <div className = 'project-viewer-theme-container'>
-                            
-                            <p className = 'project-viewer-tools-title'>Tools</p>
-                            {this.getTags('tools')}
-
-                        </div> */}
+                        <p id = 'project-viewer-moreInfoHover'></p>
                         <div className = 'project-viewer-variable-section'>
 
                             {this.createVariableSection('client', this.state.project.client)}
@@ -271,7 +259,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
                         <div className = 'project-viewer-separatorElement2'></div>
 
-                        {/* <div className = 'project-viewer-goal-line-between'></div> */}
+                        <div className = 'project-viewer-goal-line-between'></div>
 
                         <p className = 'project-viewer-goal-title'>Goal</p>
                         <p className = 'project-viewer-goal'> {this.state.project.goal} </p>
@@ -281,7 +269,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                         }
                         <p className = 'project-viewer-my-roll'> {this.state.project.myRoll} </p>
 
-                        {/* <div className = 'project-viewer-goal-line-between'></div> */}
+                        <div className = 'project-viewer-goal-line-between'></div>
 
                         {imageElements.length > 1 && imageElements[1]}
 
@@ -314,7 +302,9 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                         
                         {this.state.project.externalLink && <a id = "project-viewer-externalLink" target = "blank" href = {this.state.project.externalLink}>try it yourself</a>}
 
-                        {this.getRestImages(imageElements)}               
+                        {this.getRestImages(imageElements)}        
+
+                        <div id = 'project-viewer-bottom-space'></div>       
 
                     </div>
 

@@ -109,7 +109,7 @@
                 cursor: pointer;
             }
         
-           #project-viewer-info-section
+            #project-viewer-info-section
             {   
                 position: relative;
                 top: 35vh;
@@ -126,28 +126,6 @@
                     color: black;
                 }
                 
-                .project-viewer-theme-container
-                {
-                    float: right;
-                    margin-right: 1vmin;
-                }
-        
-                .project-viewer-tool-container
-                {
-                    border-style: solid;
-                    margin: 0;
-                }
-        
-                .project-viewer-tools, .project-viewer-themes
-                {
-                    // color: rgb(255, 255, 255);
-                    color: rgb(27, 27, 27);
-        
-                    font-size: .8em;
-        
-                    border-width: 1px;
-                }
-
                 .project-viewer-variable-section
                 {
                     height: 5vmin;
@@ -164,64 +142,113 @@
 
                     height: 10vmin;
                 }
-                
-                .project-viewer-variable-container
+
+                #project-viewer-moreInfoHover
                 {
-                    width: 10vmin;
-                    font-size: 1.5vmin;
+                    border-radius: 5%;
+                    width: 90vmin;
+                    height: 1vh;
+                    
+                    position: absolute;
+                    left: 5vmin;
+
+
+                    background-color: lightgray;
+
+                    z-index: 1;
+                    // margin-top: 5vh;
+                    transition: opacity .1s;
 
                     text-align: center;
+                    color: white;
 
-                    float: left;
+                    font-size: 1.1vh;
+                }
 
-                    padding-top: 1vmin;
-                    margin-bottom: 1vmin;
+                #project-viewer-moreInfoHover:hover
+                {
+                    opacity: 0;
+                    
+                }
 
-                    .project-viewer-variable-title
+                #project-viewer-moreInfoHover:hover + .project-viewer-variable-section
+                {
+                    // transform: scaleY(1);
+                    opacity: 1;
+                }
+
+                #project-viewer-moreInfoHover:hover ~ .project-viewer-title
+                {
+                    margin-top: 8vh;
+                }
+
+                .project-viewer-variable-section
+                {
+                    // transform: scaleY(0);
+                    opacity: 0;
+                    transition: all .3s;
+
+                    position: absolute;
+
+
+                    .project-viewer-variable-container
                     {
-                        color: rgb(124, 123, 123);
-            
-                        // margin-bottom: 1vmin;
-                        margin-top: 0vmin;
+                        width: 10vmin;
+                        font-size: 1.5vmin;
 
-                        margin: 0;
+                        text-align: center;
 
-                        font-size: 1.7vmin;
-                        font-weight: bolder;
-
-        
-                    }
-        
-                    .project-viewer-variable
-                    {
-                        // margin-top: 
-                        font-size: 1.3vmin;
-                        margin: 0;
-                    }
-                    .project-viewer-variable-line-between
-                    {
-                        width: 1px;
-                        height: 5vmin;
-                        
-                        margin: 0;
-    
-                        margin-top: -5vmin;
-    
-    
                         float: left;
+
+                        padding-top: 1vmin;
+                        margin-bottom: 1vmin;
+
+                        .project-viewer-variable-title
+                        {
+                            color: rgb(124, 123, 123);
+                
+                            // margin-bottom: 1vmin;
+                            margin-top: 0vmin;
+
+                            margin: 0;
+
+                            font-size: 1.7vmin;
+                            font-weight: bolder;
+
             
-                        background-color: rgb(0, 0, 0);
+                        }
+            
+                        .project-viewer-variable
+                        {
+                            // margin-top: 
+                            font-size: 1.3vmin;
+                            margin: 0;
+                        }
+                        .project-viewer-variable-line-between
+                        {
+                            width: 1px;
+                            height: 5vmin;
+                            
+                            margin: 0;
+        
+                            margin-top: -5vmin;
+        
+        
+                            float: left;
+                
+                            background-color: rgb(0, 0, 0);
+                        }
                     }
                 }
 
                 .project-viewer-title
                 {
-                    font-size: 12vmin;
+                    transition: margin-top .3s;
+                    font-size: 13vmin;
 
                     margin-bottom: 0;
 
-                    padding-top: 0vmin;
-                    margin-top: 0;
+                    margin-top: 3vmin;
                     margin-left: 4vmin;
 
                     overflow-wrap: none;
@@ -295,7 +322,7 @@
                     margin-right: 5vmin;
 
                     margin-top: 3vh;
-                    margin-bottom: 3vh;
+                    // margin-bottom: 3vh;
         
                     height: 1px;
         
@@ -304,7 +331,7 @@
 
                 .project-viewer-goal-title, .project-viewer-my-roll-title
                 {
-                    // width: 50vh;
+                    width: 70vh;
 
                     font-size: 6vh;
                     // font-weight: bold;
@@ -312,18 +339,20 @@
                     margin-top: 3vh;
                     margin-bottom: 1vh;
 
-                    margin-left: 5vh;
-                    margin-right: 5vh;
+                    margin-left: 15vh;
+                    margin-right: 15vh;
                 }
 
                 .project-viewer-goal, .project-viewer-my-roll
                 {
                     font-size: 2vh;
 
-                    margin-left: 5vh;
-                    margin-right: 5vh;
+                    width: 70vh;
+
+                    margin-left: 15vh;
+                    margin-right: 15vh;
                     margin-top: 1vh;
-                    margin-bottom: 3vh;
+                    margin-bottom: 0;
                 }
 
                 @media (orientation: portrait) {
@@ -386,8 +415,11 @@
                     height: 40vh;
         
                     margin: 5vh;
+                    margin-top: 5vh;
         
                     float: left;
+
+                    top: 0;
         
                 }
         
@@ -395,9 +427,12 @@
                 {
                     font-size: 6vh;
                     margin-top: 5vh;
+
                     margin-bottom: 0;
                     margin-left: 5vh;
                     margin-right: 5vh;
+
+                    padding: 0;
 
         
                     // font-weight: bold;
@@ -422,7 +457,7 @@
                 {
                     float: left;
 
-                    width: 40vh;
+                    width: 45vh;
                     // height: 1vh;
                     
                     margin-left: 5vh;
@@ -502,7 +537,7 @@
                 {
                     clear: right;
                     width: 100vw;
-                    height: 1vh;
+                    height: 0vh;
                 }
         
                 .project-viewer-whatILearned
@@ -536,8 +571,8 @@
                     text-transform: uppercase;
 
                     left: 50vw;
-                    margin-left: 5vmin;
-                    margin-right: 5vmin;
+                    margin-left: 25vmin;
+                    margin-right: 25vmin;
                     margin-bottom: 9vh;
                     margin-top: 10vh;
                     object-position: center;
@@ -545,7 +580,7 @@
                     transition: box-shadow .1s, padding .2s;
                     box-shadow: .15vmin .15vmin .2vmin;
                     
-                    font-size: 6vmin;
+                    font-size: 4vmin;
                     border-radius: 3vmin;
                     padding: 1.5vmin;
 
@@ -568,15 +603,19 @@
                 {
                     display: block;
                     height: auto;
-                    width: 60vmin;
+                    width: 75vmin;
 
                     margin-top: 5vh;
-                    padding-bottom: 5vh;
         
                     object-fit: scale-down;
                     
                     margin-left: auto;
                     margin-right: auto;
+                }
+
+                #project-viewer-bottom-space
+                {
+                    height: 10vh;
                 }
                 
             }

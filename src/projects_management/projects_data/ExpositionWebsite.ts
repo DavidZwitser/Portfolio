@@ -9,7 +9,7 @@ export namespace ExpositionWebsite
             <ProjectText>{
                 name: 'Exposition Website',
 
-                description: 'A online exposition website, personally designed and coded.',
+                description: 'An online exposition website which I designed and coded.',
                 context: 'After finishing a HKU seminar called Table Top Travels during the COVID pandemic, the organizers had the idea of holding an online exposition. I threw myself at the opportunity and build a website I actually am quite proud of.',
 
                 goal: 'The goal was to make a website which precented the students who participated in the seminar and their final works. The website was to be hosted and accessible for everyone to view.',

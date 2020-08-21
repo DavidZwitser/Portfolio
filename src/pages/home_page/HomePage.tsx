@@ -29,11 +29,11 @@ export default class HomePage extends React.Component
                 <p id="home-button-view-projects" onClick= {() => window.location.hash = 'list'}> Projects </p>
                 <p id="home-button-view-about" onClick= {() => window.location.hash = 'about'}> About </p>  
 
-                <div id = 'socials'>
+                {/* <div id = 'socials'>
                     <a target = 'blank' href="https://www.instagram.com/coelepinda/">Instagram</a>
                     <br/>
                     <a target = 'blank' href="mailto:davidzwitser@gmail.com">E-mail</a>              
-                </div>
+                </div> */}
 
                 {/* <div id = 'home-circle'></div> */}
 
