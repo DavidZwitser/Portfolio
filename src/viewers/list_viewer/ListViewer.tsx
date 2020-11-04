@@ -4,7 +4,8 @@ import {ListPreviewBig} from './ListPreviewBig';
 
 import * as React from 'react';
 import { ListPreviewSmall } from "./ListPreviewSmall";
-import { tools, themes } from "../../data_handling/Enums";
+import { tools, themes, pages } from "../../data_handling/Enums";
+import Constants from "../../data_handling/Constants";
 
 /* Filter tag element */
 interface FilterTagProps { name: string; color: string; clickedCallback: (name: string) => void }

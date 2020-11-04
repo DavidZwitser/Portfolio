@@ -30,6 +30,8 @@ import * as ReactDOM from "react-dom";
 import {ListViewerReact, ListViewerProps} from './viewers/list_viewer/ListViewer';
 import { RangeViewer } from './viewers/range_viewer/RangeViewer';
 
+import OverloadAnimation from './misc/OverloadAnimation';
+
 class Main
 {
     input: InputEvents;
@@ -127,6 +129,26 @@ class Main
             }),
             document.getElementById('project-viewer')
         );
+
+        // window.requestAnimationFrame(() => {
+        //     let imgs: any = document.getElementsByTagName('img');
+
+        //     for (let i = imgs.length; i--;)
+        //     {
+        //         document.element
+        //     }
+        // });
+
+        new OverloadAnimation('home', (() => Constants.CURRENT_PAGE !== pages.home), 90, 'list', (ell: HTMLElement, scrolledValue: number) => {
+            ell.style.transform = 'scale(' + (1 - scrolledValue * .00095) + ')';
+            ell.style.opacity = 1 - scrolledValue * .001 + '';
+        });
+
+        new OverloadAnimation('list', (() => Constants.CURRENT_PAGE == pages.home), -90, 'home', (ell: HTMLElement, scrolledValue: number) => {
+            // ell.style.transform = 'scale(' + (1 - scrolledValue * .00095) + ')';
+            // ell.style.opacity = 1 - scrolledValue * .001 + '';
+            ell.style.top = scrolledValue * .1 + 'vh';
+        });
     }
 
     /* Website transitioned to new page */

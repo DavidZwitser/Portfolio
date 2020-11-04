@@ -1,8 +1,9 @@
 import * as React from 'react';
+import Constants from '../../data_handling/Constants';
+import { pages } from '../../data_handling/Enums';
 
 export default class HomePage extends React.Component
 {
-
     nameHover(show: boolean = true): void
     {
         let name = document.getElementById('home-name');
@@ -20,7 +21,6 @@ export default class HomePage extends React.Component
         return (
             <div id='home-container'>
 
-
                 <img id = "home-name-hover-image" src="./src/images/page-about/me.png" alt=""/>
 
                 <p id="home-name" onMouseOver = {() => this.nameHover(true)} onMouseLeave = {() => this.nameHover(false)}>David Zwitser</p>
@@ -28,6 +28,13 @@ export default class HomePage extends React.Component
 
                 <p id="home-button-view-projects" onClick= {() => window.location.hash = 'list'}> Projects </p>
                 <p id="home-button-view-about" onClick= {() => window.location.hash = 'about'}> About </p>  
+
+                <p id = 'home-button-down-arrow' onClick = {() => window.location.hash = 'list'}>⌄</p>
+                <p id = 'home-button-down-arrow-hover'>projects</p>
+
+                {/* <div id ='home-box'></div> */}
+
+                {/* <img src="./src/images/instagram_logo.png" alt=""/> */}
 
                 {/* <div id = 'socials'>
                     <a target = 'blank' href="https://www.instagram.com/coelepinda/">Instagram</a>

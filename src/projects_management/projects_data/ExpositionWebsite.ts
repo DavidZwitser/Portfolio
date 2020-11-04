@@ -49,8 +49,8 @@ export namespace ExpositionWebsite
             },
             <ProjectTags>{
                 goals: [goals.learn, goals.create, goals.entertain],
-                tools: [tools.Touchdesigner],
-                themes: [themes.philosophy, themes.generative, themes.interactive]
+                tools: [tools.Webpack, tools.Typescript],
+                themes: [themes.interactive]
             }
         );
     }

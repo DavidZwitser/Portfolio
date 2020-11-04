@@ -11,6 +11,8 @@ html, body {
 
   background: rgb(47,167,209);
   background: linear-gradient(207deg, rgba(47,167,209,1) 0%, rgba(140,200,169,0.987941066066066) 47%, rgba(29,101,87,1) 100%);
+  background-image: url('./images/PF.jpg');
+  background-size: cover;
 
   height: 100%;
   
@@ -44,6 +46,10 @@ html, body {
 }
 
 .resize-animation-stopper * {
+  transition: none !important;
+}
+
+.resize-animation-stopper {
   transition: none !important;
 }
 

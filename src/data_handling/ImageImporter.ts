@@ -1,5 +1,10 @@
 export default class ImageImporter {
     constructor() {
+
+        // require.resolve("../../footage/icons/instagram_logo.png");
+
+        require.resolve('../images/PF.jpg');
+
         require.resolve("../../footage/projects/CONFINED_SPACE/Spacious.jpg"); 
 require.resolve("../../footage/projects/CONFINED_SPACE/Holy_tube.jpg"); 
 require.resolve("../../footage/projects/CONFINED_SPACE/Intensiteit_van_de_ervaring.jpg"); 
