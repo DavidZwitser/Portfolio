@@ -9,7 +9,6 @@ export interface ProjectViewerProps
 {
     project: Project;
     getProjectByID: (id: string) => Project;
-    mouseDragCallback: ((velX: number, velY: number) => void)[];
 }
 export interface ProjectViewerStates
 {
@@ -28,10 +27,6 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
             project: this.props.project,
             hidden: false
         };
-
-        this.props.mouseDragCallback.push((velX: number, velY: number) => {
-            this.handleScrollClosing(-velY);
-        });
     }
 
     getTags(type: 'tools' | 'themes'): string
@@ -143,23 +138,22 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         document.getElementById('project-viewer-container').style.transitionDelay = '0s';
         
         document.getElementById('project-viewer-close-button').style.transform = 'scale(0)';
-
-
+        
+        
         setTimeout(() => {
             document.getElementById('project-viewer-backdrop').style.top = '100vh'
         }, 400);
         document.getElementById('project-viewer-backdrop').style.opacity = '0';
-
+        
         
         let viewer: HTMLElement = document.getElementById('project-viewer');
         
         viewer.style.top = '94.5vh';
-        setTimeout( () => viewer.scrollTop = 0, 200);
+        setTimeout( () => {
+            document.getElementById('project-viewer-container').style.marginTop = '0';
+            viewer.style.marginTop = '0';
+        }, 200);
 
-        viewer.removeEventListener("wheel", this.wheelScrollEvent.bind(this));
-        
-        // let activePage: HTMLElement = document.getElementById(Constants.CURRENT_PAGE);
-        // activePage.style.filter = 'none';
     }
 
     animateIn(): void
@@ -184,28 +178,13 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
             let viewer: HTMLElement = document.getElementById('project-viewer');
 
             viewer.style.top = '0';
-
-            viewer.addEventListener("wheel", this.wheelScrollEvent.bind(this));
+            viewer.style.marginTop = '0';
 
             // if (window.innerWidth > window.innerHeight && /Mobi/.test(navigator.userAgent) == false)
             // {
             //     document.getElementById(Constants.CURRENT_PAGE).style.filter = 'blur(4px)';
             // }
         });
-    }
-
-    wheelScrollEvent(e: WheelEvent)
-    {
-        this.handleScrollClosing(e.deltaY);
-    }
-
-    handleScrollClosing(deltaY: number): void
-    {
-        let viewer = document.getElementById('project-viewer');
-        if ( viewer.scrollTop == 0 && deltaY < 0)
-        {
-            HashHandler.REMOVE_PROJECT_FROM_HASH();
-        }
     }
     
     render()

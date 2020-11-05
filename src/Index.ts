@@ -30,7 +30,7 @@ import * as ReactDOM from "react-dom";
 import {ListViewerReact, ListViewerProps} from './viewers/list_viewer/ListViewer';
 import { RangeViewer } from './viewers/range_viewer/RangeViewer';
 
-import OverloadAnimation from './misc/OverloadAnimation';
+import ScrollOverload from './misc/ScrollOverload';
 
 class Main
 {
@@ -48,6 +48,8 @@ class Main
 
     listLoaded: boolean = false;
     rangeViewerLoaded: boolean = false;
+
+    listViewerRef: HTMLElement;
     
     constructor()
     {   
@@ -124,31 +126,55 @@ class Main
                 project: this.projectsFetcher.getProjectByID(Constants.CURRENT_PROJECT),
                 getProjectByID: (id: string) => {
                     return this.projectsFetcher.getProjectByID(id);
-                },
-                mouseDragCallback: this.input.draggingCallback
+                }
             }),
             document.getElementById('project-viewer')
         );
 
-        // window.requestAnimationFrame(() => {
-        //     let imgs: any = document.getElementsByTagName('img');
-
-        //     for (let i = imgs.length; i--;)
-        //     {
-        //         document.element
-        //     }
-        // });
-
-        new OverloadAnimation('home', (() => Constants.CURRENT_PAGE !== pages.home), 90, 'list', (ell: HTMLElement, scrolledValue: number) => {
-            ell.style.transform = 'scale(' + (1 - scrolledValue * .00095) + ')';
-            ell.style.opacity = 1 - scrolledValue * .001 + '';
+        let homeScrollOverload: ScrollOverload = new ScrollOverload('home', (() => Constants.CURRENT_PAGE !== pages.home || Constants.CURRENT_PROJECT !== ''), 90, () => {
+            window.location.hash = 'list'
+        }, .7, (ell: HTMLElement, scrolledValue: number) => {
+            ell.style.transform = 'scale(' + (1 - scrolledValue * .0095) + ')';
+            ell.style.opacity = 1 - scrolledValue * .01 + '';
         });
 
-        new OverloadAnimation('list', (() => Constants.CURRENT_PAGE == pages.home), -90, 'home', (ell: HTMLElement, scrolledValue: number) => {
-            // ell.style.transform = 'scale(' + (1 - scrolledValue * .00095) + ')';
-            // ell.style.opacity = 1 - scrolledValue * .001 + '';
-            ell.style.top = scrolledValue * .1 + 'vh';
+        let listScrollOverload: ScrollOverload = new ScrollOverload('list', (() => {
+
+            return Constants.CURRENT_PAGE !== pages.list || this.listViewerRef.scrollTop !== 0 || Constants.CURRENT_PROJECT !== ''
+
+        }), -90, () => {
+
+            window.location.hash = 'home'
+
+        }, .7, (ell: HTMLElement, scrolledValue: number) => {
+
+            ell.style.top = scrolledValue * 1 + 'vh';
+            ell.style.transform = 'scale(' + (1 - scrolledValue * .005) + ')';
+
         });
+
+        let projectViewerScrollOverload: ScrollOverload = new ScrollOverload('project-viewer', ((ell: HTMLElement) => {return Constants.CURRENT_PROJECT == '' || ell.scrollTop !== 0}), -90, () => window.location.hash = Constants.CURRENT_PAGE, .7, (ell: HTMLElement, scrolledValue: number) => {
+            
+            let container: HTMLElement = document.getElementById('project-viewer-container');
+            container.style.marginTop = scrolledValue + 'vh';
+        });
+
+        if (this.input.onMobile == true)
+        {
+            this.input.draggingCallback.push((velX: number, velY: number) => {
+                homeScrollOverload.scrollEvent(velX, velY);
+                listScrollOverload.scrollEvent(velX, velY);
+                projectViewerScrollOverload.scrollEvent(velX, velY);
+            });
+        }
+        else
+        {
+            this.input.scrollCallback.push((velX: number, velY: number) => {
+                homeScrollOverload.scrollEvent(velX, velY);
+                listScrollOverload.scrollEvent(velX, velY);
+                projectViewerScrollOverload.scrollEvent(velX, velY);
+            });
+        }
     }
 
     /* Website transitioned to new page */
@@ -173,31 +199,33 @@ class Main
             {
                 if (this.listLoaded == false)
                 {
+                    
                     ReactDOM.render(
                         React.createElement(ListViewerReact, <ListViewerProps>{
-            
-                            filterTools: [ tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser ],
-                            filterThemes: [ themes.adventure, themes.generative, themes.philosophy ],
-                            projects: this.projectsFetcher.getProjects(),
-            
-                            getFilteredProjects: (filters: string[]) => { 
-                                if (filters[0] == 'All')
-                                {
-                                    return this.projectsFetcher.getProjects();
-                                }
-                    
-                                return this.projectsFetcher.getProjectsWithTags(filters); 
-                            },
-            
-                            openProjectViewer: (projectID: string) => {
-                                HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
+                            
+                        filterTools: [ tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser ],
+                        filterThemes: [ themes.adventure, themes.generative, themes.philosophy ],
+                        projects: this.projectsFetcher.getProjects(),
+                        
+                        getFilteredProjects: (filters: string[]) => { 
+                            if (filters[0] == 'All')
+                            {
+                                return this.projectsFetcher.getProjects();
                             }
-                        }, null),
-            
-                        document.getElementById("list")
+                            
+                            return this.projectsFetcher.getProjectsWithTags(filters); 
+                        },
+                        
+                        openProjectViewer: (projectID: string) => {
+                            HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
+                        }
+                    }, null),
+                    
+                    document.getElementById("list")
                     );
-    
+                    
                     this.listLoaded = true;
+                    this.listViewerRef = document.getElementById('listViewer');
                 }
 
                 break;

@@ -15,6 +15,7 @@ export default class MouseEvents
     mouseUpCallback: Function[];
     mouseDownCallback: Function[];
     draggingCallback: ((velX: number, velY: number) => void)[];
+    scrollCallback: ((velX: number, velY: number) => void)[];
     mouseMovingCallback: Function[];
 
     keyPressedCallback: ((keycode: string) => void)[];
@@ -28,6 +29,7 @@ export default class MouseEvents
         this.mouseUpCallback = [];
         this.mouseMovingCallback = [];
         this.keyPressedCallback = [];
+        this.scrollCallback = [];
 
         window.addEventListener('mousemove', this.mouseMoved.bind(this));
         window.addEventListener('touchmove', this.mouseMoved.bind(this));
@@ -39,6 +41,8 @@ export default class MouseEvents
         window.addEventListener('touchend', this.onMouseUp.bind(this));
 
         window.addEventListener('keypress', this.onKeyPress.bind(this));
+
+        window.addEventListener('wheel', this.wheelMoved.bind(this));
 
         this.onMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     }
@@ -107,7 +111,7 @@ export default class MouseEvents
         {
             for (let i = this.draggingCallback.length; i--; )
             {
-                this.draggingCallback[i](this.velocityX, this.velocityY);
+                this.draggingCallback[i](-this.velocityX, -this.velocityY);
             }
         }
     }
@@ -117,6 +121,14 @@ export default class MouseEvents
         for (let i: number = this.keyPressedCallback.length; i--; )
         {
             this.keyPressedCallback[i](ev.key);
+        }
+    }
+
+    wheelMoved(e: WheelEvent)
+    {
+        for (let i: number = this.scrollCallback.length; i--;)
+        {
+            this.scrollCallback[i](e.deltaX, e.deltaY);
         }
     }
 }
