@@ -171,17 +171,30 @@ $marginSides: 3.5vmin;
 
     #home-button-view-projects:hover ~ #home-button-down-arrow, #home-button-view-about:hover ~ #home-button-down-arrow, #home-name:hover ~ #home-button-down-arrow
     {
-        // transform: scale(5);
-        // font-size: 10vmin;
-        opacity: 0;
+        top: 81vh;
     }   
+
+    #home-button-view-projects:hover ~ #home-call-to-action, #home-button-view-about:hover ~ #home-call-to-action
+    {
+        opacity: 0;
+    }
+
+    #home-button-view-projects:hover ~ #home-call-to-action-projects
+    {
+        opacity: 1;
+    }
+
+    #home-button-view-about:hover ~ #home-call-to-action-about
+    {
+        opacity: 1;
+    }
 
     #home-button-view-projects:hover, #home-button-view-about:hover
     {
         cursor: pointer;
     }
 
-    #home-button-down-arrow, #home-button-down-arrow-hover
+    #home-button-down-arrow, #home-call-to-action-projects, #home-call-to-action, #home-call-to-action-about
     {
         position: absolute;
 
@@ -194,6 +207,7 @@ $marginSides: 3.5vmin;
         left: 50%;
 
         font-size: 5vmin;
+        font-weight: lighter;
 
         top: 83vh;
 
@@ -205,6 +219,29 @@ $marginSides: 3.5vmin;
         // font-weight: bolder;
     }
 
+    #home-button-down-arrow
+    {
+        animation: bounce .7s infinite alternate;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes bounce {
+        from {
+          transform: translateY(0px);
+        }
+        to {
+          transform: translateY(-2vmin);
+        }
+      }
+      @-webkit-keyframes bounce {
+        from {
+          transform: translateY(0px);
+        }
+        to {
+          transform: translateY(-2vmin);
+        }
+      }
+
     #home-button-down-arrow:hover
     {
         cursor: pointer;
@@ -212,21 +249,43 @@ $marginSides: 3.5vmin;
         font-weight: lighter;
 
         top: 83vh;
+
     }
 
-    #home-button-down-arrow-hover
+    #home-call-to-action-projects, #home-call-to-action-about
     {
-        font-size: 2.7vmin;
+        font-size: 3vmin;
         font-weight: lighter;
         opacity: 0;
         pointer-events: none;
 
-        // d: opacity .5s;
+        transition-duration: .5s;
+
+        top: 80vh;
     }
 
-    #home-button-down-arrow:hover ~ #home-button-down-arrow-hover
+    #home-call-to-action
+    {
+        font-size: 2vmin;
+        top: 84vh;
+        font-weight: lighter;
+
+        opacity: 1;
+
+        pointer-events: none;
+
+        font-style: italic;
+    }
+
+    #home-button-down-arrow:hover ~ #home-call-to-action-projects
     {
         opacity: 1;
+    }
+
+    #home-button-down-arrow:hover ~ #home-call-to-action
+    {
+        font-size: 1vmin;
+        opacity: 0;
     }
     
     @media (max-aspect-ratio: 2/3)

@@ -30,7 +30,9 @@ export default class HomePage extends React.Component
                 <p id="home-button-view-about" onClick= {() => window.location.hash = 'about'}> About </p>  
 
                 <p id = 'home-button-down-arrow' onClick = {() => window.location.hash = 'list'}>⌄</p>
-                <p id = 'home-button-down-arrow-hover'>projects</p>
+                <p id = 'home-call-to-action-projects'>projects</p>
+                <p id = 'home-call-to-action-about'>about</p>
+                <p id = 'home-call-to-action'>scroll to view projects</p>
 
                 {/* <div id ='home-box'></div> */}
 

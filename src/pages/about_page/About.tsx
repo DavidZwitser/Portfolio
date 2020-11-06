@@ -92,7 +92,7 @@ export default class About extends React.Component<null, AboutStates>
                     <br/><br/>
                     I am curious and knowledge hungry. When I start doing something, I get sucked up in it and get really enthusiastic about it. I also like working in teams where I love discussing and learning from/with other team members to bring the product and my knowledge to a higher level. */}
 
-                    Exploring the world through creativity technology and philosophy.
+                    Figuring out the world through art. technology and philosophy.
                     
                 </p>
                 <img src="src/images/page-about/me.png" alt="" />

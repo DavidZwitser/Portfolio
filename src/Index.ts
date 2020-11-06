@@ -131,11 +131,18 @@ class Main
             document.getElementById('project-viewer')
         );
 
+        let callToActionRef: HTMLElement = document.getElementById('home-call-to-action');
+
         let homeScrollOverload: ScrollOverload = new ScrollOverload('home', (() => Constants.CURRENT_PAGE !== pages.home || Constants.CURRENT_PROJECT !== ''), 90, () => {
             window.location.hash = 'list'
-        }, .7, (ell: HTMLElement, scrolledValue: number) => {
+        }, .5, (ell: HTMLElement, scrolledValue: number) => {
+
             ell.style.transform = 'scale(' + (1 - scrolledValue * .0095) + ')';
             ell.style.opacity = 1 - scrolledValue * .01 + '';
+            callToActionRef.style.transform = 'scale(' + (1 + scrolledValue * .03) + ')';
+            callToActionRef.style.marginTop = scrolledValue * .3 + 'vh';
+            
+
         });
 
         let listScrollOverload: ScrollOverload = new ScrollOverload('list', (() => {
@@ -146,7 +153,7 @@ class Main
 
             window.location.hash = 'home'
 
-        }, .7, (ell: HTMLElement, scrolledValue: number) => {
+        }, .3, (ell: HTMLElement, scrolledValue: number) => {
 
             ell.style.top = scrolledValue * 1 + 'vh';
             ell.style.transform = 'scale(' + (1 - scrolledValue * .005) + ')';

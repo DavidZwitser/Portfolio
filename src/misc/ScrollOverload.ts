@@ -19,7 +19,7 @@ export default class ScrollOverload
 
     private transitionFunction: (ell: HTMLElement, value: number) => void;
 
-    private coolingDown: boolean = false;;
+    private coolingDown: boolean = false;
 
     constructor(targetID: string, exception: (ell: HTMLElement) => boolean, overloadValue: number, overloadFunction: () => void, triggerThresholdMultiplier: number, transitionFunction: (ell: HTMLElement, value: number) => void)
     {
@@ -42,7 +42,7 @@ export default class ScrollOverload
         if ((this.overloadValue < 0 && velY > 0) || (this.overloadValue > 0 && velY < 0)) { return; }
 
         /* Value overloaded */
-        if (velY * this.scrollDirection > this.overloadValue * this.scrollDirection || this.scrolledAmount * this.triggerThresholdMultiplier > this.overloadValue * this.scrollDirection)
+        if (this.scrolledAmount * this.triggerThresholdMultiplier > this.overloadValue * this.scrollDirection)
         {
             this.coolingDown = true;
             setTimeout(() => {
@@ -98,11 +98,12 @@ export default class ScrollOverload
         if (scrolled == true)
         {
             clearTimeout(this.moveBackTimeoutID);
+            window.cancelAnimationFrame(this.animationLoopHandle);
             this.moveBackTimeoutID = setTimeout(() => 
             {
                 window.cancelAnimationFrame(this.animationLoopHandle);
                 this.animationLoopHandle = window.requestAnimationFrame(() => this.animateOnScroll(false));
-            }, 200);
+            }, 100);
         }
         else
         {
