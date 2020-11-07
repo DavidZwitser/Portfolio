@@ -10,7 +10,7 @@ export namespace CONFINED_SPACE
                 name: 'CONFINED SPACE',
 
                 description: 'A tactile intimate experience in which you get embraced by a breathing slowly moving inflatable.',
-                context: 'A project made for the festival Cinedans',
+                context: 'A school challenge where we made an installation in collaboration with the Cinedance festival with the goal of it being displayed at the festival.',
 
                 goal: 'The goal of our project is to create an intimate shut out environment where you can be alone with yourself.',
                 myRoll: 'We did a lot of brainstorming together, I made the wooden frame together with a teammate and created the breathing motion.',
@@ -44,7 +44,7 @@ export namespace CONFINED_SPACE
                     'footage/projects/CONFINED_SPACE/Tube.jpg',
                     'footage/projects/CONFINED_SPACE/Deep_dive.jpg',
                 ],
-                // video: 'https://drive.google.com/file/d/1m9eNn0D4h-wgrt44Wi0WJvZCQAGlQsDx/preview',
+                video: 'https://www.youtube.com/embed/vSZDguIEcEE',
                 // externalLink: 'https://drive.google.com/drive/folders/179qN7HbSodcNseAyw7Lhx34O2AcG9osB?usp=sharing'
             },
             <ViewerCustomization>{

@@ -5,7 +5,6 @@ import {ListPreviewBig} from './ListPreviewBig';
 import * as React from 'react';
 import { ListPreviewSmall } from "./ListPreviewSmall";
 import { tools, themes, pages } from "../../data_handling/Enums";
-import Constants from "../../data_handling/Constants";
 
 /* Filter tag element */
 interface FilterTagProps { name: string; color: string; clickedCallback: (name: string) => void }
@@ -29,7 +28,7 @@ export interface ListViewerProps
     filterTools: tools[];
     filterThemes: themes[];
     projects: Project[];
-    
+
     getFilteredProjects: (filters: string[]) => Project[];
     openProjectViewer: (projectID: string) => void;
 }
@@ -41,6 +40,8 @@ interface ListViewerStates
 /* List viewer class */
 export class ListViewerReact extends React.Component<ListViewerProps, ListViewerStates>
 {
+    private selectedTag: string = 'idk';
+
     constructor(props: any)
     {
         super(props);
@@ -54,12 +55,13 @@ export class ListViewerReact extends React.Component<ListViewerProps, ListViewer
         for (let i = 0; i < this.props[type].length; i++)
         {
             let tag: tools | themes = this.props[type][i];
+            console.log(this.selectedTag);
             tags.push(
 
                 <FilterTag 
                     key = {tag} 
                     name = {tag} 
-                    color = {(type == "filterTools" ? 'rgb(19, 112, 189)' : '#ff4500')} 
+                    color = {(this.selectedTag == tag ? '#222' : type == "filterTools" ? 'rgb(19, 112, 189)' : '#ff4500')} 
                     clickedCallback = {this.handleClickedTag.bind(this)} 
                 />
 
@@ -71,6 +73,8 @@ export class ListViewerReact extends React.Component<ListViewerProps, ListViewer
 
     handleClickedTag(tagName: string)
     {
+        this.selectedTag = tagName;
+
         this.setState({
             projects: this.props.getFilteredProjects([tagName])
         });

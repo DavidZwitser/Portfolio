@@ -212,7 +212,8 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
                         backgroundColor: 'white',
                         color: this.getTextColor(this.state.project.backgroundColor)
                     }}>
-                        <p id = 'project-viewer-moreInfoHover'></p>
+                        <p id = 'project-viewer-moreInfoHover'>Hover for more info</p>
+                        {/* <p id = 'project-viewer-hover-for-more-info'>Hover for info</p> */}
                         <div className = 'project-viewer-variable-section'>
 
                             {this.createVariableSection('client', this.state.project.client)}

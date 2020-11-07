@@ -120,7 +120,7 @@
                 
                 margin-left: auto;
         
-                background-color: rgb(131, 145, 170);
+                // background-color: rgb(131, 145, 170);
 
                 p {
                     color: black;
@@ -153,14 +153,14 @@
                     left: 5vmin;
 
 
-                    background-color: lightgray;
+                    // background-color: lightgray;
 
                     z-index: 1;
                     // margin-top: 5vh;
                     transition: opacity .1s;
 
                     text-align: center;
-                    color: white;
+                    color: black;
 
                     font-size: 1.1vh;
                 }
@@ -168,7 +168,7 @@
                 #project-viewer-moreInfoHover:hover
                 {
                     opacity: 0;
-                    
+                    cursor: vertical-text;
                 }
 
                 #project-viewer-moreInfoHover:hover + .project-viewer-variable-section
@@ -360,6 +360,8 @@
                     {
                         margin-left: 20vw;
                         margin-right: 20vw;
+
+                        width: 60vw;
                     }
                 }
 

@@ -21,6 +21,8 @@ $defaultColor: rgb(19, 112, 189);
     #viewer-type-buttons
     {
       font-size: 2vh;
+      transition: transform .4s;
+
       
       // height: 2vh;
       
@@ -43,12 +45,19 @@ $defaultColor: rgb(19, 112, 189);
           margin: 0;
           padding: 0;
         }
+
+        p:hover
+        {
+          font-size: 1.9vmin;
+        }
       }
 
     }
   
     #navigation-bar-back-button {
       font-size: 4vh;
+
+      transition: transform .5s;
 
       a
       {
@@ -71,6 +80,16 @@ $defaultColor: rgb(19, 112, 189);
         }
       }
     }
+  }
+
+  #navigation-bar-back-button:hover
+  {
+    transform: scale(1.2);
+  }
+
+  #navigation-bar-back-button:hover ~ #viewer-type-buttons 
+  {
+    transform: scale(.95);
   }
 
   // #navigation-bar:hover
