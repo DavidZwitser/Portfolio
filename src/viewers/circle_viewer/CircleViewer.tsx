@@ -10,7 +10,7 @@ interface BarOnCircleProps
     radius: number;
     associatedProject: Project;
 
-    barHoverEvent: (project: Project) => void;
+    barHoveredEvent: (project: Project) => void;
     barClickedEvent: (project: Project) => void;
 }
 interface BarOnCircleState
@@ -34,7 +34,7 @@ class BarOnCircle extends React.Component<BarOnCircleProps, BarOnCircleState>
 
     mouseOver(e: any): void
     {
-        this.props.barHoverEvent(this.props.associatedProject);
+        this.props.barHoveredEvent(this.props.associatedProject);
     }
 
     click(e: any): void
@@ -45,7 +45,7 @@ class BarOnCircle extends React.Component<BarOnCircleProps, BarOnCircleState>
     render(): JSX.Element
     {
         return(
-            <div id = "bar-on-circle"
+            <div id = "circle-bar-indicator"
                 style = {{
                     height: this.state.height + "vmin",
                     marginTop: -this.state.height * .5 + 'vmin',
@@ -131,7 +131,7 @@ export default class ListViewerReact extends React.Component<CircleViewerProps, 
                     radius = {this.state.radius}
 
                     associatedProject = {project}
-                    barHoverEvent = {this.changeActiveProject.bind(this)}
+                    barHoveredEvent = {this.changeActiveProject.bind(this)}
                     barClickedEvent = {() => {}}
                 />
             );
@@ -145,12 +145,11 @@ export default class ListViewerReact extends React.Component<CircleViewerProps, 
            
     render(): JSX.Element
     {
-        console.log('rendering' );
         return (
-            <div id = "CircleViewer" style = {{borderColor: this.state.activeProject.backgroundColor}}>
+            <div id = "circle-container" style = {{borderColor: this.state.activeProject.backgroundColor}}>
                 {this.getBarsOnCircle()}
 
-                <div id = "the_circle"
+                <div id = "circle-center"
                     onClick = {() => this.viewProject(this.state.activeProject)}
                     style = {{
                         backgroundImage: "url(" + this.state.activeProject.thumbnail + ")",

@@ -6,8 +6,8 @@ export default class LoadingScreen
 
     constructor()
     {
-        this.parent = <HTMLDivElement>document.getElementById('loading-screen');
-        this.loadingScreenVisual = <HTMLDivElement>document.getElementsByClassName('loading-screen-visual')[0];
+        this.parent = <HTMLDivElement>document.getElementById('loadingScreen');
+        this.loadingScreenVisual = <HTMLDivElement>document.getElementsByClassName('loadingScreen-loading-indicator')[0];
     }
 
     public endLoadingScreen()
@@ -23,8 +23,5 @@ export default class LoadingScreen
             this.parent.style.display = 'none';
             
         }, 500);
-
-        // document.getElementById('about-page-indicator-icon').style.opacity = '0';
-
     }
 }

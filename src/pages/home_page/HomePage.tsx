@@ -4,7 +4,7 @@ import { pages } from '../../data_handling/Enums';
 
 export default class HomePage extends React.Component
 {
-    nameHover(show: boolean = true): void
+    hoveredOverName(show: boolean = true): void
     {
         let name = document.getElementById('home-name');
         let image = document.getElementById('home-name-hover-image');
@@ -23,42 +23,18 @@ export default class HomePage extends React.Component
 
                 <img id = "home-name-hover-image" src="./src/images/page-about/me.png" alt=""/>
 
-                <p id="home-name" onMouseOver = {() => this.nameHover(true)} onMouseLeave = {() => this.nameHover(false)}>David Zwitser</p>
+                <p id="home-name" onMouseOver = {() => this.hoveredOverName(true)} onMouseLeave = {() => this.hoveredOverName(false)}>David Zwitser</p>
                 <p id="home-slogan">Creative coder, visual artist</p>
 
-                <p id="home-button-view-projects" onClick= {() => window.location.hash = 'list'}> Projects </p>
-                <p id="home-button-view-about" onClick= {() => window.location.hash = 'about'}> About </p>  
+                <p id="home-viewProjects-button" onClick= {() => window.location.hash = 'list'}> Projects </p>
+                <p id="home-viewAbout-button" onClick= {() => window.location.hash = 'about'}> About </p>  
 
-                <p id = 'home-button-down-arrow' onClick = {() => window.location.hash = 'list'}>⌄</p>
-                <p id = 'home-call-to-action-projects'>projects</p>
-                <p id = 'home-call-to-action-about'>about</p>
-                <p id = 'home-call-to-action'>scroll to view projects</p>
+                <p id = 'home-scrollDown-button' onClick = {() => window.location.hash = 'list'}>⌄</p>
 
-                {/* <div id ='home-box'></div> */}
+                <p id = 'home-projects-indicator'>projects</p>
+                <p id = 'home-about-indicator'>about</p>
+                <p id = 'home-scrollToViewProjects-indicator'>scroll to view projects</p>
 
-                {/* <img src="./src/images/instagram_logo.png" alt=""/> */}
-
-                {/* <div id = 'socials'>
-                    <a target = 'blank' href="https://www.instagram.com/coelepinda/">Instagram</a>
-                    <br/>
-                    <a target = 'blank' href="mailto:davidzwitser@gmail.com">E-mail</a>              
-                </div> */}
-
-                {/* <div id = 'home-circle'></div> */}
-
-
-                {/* <div id = 'home-bottom-container'>
-                    <p id = "home-bottom-string">D1NLH93480936DKLJ9098DFA06434KKLDVW89343</p>
-                </div> */}
-                
-                {/* <select name="Order projects by" id="home-dropdown-order-by">
-                    <option value="Duration">Duration</option>
-                    <option value="Learned value">Learned value</option>
-                    <option value="End result value">End result value</option>
-                    <option value="Date">Date</option>
-                    <option value="Team size">Team size</option>
-                </select>
- */}
             </div>
         );
     }

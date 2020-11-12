@@ -9,7 +9,7 @@ import HomePage from './pages/home_page/HomePage'
 import Project from './projects_management/ProjectTemplate';
 
 import GridViewer from './viewers/grid_viewer/GridViewer';
-import GridPopup from './viewers/grid_viewer/GridPopup';
+import GridPopup, { GridPopupProps } from './viewers/grid_viewer/GridPopup';
 
 import CircleViewer from './viewers/circle_viewer/CircleViewer'
 
@@ -49,16 +49,16 @@ class Main
     listLoaded: boolean = false;
     rangeViewerLoaded: boolean = false;
 
-    listViewerRef: HTMLElement;
-    
     constructor()
     {   
         this.loadingScreen = new LoadingScreen();
 
         this.hashHandler = new HashHandler();
-        this.hashHandler.pageTransitioned = () => this.pageTransitioned();
+        // this.hashHandler.pageTransitioned = () => this.pageTransitioned();
 
-        /* Listners */
+        /**
+         * Events
+         */
         window.addEventListener('hashchange', () => this.hashHandler.hashChanged() );
         window.addEventListener('load', () => this.hashHandler.hashChanged() );
         window.addEventListener('resize', this.resized.bind(this));
@@ -77,27 +77,92 @@ class Main
 
         let logProjects: boolean = true;
 
-        /* COMMENT THESE TO TOGGLE BETWEEN LOG AND LOAD */
+        /**
+         * Global infrastructure scripts
+         */
+        
+         /* COMMENT THESE TO TOGGLE BETWEEN LOG AND LOAD */
         logProjects = false;
+
         new ImageImporter();
-
         this.projectsFetcher = new ProjectFetcher(logProjects);
+        this.input = new InputEvents();
 
+
+        /**
+         * Rendering the pages
+         */
+
+         /* Home page */
         ReactDOM.render(
             React.createElement(HomePage),
             document.getElementById('home')
         );
         
+        /* About page */
         ReactDOM.render(
             React.createElement(AboutPage),
             document.getElementById('about')
         );
 
-        this.input = new InputEvents();
+        /* List viewer */
+        ReactDOM.render(
+            React.createElement(ListViewerReact, <ListViewerProps>{
+                
+                filterTools: [ tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser ],
+                filterThemes: [ themes.adventure, themes.generative, themes.philosophy ],
+                projects: this.projectsFetcher.getProjects(),
+                
+                getFilteredProjects: (filters: string[]) => { 
+                    if (filters[0] == 'All')
+                    {
+                        return this.projectsFetcher.getProjects();
+                    }
+                    
+                    return this.projectsFetcher.getProjectsWithTags(filters); 
+                },
+                
+                openProjectViewer: (projectID: string) => {
+                    HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
+                }
+            }, null),
         
-        this.gridViewer = new GridViewer(<HTMLDivElement>document.getElementById('grid'));
-        this.gridPopup  = new GridPopup(<HTMLDivElement> document.getElementById('grid-popup'));
+            document.getElementById("list")
+        );
+        
+        /* Range viewer */
+        ReactDOM.render(
+            React.createElement(RangeViewer, {
+                zoomSensitivity: .02, 
+                projects: this.projectsFetcher.getProjects()
+            }),
+            document.getElementById('range')
+        );
 
+        /* Circle viewer */
+        ReactDOM.render(
+            React.createElement(CircleViewer, {
+                projects: this.projectsFetcher.getProjects(),
+                openProjectViewer: (projectID: string) => {
+                    HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
+                }
+            }),
+            document.getElementById('circle')
+        );
+
+        /* Grid popup */
+        ReactDOM.render(
+            React.createElement(GridPopup, <GridPopupProps>{
+                getProjectByID: (id: string) => this.projectsFetcher.getProjectByID(id)
+            }),
+            document.getElementById('grid-popup')
+        );
+
+        /**
+         * Grid viewer
+         */
+        this.gridViewer = new GridViewer(<HTMLDivElement>document.getElementById('grid'), this.projectsFetcher.getProjects());
+        
         /* Assigning mouse events */        
         this.input.draggingCallback.push(() => {
             if (Constants.CURRENT_PAGE !== pages.grid) { return; }
@@ -108,17 +173,6 @@ class Main
             this.gridViewer.letGoOfGrid(this.input.velocityX, this.input.velocityY);
         });
         
-        /* Assigning grid events */
-        this.gridViewer.openMoreInfo = (element: Project, forceOpen?: boolean) => this.gridPopup.openPopup(element, forceOpen);
-        this.gridViewer.closeMoreInfo = () => this.gridPopup.closePopup();
-        this.gridViewer.toggleMoreInfo = (project: Project) => this.gridPopup.togglePopup(project);
-        
-
-        /* Setting up project page logic */
-        if (Constants.CURRENT_PAGE == pages.grid)
-        {
-            this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
-        }
         
         /* Project viewer  */            
         ReactDOM.render(
@@ -131,7 +185,11 @@ class Main
             document.getElementById('project-viewer')
         );
 
-        let callToActionRef: HTMLElement = document.getElementById('home-call-to-action');
+        /**
+         * Overload animations
+         */
+
+        let callToActionRef: HTMLElement = document.getElementById('home-scrollToViewProjects-indicator');
 
         let homeScrollOverload: ScrollOverload = new ScrollOverload('home', (() => Constants.CURRENT_PAGE !== pages.home || Constants.CURRENT_PROJECT !== ''), 90, () => {
             window.location.hash = 'list'
@@ -141,13 +199,12 @@ class Main
             ell.style.opacity = 1 - scrolledValue * .01 + '';
             callToActionRef.style.transform = 'scale(' + (1 + scrolledValue * .03) + ')';
             callToActionRef.style.marginTop = scrolledValue * .3 + 'vh';
-            
-
         });
 
+        let listViewerRef = document.getElementById('listViewer');
         let listScrollOverload: ScrollOverload = new ScrollOverload('list', (() => {
 
-            return Constants.CURRENT_PAGE !== pages.list || this.listViewerRef.scrollTop !== 0 || Constants.CURRENT_PROJECT !== ''
+            return Constants.CURRENT_PAGE !== pages.list || listViewerRef.scrollTop !== 0 || Constants.CURRENT_PROJECT !== ''
 
         }), -90, () => {
 
@@ -182,99 +239,10 @@ class Main
                 projectViewerScrollOverload.scrollEvent(velX, velY);
             });
         }
-    }
 
-    /* Website transitioned to new page */
-    private pageTransitioned(): void
-    {   
-
-        switch(Constants.CURRENT_PAGE)
-        {
-
-            case pages.grid:
-            {
-                if (this.gridViewer.loaded == false)
-                {
-                    this.gridPopup.closePopup();
-                }
-                this.gridViewer.createGridTilesForPreloadedProjects(this.projectsFetcher.getProjects());
-
-                break;
-            }
-    
-            case pages.list:
-            {
-                if (this.listLoaded == false)
-                {
-                    
-                    ReactDOM.render(
-                        React.createElement(ListViewerReact, <ListViewerProps>{
-                            
-                        filterTools: [ tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser ],
-                        filterThemes: [ themes.adventure, themes.generative, themes.philosophy ],
-                        projects: this.projectsFetcher.getProjects(),
-                        
-                        getFilteredProjects: (filters: string[]) => { 
-                            if (filters[0] == 'All')
-                            {
-                                return this.projectsFetcher.getProjects();
-                            }
-                            
-                            return this.projectsFetcher.getProjectsWithTags(filters); 
-                        },
-                        
-                        openProjectViewer: (projectID: string) => {
-                            HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
-                        }
-                    }, null),
-                    
-                    document.getElementById("list")
-                    );
-                    
-                    this.listLoaded = true;
-                    this.listViewerRef = document.getElementById('listViewer');
-                }
-
-                break;
-            }
-    
-            case pages.range:
-            {
-                if (this.rangeViewerLoaded == false)
-                {
-                    ReactDOM.render(
-                        React.createElement(RangeViewer, {
-                            zoomSensitivity: .02, 
-                            projects: this.projectsFetcher.getProjects()
-                        }),
-                        document.getElementById('range')
-                    );
-                    this.rangeViewerLoaded = true;
-                }
-
-                break;
-            }
-
-            case pages.circle:
-            {
-                ReactDOM.render(
-                    React.createElement(CircleViewer, {
-                        projects: this.projectsFetcher.getProjects(),
-                        openProjectViewer: (projectID: string) => {
-                            HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
-                        }
-                    }),
-                    document.getElementById('circle')
-                );
-                
-                break;
-            }
-
-            default:
-            {
-                return
-            }
-        }
+        /**
+         * End main
+         */
     }
 
     /* Window got resized */

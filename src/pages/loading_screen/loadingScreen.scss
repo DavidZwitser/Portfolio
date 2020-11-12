@@ -1,4 +1,4 @@
-#loading-screen
+#loadingScreen
 {
     position: fixed;
 
@@ -16,14 +16,7 @@
 
     text-align: center;
 
-    p {
-        margin-top: 45vh;
-        font-size: 8vmin;
-        font-weight: bolder;
-        box-shadow: 0 0 20vmin black;
-    }
-
-    .loading-screen-visual
+    .loadingScreen-loading-indicator
     {
         position: absolute;
             
@@ -33,7 +26,7 @@
 
         border-radius: 80%;
 
-        animation-name: tryout;
+        animation-name: loading_animation;
         animation-duration: 4s;
         animation-timing-function: ease-in-out;
 
@@ -57,7 +50,7 @@
 
     }
 
-    @keyframes tryout
+    @keyframes loading_animation
     {
         0% {
         

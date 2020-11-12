@@ -127,7 +127,8 @@ export default class ProjectFetcher
                     goals: [goals.entertain],
                     tools: toolTags,
                     themes: themeTags
-                })
+                }),
+                'dp' + i
             ));
         }
     }

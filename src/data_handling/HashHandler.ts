@@ -14,11 +14,19 @@ export default class HashHandler
 
     public static CHANGE_PAGE(page: pages = pages.home, projectID: string = '')
     {
+        if (page == Constants.CURRENT_PAGE) 
+        {
+            if (projectID == '') return;
+            if (projectID !== '' && projectID == Constants.CURRENT_PROJECT) return;
+        }
+
         window.location.hash = page + Constants.HASH_SEPARATOR + projectID;
     }
 
     public static REMOVE_PROJECT_FROM_HASH(): void
     {
+        if (Constants.CURRENT_PROJECT == '') return;
+
         window.location.hash = Constants.CURRENT_PAGE;
     }
 
@@ -76,10 +84,10 @@ export default class HashHandler
         /* -------------- */
         if (Constants.LAST_PAGE == Constants.CURRENT_PAGE) { return; }
 
-        navbar.addEventListener('transitionend', () => { if (this.pageTransitioned !== null) this.pageTransitioned() }, {once: true} );
-        {
-            if (this.pageTransitioned !== null) { this.pageTransitioned(); }
-        }
+        // navbar.addEventListener('transitionend', () => { if (this.pageTransitioned !== null) this.pageTransitioned() }, {once: true} );
+        // {
+        //     if (this.pageTransitioned !== null) { this.pageTransitioned(); }
+        // }
 
         let pageArray: string[] = Object.keys(pages);
 

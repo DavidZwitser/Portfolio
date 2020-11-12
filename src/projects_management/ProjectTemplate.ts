@@ -94,9 +94,10 @@ export default class Project implements ProjectVariables, ProjectText, ProjectSo
         variables: ProjectVariables = {},
         sources: ProjectSources = {thumbnail: 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png'},
         customization: ViewerCustomization = {backgroundColor: '#333', isFullProject: false},
-        tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]}
+        tags: ProjectTags = {goals: [goals.none], tools: [tools.none], themes: [themes.none]},
+        customID: string = null
     ) {
-        this.id = text.name.replace(/\s+/g, '');
+        this.id = customID !== null ? customID : text.name.replace(/\s+/g, '');
 
         this.name = text.name;
         this.description =  text.description;

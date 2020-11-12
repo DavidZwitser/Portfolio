@@ -2,13 +2,13 @@ $popup-speed: .3s;
 
 @media (orientation: portrait) 
 {
-    #grid-popup:hover
+    #grid-popup-container:hover
     {
         top: -30vw;
     }
 }
 
-#grid-popup {
+#grid-popup-container {
 
     position: absolute;
 
@@ -26,7 +26,7 @@ $popup-speed: .3s;
     left: 0px;
     top: -54vw;
 
-    opacity: 0;
+    margin-top: 7vh;
 
     overflow-y: scroll;
 
@@ -155,12 +155,12 @@ $popup-speed: .3s;
 @media (orientation: landscape) {
 
     
-    #grid-popup:hover
+    #grid-popup-container:hover
     {
         left: -30vh;
     }
     
-    #grid-popup
+    #grid-popup-container
     {
         transition: left $popup-speed;
         

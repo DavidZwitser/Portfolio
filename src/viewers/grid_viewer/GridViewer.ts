@@ -35,13 +35,9 @@ export default class GridViewer
     projectClosestToCenter: GridProject;
     focusedProjectChangedCallback: Function[];
 
-    openMoreInfo: (project: Project, forceOpen?: boolean) => void;
-    closeMoreInfo: () => void;
-    toggleMoreInfo: (project?: Project) => void;
-
     loaded: boolean = false;
 
-    constructor(parent: HTMLDivElement)
+    constructor(parent: HTMLDivElement, projects: Project[])
     {
         this.parent = parent;
 
@@ -53,29 +49,43 @@ export default class GridViewer
         this.positionX = this.currentProjectCenter.x;
         this.positionY = this.currentProjectCenter.y;
 
-        Constants.PAGE_CHANGED_CALLBACK.push((page: pages) => {
+        this.hideLoadingScreen();
 
-            if (this.loaded == false) { return; }
 
-            if (page == pages.grid && Constants.CURRENT_PROJECT == '')
+
+        window.addEventListener('hashchange', () => {
+            if (Constants.CURRENT_PAGE == pages.grid)
             {
-                if (this.projectClosestToCenter !== null && this.projectClosestToCenter.content.isFullProject == false)
-                {
-                    if  (this.openMoreInfo !== null)
-                    {
-                        this.openMoreInfo(this.projectClosestToCenter.content);
-                    }
-                }
-            }
-            else
-            {
-                if (this.closeMoreInfo !== null)
-                    this.closeMoreInfo();
+                this.createGridTilesForPreloadedProjects(projects);
             }
         });
 
-        this.hideLoadingScreen();
+        window.addEventListener('load', () => {
+            if (Constants.CURRENT_PAGE == pages.grid)
+            {
+                this.createGridTilesForPreloadedProjects(projects);
+            }
+        });
+    }
 
+    openMoreInfo(project: Project, force?: boolean): void
+    {
+        HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, project.id);
+    }
+    closeMoreInfo(): void
+    {
+        HashHandler.REMOVE_PROJECT_FROM_HASH();
+    }
+    toggleMoreInfo(project: Project): void
+    {
+        if (Constants.CURRENT_PROJECT == '')
+        {
+            this.openMoreInfo(project);
+        }
+        else
+        {
+            this.closeMoreInfo();
+        }
     }
 
     private hideLoadingScreen(): void
@@ -104,6 +114,7 @@ export default class GridViewer
     /* Loop through not loaded projects and add them to the grid */
     public createGridTilesForPreloadedProjects(projects: Project[]): void
     {
+        console.log('loading projects');
         if (this.loaded == true) { return; }
         
         for (let i: number = 0; i < projects.length; i++)
@@ -234,7 +245,7 @@ export default class GridViewer
             this.projectClosestToCenter = this.findProjectClosestToCenterOfScreen();
 
             /* TEMPORARY */
-            if (this.openMoreInfo !== null && this.projectClosestToCenter.content.isFullProject == false)
+            if (this.projectClosestToCenter.content.isFullProject == false)
                 this.openMoreInfo(this.projectClosestToCenter.content);
 
             return;
@@ -306,8 +317,7 @@ export default class GridViewer
 
         if (Math.abs(offsetX) + Math.abs(offsetY) > 5)
         {
-            if (this.closeMoreInfo !== null)
-                this.closeMoreInfo();
+            this.closeMoreInfo();
         }
 
         let vmax: number = Math.min(window.innerWidth, window.innerHeight);

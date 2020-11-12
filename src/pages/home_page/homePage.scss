@@ -12,308 +12,239 @@ $marginSides: 3.5vmin;
     background-color: rgb(255, 255, 255);
     // background: linear-gradient(42deg, rgba(215,69,69,1) 0%, rgba(6,53,128,1) 53%, rgba(0,255,238,1) 100%);
 
-    // background-image: url('./images/Cat and skateboard.jpg');
     background-size: cover;
     background-position: center;
     background-blend-mode: exclusion;
 
     width: 100vw;
     height: 100vh;
-    margin-left: 0vw;
-    margin-right: 0vw;
-    margin-top: 0vh;
-    margin-bottom: 0vh;
+    margin-left: 0;
 
     color: $textColor;
 
-    // transform: scale(1);
     opacity: 1;
 
     pointer-events: none;
 
-    // transition: all .2s;
-    // transition-delay: none;
-    // transition: none;
-
-    // transition-property: transform, opacity;
-    // transition-duration: .4s;
-
-    // #home-circle
-    // {
-    //     width: 130vmin;
-    //     height: 130vmin;
-
-    //     right: -32.5vw;
-    //     top: -82.5vh;
-
-    //     filter: none;
-
-    //     transform: scale(0);
-    // }
-
-    // #home-circle:hover
-    // {
-    //     transform: scale(1);
-    // }
-
     #home-container
-    {
-        //
-    }
-
-    #home-box
-    {
-        perspective: 800px;
-        position: absolute;
-        width: 10vmin;
-        height: 10vmin;
-
-        left: 40vw;
-        top: 40vh;
-
-        transform: rotate3d(1, 1, 1, 70deg);
-
-        box-shadow: 0px 0px 1vmin;
-    }
-
-    #socials
-    {
-        // float: left;
-
-        position: absolute;
-        top: 92vmin;
-        left: $marginSides;
-
-        color: $textColor;
-
-        font-size: 1.7vmin;
-
-        a
+    {        
+        /* Top stuff */
+        #home-name
         {
-            text-decoration: none;
+            position: absolute;
+            font-weight: lighter;
+            font-size: 4vmin;
+
+            margin: 0;
+            padding: 0;
+
+            margin-left: $marginSides;
+            margin-top: $marginTop;
+
+            transition: all .4s;
+
+            pointer-events: auto;
         }
-    }
 
-    
-    #home-name
-    {
-        position: absolute;
-        font-weight: lighter;
-        font-size: 4vmin;
-
-        // width: auto;
-
-        margin: 0;
-        padding: 0;
-
-        margin-left: $marginSides;
-        margin-top: $marginTop;
-
-        transition: all .4s;
-
-        pointer-events: auto;
-    }
-
-    img
-    {
-        position: absolute;
-        opacity: 0;
-        transition: opacity .4s;
-
-        width: 20vmin;
-
-        left: $marginSides;
-        top: $marginTop;
-
-        user-select: none;
-
-        transform: scaleX(-1);
-
-    }
-    
-    #home-slogan {
-        position: absolute;
-        
-        font-weight: bolder;
-        font-size: 4vmin;
-        
-        margin: 0;
-        
-        margin-left: $marginSides;
-        margin-top: $marginTop + 5vmin;
-
-        transition: margin-top .4s;
-    }
-    
-    #home-button-view-projects, #home-button-view-about
-    {
-        float: right;
-
-        margin: 0;
-
-        margin-right: $marginSides;
-        margin-top: $marginTop;
-
-        color: $textColor;
-
-        font-size: 4vmin;
-
-        transition: all .4s;
-
-        pointer-events: auto;
-    }
-
-    #home-button-view-about
-    {
-        margin-top: 0;
-        clear: right;
-    }
-
-    #home-button-view-projects:hover ~ #home-button-down-arrow, #home-button-view-about:hover ~ #home-button-down-arrow, #home-name:hover ~ #home-button-down-arrow
-    {
-        top: 81vh;
-    }   
-
-    #home-button-view-projects:hover ~ #home-call-to-action, #home-button-view-about:hover ~ #home-call-to-action
-    {
-        opacity: 0;
-    }
-
-    #home-button-view-projects:hover ~ #home-call-to-action-projects
-    {
-        opacity: 1;
-    }
-
-    #home-button-view-about:hover ~ #home-call-to-action-about
-    {
-        opacity: 1;
-    }
-
-    #home-button-view-projects:hover, #home-button-view-about:hover
-    {
-        cursor: pointer;
-    }
-
-    #home-button-down-arrow, #home-call-to-action-projects, #home-call-to-action, #home-call-to-action-about
-    {
-        position: absolute;
-
-        height: 20vh;
-
-        text-align: center;
-        
-        width: 40%;
-        margin-left: -20%;
-        left: 50%;
-
-        font-size: 5vmin;
-        font-weight: lighter;
-
-        top: 83vh;
-
-        pointer-events: auto;
-
-        transition: all .4s;
-
-
-        // font-weight: bolder;
-    }
-
-    #home-button-down-arrow
-    {
-        animation: bounce .7s infinite alternate;
-        animation-fill-mode: forwards;
-    }
-
-    @keyframes bounce {
-        from {
-          transform: translateY(0px);
-        }
-        to {
-          transform: translateY(-2vmin);
-        }
-      }
-      @-webkit-keyframes bounce {
-        from {
-          transform: translateY(0px);
-        }
-        to {
-          transform: translateY(-2vmin);
-        }
-      }
-
-    #home-button-down-arrow:hover
-    {
-        cursor: pointer;
-        font-size: 4vmin;
-        font-weight: lighter;
-
-        top: 83vh;
-
-    }
-
-    #home-call-to-action-projects, #home-call-to-action-about
-    {
-        font-size: 3vmin;
-        font-weight: lighter;
-        opacity: 0;
-        pointer-events: none;
-
-        transition-duration: .5s;
-
-        top: 80vh;
-    }
-
-    #home-call-to-action
-    {
-        font-size: 2vmin;
-        top: 84vh;
-        font-weight: lighter;
-
-        opacity: 1;
-
-        pointer-events: none;
-
-        font-style: italic;
-    }
-
-    #home-button-down-arrow:hover ~ #home-call-to-action-projects
-    {
-        opacity: 1;
-    }
-
-    #home-button-down-arrow:hover ~ #home-call-to-action
-    {
-        font-size: 1vmin;
-        opacity: 0;
-    }
-    
-    @media (max-aspect-ratio: 2/3)
-    {
-        #home-name, #home-slogan
+        #home-name-hover-image
         {
-            font-size: 6vmin;
+            position: absolute;
+            opacity: 0;
+            transition: opacity .4s;
+
+            width: 20vmin;
+
+            left: $marginSides;
+            top: $marginTop;
+
+            user-select: none;
+
+            transform: scaleX(-1);
+
         }
-        #home-slogan
+        
+        #home-slogan {
+            position: absolute;
+            
+            font-weight: bolder;
+            font-size: 4vmin;
+            
+            margin: 0;
+            
+            margin-left: $marginSides;
+            margin-top: $marginTop + 5vmin;
+
+            transition: margin-top .4s;
+        }
+        
+        #home-viewProjects-button, #home-viewAbout-button
         {
-            margin-top: $marginTop + 8vmin;
+            float: right;
+
+            margin: 0;
+
+            margin-right: $marginSides;
+            margin-top: $marginTop;
+
+            color: $textColor;
+
+            font-size: 4vmin;
+
+            transition: all .4s;
+
+            pointer-events: auto;
         }
 
-        #home-button-view-projects, #home-button-view-about
+        #home-viewAbout-button
+        {
+            margin-top: 0;
+            clear: right;
+        }
+
+        @media (max-aspect-ratio: 2/3)
+        {
+            #home-name, #home-slogan
+            {
+                font-size: 6vmin;
+            }
+            #home-slogan
+            {
+                margin-top: $marginTop + 8vmin;
+            }
+
+            #home-viewProjects-button, #home-viewAbout-button
+            {
+                position: absolute;
+
+                font-size: 5vmin;
+
+                margin-top: 60vh;
+                float: left;
+
+                margin-left: $marginSides;
+            }
+
+            #home-viewAbout-button
+            {
+                margin-top: 60vh + 4vh;
+            }
+            
+        }
+
+        /* Interaction */
+
+        #home-viewProjects-button:hover ~ #home-scrollDown-button, #home-viewAbout-button:hover ~ #home-scrollDown-button, #home-name:hover ~ #home-scrollDown-button
+        {
+            top: 81vh;
+        }   
+
+        #home-viewProjects-button:hover ~ #home-scrollToViewProjects-indicator, #home-viewAbout-button:hover ~ #home-scrollToViewProjects-indicator
+        {
+            opacity: 0;
+        }
+
+        #home-viewProjects-button:hover ~ #home-projects-indicator, #home-viewAbout-button:hover ~#home-about-indicator
+        {
+            opacity: 1;
+        }
+
+        #home-viewProjects-button:hover, #home-viewAbout-button:hover
+        {
+            cursor: pointer;
+        }
+
+        /* Bottom stuff */
+        #home-scrollDown-button, #home-projects-indicator, #home-scrollToViewProjects-indicator, #home-about-indicator
         {
             position: absolute;
 
+            height: 20vh;
+
+            text-align: center;
+            
+            width: 40%;
+            margin-left: -20%;
+            left: 50%;
+
             font-size: 5vmin;
+            font-weight: lighter;
 
-            margin-top: 60vh;
-            float: left;
+            top: 83vh;
 
-            margin-left: $marginSides;
+            pointer-events: auto;
+
+            transition: all .4s;
         }
 
-        #home-button-view-about
+        #home-scrollDown-button
         {
-            margin-top: 60vh + 4vh;
+            animation: bounce .7s infinite alternate;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes bounce 
+        {
+            from {
+                transform: translateY(0px);
+            }
+            to {
+                transform: translateY(-2vmin);
+            }
+        }
+        @-webkit-keyframes bounce 
+        {
+            from {
+                transform: translateY(0px);
+            }
+            to {
+                transform: translateY(-2vmin);
+            }
+        }
+
+        #home-scrollDown-button:hover
+        {
+            cursor: pointer;
+            font-size: 4vmin;
+            font-weight: lighter;
+
+            top: 83vh;
+
+        }
+
+        #home-projects-indicator, #home-about-indicator
+        {
+            font-size: 3vmin;
+            font-weight: lighter;
+            opacity: 0;
+            pointer-events: none;
+
+            transition-duration: .5s;
+
+            top: 80vh;
+        }
+
+        #home-scrollToViewProjects-indicator
+        {
+            font-size: 2vmin;
+            top: 84vh;
+            font-weight: lighter;
+
+            opacity: 1;
+
+            pointer-events: none;
+
+            font-style: italic;
+        }
+
+        #home-scrollDown-button:hover ~ #home-projects-indicator
+        {
+            opacity: 1;
+        }
+
+        #home-scrollDown-button:hover ~ #home-scrollToViewProjects-indicator
+        {
+            font-size: 1vmin;
+            opacity: 0;
         }
         
     }
@@ -328,7 +259,6 @@ $marginSides: 3.5vmin;
     margin-right: 2.5vw;
     margin-top: 2.5vh;
     margin-bottom: 2.5vh;
-    // background: yellow;
 }
 
 

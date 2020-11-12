@@ -96,9 +96,9 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
         return images.splice(3);
     }
 
-    hideOrShow(): void
+    hashChanged(): void
     {
-        if (Constants.CURRENT_PROJECT !== '')
+        if (Constants.CURRENT_PROJECT !== '' && this.props.getProjectByID(Constants.CURRENT_PROJECT).isFullProject == true)
         {
             this.setState({
                 project: this.props.getProjectByID(Constants.CURRENT_PROJECT),
@@ -117,13 +117,13 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
 
     componentDidMount() 
     {
-        window.addEventListener('hashchange', this.hideOrShow.bind(this));
-        window.setTimeout(() => this.hideOrShow(), 1000);
+        window.addEventListener('hashchange', this.hashChanged.bind(this));
+        window.setTimeout(() => this.hashChanged(), 1000);
     }
 
     componentWillUnmount()
     {
-        window.removeEventListener('hashchange', this.hideOrShow.bind(this));
+        window.removeEventListener('hashchange', this.hashChanged.bind(this));
     }
 
     animateOut(): void

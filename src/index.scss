@@ -24,25 +24,6 @@ html, body {
   
   -webkit-overflow-scrolling: touch;
 
-  img
-  {
-    // background-color: lightgray;
-  }
-
-  #home-circle
-  {
-      width: 130vmin;
-      height: 130vmin;
-      border-radius: 50%;
-
-      background-color: rgba(228, 42, 9, 0.486);
-
-      position: fixed;
-      right: -30vw;
-      top: -80vh;
-
-      filter: blur(5px);
-  }
 }
 
 .resize-animation-stopper * {
