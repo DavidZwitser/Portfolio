@@ -5,7 +5,7 @@ export default class HashHandler
 {
     constructor()
     {
-        // this.hashChanged();
+        this.hashChanged();
     }
 
     public pageTransitioned: () => void;

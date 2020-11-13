@@ -5,6 +5,7 @@ import {ListPreviewBig} from './ListPreviewBig';
 import * as React from 'react';
 import { ListPreviewSmall } from "./ListPreviewSmall";
 import { tools, themes, pages } from "../../data_handling/Enums";
+import Constants from "../../data_handling/Constants";
 
 /* Filter tag element */
 interface FilterTagProps { name: string; color: string; clickedCallback: (name: string) => void }
@@ -41,6 +42,7 @@ interface ListViewerStates
 export class ListViewerReact extends React.Component<ListViewerProps, ListViewerStates>
 {
     private selectedTag: string = 'idk';
+    private rendered = false;
 
     constructor(props: any)
     {
@@ -55,7 +57,6 @@ export class ListViewerReact extends React.Component<ListViewerProps, ListViewer
         for (let i = 0; i < this.props[type].length; i++)
         {
             let tag: tools | themes = this.props[type][i];
-            console.log(this.selectedTag);
             tags.push(
 
                 <FilterTag 
@@ -132,9 +133,33 @@ export class ListViewerReact extends React.Component<ListViewerProps, ListViewer
 
         return previews;
     }
+
+    hashChanged(): void
+    {
+        if (Constants.CURRENT_PAGE !== pages.list) { return; }
+        if (this.rendered == true) { return; }
+
+        this.rendered = true;
+        window.removeEventListener('hashchange', this.hashChanged.bind(this));
+
+        this.forceUpdate();
+    }
+
+    componentDidMount() 
+    {
+        window.addEventListener('hashchange', this.hashChanged.bind(this));
+    }
+
+    componentWillUnmount()
+    {
+        window.removeEventListener('hashchange', this.hashChanged.bind(this));
+    }
             
     render(): JSX.Element
     {
+        this.hashChanged();
+        if (this.rendered == false) { return <div></div>}
+
         return (
             <div id = 'listViewer'>
 

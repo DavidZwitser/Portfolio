@@ -1,6 +1,8 @@
 import Project, { ProjectSources } from "../../projects_management/ProjectTemplate";
 
 import * as React from 'react';
+import Constants from "../../data_handling/Constants";
+import { pages } from "../../data_handling/Enums";
 
 interface BarOnCircleProps
 {
@@ -21,6 +23,7 @@ interface BarOnCircleState
 
 class BarOnCircle extends React.Component<BarOnCircleProps, BarOnCircleState>
 {
+
 
     constructor(props: BarOnCircleProps)
     {
@@ -87,6 +90,7 @@ interface CircleViewerStates
 export default class ListViewerReact extends React.Component<CircleViewerProps, CircleViewerStates>
 {
     barsOnCircle: JSX.Element[] = [];
+    private rendered: boolean = false;
 
     constructor(props: any)
     {
@@ -142,9 +146,33 @@ export default class ListViewerReact extends React.Component<CircleViewerProps, 
 
         return this.barsOnCircle;
     }
-           
+
+    hashChanged(): void
+    {
+        if (Constants.CURRENT_PAGE !== pages.circle) { return; }
+        if (this.rendered == true) { return; }
+
+        this.rendered = true;
+        window.removeEventListener('hashchange', this.hashChanged.bind(this));
+
+        this.forceUpdate();
+    }
+
+    componentDidMount() 
+    {
+        window.addEventListener('hashchange', this.hashChanged.bind(this));
+    }
+
+    componentWillUnmount()
+    {
+        window.removeEventListener('hashchange', this.hashChanged.bind(this));
+    }
+            
     render(): JSX.Element
     {
+        this.hashChanged();
+        if (this.rendered == false) { return <div id = 'circle-container'><p id = 'circle-unloaded-indicator'>CIRCLE VIEWER</p></div>}
+
         return (
             <div id = "circle-container" style = {{borderColor: this.state.activeProject.backgroundColor}}>
                 {this.getBarsOnCircle()}

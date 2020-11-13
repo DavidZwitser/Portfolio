@@ -26,18 +26,18 @@ export default class GridPopup extends React.Component<GridPopupProps, GridPopup
 
     hashChanged(): void
     {
-        if (Constants.CURRENT_PROJECT !== '' && this.props.getProjectByID(Constants.CURRENT_PROJECT).isFullProject == false)
-        {
-            let project: Project = this.props.getProjectByID(Constants.CURRENT_PROJECT);
+        let project: Project = this.props.getProjectByID(Constants.CURRENT_PROJECT);
 
+        if (project == undefined || project.isFullProject == true)
+        {
             this.setState({
-                project: project
+                project: null
             });
         }
         else
         {
             this.setState({
-                project: null
+                project: project
             });
         }
     }

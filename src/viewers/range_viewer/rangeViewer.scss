@@ -29,6 +29,27 @@
 
     #range-viewer
     {
+
+        #range-unloaded-indicator
+        {
+            position: absolute;
+
+            font-size: 10vmin;
+            text-align: center;
+
+            color: $text-color;
+            font-weight: bolder;
+
+            left: 50vw;
+            top: 50vh;
+
+            width: 30vw;
+            height: 20vh;
+
+            margin-left: -15vw;
+            margin-top: -10vh;
+        }
+
         #range-sortBy-dropdown
         {
             position: absolute;

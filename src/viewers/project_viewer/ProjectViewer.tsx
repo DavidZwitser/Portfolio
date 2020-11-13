@@ -190,6 +190,7 @@ export default class ProjectViewer extends React.Component<ProjectViewerProps, P
     render()
     {
         if (this.state.project == null) { return <div/>; }
+        if (this.state.project.isFullProject == false) { return <div></div>; }
 
         this.state.hidden == true ? this.animateOut() : this.animateIn();
 

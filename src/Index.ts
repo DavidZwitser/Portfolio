@@ -6,9 +6,7 @@ import HashHandler from './data_handling/HashHandler';
 
 import HomePage from './pages/home_page/HomePage'
 
-import Project from './projects_management/ProjectTemplate';
-
-import GridViewer from './viewers/grid_viewer/GridViewer';
+import GridViewer, { GridViewerProps } from './viewers/grid_viewer/GridViewer';
 import GridPopup, { GridPopupProps } from './viewers/grid_viewer/GridPopup';
 
 import CircleViewer from './viewers/circle_viewer/CircleViewer'
@@ -61,7 +59,6 @@ class Main
          */
         window.addEventListener('hashchange', () => this.hashHandler.hashChanged() );
         window.addEventListener('load', () => this.hashHandler.hashChanged() );
-        window.addEventListener('resize', this.resized.bind(this));
         window.addEventListener("load", () => this.loadingScreen.endLoadingScreen() );
 
         let resizeTimer: NodeJS.Timeout;
@@ -158,22 +155,16 @@ class Main
             document.getElementById('grid-popup')
         );
 
-        /**
-         * Grid viewer
-         */
-        this.gridViewer = new GridViewer(<HTMLDivElement>document.getElementById('grid'), this.projectsFetcher.getProjects());
-        
-        /* Assigning mouse events */        
-        this.input.draggingCallback.push(() => {
-            if (Constants.CURRENT_PAGE !== pages.grid) { return; }
-            this.gridViewer.moveGrid(this.input.velocityX, this.input.velocityY, true);
-        });
-        this.input.mouseUpCallback.push(() => {
-            if (Constants.CURRENT_PAGE !== pages.grid) { return; }
-            this.gridViewer.letGoOfGrid(this.input.velocityX, this.input.velocityY);
-        });
-        
-        
+        /* Grid viewer */
+        ReactDOM.render(
+            React.createElement(GridViewer, <GridViewerProps>{
+                projects: this.projectsFetcher.getProjects(),
+                draggingCallback: this.input.draggingCallback,
+                mouseUpCallback: this.input.mouseUpCallback
+            }),
+            document.getElementById('grid')
+        );
+
         /* Project viewer  */            
         ReactDOM.render(
             React.createElement(ProjectViewer, <ProjectViewerProps>{
@@ -191,6 +182,7 @@ class Main
 
         let callToActionRef: HTMLElement = document.getElementById('home-scrollToViewProjects-indicator');
 
+        /* Home to list overload scroll */
         let homeScrollOverload: ScrollOverload = new ScrollOverload('home', (() => Constants.CURRENT_PAGE !== pages.home || Constants.CURRENT_PROJECT !== ''), 90, () => {
             window.location.hash = 'list'
         }, .5, (ell: HTMLElement, scrolledValue: number) => {
@@ -201,22 +193,23 @@ class Main
             callToActionRef.style.marginTop = scrolledValue * .3 + 'vh';
         });
 
-        let listViewerRef = document.getElementById('listViewer');
-        let listScrollOverload: ScrollOverload = new ScrollOverload('list', (() => {
+        // let listScrollOverload: ScrollOverload = new ScrollOverload('list', (() => {
+            
+        //     let listViewerRef = document.getElementById('listViewer');
+        //     return Constants.CURRENT_PAGE !== pages.list || listViewerRef.scrollTop !== 0 || Constants.CURRENT_PROJECT !== ''
 
-            return Constants.CURRENT_PAGE !== pages.list || listViewerRef.scrollTop !== 0 || Constants.CURRENT_PROJECT !== ''
+        // }), -90, () => {
 
-        }), -90, () => {
+        //     window.location.hash = 'home'
 
-            window.location.hash = 'home'
+        // }, .3, (ell: HTMLElement, scrolledValue: number) => {
 
-        }, .3, (ell: HTMLElement, scrolledValue: number) => {
+        //     ell.style.top = scrolledValue * 1 + 'vh';
+        //     ell.style.transform = 'scale(' + (1 - scrolledValue * .005) + ')';
 
-            ell.style.top = scrolledValue * 1 + 'vh';
-            ell.style.transform = 'scale(' + (1 - scrolledValue * .005) + ')';
+        // });
 
-        });
-
+        /* ProjectViewer close overload scroll */
         let projectViewerScrollOverload: ScrollOverload = new ScrollOverload('project-viewer', ((ell: HTMLElement) => {return Constants.CURRENT_PROJECT == '' || ell.scrollTop !== 0}), -90, () => window.location.hash = Constants.CURRENT_PAGE, .7, (ell: HTMLElement, scrolledValue: number) => {
             
             let container: HTMLElement = document.getElementById('project-viewer-container');
@@ -227,7 +220,7 @@ class Main
         {
             this.input.draggingCallback.push((velX: number, velY: number) => {
                 homeScrollOverload.scrollEvent(velX, velY);
-                listScrollOverload.scrollEvent(velX, velY);
+                // listScrollOverload.scrollEvent(velX, velY);
                 projectViewerScrollOverload.scrollEvent(velX, velY);
             });
         }
@@ -235,7 +228,7 @@ class Main
         {
             this.input.scrollCallback.push((velX: number, velY: number) => {
                 homeScrollOverload.scrollEvent(velX, velY);
-                listScrollOverload.scrollEvent(velX, velY);
+                // listScrollOverload.scrollEvent(velX, velY);
                 projectViewerScrollOverload.scrollEvent(velX, velY);
             });
         }
@@ -243,12 +236,6 @@ class Main
         /**
          * End main
          */
-    }
-
-    /* Window got resized */
-    private resized(): void
-    {
-        this.gridViewer.moveGrid(0, 0, true);
     }
 }
 

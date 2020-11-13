@@ -24,6 +24,7 @@ export class RangeViewer extends React.Component<IRangeViewerProps, IRangeViewer
 {
     private previewRenderArray: Project[];
     private windowReferenceSize: number;
+    private rendered: boolean = false;
 
     constructor(props: IRangeViewerProps)
     {
@@ -226,20 +227,36 @@ export class RangeViewer extends React.Component<IRangeViewerProps, IRangeViewer
         }
     }
 
+    hashChanged(): void
+    {
+        if (Constants.CURRENT_PAGE !== pages.range) { return; }
+        if (this.rendered == true) { return; }
+
+        this.rendered = true;
+        window.removeEventListener('hashchange', this.hashChanged.bind(this));
+
+        this.forceUpdate();
+    }
+
     componentDidMount()
     {
         window.addEventListener('wheel', this.scroll.bind(this));
         window.addEventListener('resize', this.resize.bind(this));
+        window.addEventListener('hashchange', this.hashChanged.bind(this));
     }
 
     componentWillUnmount()
     {
         window.removeEventListener('wheel', this.scroll);
         window.removeEventListener('resize', this.resize.bind(this));
+        window.removeEventListener('hashchange', this.hashChanged.bind(this));
     }
-
-    render()
+            
+    render(): JSX.Element
     {
+        this.hashChanged();
+        if (this.rendered == false) { return <div id = 'range-viewer'><p id = 'range-unloaded-indicator'>RANGE VIEWER</p></div>}
+
         return (<div id = 'range-viewer'>
 
             <select id = 'range-sortBy-dropdown' onChange = {this.orderChanged.bind(this) }>
