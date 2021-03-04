@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: './src/index.tsx',
     module: {
         rules: [
             {
@@ -12,7 +12,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.scss$/,
+                test: /\.(sass|scss)$/,
                 use: [
                     "style-loader",
                     "css-loader",

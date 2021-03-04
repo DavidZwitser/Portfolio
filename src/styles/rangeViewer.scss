@@ -1,0 +1,150 @@
+#range
+{
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: scroll;
+
+    background-color: white;
+
+    #work-in-progress-text
+    {
+        font-family: monospace;
+
+        position: absolute;
+
+        font-size: 5vmin;
+        text-align: center;
+
+        width: 60vw;
+        left: 50vw;
+        margin-left: -30vw;
+
+        height: 5vh;
+        top: 50vh;
+        margin-top: -2.5vh;
+        
+    }
+
+    #range-viewer
+    {
+
+        #range-unloaded-indicator
+        {
+            position: absolute;
+
+            font-size: 10vmin;
+            text-align: center;
+
+            color: $text-color;
+            font-weight: bolder;
+
+            left: 50vw;
+            top: 50vh;
+
+            width: 30vw;
+            height: 20vh;
+
+            margin-left: -15vw;
+            margin-top: -10vh;
+        }
+
+        #range-sortBy-dropdown
+        {
+            position: absolute;
+
+            color: rgb(19, 112, 189);
+
+            width: 20vw;
+            height: 3vw;
+
+            left: 50vw;
+            top: 20vh;
+
+            margin-left: -10vw;
+            margin-top: -5vw;
+
+            option
+            {
+                color: rgb(19, 112, 189);
+            }
+        }
+
+        #range-range
+        {
+            position: absolute;
+            top: 80vh;
+
+            .range-preview
+            {
+                position: absolute;
+
+                border-style: solid;
+                border-color: rgb(19, 112, 189);
+                background-color: rgb(19, 112, 189);
+    
+                border-radius: 5%;
+    
+                #range-preview-thumbnail
+                {
+                    width: 100%;
+                    height: 80%;
+    
+                    object-fit: cover;
+                }
+    
+                #range-preview-title
+                {
+                    color: white;
+    
+                    font-weight: lighter;
+    
+                    margin-top: 0;
+                }
+    
+                #range-preview-positionLine
+                {
+                    position: absolute;
+    
+                    width: 2px;
+                    height: 10vh;
+    
+                    background-color: rgb(19, 112, 189);
+                }
+            }
+
+
+            #range-baseline
+            {
+                background-color: rgb(19, 112, 189);
+                
+                height: 2px;
+
+                .range-separatorStripes
+                {
+                    float: left;
+
+                    position: absolute;
+
+                    width: 2px;
+                    
+                    background-color: rgb(19, 112, 189);
+
+                    .range-separatorStripes-values
+                    {   
+                        color: rgb(19, 112, 189);
+
+                        margin-top: 0;
+                        margin-left: .5vw;
+
+                        font-weight: lighter;
+
+                        user-select: none;
+                    }
+                }
+            }
+
+        }
+    }
+}

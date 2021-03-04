@@ -1,0 +1,102 @@
+$defaultColor: rgb(19, 112, 189);
+
+#navigation-bar {
+    width: 100%;
+    /* Keep away, this is dependent on some anime code */
+  
+    transition-duration: .5s;
+    transition-property: opacity, bottom;
+
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    opacity: .9;
+
+    text-align: center;
+    user-select: none;
+
+    height: 7vh;
+
+    // text-overflow: wrap;
+
+    box-shadow: black 0 0 20px;
+
+    z-index: 2;
+
+    #viewer-type-buttons
+    {
+      font-size: 2vh;
+      transition: transform .4s;
+
+      
+      // height: 2vh;
+      
+      a
+      {
+        display: inline-flex;
+        color: $defaultColor;
+        text-decoration: none;
+        
+        margin-top: .0vh;
+        
+        padding-left: 3vw;
+        padding-right: 3vw;
+        
+        
+        p {
+          // height: 1vh;
+          transition: font-size .3s;
+
+          margin: 0;
+          padding: 0;
+        }
+
+        p:hover
+        {
+          font-size: 1.9vmin;
+        }
+      }
+
+    }
+  
+    #navigation-bar-back-button {
+      font-size: 4vh;
+
+      transition: transform .5s;
+
+      a
+      {
+        text-decoration: none;
+
+        color: $defaultColor;
+        
+        p
+        {
+          height: 3vh;
+  
+          margin: 0;
+          padding: 0;
+
+          margin-top: -.0vh;
+        }
+        p:hover
+        {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  #navigation-bar-back-button:hover
+  {
+    transform: scale(1.2);
+  }
+
+  #navigation-bar-back-button:hover ~ #viewer-type-buttons 
+  {
+    transform: scale(.95);
+  }
+
+  // #navigation-bar:hover
+  // {
+  //   background-color: rgb(19, 112, 189);
+  // }

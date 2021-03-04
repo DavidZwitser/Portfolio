@@ -1,0 +1,266 @@
+$buttonsWidth: 15vmin;
+$buttonsDistanceMultiplier: 2;
+
+$textColor: rgb(23, 125, 209);
+// $textColor: rgb(0, 0, 0);
+// $textColor: rgb(255, 255, 255);
+
+$marginTop: 5vmin;
+$marginSides: 3.5vmin;
+
+#home-container
+{        
+    background-color: rgb(255, 255, 255);
+    // background: linear-gradient(42deg, rgba(215,69,69,1) 0%, rgba(6,53,128,1) 53%, rgba(0,255,238,1) 100%);
+
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: exclusion;
+
+    width: 100vw;
+    height: 100vh;
+    margin-left: 0;
+
+    color: $textColor;
+
+    opacity: 1;
+
+    pointer-events: none;
+
+    transition-duration: .5s;
+
+    /* Top stuff */
+    #home-name
+    {
+        position: absolute;
+        font-weight: lighter;
+        font-size: 4vmin;
+
+        margin: 0;
+        padding: 0;
+
+        margin-left: $marginSides;
+        margin-top: $marginTop;
+
+        transition: all .4s;
+
+        pointer-events: auto;
+    }
+
+    #home-name-hover-image
+    {
+        position: absolute;
+        opacity: 0;
+        transition: opacity .4s;
+
+        width: 20vmin;
+
+        left: $marginSides;
+        top: $marginTop;
+
+        user-select: none;
+
+        transform: scaleX(-1);
+
+    }
+    
+    #home-slogan {
+        position: absolute;
+        
+        font-weight: bolder;
+        font-size: 4vmin;
+        
+        margin: 0;
+        
+        margin-left: $marginSides;
+        margin-top: $marginTop + 5vmin;
+
+        transition: margin-top .4s;
+    }
+    
+    #home-viewProjects-button, #home-viewAbout-button
+    {
+        float: right;
+
+        margin: 0;
+
+        margin-right: $marginSides;
+        margin-top: $marginTop;
+
+        color: $textColor;
+
+        font-size: 4vmin;
+
+        transition: all .4s;
+
+        pointer-events: auto;
+    }
+
+    #home-viewAbout-button
+    {
+        margin-top: 0;
+        clear: right;
+    }
+
+    @media (max-aspect-ratio: 2/3)
+    {
+        #home-name, #home-slogan
+        {
+            font-size: 6vmin;
+        }
+        #home-slogan
+        {
+            margin-top: $marginTop + 8vmin;
+        }
+
+        #home-viewProjects-button, #home-viewAbout-button
+        {
+            position: absolute;
+
+            font-size: 5vmin;
+
+            margin-top: 60vh;
+            float: left;
+
+            margin-left: $marginSides;
+        }
+
+        #home-viewAbout-button
+        {
+            margin-top: 60vh + 4vh;
+        }
+        
+    }
+
+    /* Interaction */
+
+    #home-viewProjects-button:hover ~ #home-scrollDown-button, #home-viewAbout-button:hover ~ #home-scrollDown-button, #home-name:hover ~ #home-scrollDown-button
+    {
+        top: 81vh;
+    }   
+
+    #home-viewProjects-button:hover ~ #home-scrollToViewProjects-indicator, #home-viewAbout-button:hover ~ #home-scrollToViewProjects-indicator
+    {
+        opacity: 0;
+    }
+
+    #home-viewProjects-button:hover ~ #home-projects-indicator, #home-viewAbout-button:hover ~#home-about-indicator
+    {
+        opacity: 1;
+    }
+
+    #home-viewProjects-button:hover, #home-viewAbout-button:hover
+    {
+        cursor: pointer;
+    }
+
+    /* Bottom stuff */
+    #home-scrollDown-button, #home-projects-indicator, #home-scrollToViewProjects-indicator, #home-about-indicator
+    {
+        position: absolute;
+
+        height: 20vh;
+
+        text-align: center;
+        
+        width: 40%;
+        margin-left: -20%;
+        left: 50%;
+
+        font-size: 5vmin;
+        font-weight: lighter;
+
+        top: 83vh;
+
+        pointer-events: auto;
+
+        transition: all .4s;
+    }
+
+    #home-scrollDown-button
+    {
+        animation: bounce .7s infinite alternate;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes bounce 
+    {
+        from {
+            transform: translateY(0px);
+        }
+        to {
+            transform: translateY(-2vmin);
+        }
+    }
+    @-webkit-keyframes bounce 
+    {
+        from {
+            transform: translateY(0px);
+        }
+        to {
+            transform: translateY(-2vmin);
+        }
+    }
+
+    #home-scrollDown-button:hover
+    {
+        cursor: pointer;
+        font-size: 4vmin;
+        font-weight: lighter;
+
+        top: 83vh;
+
+    }
+
+    #home-projects-indicator, #home-about-indicator
+    {
+        font-size: 3vmin;
+        font-weight: lighter;
+        opacity: 0;
+        pointer-events: none;
+
+        transition-duration: .5s;
+
+        top: 80vh;
+    }
+
+    #home-scrollToViewProjects-indicator
+    {
+        font-size: 2vmin;
+        top: 84vh;
+        font-weight: lighter;
+
+        opacity: 1;
+
+        pointer-events: none;
+
+        font-style: italic;
+    }
+
+    #home-scrollDown-button:hover ~ #home-projects-indicator
+    {
+        opacity: 1;
+    }
+
+    #home-scrollDown-button:hover ~ #home-scrollToViewProjects-indicator
+    {
+        font-size: 1vmin;
+        opacity: 0;
+    }
+    
+}
+   
+#home:hover
+{
+    width: 95vw;
+    height: 95vh;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    margin-top: 2.5vh;
+    margin-bottom: 2.5vh;
+}
+
+
+#home:target {
+    top: 0%;
+}
