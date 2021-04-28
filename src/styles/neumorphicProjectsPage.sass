@@ -1,0 +1,138 @@
+#projects
+    width: 100vw
+    height: 100vh
+
+    // margin-left: 10vw
+    // margin-top: 10vmin
+
+    .project_ranking_viewer
+        margin-left: 3vw
+        margin-top: 4vh
+
+        border-radius: 7vmin
+
+        width: auto
+        height: auto
+
+        $rankingViewerHeight: 30vmin
+        height: $rankingViewerHeight
+
+        padding: 2vmin
+        padding-left: 7vmin
+        padding-right: 7vmin
+
+        overflow-x: scroll
+        -ms-overflow-style: -ms-autohiding-scrollbar
+
+        display: flex
+        flex-direction: row
+        overflow-wrap: break-word
+
+        .project_ranking_viewer__project_bar
+
+            width: 5vw
+            height: $rankingViewerHeight * .8
+
+            border-radius: 1vmin
+
+            display: flex
+            margin: 0 auto
+            align-self: flex-end
+
+            &__image_container
+
+                width: 100%
+                height: 100%
+
+                border-radius: inherit
+
+                align-self: center
+                margin: 0 auto
+
+                display: flex
+
+                &__image
+                    display: flex
+                    
+                    width: 90%
+                    height: 99%
+
+                    object-fit: cover
+                    border-radius: inherit
+
+                    align-self: center
+                    margin: 0 auto
+
+        .project_ranking_viewer__project_bar__value_number
+            display: flex
+            text-align: center
+            font-weight: bolder
+
+            color: white
+
+            content-self: flex-end
+            margin: 0 auto
+
+            position: absolute
+
+            mix-blend-mode: color
+
+
+
+
+    .category_container
+        border-radius: 4vmin
+        width: 40vh
+        height: 40vh
+
+        margin-left: 5vmin
+        margin-top: 5vmin
+
+        padding: 2vmin
+
+        display: flex
+        flex-wrap: wrap
+
+        // overflow: hidden
+        overflow: scroll
+        // overflow-x: hidden
+
+        scrollbar-width: none
+        -ms-overflow-style: none
+
+        .container::-webkit-scrollbar
+            display: none
+
+
+        &__project
+
+            object-fit: cover
+            border-radius: 50%
+            display: flex
+
+            align-self: center
+            margin: 0 auto
+
+            margin-top: .5vmin
+
+            transition: transform .01s
+            
+            width: 3.5vmin
+            height: 3.5vmin
+
+            img
+                width: 90%
+                height: 90%
+
+                align-self: center
+                margin: 0 auto
+
+            &__icon
+                border-radius: inherit
+                filter: contrast(80%)
+
+
+        &__big_and_small_project_divider
+            width: 100%
+            padding-top: 2vmin
+

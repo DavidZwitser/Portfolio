@@ -1,0 +1,72 @@
+$color__neumorphic--base: #efeeee;
+$color__neumorphic--highlight: rgba(225, 225, 225, .5);
+$color__neumorphic--shadow: rgba(157, 157, 157, 0.5);
+
+// $color__neumorphic--base: #1d1d1d;
+// $color__neumorphic--highlight: rgba(0, 0, 0, 0.85);
+// $color__neumorphic--shadow: rgba(39, 39, 39, 0.5);
+
+.neumorphic--out--2
+{
+    background: $color__neumorphic--base;
+    box-shadow: 
+        -1px -1px 2px $color__neumorphic--highlight, 
+        2px 2px 2px $color__neumorphic--shadow;
+}
+    
+.neumorphic--out--4
+{
+    background: $color__neumorphic--base;
+    box-shadow: 
+        -3px -3px 4px $color__neumorphic--highlight, 
+        4px 4px 4px $color__neumorphic--shadow;
+}
+
+.neumorphic_text--out--4
+{
+    color: $color__neumorphic--base;
+    text-shadow: 
+        -3px -3px 4px $color__neumorphic--highlight, 
+        4px 4px 4px $color__neumorphic--shadow;
+}
+
+.neumorphic--in--2
+{
+    background: $color__neumorphic--base;
+    box-shadow: 
+        inset -1px -1px 2px $color__neumorphic--highlight, 
+        inset 2px 2px 2px $color__neumorphic--shadow;
+}
+
+.neumorphic--in--4
+{
+    background: $color__neumorphic--base;
+    box-shadow: 
+        inset -3px -3px 4px $color__neumorphic--highlight, 
+        inset 4px 4px 4px $color__neumorphic--shadow;
+}
+
+.neumorphic_text--in--4
+{
+    color: $color__neumorphic--base;
+    text-shadow:
+        4px 4px 4px $color__neumorphic--highlight, 
+        -3px -3px 4px $color__neumorphic--shadow;
+}
+
+
+.neumorphic--out--6
+{
+    background: $color__neumorphic--base;
+    box-shadow: 
+        -4px -4px 6px $color__neumorphic--highlight,
+        6px 6px 8px $color__neumorphic--shadow;
+}
+
+.neumorphic--in--6
+{
+    background: $color__neumorphic--base;
+    box-shadow: 
+        inset -4px -4px 6px $color__neumorphic--highlight, 
+        inset 6px 6px 8px $color__neumorphic--shadow;
+}

@@ -2,8 +2,9 @@ $animation-speed: .7s
 
 @import './styles/common/__colors'
 @import './styles/common/__fonts'
+@import './styles/common/__globalVars'
 
-@import './styles/homePage.scss'
+// @import './styles/homePage.scss'
 @import './styles/aboutPage.scss'
 
 @import './styles/listViewer.scss'
@@ -12,6 +13,10 @@ $animation-speed: .7s
 
 @import './styles/navigationBar.scss'
 
+/* New designs */
+@import './styles/common/__neumorphic.scss'
+@import './styles/neumprhicHomepage'
+@import './styles/neumorphicProjectsPage'
 
 html, body
   margin: 0
@@ -20,13 +25,13 @@ html, body
 
   position: static
 
-  background-color: rgb(69, 136, 180)
 
-  background: rgb(47,167,209)
-  background: linear-gradient(207deg, rgba(47,167,209,1) 0%, rgba(140,200,169,0.987941066066066) 47%, rgba(29,101,87,1) 100%)
-  background-image: url('./_media/images/PF.jpg')
-  background-size: cover
+  // background: rgb(47,167,209)
+  // background: linear-gradient(207deg, rgba(47,167,209,1) 0%, rgba(140,200,169,0.987941066066066) 47%, rgba(29,101,87,1) 100%)
+  // background-image: url('./_media/images/PF.jpg')
+  // background-size: cover
 
+  background-color: $color__neumorphic--base
   height: 100%
 
   font-family: 'Open Sans'

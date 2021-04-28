@@ -17,6 +17,8 @@ import ProjectViewer from './viewers/ProjectViewer';
 import ProjectFetcher from '../logic/data_handling/ProjectFetcher';
 import HashHandler from '../logic/data_handling/HashHandler';
 import NavigationBar from './NavigationBar';
+import { NeumorphicHomePage } from './pages/NeumorphicHomePage';
+import { NeumorphicProjectsPage } from './pages/NeumorphicProjectsPage';
 
 const App: React.FC = () => {
 
@@ -29,12 +31,13 @@ const App: React.FC = () => {
     return(
         <div className = 'app_container'>
             
-            <HomePage />
-            <AboutPage />
+            {/* <HomePage /> */}
+            <NeumorphicHomePage />
+            {/* <AboutPage /> */}
 
-            <NavigationBar />
+            {/* <NavigationBar /> */}
 
-            <ListViewer 
+            {/* <ListViewer 
                 tags = {{
                     tools: [ tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser ],
                     themes: [ themes.adventure, themes.generative, themes.philosophy ]
@@ -42,13 +45,14 @@ const App: React.FC = () => {
                 
                 initialProjects = {projectFetcher.getProjects()}
                 getFilteredProjects = {(tags: string[]) => projectFetcher.getProjectsWithTags(tags)}
-            />
+            /> */}
             {/* <RangeViewer />
             <CircleViewer />
             <GridPopup /> */}
 
 
-            <ProjectViewer getProjectByID = {(id: string) => projectFetcher.getProjectByID(id)} />
+            {/* <ProjectViewer getProjectByID = {(id: string) => projectFetcher.getProjectByID(id)} /> */}
+            <NeumorphicProjectsPage allProjects = {projectFetcher.getProjects()} getProjectByID = {(id: string) => projectFetcher.getProjectByID(id)} />
 
         </div>
     )

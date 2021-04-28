@@ -1,0 +1,74 @@
+#home
+    // background-color: white
+    display: flex
+    flex-direction: column
+
+    height: 100vh
+
+    user-select: none
+
+    transition-duration: .5s
+
+    &__title
+        position: absolute
+        top: 15vmin
+
+        align-self: center
+        margin: 0 auto
+
+        color: #444444
+
+        font-size: 8vmin
+
+        transition: transform 1s
+
+    &__subtitle
+        position: absolute
+        top: 26vmin
+
+        align-self: center
+        margin: 0 auto
+
+        font-size: 3vmin
+
+    &__cutout_left, &__cutout_right
+        position: absolute
+
+        align-self: center
+        margin: 0 auto
+
+        margin-top: -15vw
+        margin-left: 150vmin
+
+        width: 300vmin
+        height: 300vmin
+
+        border-radius: 50%
+
+        transition-timing-function: ease-out
+        transition: margin-left 1s
+
+    &__cutout_right
+
+        width: 120vmin
+        height: 120vmin
+
+        transition: width 1s, height 1s
+
+    &__view_projects_button
+        position: absolute
+        bottom: 5vmin
+
+        align-self: center
+        margin: 0 auto
+
+        font-family: 'Helvetica', sans-serif
+        font-size: 1.2vmin
+        text-align: center
+        line-height: 1.2vmin
+
+        color: rgb(182, 182, 182)
+
+    &__view_projects_button:hover
+        cursor: pointer
+

@@ -42,6 +42,8 @@ export default class ProjectFetcher
                 footage += ('require.resolve("../../_media/images/' + this.projects[i ].footage[x] + '"); \n');
             }
         }
+
+        console.log(footage);
     }
 
     private loadBigProjects()
