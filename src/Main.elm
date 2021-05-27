@@ -1,24 +1,35 @@
 module Main exposing (..)
 
 import Animator exposing (..)
-import Animator.Css exposing (..)
 import Animator.Inline exposing (..)
 import Browser
-import Browser.Dom exposing (Viewport, getViewport)
-import Browser.Events exposing (onResize)
+import Browser.Dom exposing (Error, Viewport, getViewport)
+import Browser.Events exposing (onAnimationFrame, onMouseMove, onResize)
 import Browser.Navigation exposing (Key)
 import Debug exposing (..)
+import Dict
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events exposing (onClick)
-import Element.Font exposing (Font)
+import Element.Font exposing (Font, justify)
 import Element.Input
-import Element.Region as Input
-import Html exposing (button, label)
-import Html.Attributes exposing (..)
+import HomePage exposing (homePage)
+import Html exposing (a, button, label)
+import Html.Attributes exposing (autoplay, src, style)
+import List exposing (maximum)
+import List.Extra exposing (..)
+import Point2d exposing (Point2d)
+import Project exposing (..)
+import ProjectViewerPage3D exposing (projectViewer)
+import Projects.CONFINED_SPACE
+import Projects.Empty
+import Projects.LifeLike
+import Projects.MovingUp
+import ProjectsViewerPage exposing (projectViewerPage)
 import Task
 import Time exposing (Month, Posix, toDay, toHour)
+import Types exposing (..)
 import Url
 
 
@@ -33,45 +44,26 @@ main =
         }
 
 
-type LoaderStatus
-    = Active
-    | AnimatingOut
-    | Hidden
-
-
-type ContactInfoState
-    = Closed
-    | OpenedBig
-    | OpenedSmall
-
-
-type alias Model =
-    { screenSize : { width : Int, height : Int }
-    , loaded : Animator.Timeline LoaderStatus
-    , page : Animator.Timeline Int
-    , contactInfoState : Timeline ContactInfoState
-    }
-
-
-type Msg
-    = AdjustScreenSize { width : Int, height : Int }
-    | Tick Time.Posix
-    | Loaded LoaderStatus
-    | UrlChanged Url.Url
-    | LinkClicked Browser.UrlRequest
-    | OpenContactInfo ContactInfoState
-
-
 init : () -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init _ _ _ =
     ( Model
         { width = 0, height = 0 }
-        (Animator.init Active)
-        (Animator.init 0)
+        (Animator.init Start)
         (Animator.init Closed)
+        (Animator.init False)
+        (Animator.init Projects)
+        Projects.MovingUp.data
+        Projects.MovingUp.data
+        (Animator.init Idle)
+        [ Projects.CONFINED_SPACE.data, Projects.LifeLike.data, Projects.MovingUp.data ]
+        Dict.empty
+        (Time.millisToPosix 0)
+        0
+        0
     , Cmd.batch
         [ Task.perform vpToWH getViewport
-        , Task.perform Loaded (Task.succeed AnimatingOut)
+        , Task.perform Loaded (Task.succeed Animating)
+        , ProjectViewerPage3D.textureLoaders
         ]
     )
 
@@ -95,13 +87,26 @@ update msg model =
         Tick newTime ->
             ( model |> Animator.update newTime animator, Cmd.none )
 
+        SetCurrentTime newTime ->
+            let
+                elapsedTime =
+                    Time.posixToMillis newTime - Time.posixToMillis model.lastTime
+            in
+            ( { model
+                | lastTime = newTime
+                , deltaTime = elapsedTime
+                , elapsedMs = model.elapsedMs + elapsedTime
+              }
+            , Cmd.none
+            )
+
         Loaded _ ->
             ( { model
                 | loaded =
                     model.loaded
                         |> Animator.queue
-                            [ Animator.event (Animator.millis 1000) AnimatingOut
-                            , Animator.event Animator.immediately Hidden
+                            [ Animator.event (Animator.millis 1000) Animating
+                            , Animator.event Animator.immediately Finished
                             ]
               }
             , Cmd.none
@@ -113,11 +118,11 @@ update msg model =
         LinkClicked request ->
             ( model, Cmd.none )
 
-        OpenContactInfo _ ->
+        OpenContactInfo newStatus ->
             ( { model
                 | contactInfoState =
                     model.contactInfoState
-                        |> Animator.go Animator.quickly
+                        |> Animator.go Animator.slowly
                             (if current model.contactInfoState == Closed then
                                 OpenedBig
 
@@ -127,6 +132,63 @@ update msg model =
               }
             , Cmd.none
             )
+
+        OpenNavigationMenu do ->
+            ( { model | showingNavigationMenu = model.showingNavigationMenu |> Animator.go Animator.slowly do }, Cmd.none )
+
+        MouseMovedOverBackground ->
+            ( model, Cmd.none )
+
+        NavigateTroughProjects dir ->
+            let
+                newProjectsList =
+                    reorderListBasedOnDirection dir model.allProjects
+
+                currProject =
+                    Maybe.withDefault Projects.Empty.data <| List.head newProjectsList
+
+                lastProject =
+                    Maybe.withDefault Projects.Empty.data <| List.head model.allProjects
+            in
+            ( { model
+                | allProjects = newProjectsList
+                , currentProject = currProject
+                , lastProject = lastProject
+                , transitionProject =
+                    model.transitionProject
+                        |> Animator.queue
+                            [ Animator.event Animator.slowly Out
+                            , Animator.event Animator.slowly In
+                            ]
+              }
+            , Cmd.none
+            )
+
+        TextureLoaded result ->
+            case result of
+                ( Err err, name ) ->
+                    ( { model | textures = Dict.insert name (Error <| Debug.log "texture load fail" err) model.textures }, Cmd.none )
+
+                ( Ok texture, name ) ->
+                    ( { model | textures = Dict.insert name (LoadedTexture texture) model.textures }, Cmd.none )
+
+
+reorderListBasedOnDirection : Direction -> List a -> List a
+reorderListBasedOnDirection dir list =
+    case list of
+        [] ->
+            []
+
+        s :: xs ->
+            if dir == Right then
+                List.append xs [ s ]
+
+            else
+                let
+                    decomposedList =
+                        Maybe.withDefault ( s, [] ) <| List.Extra.unconsLast list
+                in
+                Tuple.first decomposedList :: Tuple.second decomposedList
 
 
 animator : Animator.Animator Model
@@ -144,6 +206,14 @@ animator =
             .contactInfoState
             (\newState model -> { model | contactInfoState = newState })
             (\_ -> False)
+        |> Animator.watchingWith
+            .showingNavigationMenu
+            (\newState model -> { model | showingNavigationMenu = newState })
+            (\_ -> False)
+        |> Animator.watchingWith
+            .transitionProject
+            (\newState model -> { model | transitionProject = newState })
+            (\_ -> False)
 
 
 subscriptions : Model -> Sub Msg
@@ -151,6 +221,8 @@ subscriptions model =
     Sub.batch
         [ onResize (\w h -> AdjustScreenSize { width = w, height = h })
         , animator |> Animator.toSubscription Tick model
+
+        -- , Time.every (1000 / 60) SetCurrentTime
         ]
 
 
@@ -165,115 +237,28 @@ loadFadein timelineRef =
             Animator.Inline.opacity timelineRef <|
                 \status ->
                     case status of
-                        Active ->
+                        Start ->
                             Animator.at 1
 
-                        AnimatingOut ->
+                        Animating ->
                             Animator.at 0
 
-                        Hidden ->
+                        Finished ->
                             Animator.at 0
         , htmlAttribute <|
             Animator.Inline.scale timelineRef <|
                 \status ->
                     case status of
-                        Active ->
+                        Start ->
                             Animator.at 1
 
-                        AnimatingOut ->
+                        Animating ->
                             Animator.at 1
 
-                        Hidden ->
+                        Finished ->
                             Animator.at 0
         ]
         none
-
-
-mainPicture : Float -> Msg -> Animator.Timeline LoaderStatus -> Element Msg
-mainPicture vmin onClickMsg loadedTimeline =
-    el
-        [ Border.rounded 150
-        , Element.width <| px <| round <| vmin * 0.3
-        , Element.height <| px <| round <| vmin * 0.3
-        , pointer
-        , htmlAttribute <|
-            Animator.Inline.scale loadedTimeline <|
-                \status ->
-                    case status of
-                        Active ->
-                            Animator.at 2
-
-                        AnimatingOut ->
-                            Animator.at 1
-
-                        Hidden ->
-                            Animator.at 1
-        , clip
-        ]
-        (image
-            [ centerY
-            , centerX
-            , Element.height fill
-            , scrollbars
-            , onClick onClickMsg
-            , htmlAttribute <|
-                Animator.Inline.rotate loadedTimeline <|
-                    \status ->
-                        case status of
-                            Active ->
-                                Animator.at 0.2
-
-                            AnimatingOut ->
-                                Animator.at 0
-
-                            Hidden ->
-                                Animator.at 0
-            ]
-            { src = "../media/images/pf.JPG", description = "Profile picture" }
-        )
-
-
-contactInfo : Float -> Animator.Timeline ContactInfoState -> Element Msg
-contactInfo vmin contactInfoState =
-    el
-        [ alignLeft
-        , moveRight 25
-        , Element.Font.size 25
-        , spacing 7
-        , clip
-        , Element.width fill
-        , Element.height fill
-        , htmlAttribute <|
-            Animator.Inline.style contactInfoState "width" (\value -> toString value ++ "vw") <|
-                \state ->
-                    case state of
-                        Closed ->
-                            Animator.at 0
-
-                        OpenedBig ->
-                            Animator.at 20
-
-                        OpenedSmall ->
-                            Animator.at 15
-        , htmlAttribute <|
-            Animator.Inline.opacity contactInfoState <|
-                \state ->
-                    case state of
-                        Closed ->
-                            Animator.at 0
-
-                        OpenedBig ->
-                            Animator.at 1
-
-                        OpenedSmall ->
-                            Animator.at 1
-        ]
-        (column [ centerY ]
-            [ newTabLink [] { url = "https://github.com/DavidZwitser", label = text "Github" }
-            , newTabLink [] { url = "mailto:davidzwitser@gmail.com", label = text "Mail" }
-            , newTabLink [] { url = "https://www.instagram.com/coelepinda/", label = text "Instagram" }
-            ]
-        )
 
 
 view : Model -> Browser.Document Msg
@@ -289,17 +274,23 @@ view model =
     { title = "David Zwitser"
     , body =
         [ layout
-            [ inFront <| loadFadein model.loaded ]
+            [ inFront <| loadFadein model.loaded
+            , Background.color <| rgb 0.9 0.9 0.9
+            , clip
+
+            -- , Element.Font.family [ Element.Font.typeface "Helvetica", Element.Font.sansSerif ]
+            ]
           <|
             column
                 [ Element.width fill
                 , Element.height fill
                 ]
-                [ row [ centerX, centerY ]
-                    [ mainPicture vmin (OpenContactInfo OpenedBig) model.loaded
-                    , contactInfo vmin model.contactInfoState
-                    ]
-                , Element.row [ moveDown 50, centerX, spacing 50 ] [ text "hi", text "hi again" ]
+                [ if Animator.current model.page == Home then
+                    homePage model vmin
+
+                  else
+                    -- projectViewerPage model vmin
+                    ProjectViewerPage3D.projectViewer model
                 ]
         ]
     }
