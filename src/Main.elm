@@ -17,9 +17,12 @@ import Element.Input
 import HomePage exposing (homePage)
 import Html exposing (a, button, label)
 import Html.Attributes exposing (autoplay, src, style)
+import Json.Decode as Decode exposing (Decoder)
 import List exposing (maximum)
 import List.Extra exposing (..)
+import Pixels exposing (Pixels)
 import Point2d exposing (Point2d)
+import Process
 import Project exposing (..)
 import ProjectViewerPage3D exposing (projectViewer)
 import Projects.CONFINED_SPACE
@@ -29,6 +32,7 @@ import Projects.MovingUp
 import ProjectsViewerPage exposing (projectViewerPage)
 import Task
 import Time exposing (Month, Posix, toDay, toHour)
+import TriangularMesh exposing (grid)
 import Types exposing (..)
 import Url
 
@@ -48,22 +52,27 @@ init : () -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init _ _ _ =
     ( Model
         { width = 0, height = 0 }
+        -- Navigation
+        (Animator.init Projects)
+        -- Home screen
         (Animator.init Start)
         (Animator.init Closed)
         (Animator.init False)
-        (Animator.init Projects)
+        -- List projectr viewer
         Projects.MovingUp.data
         Projects.MovingUp.data
         (Animator.init Idle)
+        -- Grid project viewer
         [ Projects.CONFINED_SPACE.data, Projects.LifeLike.data, Projects.MovingUp.data ]
         Dict.empty
-        (Time.millisToPosix 0)
-        0
-        0
+        ProjectViewerPage3D.initialGridPositions
+        Still
+        ( 0, 0 )
+        Projects.Empty.data
     , Cmd.batch
         [ Task.perform vpToWH getViewport
         , Task.perform Loaded (Task.succeed Animating)
-        , ProjectViewerPage3D.textureLoaders
+        , Cmd.batch ProjectViewerPage3D.textureLoaders
         ]
     )
 
@@ -87,19 +96,6 @@ update msg model =
         Tick newTime ->
             ( model |> Animator.update newTime animator, Cmd.none )
 
-        SetCurrentTime newTime ->
-            let
-                elapsedTime =
-                    Time.posixToMillis newTime - Time.posixToMillis model.lastTime
-            in
-            ( { model
-                | lastTime = newTime
-                , deltaTime = elapsedTime
-                , elapsedMs = model.elapsedMs + elapsedTime
-              }
-            , Cmd.none
-            )
-
         Loaded _ ->
             ( { model
                 | loaded =
@@ -117,6 +113,75 @@ update msg model =
 
         LinkClicked request ->
             ( model, Cmd.none )
+
+        MouseDown ->
+            ( { model | gridStatus = Dragging }, Cmd.none )
+
+        MouseUp ->
+            ( { model | gridStatus = Gliding }, Process.sleep 200 |> Task.perform (always TrySnappingGrid) )
+
+        TrySnappingGrid ->
+            if model.gridStatus == Dragging || model.gridStatus == Snapping then
+                ( model, Cmd.none )
+
+            else
+                ( { model | gridStatus = Snapping, gridMomentum = ( 0, 0 ) }, Cmd.none )
+
+        SnapGridStep time ->
+            let
+                ( newGrid, arived ) =
+                    ProjectViewerPage3D.snapGridTo { x = Tuple.first model.gridMomentum, y = Tuple.second model.gridMomentum } model.gridData
+            in
+            ( { model
+                | gridData = newGrid
+                , gridMomentum = ( Tuple.first model.gridMomentum + 0.17, Tuple.second model.gridMomentum + 0.17 )
+                , gridStatus =
+                    if not arived then
+                        Snapping
+
+                    else
+                        Still
+              }
+            , Cmd.none
+            )
+
+        GlideGridStep _ ->
+            let
+                newMomentum =
+                    ( Tuple.first model.gridMomentum * 0.9
+                    , Tuple.second model.gridMomentum * 0.9
+                    )
+
+                newGrid =
+                    ProjectViewerPage3D.moveGridPositions 0 newMomentum model.gridData
+            in
+            ( { model | gridData = newGrid, gridMomentum = newMomentum }, Cmd.none )
+
+        MouseMove dx dy ->
+            if model.gridStatus == Dragging then
+                let
+                    noNaN value =
+                        if (value |> isNaN) || (value |> isInfinite) then
+                            0
+
+                        else
+                            value
+
+                    furthestDistance =
+                        ProjectViewerPage3D.itemClosestToCenterWithDefaults model.gridData
+
+                    newGrid =
+                        ProjectViewerPage3D.moveGridPositions 0 ( dx, dy ) model.gridData
+                in
+                ( { model
+                    | gridData = newGrid
+                    , gridMomentum = ( dx, dy )
+                  }
+                , Cmd.none
+                )
+
+            else
+                ( model, Cmd.none )
 
         OpenContactInfo newStatus ->
             ( { model
@@ -165,12 +230,20 @@ update msg model =
             )
 
         TextureLoaded result ->
-            case result of
-                ( Err err, name ) ->
-                    ( { model | textures = Dict.insert name (Error <| Debug.log "texture load fail" err) model.textures }, Cmd.none )
+            let
+                newTextures =
+                    case result of
+                        ( Err err, name ) ->
+                            Dict.insert name (Error <| Debug.log "texture load fail" err) model.textures
 
-                ( Ok texture, name ) ->
-                    ( { model | textures = Dict.insert name (LoadedTexture texture) model.textures }, Cmd.none )
+                        ( Ok texture, name ) ->
+                            Dict.insert name (LoadedTexture texture) model.textures
+            in
+            ( { model
+                | textures = newTextures
+              }
+            , Cmd.none
+            )
 
 
 reorderListBasedOnDirection : Direction -> List a -> List a
@@ -221,9 +294,30 @@ subscriptions model =
     Sub.batch
         [ onResize (\w h -> AdjustScreenSize { width = w, height = h })
         , animator |> Animator.toSubscription Tick model
+        , case model.gridStatus of
+            Dragging ->
+                Sub.batch
+                    [ Browser.Events.onMouseMove decodeMouseMove
+                    , Browser.Events.onMouseUp (Decode.succeed MouseUp)
+                    ]
 
-        -- , Time.every (1000 / 60) SetCurrentTime
+            Snapping ->
+                Time.every (1000 / 60) SnapGridStep
+
+            Gliding ->
+                Time.every (1000 / 60) GlideGridStep
+
+            _ ->
+                Sub.none
+        , Browser.Events.onMouseDown (Decode.succeed MouseDown)
         ]
+
+
+decodeMouseMove : Decoder Msg
+decodeMouseMove =
+    Decode.map2 MouseMove
+        (Decode.field "movementX" Decode.float)
+        (Decode.field "movementY" Decode.float)
 
 
 loadFadein : Animator.Timeline LoaderStatus -> Element msg
@@ -289,8 +383,9 @@ view model =
                     homePage model vmin
 
                   else
-                    -- projectViewerPage model vmin
-                    ProjectViewerPage3D.projectViewer model
+                    ProjectViewerPage3D.projectViewer model.gridData model.textures
+
+                -- projectViewerPage model vmin
                 ]
         ]
     }

@@ -106,6 +106,6 @@ type alias Project =
     }
 
 
-getImagePath : Project -> String -> String
-getImagePath project image =
+getImagePath : String -> Project -> String
+getImagePath image project =
     "../media/images/projects/" ++ project.sources.folderName ++ "/" ++ image

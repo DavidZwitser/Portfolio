@@ -175,4 +175,4 @@ projectViewer insideCircleSize vmin project =
 
             -- , htmlAttribute <| Html.Attributes.style "transform" "translateZ(0.3px) scale(0.7)"
             ]
-            { src = Project.getImagePath project project.sources.thumbnail, description = "Project image" }
+            { src = Project.getImagePath project.sources.thumbnail project, description = "Project image" }

@@ -2,6 +2,7 @@ module ProjectViewerPage3D exposing (..)
 
 import Angle
 import Animator.Css exposing (offset)
+import Array
 import Axis3d exposing (Axis3d)
 import Block3d exposing (Block3d)
 import Camera3d
@@ -11,79 +12,47 @@ import Direction3d
 import Element exposing (..)
 import Element.Background
 import Element.Border
-import Html exposing (Html, math)
+import Html exposing (Html, math, s)
 import Length exposing (Length, Meters)
 import List.Extra exposing (iterate)
 import Luminance exposing (Luminance)
 import LuminousFlux exposing (..)
-import Pixels
+import Pixels exposing (Pixels)
 import Plane3d exposing (Plane3d)
 import Point3d
+import Project exposing (Project)
+import Projects.CONFINED_SPACE
+import Projects.LifeLike
+import Projects.MovingUp
 import Quantity exposing (Quantity)
-import Scene3d
+import Scene3d exposing (Entity)
 import Scene3d.Light exposing (..)
 import Scene3d.Material as Material exposing (Material, Texture)
+import Scene3d.Mesh exposing (Textured)
 import Sphere3d exposing (Sphere3d, boundingBox)
 import Task exposing (Task)
 import Triangle3d exposing (Triangle3d)
-import Types exposing (Model, Msg(..), TextureStatus(..), textures)
+import TriangularMesh exposing (TriangularMesh)
+import Types exposing (GridElementData, Model, Msg(..), Pages(..), TextureStatus(..), textures)
 import Vector3d exposing (Vector3d)
 import Viewpoint3d
 
 
-projectViewer : Model -> Element Msg
-projectViewer model =
-    Element.el [ centerX, centerY, Element.width <| px 600, height <| px 600, Element.Border.width 2 ] <|
+projectViewer : List GridElementData -> Dict String TextureStatus -> Element Msg
+projectViewer gridData textures =
+    let
+        size =
+            1200
+    in
+    Element.el [ centerX, centerY, Element.width <| px size, height <| px size, Element.Border.width 0, Element.Border.rounded 50 ] <|
         --, Element.Background.color <| rgb 0.2 0.2 0.2 ] <|
         html
-            (scene
-                [ texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                , texDictToTexStatus textures.pf model.textures
-                ]
-                model.elapsedMs
-            )
+            (scene (viewGrid textures gridData) size)
 
 
-textureLoaders : Cmd Msg
+textureLoaders : List (Cmd Msg)
 textureLoaders =
-    Cmd.batch
-        [ loadTextureTask textures.error
-        , loadTextureTask textures.pf
-        ]
+    List.map loadTextureTask gridElements
 
 
 loadTextureTask : String -> Cmd Msg
@@ -91,13 +60,77 @@ loadTextureTask texture =
     Task.attempt (\result -> TextureLoaded ( result, texture )) (Material.load texture)
 
 
-texDictToTexStatus : String -> Dict String TextureStatus -> TextureStatus
-texDictToTexStatus name textures =
+texDictToTexStatus : Dict String TextureStatus -> String -> TextureStatus
+texDictToTexStatus textures name =
     Maybe.withDefault (NameNotFound <| name ++ " not found as a texture name") (Dict.get name textures)
 
 
-indexInGrid : Int -> Int -> Int
-indexInGrid targetElementNumber potentialPosition =
+gridElements : List String
+gridElements =
+    let
+        projects =
+            [ Projects.CONFINED_SPACE.data
+            , Projects.LifeLike.data
+            , Projects.MovingUp.data
+            ]
+    in
+    List.map (Project.getImagePath "thumb_texture.jpg") projects
+
+
+initialGridPositions : List GridElementData
+initialGridPositions =
+    moveGridPositions 0 ( 0, 0 ) <| gridPositions 0 gridElements
+
+
+viewGrid : Dict String TextureStatus -> List GridElementData -> List (Scene3d.Entity coordinates)
+viewGrid textures gridData =
+    gridElements
+        |> List.map (texDictToTexStatus textures)
+        |> List.map (gridItem 1)
+        |> entitiesOnGridData gridData
+
+
+gridItem : Float -> TextureStatus -> Entity coordinates
+gridItem size tex =
+    Scene3d.quadWithShadow (getPotentialTextureMaterial tex)
+        (Point3d.meters 0 -size -size)
+        (Point3d.meters 0 size -size)
+        (Point3d.meters 0 size size)
+        (Point3d.meters 0 -size size)
+
+
+
+-- Scene3d.quadWithShadow <|
+--     Scene3d.Mesh.texturedFaces <|
+--         TriangularMesh.indexed
+--             (Array.fromList
+--                 [ { position = Point3d.centimeters 10 10 0, normal = Vector3d.unitless 0 0 0, uv = ( 0, 0 ) }
+--                 , { position = Point3d.centimeters 10 10 0, normal = Vector3d.unitless 0 0 0, uv = ( 0, 0 ) }
+--                 , { position = Point3d.centimeters 10 10 0, normal = Vector3d.unitless 0 0 0, uv = ( 0, 0 ) }
+--                 , { position = Point3d.centimeters 10 10 0, normal = Vector3d.unitless 0 0 0, uv = ( 0, 0 ) }
+--                 ]
+--             )
+--             [ ( 0, 1, 2 ), ( 0, 2, 3 ), ( 0, 0, 0 ), ( 0, 0, 0 ) ]
+
+
+getPotentialTextureMaterial : TextureStatus -> Material.Textured coordinates
+getPotentialTextureMaterial status =
+    case status of
+        LoadingTexture ->
+            Material.matte Color.white
+
+        LoadedTexture tex ->
+            Material.texturedEmissive tex (Luminance.nits 40002)
+
+        Error err ->
+            Material.matte Color.red
+
+        NameNotFound name ->
+            Material.matte Color.grey
+
+
+indexToRingNumber : Int -> Int -> Int
+indexToRingNumber potentialPosition targetElementNumber =
     let
         snappedElementNumber =
             6 * (2 ^ potentialPosition - 1)
@@ -106,11 +139,24 @@ indexInGrid targetElementNumber potentialPosition =
         potentialPosition
 
     else
-        indexInGrid targetElementNumber (potentialPosition + 1)
+        indexToRingNumber (potentialPosition + 1) targetElementNumber
 
 
-placeInGrid : Int -> List (Scene3d.Entity coordinates) -> List (Scene3d.Entity coordinates)
-placeInGrid iteration entities =
+entitiesOnGridData : List GridElementData -> List (Scene3d.Entity coordinates) -> List (Scene3d.Entity coordinates)
+entitiesOnGridData dataList elementList =
+    List.map2
+        (\data ell ->
+            ell
+                |> Scene3d.translateBy (Vector3d.meters data.pos.x data.pos.y data.pos.z)
+                |> Scene3d.rotateAround (Axis3d.through (Point3d.meters 0 0 0) Direction3d.z) (Angle.degrees 0)
+                |> Scene3d.scaleAbout (Point3d.meters 0 0 0) data.scale
+        )
+        dataList
+        elementList
+
+
+gridPositions : Int -> List String -> List GridElementData
+gridPositions iteration copies =
     let
         sinusify pos amp offset =
             sin pos * amp + offset
@@ -125,99 +171,123 @@ placeInGrid iteration entities =
             else
                 value
 
-        index =
-            toFloat <| iteration
-
-        scale =
-            6
+        ittToRing =
+            indexToRingNumber 0
 
         ringNumber =
-            indexInGrid iteration 0
+            ittToRing iteration
 
         countInRing =
-            indexInGrid iteration 0 * 6
+            ittToRing iteration * 6
 
         indexInRing =
-            iteration - indexInGrid iteration 0
+            iteration - ittToRing iteration
 
         sinMappedPos =
             pi * 2 / toFloat countInRing * toFloat indexInRing
 
         position =
-            Vector3d.meters
-                0
-                (noNaN
-                    (sinusify
-                        sinMappedPos
-                        (toFloat ringNumber)
-                        0
-                    )
-                )
-                (noNaN
-                    (cosinusify
-                        sinMappedPos
-                        (toFloat ringNumber)
-                        0
-                    )
-                )
+            { x = 0
+            , y = noNaN (sinusify sinMappedPos (toFloat ringNumber * 2.5) 0)
+            , z = noNaN (cosinusify sinMappedPos (toFloat ringNumber * 2.5) 0)
+            }
 
         -- rotation =
         --     Angle.degrees 1
-        -- scale =
-        --     0.2
+        scale =
+            0.4
+
+        -- + (toFloat <| List.length copies) * 0.02
     in
-    case entities of
+    case copies of
         [] ->
             []
 
-        entity :: rest ->
-            (entity
-                |> Scene3d.translateBy position
-             -- |> Scene3d.rotateAround (Axis3d.through (Point3d.meters 0 0 0) Direction3d.z) rotation
-             -- |> Scene3d.scaleAbout (Point3d.meters 0 0 0) scale
-            )
-                :: placeInGrid (iteration + 1) rest
+        data :: rest ->
+            { pos = position, rot = { x = 0, y = 0, z = 0 }, scale = scale }
+                :: gridPositions (iteration + 1) rest
 
 
-scene : List TextureStatus -> Int -> Html Msg
-scene images time =
+moveGridPositions : Int -> ( Float, Float ) -> List GridElementData -> List GridElementData
+moveGridPositions iteration ( moveX, moveY ) oldData =
+    case oldData of
+        [] ->
+            []
+
+        old :: rest ->
+            let
+                position =
+                    { x = 5 - (abs old.pos.y + abs old.pos.z) * 0.7
+                    , y = old.pos.y + moveX * 0.01
+                    , z = old.pos.z + -moveY * 0.01
+                    }
+            in
+            { pos = position
+            , rot = { x = 0, y = 0, z = 0 }
+            , scale = 0.7
+            }
+                :: moveGridPositions (iteration + 1) ( moveX, moveY ) rest
+
+
+itemClosestToCenter : Maybe { x : Float, y : Float } -> List GridElementData -> Maybe { x : Float, y : Float }
+itemClosestToCenter smallestFound items =
+    case items of
+        [] ->
+            smallestFound
+
+        curr :: rest ->
+            let
+                smallestFoundDist =
+                    Maybe.map (\smallest -> abs (smallest.x ^ 2 + smallest.y ^ 2)) smallestFound
+
+                currentDist =
+                    Just <| abs (curr.pos.y ^ 2 + curr.pos.z ^ 2)
+
+                currIsSmallest =
+                    Maybe.map2 (\smallFoundDist currDist -> smallFoundDist > currDist) smallestFoundDist currentDist == Just True
+
+                smallestDist =
+                    if currIsSmallest == True || smallestFoundDist == Nothing then
+                        Just { x = curr.pos.y, y = curr.pos.z }
+
+                    else
+                        smallestFound
+            in
+            itemClosestToCenter smallestDist rest
+
+
+itemClosestToCenterWithDefaults : List GridElementData -> { x : Float, y : Float }
+itemClosestToCenterWithDefaults items =
+    Maybe.withDefault { x = 0, y = 0 } <| itemClosestToCenter Nothing items
+
+
+snapGridTo : { x : Float, y : Float } -> List GridElementData -> ( List GridElementData, Bool )
+snapGridTo momentum items =
+    let
+        itemDistance =
+            itemClosestToCenterWithDefaults items
+
+        snapSpeed =
+            8
+
+        arrived =
+            abs itemDistance.x + abs itemDistance.y < 0.01
+    in
+    ( moveGridPositions 0 ( -itemDistance.x * snapSpeed * momentum.x, itemDistance.y * snapSpeed * momentum.y ) items, arrived )
+
+
+scene : List (Scene3d.Entity coordinates) -> Int -> Html Msg
+scene loadedGrid dimensions =
     Scene3d.sunny
         { camera = camera
         , clipDepth = Length.centimeters 0.5
-        , dimensions = ( Pixels.int 600, Pixels.int 600 )
+        , dimensions = ( Pixels.int dimensions, Pixels.int dimensions )
         , background = Scene3d.transparentBackground
-        , entities =
-            (placeInGrid 0 <| List.map (box 0.3) images)
-                ++ [ groundPlane 0 ]
+        , entities = loadedGrid ++ [ groundPlane 0 ]
         , shadows = False
         , upDirection = Direction3d.z
-        , sunlightDirection = Direction3d.yz (Angle.degrees -120)
+        , sunlightDirection = Direction3d.yz (Angle.degrees 50)
         }
-
-
-getPotentialTextureMaterial : TextureStatus -> Material.Textured coordinates
-getPotentialTextureMaterial status =
-    case status of
-        LoadingTexture ->
-            Material.matte Color.white
-
-        LoadedTexture tex ->
-            Material.texturedEmissive tex (Luminance.nits 20002)
-
-        Error err ->
-            Material.matte Color.red
-
-        NameNotFound name ->
-            Material.matte Color.grey
-
-
-box : Float -> TextureStatus -> Scene3d.Entity coordinates
-box size tex =
-    Scene3d.quad (getPotentialTextureMaterial tex)
-        (Point3d.meters 0 -size -size)
-        (Point3d.meters 0 size -size)
-        (Point3d.meters 0 size size)
-        (Point3d.meters 0 -size size)
 
 
 groundPlane size =
@@ -233,7 +303,7 @@ camera =
     Camera3d.perspective
         { viewpoint =
             Viewpoint3d.lookAt
-                { eyePoint = Point3d.meters 10 0 3
+                { eyePoint = Point3d.meters 8 0 0
                 , focalPoint = Point3d.origin
                 , upDirection = Direction3d.positiveZ
                 }
