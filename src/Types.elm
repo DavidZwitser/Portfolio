@@ -7,7 +7,6 @@ import Dict exposing (Dict)
 import Pixels exposing (Pixels)
 import Project exposing (Project)
 import Quantity exposing (Quantity)
-import Scene3d
 import Scene3d.Material exposing (Material, Texture)
 import Time exposing (Month, Posix, toDay, toHour)
 import Url
@@ -66,6 +65,26 @@ type alias Model =
     }
 
 
+type Msg
+    = AdjustScreenSize { width : Int, height : Int }
+    | Tick Time.Posix
+    | Loaded LoaderStatus
+    | UrlChanged Url.Url
+    | LinkClicked Browser.UrlRequest
+    | OpenContactInfo ContactInfoState
+    | MouseMovedOverBackground
+    | OpenNavigationMenu Bool
+    | NavigateTroughProjects Direction
+    | TextureLoaded ( Result WebGL.Texture.Error (Scene3d.Material.Texture Color), String )
+    | MouseDown
+    | MouseUp
+    | MouseMove Float Float
+    | SnapGridStep Time.Posix
+    | GlideGridStep Time.Posix
+    | TrySnappingGrid
+    | ChangePage Pages
+
+
 type GridStatus
     = Dragging
     | Snapping
@@ -95,22 +114,3 @@ textures =
     { pf = "../media/images/pf.jpg"
     , error = "../media/images/no_tex_found.png"
     }
-
-
-type Msg
-    = AdjustScreenSize { width : Int, height : Int }
-    | Tick Time.Posix
-    | Loaded LoaderStatus
-    | UrlChanged Url.Url
-    | LinkClicked Browser.UrlRequest
-    | OpenContactInfo ContactInfoState
-    | MouseMovedOverBackground
-    | OpenNavigationMenu Bool
-    | NavigateTroughProjects Direction
-    | TextureLoaded ( Result WebGL.Texture.Error (Scene3d.Material.Texture Color), String )
-    | MouseDown
-    | MouseUp
-    | MouseMove Float Float
-    | SnapGridStep Time.Posix
-    | GlideGridStep Time.Posix
-    | TrySnappingGrid

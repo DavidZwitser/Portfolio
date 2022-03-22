@@ -30,6 +30,7 @@ import Projects.Empty
 import Projects.LifeLike
 import Projects.MovingUp
 import ProjectsViewerPage exposing (projectViewerPage)
+import Scene3d exposing (Background)
 import Task
 import Time exposing (Month, Posix, toDay, toHour)
 import TriangularMesh exposing (grid)
@@ -245,6 +246,9 @@ update msg model =
             , Cmd.none
             )
 
+        ChangePage newPage ->
+            ( { model | page = model.page |> Animator.go Animator.slowly newPage }, Cmd.none )
+
 
 reorderListBasedOnDirection : Direction -> List a -> List a
 reorderListBasedOnDirection dir list =
@@ -371,6 +375,23 @@ view model =
             [ inFront <| loadFadein model.loaded
             , Background.color <| rgb 0.9 0.9 0.9
             , clip
+            , inFront <|
+                Element.Input.button
+                    [ Background.color <| rgb 0.2 0.2 0.2
+                    , Element.width <| px 50
+                    , Element.height <| px 50
+                    ]
+                    { onPress =
+                        Just <|
+                            ChangePage
+                                (if current model.page == Home then
+                                    Projects
+
+                                 else
+                                    Home
+                                )
+                    , label = el [ Element.Font.color <| rgb 1 1 1 ] <| text "Page"
+                    }
 
             -- , Element.Font.family [ Element.Font.typeface "Helvetica", Element.Font.sansSerif ]
             ]
@@ -383,9 +404,8 @@ view model =
                     homePage model vmin
 
                   else
-                    ProjectViewerPage3D.projectViewer model.gridData model.textures
-
-                -- projectViewerPage model vmin
+                    -- ProjectViewerPage3D.projectViewer model.gridData model.textures
+                    projectViewerPage model vmin
                 ]
         ]
     }

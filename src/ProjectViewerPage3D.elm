@@ -42,12 +42,29 @@ projectViewer : List GridElementData -> Dict String TextureStatus -> Element Msg
 projectViewer gridData textures =
     let
         size =
-            1200
+            1000
     in
-    Element.el [ centerX, centerY, Element.width <| px size, height <| px size, Element.Border.width 0, Element.Border.rounded 50 ] <|
-        --, Element.Background.color <| rgb 0.2 0.2 0.2 ] <|
-        html
-            (scene (viewGrid textures gridData) size)
+    Element.el
+        [ centerX
+        , centerY
+        , Element.width fill
+        , height fill
+        , Element.Background.color <| rgb 0.2 0.2 0.2
+        , Element.inFront <|
+            el
+                [ Element.width fill
+                , Element.height fill
+                , clip
+                , centerX
+                , centerY
+
+                -- , Element.Background.color <| rgb 0.4 0.4 0.4
+                ]
+                none
+        ]
+    <|
+        Debug.log "hi" <|
+            html (scene (viewGrid textures gridData) size)
 
 
 textureLoaders : List (Cmd Msg)
