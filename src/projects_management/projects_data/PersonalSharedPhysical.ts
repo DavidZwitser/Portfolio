@@ -1,10 +1,8 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags, ViewerCustomization } from "../ProjectTemplate";
 import { goals, tools, themes } from "../../data_handling/Enums"
 
-export namespace PersonalSharedPhysical
-{
-    export function getProject(): Project
-    {
+export namespace PersonalSharedPhysical {
+    export function getProject(): Project {
         return new Project(
             <ProjectText>{
                 name: 'Personal Shared Physical',

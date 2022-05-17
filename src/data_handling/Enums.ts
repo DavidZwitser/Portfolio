@@ -1,5 +1,4 @@
-export enum pages
-{
+export enum pages {
     // none = 'none',
     home = 'home',
     about = 'about',
@@ -9,16 +8,14 @@ export enum pages
     grid = 'grid',
 }
 
-export enum goals
-{
+export enum goals {
     none = 'none',
     entertain = 'entertain',
     learn = 'learn',
     create = 'create'
 }
 
-export enum tools
-{
+export enum tools {
     none = 'none',
     Touchdesigner = 'Touchdesigner',
     DavinciResolve = 'Davinci Resolve',
@@ -41,11 +38,11 @@ export enum tools
     ProjectionMapping = 'Projection mapping',
     Filming = 'Filming',
     Building = 'Building',
-    Woodwork = 'Woodwork'
+    Woodwork = 'Woodwork',
+    Shaders = 'Shaders'
 }
 
-export enum themes
-{
+export enum themes {
     none = 'none',
     daily = 'Daily',
     philosophy = 'Philosophy',
@@ -58,8 +55,7 @@ export enum themes
     Analogue = 'Analogue'
 }
 
-export enum projectVariables
-{
+export enum projectVariables {
     day = 'day',
     month = 'month',
     year = 'year',

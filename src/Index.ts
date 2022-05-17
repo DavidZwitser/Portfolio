@@ -20,23 +20,22 @@ import AboutPage from './pages/about_page/About';
 import LoadingScreen from './pages/loading_screen/LoadingScreen';
 
 import ImageImporter from './data_handling/ImageImporter';
-import ProjectViewer, {ProjectViewerProps} from './viewers/project_viewer/ProjectViewer';
+import ProjectViewer, { ProjectViewerProps } from './viewers/project_viewer/ProjectViewer';
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {ListViewerReact, ListViewerProps} from './viewers/list_viewer/ListViewer';
+import { ListViewerReact, ListViewerProps } from './viewers/list_viewer/ListViewer';
 import { RangeViewer } from './viewers/range_viewer/RangeViewer';
 
 import ScrollOverload from './misc/ScrollOverload';
 
-class Main
-{
+class Main {
     input: InputEvents;
     hashHandler: HashHandler;
- 
+
     loadingScreen: LoadingScreen;
-    
+
     projectsFetcher: ProjectFetcher;
 
     gridViewer: GridViewer;
@@ -47,8 +46,7 @@ class Main
     listLoaded: boolean = false;
     rangeViewerLoaded: boolean = false;
 
-    constructor()
-    {   
+    constructor() {
         this.loadingScreen = new LoadingScreen();
 
         this.hashHandler = new HashHandler();
@@ -57,9 +55,9 @@ class Main
         /**
          * Events
          */
-        window.addEventListener('hashchange', () => this.hashHandler.hashChanged() );
-        window.addEventListener('load', () => this.hashHandler.hashChanged() );
-        window.addEventListener("load", () => this.loadingScreen.endLoadingScreen() );
+        window.addEventListener('hashchange', () => this.hashHandler.hashChanged());
+        window.addEventListener('load', () => this.hashHandler.hashChanged());
+        window.addEventListener("load", () => this.loadingScreen.endLoadingScreen());
 
         let resizeTimer: NodeJS.Timeout;
         window.addEventListener("resize", () => {
@@ -77,8 +75,8 @@ class Main
         /**
          * Global infrastructure scripts
          */
-        
-         /* COMMENT THESE TO TOGGLE BETWEEN LOG AND LOAD */
+
+        /* COMMENT THESE TO TOGGLE BETWEEN LOG AND LOAD */
         logProjects = false;
 
         new ImageImporter();
@@ -90,12 +88,12 @@ class Main
          * Rendering the pages
          */
 
-         /* Home page */
+        /* Home page */
         ReactDOM.render(
             React.createElement(HomePage),
             document.getElementById('home')
         );
-        
+
         /* About page */
         ReactDOM.render(
             React.createElement(AboutPage),
@@ -105,32 +103,31 @@ class Main
         /* List viewer */
         ReactDOM.render(
             React.createElement(ListViewerReact, <ListViewerProps>{
-                
-                filterTools: [ tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser ],
-                filterThemes: [ themes.adventure, themes.generative, themes.philosophy ],
+
+                filterTools: [tools.Blender, tools.Touchdesigner, tools.Houdini, tools.Krita, tools.Processing, tools.Typescript, tools.Phaser],
+                filterThemes: [themes.adventure, themes.generative, themes.philosophy],
                 projects: this.projectsFetcher.getProjects(),
-                
-                getFilteredProjects: (filters: string[]) => { 
-                    if (filters[0] == 'All')
-                    {
+
+                getFilteredProjects: (filters: string[]) => {
+                    if (filters[0] == 'All') {
                         return this.projectsFetcher.getProjects();
                     }
-                    
-                    return this.projectsFetcher.getProjectsWithTags(filters); 
+
+                    return this.projectsFetcher.getProjectsWithTags(filters);
                 },
-                
+
                 openProjectViewer: (projectID: string) => {
                     HashHandler.CHANGE_PAGE(Constants.CURRENT_PAGE, projectID);
                 }
             }, null),
-        
+
             document.getElementById("list")
         );
-        
+
         /* Range viewer */
         ReactDOM.render(
             React.createElement(RangeViewer, {
-                zoomSensitivity: .02, 
+                zoomSensitivity: .02,
                 projects: this.projectsFetcher.getProjects()
             }),
             document.getElementById('range')
@@ -165,7 +162,7 @@ class Main
             document.getElementById('grid')
         );
 
-        /* Project viewer  */            
+        /* Project viewer  */
         ReactDOM.render(
             React.createElement(ProjectViewer, <ProjectViewerProps>{
                 project: this.projectsFetcher.getProjectByID(Constants.CURRENT_PROJECT),
@@ -194,7 +191,7 @@ class Main
         });
 
         // let listScrollOverload: ScrollOverload = new ScrollOverload('list', (() => {
-            
+
         //     let listViewerRef = document.getElementById('listViewer');
         //     return Constants.CURRENT_PAGE !== pages.list || listViewerRef.scrollTop !== 0 || Constants.CURRENT_PROJECT !== ''
 
@@ -210,22 +207,20 @@ class Main
         // });
 
         /* ProjectViewer close overload scroll */
-        let projectViewerScrollOverload: ScrollOverload = new ScrollOverload('project-viewer', ((ell: HTMLElement) => {return Constants.CURRENT_PROJECT == '' || ell.scrollTop !== 0}), -90, () => window.location.hash = Constants.CURRENT_PAGE, .7, (ell: HTMLElement, scrolledValue: number) => {
-            
+        let projectViewerScrollOverload: ScrollOverload = new ScrollOverload('project-viewer', ((ell: HTMLElement) => { return Constants.CURRENT_PROJECT == '' || ell.scrollTop !== 0 }), -90, () => window.location.hash = Constants.CURRENT_PAGE, .7, (ell: HTMLElement, scrolledValue: number) => {
+
             let container: HTMLElement = document.getElementById('project-viewer-container');
             container.style.marginTop = scrolledValue + 'vh';
         });
 
-        if (this.input.onMobile == true)
-        {
+        if (this.input.onMobile == true) {
             this.input.draggingCallback.push((velX: number, velY: number) => {
                 homeScrollOverload.scrollEvent(velX, velY);
                 // listScrollOverload.scrollEvent(velX, velY);
                 projectViewerScrollOverload.scrollEvent(velX, velY);
             });
         }
-        else
-        {
+        else {
             this.input.scrollCallback.push((velX: number, velY: number) => {
                 homeScrollOverload.scrollEvent(velX, velY);
                 // listScrollOverload.scrollEvent(velX, velY);

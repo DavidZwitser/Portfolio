@@ -1,10 +1,8 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags, ViewerCustomization } from "../ProjectTemplate";
 import { goals, tools, themes } from "../../data_handling/Enums"
 
-export namespace CONFINED_SPACE
-{
-    export function getProject(): Project
-    {
+export namespace CONFINED_SPACE {
+    export function getProject(): Project {
         return new Project(
             <ProjectText>{
                 name: 'CONFINED SPACE',
@@ -17,7 +15,7 @@ export namespace CONFINED_SPACE
 
                 outcome: 'The outcome is a very interesting, out of my general comfort-zone piece which I absolutely loved to work on and turned out really great.',
 
-                whatILearned: 'I learned thinking in analogue material and inflatable structures. I also learned to think in tactile experiences.',
+                whatILearned: 'I learned to think in analogue material and inflatable structures. I also learned to think in tactile experiences.',
 
                 whatWentBad: 'We had e very long process with a lot of setbacks and long rethink sessions, though in the end that helped the final product get even better.',
                 whatWentGood: 'We came out of the process with a very interesting valuable installation.',

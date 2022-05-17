@@ -1,10 +1,8 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ProjectTags, ViewerCustomization } from "../ProjectTemplate";
 import { goals, tools, themes } from "../../data_handling/Enums"
 
-export namespace FallingFood
-{
-    export function getProject(): Project
-    {
+export namespace FallingFood {
+    export function getProject(): Project {
         return new Project(
             <ProjectText>{
                 name: 'Falling food',
@@ -13,7 +11,7 @@ export namespace FallingFood
                 context: 'A project for the festival Bring Your Own Beamer.',
 
                 goal: 'The goal of this project is to bring something interesting to the festival en entertain the guests who are sitting outside.',
-                myRoll: 'I worked on the interactive system and focussed on the filming of the food.',
+                myRoll: 'I worked on the interactive system and focused on the filming of the food.',
 
                 outcome: 'We had a huge projector to our disposal which made the end result impactful and interesting.',
 

@@ -1,10 +1,8 @@
 import Project, { ProjectText, ProjectVariables, ProjectSources, ViewerCustomization, ProjectTags } from "../ProjectTemplate";
 import { goals, tools, themes } from "../../data_handling/Enums"
 
-export namespace LifeLike
-{
-    export function getProject(): Project
-    {
+export namespace LifeLike {
+    export function getProject(): Project {
         return new Project(
             <ProjectText>{
                 name: 'Life like',
@@ -13,11 +11,11 @@ export namespace LifeLike
                 context: 'As the final test of the first year of my current education, we went through a long research process, finding out the things that resonate with us personally. I ended up stranding on a search for life in computers.',
 
                 goal: "The goal of this project is to convince the viewer that life is made out of complexity and can be simulated through a computer.",
-                myRoll: '',
-                
+                // myRoll: '',
+
                 whatILearned: 'I learned a lot about algorithms and the results they produce. I also learned to work with many different techniques. The techniques I used ware: a Raspberry PI with networking to send sensor data, video mapping on a cube, GLSL code to run the algorithm very efficiently, physical painting and building to create a good projection area and place for the projectors and generating organic sounding sounds from the algorithm data. I also learned to go through a creative process very consciously and dig deep to find the things that really speak to me.',
 
-                whatWentBad: 'The end result could have use a bit more polishing. For example I decided to leave the sensors out in the open which resulted in the user to interact with the sensor directly instead of interacting with the projection.',
+                whatWentBad: 'The end result could have use a bit more polishing. For example, I decided to leave the sensors out in the open which resulted in the user to interact with the sensor directly instead of interacting with the projection.',
                 whatWentGood: 'I stitched everything together very well and it all worked according to plan.',
 
                 outcome: 'The result is a physical multi media installation which has a unique effect on the viewer.',
