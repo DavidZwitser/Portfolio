@@ -31,11 +31,11 @@ export namespace CanvasArtistImpression {
                 client: 'Tivolli Vredenburg'
             },
             <ProjectSources>{
-                thumbnail: 'footage/projects/ArtistImpressionCanvas/algorithm.png',
+                thumbnail: 'footage/projects/ArtistImpressionCanvas/algorithm.jpg',
                 footage: [
-                    'footage/projects/ArtistImpressionCanvas/manipulation.png',
-                    'footage/projects/ArtistImpressionCanvas/red.png',
-                    'footage/projects/ArtistImpressionCanvas/tweaking.png',
+                    'footage/projects/ArtistImpressionCanvas/manipulation.jpg',
+                    'footage/projects/ArtistImpressionCanvas/red.jpg',
+                    'footage/projects/ArtistImpressionCanvas/tweaking.jpg',
 
                 ],
                 video: 'https://drive.google.com/file/d/1srnkrZSav3XoTNjOisfp79x_-Du0kq1a/preview',

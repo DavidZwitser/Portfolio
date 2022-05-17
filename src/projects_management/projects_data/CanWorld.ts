@@ -31,12 +31,12 @@ export namespace CanWorld {
                 client: 'Can Yursten'
             },
             <ProjectSources>{
-                thumbnail: 'footage/projects/CanWorld/tescolated_donut.png',
+                thumbnail: 'footage/projects/CanWorld/tescolated_donut.jpg',
                 footage: [
-                    'footage/projects/CanWorld/belated_spickles.png',
-                    'footage/projects/CanWorld/smeer.png',
-                    'footage/projects/CanWorld/starting_noise.png',
-                    'footage/projects/CanWorld/floating_paper.png',
+                    'footage/projects/CanWorld/belated_spickles.jpg',
+                    'footage/projects/CanWorld/smeer.jpg',
+                    'footage/projects/CanWorld/starting_noise.jpg',
+                    'footage/projects/CanWorld/floating_paper.jpg',
                 ],
                 video: 'https://drive.google.com/file/d/1fDdE3z4OEaaggnV4Szc8d31JD71AvQ0d/preview',
                 // externalLink: 'https://tabletoptravels-hku.nl/'
