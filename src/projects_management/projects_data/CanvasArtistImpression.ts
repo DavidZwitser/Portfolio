@@ -13,7 +13,7 @@ export namespace CanvasArtistImpression {
                 // goal: 'The goal was to get in.',
                 // myRoll: 'I worked on the interactive system and focussed on the filming of the food.',
 
-                outcome: 'A stunning simulation of reaction diffusion slime running over the walls.',
+                outcome: 'A stunning simulation of reaction diffusion slime running across the walls.',
 
                 whatILearned: 'The biggest thing I learned from this project was to work within the constrains the client set for me. On a specific wall, for a specific duration. Etc.',
 
