@@ -3,7 +3,7 @@ module Main exposing (..)
 import Animator exposing (..)
 import Animator.Inline exposing (..)
 import Browser
-import Browser.Dom exposing (Error, Viewport, getViewport)
+import Browser.Dom exposing (Error, Viewport, getViewport, getViewportOf)
 import Browser.Events exposing (onAnimationFrame, onMouseMove, onResize)
 import Browser.Navigation exposing (Key)
 import Debug exposing (..)
@@ -246,8 +246,20 @@ update msg model =
             , Cmd.none
             )
 
+        GetViewportScopes ->
+            ( model, Cmd.none )
+
+        -- Task.attempt ViewProject getViewportOf "hi" )
+        ViewProject project ->
+            ( { model | currentProject = project }, Cmd.none )
+
         ChangePage newPage ->
             ( { model | page = model.page |> Animator.go Animator.slowly newPage }, Cmd.none )
+
+
+
+-- tmp : Result x z -> Msg
+-- tmp res =
 
 
 reorderListBasedOnDirection : Direction -> List a -> List a

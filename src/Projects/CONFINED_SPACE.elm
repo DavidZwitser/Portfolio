@@ -21,16 +21,16 @@ data =
         { name = "CONFINED SPACE"
 
         --
-        , description = "A tactile intimate experience in which you get embraced by a breathing slowly moving inflatable."
-        , context = "A school challenge where we made an installation in collaboration with the Cinedance festival with the goal of it being displayed at the festival."
+        , description = "A tactile intimate experience in which you get embraced by a slowely breathing inflated contraption."
+        , context = "This was a school assignment where we made an installation in collaboration with the Cinedance festival with the goal of it being displayed at an actual festival."
 
         --
-        , goal = "The goal of our project is to create an intimate shut out environment where you can be alone with yourself."
-        , myRoll = "We did a lot of brainstorming together, I made the wooden frame together with a teammate and created the breathing motion."
+        , goal = "The goal of our project was to create an intimate environment where you can be alone with yourself and get away from the hyper active outside world."
+        , myRole = "We did a lot of brainstorming together, I made the wooden frame together with a teammate and created the breathing motion."
 
         --
-        , outcome = "The outcome is a very interesting, out of my general comfort-zone piece which I absolutely loved to work on and turned out really great."
-        , whatILearned = "I learned thinking in analogue material and inflatable structures. I also learned to think in tactile experiences."
+        , outcome = "The outcome is a very interesting, out of my general comfort-zone piece which I absolutely loved to work on and which turned out really great."
+        , whatILearned = "I learned thinking in analogue material and inflatable structures. I also learned to think better in tactile experiences."
 
         --
         , couldHaveGoneBetter = "We had a very long process with a lot of setbacks and long rethink sessions, though in the end that helped the final product get even better."

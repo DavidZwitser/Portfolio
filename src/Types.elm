@@ -83,6 +83,8 @@ type Msg
     | GlideGridStep Time.Posix
     | TrySnappingGrid
     | ChangePage Pages
+    | GetViewportScopes
+    | ViewProject Project
 
 
 type GridStatus

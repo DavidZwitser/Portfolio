@@ -26,7 +26,7 @@ data =
 
         --
         , goal = ""
-        , myRoll = ""
+        , myRole = ""
 
         --
         , outcome = ""

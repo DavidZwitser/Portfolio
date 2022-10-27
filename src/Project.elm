@@ -24,7 +24,7 @@ type alias ProjectVariables =
 type alias ProjectText =
     { name : String
     , description : String
-    , myRoll : String
+    , myRole : String
     , goal : String
     , outcome : String
     , context : String

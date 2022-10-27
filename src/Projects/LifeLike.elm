@@ -21,19 +21,19 @@ data =
         { name = "Life Like"
 
         --
-        , description = "In the search for finding simulated life, I found a computer algorithm named Reaction Diffusion and tried to bring it into the real world. The algorithm is projected unto a cube from 4 sides and senses the physical presence of other creatures. If you give it space, flourish and grow, but if you come to close, it'll have a hard time."
+        , description = "In the search for finding simulated life, I found a computer algorithm named Reaction Diffusion and tried to bring it into the real world. The algorithm is projected onto a cube from 4 sides. The cube is equipped with sensors on all sides which makes it able to detect the physical presence of other creatures. If you give it space, it will flourish and grow, but if you come to close, it'll have a harder time."
         , context = "As the final test of the first year of my current education, we went through a long research process, finding out the things that resonate with us personally. I ended up stranding on a search for life in computers."
 
         --
-        , goal = "The goal of this project is to convince the viewer that life is made out of complexity and can be simulated through a computer."
-        , myRoll = ""
+        , goal = "The goal of this project is to convince the viewer that life is simply made out of complexity and can thus be simulated by a computer."
+        , myRole = ""
 
         --
         , outcome = "The result is a physical multi media installation which has a unique effect on the viewer."
-        , whatILearned = "I learned a lot about algorithms and the results they produce. I also learned to work with many different techniques. The techniques I used ware: a Raspberry PI with networking to send sensor data, video mapping on a cube, GLSL code to run the algorithm very efficiently, physical painting and building to create a good projection area and place for the projectors and generating organic sounding sounds from the algorithm data. I also learned to go through a creative process very consciously and dig deep to find the things that really speak to me."
+        , whatILearned = "I learned a lot about algorithms and the results they produce. I also learned to work with many different techniques. The techniques I used were: a Raspberry PI with networking to send sensor data, video mapping on a cube, GLSL code to run the algorithm very efficiently, physical painting and building to create a good projection area and place for the projectors and generating organic sounding sounds from the algorithm data. I also learned to go through a creative process very consciously and dig deep to find the things that really resonate to me."
 
         --
-        , couldHaveGoneBetter = "The end result could have use a bit more polishing. For example I decided to leave the sensors out in the open which resulted in the user to interact with the sensor directly instead of interacting with the projection."
+        , couldHaveGoneBetter = "The end result could have use a bit more polishing. For example I decided to leave the sensors out in the open which resulted in the user to interact with the sensor directly instead of being fully emersed by the projection."
         , whatWentGood = "I stitched everything together very well and it all worked according to plan."
         }
     , sources =

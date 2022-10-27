@@ -1,6 +1,7 @@
 module ProjectsViewerPage exposing (..)
 
 import Animator exposing (..)
+import Animator.Css exposing (fontSize)
 import Animator.Inline exposing (..)
 import Debug exposing (..)
 import Dict exposing (Dict)
@@ -9,9 +10,9 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Events exposing (onClick)
 import Element.Font exposing (Font, justify)
-import Element.Input exposing (..)
-import Html exposing (a, button, div, label)
-import Html.Attributes exposing (..)
+import Element.Input exposing (button)
+import Html exposing (a, button, col, div, label)
+import Html.Attributes exposing (scope, style)
 import Project exposing (Project)
 import ProjectViewerPage3D exposing (projectViewer)
 import Types exposing (..)
@@ -49,11 +50,12 @@ navButton msg =
 
 projectViewerPage : Model -> Float -> Element Msg
 projectViewerPage model vmin =
-    row [ Element.width fill, Element.height fill ]
+    column [ Element.width fill, Element.height fill ]
         [ -- Project window
-          let
+          el [ width fill ] (projectViewer model.currentProject vmin)
+        , let
             scopeViewerSize =
-                0.4
+                0.3
           in
           row
             [ Element.width <| px <| round (vmin * scopeViewerSize)
@@ -75,7 +77,7 @@ projectViewerPage model vmin =
                 [ Element.width fill, Element.height fill ]
                 [ let
                     circleSizeMultiplier =
-                        0.35
+                        scopeViewerSize * 0.75
                   in
                   el
                     [ Element.width <| px <| round <| circleSizeMultiplier * vmin
@@ -84,7 +86,7 @@ projectViewerPage model vmin =
                     , centerY
                     , htmlAttribute <| Html.Attributes.style "clip-path" ("circle(" ++ toString (vmin * (circleSizeMultiplier * 0.5)) ++ "px at center)")
                     , inFront <|
-                        el
+                        Element.Input.button
                             [ centerX
                             , centerY
                             , htmlAttribute <| Html.Attributes.style "pointer-events" "none"
@@ -99,18 +101,23 @@ projectViewerPage model vmin =
                                 , color = rgb 0.2 0.2 0.2
                                 }
                             ]
-                            none
+                            { onPress = Just <| GetViewportScopes
+                            , label = text ""
+                            }
                     ]
                   <|
                     row
                         [ Element.width fill
+                        , Element.height <| px <| round <| circleSizeMultiplier * vmin
 
-                        -- , Element.height <| px <| round <| circleSizeMultiplier * vmin
                         -- , Element.explain Debug.todo
-                        , paddingXY 50 100
+                        , paddingXY 0 (round (vmin * scopeViewerSize * 0.5))
                         , centerY
-                        , centerX
+
+                        -- , centerX
                         , scrollbarX
+
+                        -- , clipY
                         , Background.color <| rgb 0.9 0.9 0.9
                         , htmlAttribute <| Html.Attributes.style "scroll-snap-type" "both mandatory"
                         , htmlAttribute <| Html.Attributes.style "perspective" "1px"
@@ -134,7 +141,7 @@ projectIcon insideCircleSize vmin project =
         , paddingXY (round <| vmin * insideCircleSize * 1.3) 0
 
         -- , Element.width fill
-        , htmlAttribute <| Html.Attributes.style "scroll-snap-align" "center"
+        , htmlAttribute <| Html.Attributes.style "scroll-snap-align" "start end"
         , inFront <|
             el
                 [ Background.color <| rgba 0.1 0.1 0.1 0
@@ -183,6 +190,44 @@ projectIcon insideCircleSize vmin project =
             { src = Project.getImagePath project.sources.thumbnail project, description = "Project image" }
 
 
-projectViewer : Element Msg
-projectViewer =
-    el [] <| Element.text "hi"
+projectViewer : Project -> Float -> Element Msg
+projectViewer project vmin =
+    column
+        [ Element.width <| px <| round <| 0.7 * vmin
+        , Background.color <| rgb 1 1 1
+        , centerX
+        ]
+    <|
+        [ el styleTitle (text project.text.name)
+        , Element.image [ width fill, Border.shadow { offset = ( 0, 0 ), size = 1, blur = 5, color = rgb 0.2 0.2 0.2 } ] { src = Project.getImagePath project.sources.thumbnail project, description = "" }
+        , paragraph [ Element.Font.size 9 ] <| [ text project.text.description ]
+        , el styleSubtitle <| text "Context"
+        , paragraph styleParagraph [ text project.text.context ]
+        , el styleSubtitle <| text "Goal"
+        , paragraph styleParagraph [ text project.text.goal ]
+        , el styleSubtitle <| text "Role"
+        , paragraph styleParagraph [ text project.text.myRole ]
+        , el styleSubtitle <| text "What went good"
+        , paragraph styleParagraph [ text project.text.whatWentGood ]
+        , el styleSubtitle <| text "Could have gone better"
+        , paragraph styleParagraph [ text project.text.couldHaveGoneBetter ]
+        , el styleSubtitle <| text "Learned"
+        , paragraph styleParagraph [ text project.text.whatILearned ]
+        , el styleSubtitle <| text "Outcome"
+        , paragraph styleParagraph [ text project.text.outcome ]
+        ]
+
+
+styleTitle : List (Attribute msg)
+styleTitle =
+    [ Element.Font.size 45 ]
+
+
+styleSubtitle : List (Attribute msg)
+styleSubtitle =
+    [ Element.Font.size 17, Element.Font.color <| rgb 0.3 0.3 0.3 ]
+
+
+styleParagraph : List (Attribute msg)
+styleParagraph =
+    [ Element.Font.size 9 ]
