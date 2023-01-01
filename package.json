@@ -22,11 +22,11 @@
   "devDependencies": {
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
-    "css-loader": "^3.6.0",
-    "file-loader": "^4.3.0",
-    "html-loader": "^0.5.5",
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "html-loader": "^4.2.0",
     "http-server": "^14.1.0",
-    "mini-css-extract-plugin": "^0.7.0",
+    "mini-css-extract-plugin": "^2.7.2",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.0"
