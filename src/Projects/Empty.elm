@@ -1,6 +1,7 @@
 module Projects.Empty exposing (data)
 
-import Date exposing (fromCalendarDate)
+import Date
+import Element exposing (rgb)
 import Project exposing (Client(..), Goal(..), Theme(..), Tool(..))
 import Time exposing (Month(..))
 
@@ -13,33 +14,33 @@ data =
         { date = Date.fromCalendarDate 0 Jan 0
         , hoursSpent = 0
         , teamSize = 0
-        , endResultRating = 0
-        , learnedRating = 0
+        , teamMates = Nothing
         , client = None
+        , clientLink = Nothing
+        , color = rgb 1 1 1
         }
     , text =
         { name = ""
 
         --
-        , description = ""
+        , shortDescription = ""
+        , longDescription = ""
+        , processDescription = ""
         , context = ""
 
         --
-        , goal = ""
+        , philosophy = ""
         , myRole = ""
 
         --
-        , outcome = ""
-        , whatILearned = ""
-
-        --
-        , couldHaveGoneBetter = ""
-        , whatWentGood = ""
+        , interestingDetails = Nothing
+        , reflection = ""
         }
     , sources =
         { folderName = ""
         , thumbnail = ""
-        , images = []
+        , resultImages = []
+        , processImages = []
         , embedVideo = Just ""
         , localVideo = Just ""
         , linkToProject = Just ""

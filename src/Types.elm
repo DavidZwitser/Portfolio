@@ -2,58 +2,39 @@ module Types exposing (..)
 
 import Animator exposing (Timeline)
 import Browser
-import Color exposing (Color)
-import Dict exposing (Dict)
 import Project exposing (Project)
-import Time exposing (Month, Posix, toDay, toHour)
+import Time
 import Url
 
 
-type LoaderStatus
-    = Start
-    | Animating
-    | Finished
-
-
-type Pages
-    = Home
-    | Projects
-    | About
-    | Contact
+type ViewerPart
+    = Description
+    | ProjectPicker
+    | Background
 
 
 type alias Model =
-    { screenSize : { width : Int, height : Int }
-
-    -- Navigation
-    , page : Timeline Pages
-    , loaded : Animator.Timeline LoaderStatus
+    { loaded : Timeline Bool
 
     -- List project viewer
     , currentProject : Project
-    , lastProject : Project
-    , transitionProject : Timeline TransitionType
     , allProjects : List Project
+
+    -- in project viewer
+    , imageIndex : Int
+    , activeViewerPart : Timeline ViewerPart
     }
 
 
 type Msg
-    = AdjustScreenSize { width : Int, height : Int }
-    | Tick Time.Posix
-    | Loaded LoaderStatus
+    = Tick Time.Posix
+    | PageLoaded Bool
     | UrlChanged Url.Url
     | LinkClicked Browser.UrlRequest
-    | MouseMovedOverBackground
-    | NavigateTroughProjects Direction
-    | ChangePage Pages
-    | GetViewportScopes
-    | ViewProject Project
-
-
-type TransitionType
-    = In
-    | Out
-    | Idle
+    | ProjectClicked Project
+    | NextImageClicked Direction
+    | ImageIndexClicked Int
+    | NewPagePartHovered ViewerPart
 
 
 type Direction

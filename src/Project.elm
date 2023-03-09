@@ -1,10 +1,11 @@
 module Project exposing (..)
 
 import Date exposing (Date)
+import Element exposing (Color)
 
 
 type Client
-    = OrangeGames
+    = Azerion
     | HKU
     | MediaCollege
     | Cinedans
@@ -15,29 +16,31 @@ type alias ProjectVariables =
     { date : Date
     , hoursSpent : Int
     , teamSize : Int
-    , endResultRating : Float
-    , learnedRating : Float
+    , teamMates : Maybe (List ( String, String ))
     , client : Client
+    , clientLink : Maybe String
+    , color : Color
     }
 
 
 type alias ProjectText =
     { name : String
-    , description : String
-    , myRole : String
-    , goal : String
-    , outcome : String
     , context : String
-    , whatWentGood : String
-    , couldHaveGoneBetter : String
-    , whatILearned : String
+    , shortDescription : String
+    , longDescription : String
+    , processDescription : String
+    , myRole : String
+    , philosophy : String
+    , interestingDetails : Maybe String
+    , reflection : String
     }
 
 
 type alias ProjectSources =
     { folderName : String
     , thumbnail : String
-    , images : List String
+    , resultImages : List String
+    , processImages : List ( String, String )
     , embedVideo : Maybe String
     , localVideo : Maybe String
     , linkToProject : Maybe String
@@ -48,6 +51,23 @@ type Goal
     = Entertain
     | Educate
     | Create
+    | Provoke
+
+
+goalToString : Goal -> String
+goalToString goal =
+    case goal of
+        Entertain ->
+            "entertain"
+
+        Educate ->
+            "educate"
+
+        Create ->
+            "create"
+
+        Provoke ->
+            "provoke"
 
 
 type Tool
@@ -76,6 +96,79 @@ type Tool
     | Woodwork
 
 
+toolToString : Tool -> String
+toolToString tool =
+    case tool of
+        Touchdesigner ->
+            "touchdesigner"
+
+        Python ->
+            "python"
+
+        Elm ->
+            "elm"
+
+        DavinciResolve ->
+            "davici resolve"
+
+        Typescript ->
+            "typescript"
+
+        Processing ->
+            "processing"
+
+        Blender ->
+            "blender"
+
+        Houdini ->
+            "houdini"
+
+        SuperCollider ->
+            "supercollider"
+
+        Krita ->
+            "krita"
+
+        AffinityDesigner ->
+            "affinity designer"
+
+        AffinityPhoto ->
+            "affinity photo"
+
+        AffinityPublisher ->
+            "affinity publisher"
+
+        Twine ->
+            "Twine"
+
+        Phaser ->
+            "Phaser"
+
+        Webpack ->
+            "Webpack"
+
+        RaspberryPI ->
+            "raspberry PI"
+
+        Arduino ->
+            "arduino"
+
+        Networking ->
+            "networking"
+
+        ProjectionMapping ->
+            "projection mapping"
+
+        Filming ->
+            "filming"
+
+        Building ->
+            "building"
+
+        Woodwork ->
+            "woodwork"
+
+
 type Theme
     = Puzzle
     | Philosophical
@@ -87,6 +180,40 @@ type Theme
     | Generative
     | Tactile
     | Analogue
+
+
+themeToString : Theme -> String
+themeToString theme =
+    case theme of
+        Puzzle ->
+            "puzzle"
+
+        Philosophical ->
+            "philisophy"
+
+        Inspirational ->
+            "inspirational"
+
+        Daily ->
+            "daily"
+
+        Drama ->
+            "drama"
+
+        Interactive ->
+            "interactive"
+
+        Adventure ->
+            "adventure"
+
+        Generative ->
+            "generative"
+
+        Tactile ->
+            "tactile"
+
+        Analogue ->
+            "analogue"
 
 
 type alias ProjectTags =
@@ -106,6 +233,19 @@ type alias Project =
     }
 
 
-getImagePath : String -> Project -> String
-getImagePath image project =
-    "../media/images/projects/" ++ project.sources.folderName ++ "/" ++ image
+type TypeOfImage
+    = Final
+    | Process
+
+
+getImagePath : String -> Project -> TypeOfImage -> String
+getImagePath image project typeOfImage =
+    let
+        subfolderName =
+            if typeOfImage == Final then
+                "result"
+
+            else
+                "process"
+    in
+    "../media/images/projects/" ++ project.sources.folderName ++ "/" ++ subfolderName ++ "/" ++ image
