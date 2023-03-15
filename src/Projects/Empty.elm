@@ -2,7 +2,7 @@ module Projects.Empty exposing (data)
 
 import Date
 import Element exposing (rgb)
-import Project exposing (Client(..), Goal(..), Theme(..), Tool(..))
+import Project exposing (Client(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
 
 
@@ -46,8 +46,7 @@ data =
         , linkToProject = Just ""
         }
     , tags =
-        { goals = []
-        , toolStack = []
-        , themes = []
+        { toolStack = []
+        , medium = Installation
         }
     }

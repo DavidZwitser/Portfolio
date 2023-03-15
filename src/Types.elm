@@ -13,16 +13,21 @@ type ViewerPart
     | Background
 
 
+type Transition from to
+    = Start from to
+
+
 type alias Model =
     { loaded : Timeline Bool
 
     -- List project viewer
-    , currentProject : Project
+    , projectTransition : Timeline Project
     , allProjects : List Project
 
     -- in project viewer
-    , imageIndex : Int
+    , imageTransition : Timeline Int
     , activeViewerPart : Timeline ViewerPart
+    , imageType : Timeline Project.TypeOfImage
     }
 
 
@@ -35,6 +40,7 @@ type Msg
     | NextImageClicked Direction
     | ImageIndexClicked Int
     | NewPagePartHovered ViewerPart
+    | NewImageTypeClicked Project.TypeOfImage
 
 
 type Direction

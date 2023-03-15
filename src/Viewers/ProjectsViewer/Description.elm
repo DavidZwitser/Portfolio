@@ -2,19 +2,26 @@ module Viewers.ProjectsViewer.Description exposing (description)
 
 import Animator exposing (Timeline)
 import Element exposing (..)
+import Element.Background as Background
+import Element.Border as Border
 import Element.Font as Font
 import Project exposing (Project)
 import Types exposing (ViewerPart)
 
 
-description : List (Attribute msg) -> Project -> Timeline ViewerPart -> Element msg
-description styles project viewerPart =
-    column
+description : List (Attribute msg) -> Timeline Project -> Timeline ViewerPart -> Element msg
+description styles projectTransition viewerPart =
+    let
+        project =
+            projectTransition
+                |> Animator.current
+    in
+    paragraph
         (styles
-            ++ [ Font.color <| rgb 0.8 0.8 0.8
-               , alignTop
+            ++ [ alignTop
                , height fill
                , width fill
+               , Background.color <| rgb 0.25 0.25 0.25
 
                --    , explain Debug.todo
                , scrollbarY
@@ -82,7 +89,7 @@ getAlign align =
 
 styleSubtitle : Align -> List (Attribute msg)
 styleSubtitle align =
-    [ getAlign align, padding 3, Font.size 22, Font.color <| rgb 0.4 0.4 0.4 ]
+    [ getAlign align, padding 3, Font.size 22, Font.color <| rgb 0.7 0.7 0.7 ]
 
 
 quote : List (Attribute msg)
@@ -92,4 +99,4 @@ quote =
 
 styleParagraph : Align -> List (Attribute msg)
 styleParagraph align =
-    [ getAlign align, Font.size 11, padding 3 ]
+    [ getAlign align, Font.size 11, padding 3, Font.color <| rgb 1 1 1 ]

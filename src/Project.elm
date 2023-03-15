@@ -39,35 +39,12 @@ type alias ProjectText =
 type alias ProjectSources =
     { folderName : String
     , thumbnail : String
-    , resultImages : List String
+    , resultImages : List ( String, String )
     , processImages : List ( String, String )
     , embedVideo : Maybe String
     , localVideo : Maybe String
     , linkToProject : Maybe String
     }
-
-
-type Goal
-    = Entertain
-    | Educate
-    | Create
-    | Provoke
-
-
-goalToString : Goal -> String
-goalToString goal =
-    case goal of
-        Entertain ->
-            "entertain"
-
-        Educate ->
-            "educate"
-
-        Create ->
-            "create"
-
-        Provoke ->
-            "provoke"
 
 
 type Tool
@@ -169,57 +146,46 @@ toolToString tool =
             "woodwork"
 
 
-type Theme
-    = Puzzle
-    | Philosophical
-    | Inspirational
-    | Daily
-    | Drama
-    | Interactive
-    | Adventure
-    | Generative
-    | Tactile
-    | Analogue
+
+-- type Genre
+--     = Puzzle
+--     | Philosophical
+--     | Inspirational
+--     | Daily
+--     | Drama
+--     | Interactive
+--     | Adventure
+--     | Generative
+--     | Tactile
+--     | Analogue
 
 
-themeToString : Theme -> String
-themeToString theme =
-    case theme of
-        Puzzle ->
-            "puzzle"
+type Medium
+    = Installation
+    | Game
+    | AudioVisual
+    | Human
 
-        Philosophical ->
-            "philisophy"
 
-        Inspirational ->
-            "inspirational"
+mediumToString : Medium -> String
+mediumToString medium =
+    case medium of
+        Installation ->
+            "installation"
 
-        Daily ->
-            "daily"
+        Game ->
+            "game"
 
-        Drama ->
-            "drama"
+        AudioVisual ->
+            "audiovisual"
 
-        Interactive ->
-            "interactive"
-
-        Adventure ->
-            "adventure"
-
-        Generative ->
-            "generative"
-
-        Tactile ->
-            "tactile"
-
-        Analogue ->
-            "analogue"
+        Human ->
+            "human"
 
 
 type alias ProjectTags =
-    { goals : List Goal
-    , toolStack : List Tool
-    , themes : List Theme
+    { toolStack : List Tool
+    , medium : Medium
     }
 
 

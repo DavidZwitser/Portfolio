@@ -2,7 +2,7 @@ module Projects.CanWorld exposing (data)
 
 import Date
 import Element exposing (rgb255)
-import Project exposing (Client(..), Goal(..), Theme(..), Tool(..))
+import Project exposing (Client(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
 
 
@@ -39,15 +39,14 @@ data =
     , sources =
         { folderName = "CanWorld"
         , thumbnail = "noisy_noise.jpg"
-        , resultImages = [ "smeer.jpg", "starting_noise.jpg", "floating_paper.jpg" ]
+        , resultImages = [ ( "smeer.jpg", "" ), ( "starting_noise.jpg", "" ), ( "floating_paper.jpg", "" ) ]
         , processImages = []
         , embedVideo = Nothing
         , localVideo = Nothing
         , linkToProject = Nothing
         }
     , tags =
-        { goals = []
-        , toolStack = []
-        , themes = []
+        { toolStack = []
+        , medium = AudioVisual
         }
     }

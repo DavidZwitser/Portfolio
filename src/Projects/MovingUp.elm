@@ -2,13 +2,13 @@ module Projects.MovingUp exposing (data)
 
 import Date
 import Element exposing (rgb255)
-import Project exposing (Client(..), Goal(..), Theme(..), Tool(..))
+import Project exposing (Client(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
 
 
 data : Project.Project
 data =
-    { id = ""
+    { id = "movingup"
     , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 25 Nov 2017
@@ -44,11 +44,11 @@ data =
         { folderName = "MovingUp"
         , thumbnail = "endless_mode.jpg"
         , resultImages =
-            [ "level_select.jpg"
-            , "level12.jpg"
-            , "startscreen.jpg"
-            , "level16.jpg"
-            , "pausemenu.jpg"
+            [ ( "level_select.jpg", "" )
+            , ( "level12.jpg", "" )
+            , ( "startscreen.jpg", "" )
+            , ( "level16.jpg", "" )
+            , ( "pausemenu.jpg", "" )
             ]
         , processImages = []
         , embedVideo = Just "https://www.youtube.com/embed/AYHFLWNOQzc"
@@ -56,8 +56,7 @@ data =
         , linkToProject = Just "http://spele.nl/moving-up-spel/"
         }
     , tags =
-        { goals = [ Educate, Create ]
-        , toolStack = [ Typescript, Phaser, Webpack ]
-        , themes = [ Adventure, Puzzle, Interactive ]
+        { toolStack = [ Typescript, Phaser, Webpack ]
+        , medium = Game
         }
     }

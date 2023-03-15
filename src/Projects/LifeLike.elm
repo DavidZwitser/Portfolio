@@ -2,13 +2,13 @@ module Projects.LifeLike exposing (data)
 
 import Date
 import Element exposing (rgb255)
-import Project exposing (Client(..), Goal(..), Theme(..), Tool(..))
+import Project exposing (Client(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
 
 
 data : Project.Project
 data =
-    { id = ""
+    { id = "lifelike"
     , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 10 Jun 2019
@@ -44,11 +44,11 @@ data =
         { folderName = "LifeLike"
         , thumbnail = "Front_projection.jpg"
         , resultImages =
-            [ "Life_action.jpg"
-            , "Sensors.jpg"
-            , "Sensors_top.jpg"
-            , "Front_projection.jpg"
-            , "Process_behind.jpg"
+            [ ( "Life_action.jpg", "" )
+            , ( "Sensors.jpg", "" )
+            , ( "Sensors_top.jpg", "" )
+            , ( "Front_projection.jpg", "" )
+            , ( "Process_behind.jpg", "" )
             ]
         , processImages = []
         , embedVideo = Just "'https://www.youtube.com/embed/tvdirJkZqG4"
@@ -56,8 +56,7 @@ data =
         , linkToProject = Nothing
         }
     , tags =
-        { goals = [ Educate, Create ]
-        , toolStack = [ Touchdesigner, RaspberryPI, ProjectionMapping, Networking ]
-        , themes = [ Philosophical ]
+        { toolStack = [ Touchdesigner, RaspberryPI, ProjectionMapping, Networking ]
+        , medium = Installation
         }
     }

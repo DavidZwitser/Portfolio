@@ -2,7 +2,7 @@ module Projects.CONFINED_SPACE exposing (..)
 
 import Date
 import Element exposing (rgb255)
-import Project exposing (Client(..), Goal(..), Theme(..), Tool(..))
+import Project exposing (Client(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
 
 
@@ -42,35 +42,29 @@ data =
         --
         , thumbnail = "Spacious.jpg"
         , resultImages =
-            [ "Holy_tube.jpg"
-            , "Intensiteit_van_de_ervaring.jpg"
-            , "Edge.jpg"
-            , "Full_standalone.jpg"
-            , "Inside_tha_tube.jpg"
-            , "Holo.jpg"
-            , "Tube.jpg"
-            , "Deep_dive.jpg"
+            [ ( "Holy_tube.jpg", "" )
+            , ( "Intensiteit_van_de_ervaring.jpg", "" )
+            , ( "Edge.jpg", "" )
+            , ( "Full_standalone.jpg", "" )
+            , ( "Inside_tha_tube.jpg", "" )
+            , ( "Holo.jpg", "" )
+            , ( "Tube.jpg", "" )
+            , ( "Deep_dive.jpg", "" )
             ]
-        , processImages = []
+        , processImages =
+            [ ( "Tube.jpg", "" )
+            , ( "Deep_dive.jpg", "" )
+            ]
         , embedVideo = Just "https://www.youtube.com/embed/vSZDguIEcEE"
         , localVideo = Nothing
         , linkToProject = Nothing
         }
     , tags =
-        { goals =
-            [ Create
-            , Entertain
-            , Educate
-            ]
-        , toolStack =
+        { toolStack =
             [ Arduino
             , Woodwork
             , Building
             ]
-        , themes =
-            [ Interactive
-            , Analogue
-            , Tactile
-            ]
+        , medium = Installation
         }
     }

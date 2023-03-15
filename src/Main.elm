@@ -41,7 +41,6 @@ main =
 init : () -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init _ _ _ =
     ( { loaded = Animator.init False
-      , currentProject = Projects.CONFINED_SPACE.data
       , allProjects =
             [ Projects.DavidZwitser.data
             , Projects.CONFINED_SPACE.data
@@ -49,8 +48,10 @@ init _ _ _ =
             , Projects.MovingUp.data
             , Projects.LifeLike.data
             ]
-      , imageIndex = 0
-      , activeViewerPart = Animator.init Background
+      , activeViewerPart = Animator.init Description
+      , projectTransition = Animator.init Projects.CONFINED_SPACE.data
+      , imageTransition = Animator.init 0
+      , imageType = Animator.init Project.Final
       }
     , Cmd.batch
         [ Task.perform PageLoaded (Task.succeed True) ]
@@ -67,6 +68,18 @@ animator =
         |> Animator.watchingWith
             .activeViewerPart
             (\newViewPart model -> { model | activeViewerPart = newViewPart })
+            (\_ -> False)
+        |> Animator.watchingWith
+            .projectTransition
+            (\newTransition model -> { model | projectTransition = newTransition })
+            (\_ -> False)
+        |> Animator.watchingWith
+            .imageTransition
+            (\newTransition model -> { model | imageTransition = newTransition })
+            (\_ -> False)
+        |> Animator.watchingWith
+            .imageType
+            (\newImageType model -> { model | imageType = newImageType })
             (\_ -> False)
 
 
@@ -89,8 +102,6 @@ view model =
             row
                 [ Element.height fill
                 , Element.width fill
-                , padding 20
-                , spacing 30
                 ]
                 [ projectViewer model
                 ]
@@ -114,32 +125,50 @@ update msg model =
             ( model, Cmd.none )
 
         ProjectClicked project ->
-            ( { model | currentProject = project, imageIndex = 0 }, Cmd.none )
+            ( { model
+                | imageTransition = model.imageTransition |> Animator.go Animator.slowly 0
+                , projectTransition =
+                    model.projectTransition
+                        |> Animator.go Animator.slowly project
+              }
+            , Cmd.none
+            )
 
         NextImageClicked dir ->
             let
                 currProjectImagesAmount =
-                    List.length model.currentProject.sources.resultImages
+                    model.projectTransition
+                        |> Animator.current
+                        |> .sources
+                        |> .resultImages
+                        |> List.length
+
+                currImageIndex =
+                    model.imageTransition
+                        |> Animator.current
 
                 newImageIndex =
-                    clamp 0 (currProjectImagesAmount - 1) <|
+                    clamp 0 currProjectImagesAmount <|
                         if dir == Right then
-                            model.imageIndex + 1
+                            currImageIndex + 1
 
                         else
-                            model.imageIndex - 1
+                            currImageIndex - 1
             in
-            ( { model | imageIndex = newImageIndex }, Cmd.none )
+            ( { model | imageTransition = model.imageTransition |> Animator.go Animator.quickly newImageIndex }, Cmd.none )
 
         ImageIndexClicked index ->
-            ( { model | imageIndex = index }, Cmd.none )
+            ( { model | imageTransition = model.imageTransition |> Animator.go Animator.quickly index }, Cmd.none )
 
         NewPagePartHovered viewerPart ->
             ( { model
                 | activeViewerPart =
                     model.activeViewerPart
                         |> Animator.queue
-                            [ Animator.event Animator.quickly viewerPart ]
+                            [ Animator.event Animator.slowly viewerPart ]
               }
             , Cmd.none
             )
+
+        NewImageTypeClicked newImageType ->
+            ( { model | imageType = model.imageType |> Animator.go Animator.quickly newImageType }, Cmd.none )
