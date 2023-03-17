@@ -9,7 +9,6 @@ import Time exposing (Month(..))
 data : Project.Project
 data =
     { id = "confined_space"
-    , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 15 Jan 2020
         , hoursSpent = 320
@@ -40,24 +39,19 @@ data =
         { folderName = "CONFINED_SPACE"
 
         --
-        , thumbnail = "Spacious.jpg"
-        , resultImages =
-            [ ( "Holy_tube.jpg", "" )
-            , ( "Intensiteit_van_de_ervaring.jpg", "" )
-            , ( "Edge.jpg", "" )
-            , ( "Full_standalone.jpg", "" )
-            , ( "Inside_tha_tube.jpg", "" )
-            , ( "Holo.jpg", "" )
-            , ( "Tube.jpg", "" )
-            , ( "Deep_dive.jpg", "" )
+        , thumbnail = { fileName = "Tube.jpg", description = "", footageAbout = Project.Final }
+        , footage =
+            [ Project.Image { fileName = "Holy_tube.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Intensiteit_van_de_ervaring.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Edge.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Full_standalone.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Inside_tha_tube.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Holo.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Tube.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Deep_dive.jpg", description = "", footageAbout = Project.Final }
+            , Project.YoutubeEmbedded { fileName = "https://www.youtube.com/embed/vSZDguIEcEE", description = "", footageAbout = Project.Final }
             ]
-        , processImages =
-            [ ( "Tube.jpg", "" )
-            , ( "Deep_dive.jpg", "" )
-            ]
-        , embedVideo = Just "https://www.youtube.com/embed/vSZDguIEcEE"
-        , localVideo = Nothing
-        , linkToProject = Nothing
+        , externalLink = Nothing
         }
     , tags =
         { toolStack =

@@ -15,7 +15,7 @@ import Palette.Generative exposing (..)
 import Project exposing (Medium(..))
 import Types exposing (..)
 import Viewers.ProjectsViewer.Description exposing (description)
-import Viewers.ProjectsViewer.ImageViewer exposing (imageViewer)
+import Viewers.ProjectsViewer.FootageViewer exposing (footageViewer)
 import Viewers.ProjectsViewer.ProjectPicker exposing (projectPicker)
 
 
@@ -73,7 +73,7 @@ projectViewer model =
             -- , Events.onClick <| NewPagePartHovered Background
             , paddingXY (round <| activeViewpartAnimation model Background 25 200) 25
             ]
-            [ imageViewer [ width fill, centerY, padding 50 ] model.projectTransition model.imageTransition model.imageType
+            [ footageViewer [ width fill, centerY, padding 50 ] model.projectTransition model.footageTransition model.footageAbout
             ]
         , column
             [ height fill

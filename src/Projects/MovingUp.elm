@@ -9,7 +9,6 @@ import Time exposing (Month(..))
 data : Project.Project
 data =
     { id = "movingup"
-    , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 25 Nov 2017
         , hoursSpent = 320
@@ -42,18 +41,16 @@ data =
         }
     , sources =
         { folderName = "MovingUp"
-        , thumbnail = "endless_mode.jpg"
-        , resultImages =
-            [ ( "level_select.jpg", "" )
-            , ( "level12.jpg", "" )
-            , ( "startscreen.jpg", "" )
-            , ( "level16.jpg", "" )
-            , ( "pausemenu.jpg", "" )
+        , thumbnail = { fileName = "endless_mode.jpg", description = "", footageAbout = Project.Final }
+        , footage =
+            [ Project.Image { fileName = "level_select.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "level12.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "startscreen.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "level16.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "pausemenu.jpg", description = "", footageAbout = Project.Final }
+            , Project.YoutubeEmbedded { fileName = "https://www.youtube.com/embed/AYHFLWNOQzc", description = "", footageAbout = Project.Final }
             ]
-        , processImages = []
-        , embedVideo = Just "https://www.youtube.com/embed/AYHFLWNOQzc"
-        , localVideo = Nothing
-        , linkToProject = Just "http://spele.nl/moving-up-spel/"
+        , externalLink = Just "http://spele.nl/moving-up-spel/"
         }
     , tags =
         { toolStack = [ Typescript, Phaser, Webpack ]

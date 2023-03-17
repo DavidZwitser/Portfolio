@@ -14,7 +14,6 @@ data =
             24
     in
     { id = "david_zwitser"
-    , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 0 Jan 0
         , hoursSpent = age * 365
@@ -43,12 +42,13 @@ data =
         }
     , sources =
         { folderName = "DavidZwitser"
-        , thumbnail = "pf.jpg"
-        , resultImages = [ ( "pf.jpg", "" ) ]
-        , processImages = []
-        , embedVideo = Just ""
-        , localVideo = Just ""
-        , linkToProject = Just ""
+        , thumbnail =
+            { fileName = "pf.jpg"
+            , description = ""
+            , footageAbout = Project.Final
+            }
+        , footage = [ Project.Image { fileName = "pf.jpg", description = "", footageAbout = Project.Final } ]
+        , externalLink = Nothing
         }
     , tags =
         { toolStack = []

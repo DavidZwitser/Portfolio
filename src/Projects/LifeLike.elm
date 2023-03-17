@@ -9,7 +9,6 @@ import Time exposing (Month(..))
 data : Project.Project
 data =
     { id = "lifelike"
-    , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 10 Jun 2019
         , hoursSpent = 320
@@ -42,18 +41,15 @@ data =
         }
     , sources =
         { folderName = "LifeLike"
-        , thumbnail = "Front_projection.jpg"
-        , resultImages =
-            [ ( "Life_action.jpg", "" )
-            , ( "Sensors.jpg", "" )
-            , ( "Sensors_top.jpg", "" )
-            , ( "Front_projection.jpg", "" )
-            , ( "Process_behind.jpg", "" )
+        , thumbnail = { fileName = "Front_projection.jpg", description = "", footageAbout = Project.Final }
+        , footage =
+            [ Project.Image { fileName = "Life_action.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Sensors.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Sensors_top.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Front_projection.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "Process_behind.jpg", description = "", footageAbout = Project.Final }
             ]
-        , processImages = []
-        , embedVideo = Just "'https://www.youtube.com/embed/tvdirJkZqG4"
-        , localVideo = Nothing
-        , linkToProject = Nothing
+        , externalLink = Nothing
         }
     , tags =
         { toolStack = [ Touchdesigner, RaspberryPI, ProjectionMapping, Networking ]

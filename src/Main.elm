@@ -12,6 +12,7 @@ import Element.Font
 import List
 import List.Extra exposing (..)
 import Project exposing (..)
+import Projects.BuildUpAndRelease
 import Projects.CONFINED_SPACE
 import Projects.CanWorld
 import Projects.DavidZwitser
@@ -47,11 +48,12 @@ init _ _ _ =
             , Projects.CanWorld.data
             , Projects.MovingUp.data
             , Projects.LifeLike.data
+            , Projects.BuildUpAndRelease.data
             ]
       , activeViewerPart = Animator.init Description
-      , projectTransition = Animator.init Projects.CONFINED_SPACE.data
-      , imageTransition = Animator.init 0
-      , imageType = Animator.init Project.Final
+      , projectTransition = Animator.init Projects.BuildUpAndRelease.data
+      , footageTransition = Animator.init 0
+      , footageAbout = Animator.init Project.Final
       }
     , Cmd.batch
         [ Task.perform PageLoaded (Task.succeed True) ]
@@ -74,12 +76,12 @@ animator =
             (\newTransition model -> { model | projectTransition = newTransition })
             (\_ -> False)
         |> Animator.watchingWith
-            .imageTransition
-            (\newTransition model -> { model | imageTransition = newTransition })
+            .footageTransition
+            (\newTransition model -> { model | footageTransition = newTransition })
             (\_ -> False)
         |> Animator.watchingWith
-            .imageType
-            (\newImageType model -> { model | imageType = newImageType })
+            .footageAbout
+            (\newFootageAbout model -> { model | footageAbout = newFootageAbout })
             (\_ -> False)
 
 
@@ -126,7 +128,7 @@ update msg model =
 
         ProjectClicked project ->
             ( { model
-                | imageTransition = model.imageTransition |> Animator.go Animator.slowly 0
+                | footageTransition = model.footageTransition |> Animator.go Animator.slowly 0
                 , projectTransition =
                     model.projectTransition
                         |> Animator.go Animator.slowly project
@@ -134,17 +136,17 @@ update msg model =
             , Cmd.none
             )
 
-        NextImageClicked dir ->
+        NextFootageClicked dir ->
             let
                 currProjectImagesAmount =
                     model.projectTransition
                         |> Animator.current
                         |> .sources
-                        |> .resultImages
+                        |> .footage
                         |> List.length
 
                 currImageIndex =
-                    model.imageTransition
+                    model.footageTransition
                         |> Animator.current
 
                 newImageIndex =
@@ -155,10 +157,10 @@ update msg model =
                         else
                             currImageIndex - 1
             in
-            ( { model | imageTransition = model.imageTransition |> Animator.go Animator.quickly newImageIndex }, Cmd.none )
+            ( { model | footageTransition = model.footageTransition |> Animator.go Animator.quickly newImageIndex }, Cmd.none )
 
-        ImageIndexClicked index ->
-            ( { model | imageTransition = model.imageTransition |> Animator.go Animator.quickly index }, Cmd.none )
+        FootageIndexClicked index ->
+            ( { model | footageTransition = model.footageTransition |> Animator.go Animator.quickly index }, Cmd.none )
 
         NewPagePartHovered viewerPart ->
             ( { model
@@ -170,5 +172,5 @@ update msg model =
             , Cmd.none
             )
 
-        NewImageTypeClicked newImageType ->
-            ( { model | imageType = model.imageType |> Animator.go Animator.quickly newImageType }, Cmd.none )
+        NewFootageTypeClicked newImageType ->
+            ( { model | footageAbout = model.footageAbout |> Animator.go Animator.quickly newImageType }, Cmd.none )

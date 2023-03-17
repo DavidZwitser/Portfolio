@@ -38,12 +38,9 @@ type alias ProjectText =
 
 type alias ProjectSources =
     { folderName : String
-    , thumbnail : String
-    , resultImages : List ( String, String )
-    , processImages : List ( String, String )
-    , embedVideo : Maybe String
-    , localVideo : Maybe String
-    , linkToProject : Maybe String
+    , thumbnail : FootageMetadata
+    , footage : List Footage
+    , externalLink : Maybe String
     }
 
 
@@ -146,20 +143,6 @@ toolToString tool =
             "woodwork"
 
 
-
--- type Genre
---     = Puzzle
---     | Philosophical
---     | Inspirational
---     | Daily
---     | Drama
---     | Interactive
---     | Adventure
---     | Generative
---     | Tactile
---     | Analogue
-
-
 type Medium
     = Installation
     | Game
@@ -189,9 +172,43 @@ type alias ProjectTags =
     }
 
 
+type FootageAbout
+    = Final
+    | Process
+
+
+type Footage
+    = Image FootageMetadata
+    | Video FootageMetadata
+    | YoutubeEmbedded FootageMetadata
+    | VimeoEmbedded FootageMetadata
+
+
+unpackFootage : Footage -> FootageMetadata
+unpackFootage footage =
+    case footage of
+        Image data ->
+            data
+
+        Video data ->
+            data
+
+        YoutubeEmbedded data ->
+            data
+
+        VimeoEmbedded data ->
+            data
+
+
+type alias FootageMetadata =
+    { fileName : String
+    , description : String
+    , footageAbout : FootageAbout
+    }
+
+
 type alias Project =
     { id : String
-    , isFullProject : Bool
     , variables : ProjectVariables
     , text : ProjectText
     , sources : ProjectSources
@@ -199,19 +216,6 @@ type alias Project =
     }
 
 
-type TypeOfImage
-    = Final
-    | Process
-
-
-getImagePath : String -> Project -> TypeOfImage -> String
-getImagePath image project typeOfImage =
-    let
-        subfolderName =
-            if typeOfImage == Final then
-                "result"
-
-            else
-                "process"
-    in
-    "../media/images/projects/" ++ project.sources.folderName ++ "/" ++ subfolderName ++ "/" ++ image
+getFootagePath : FootageMetadata -> Project -> String
+getFootagePath footage project =
+    "../media/images/projects/" ++ project.sources.folderName ++ "/" ++ footage.fileName

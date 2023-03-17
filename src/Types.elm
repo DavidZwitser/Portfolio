@@ -25,9 +25,9 @@ type alias Model =
     , allProjects : List Project
 
     -- in project viewer
-    , imageTransition : Timeline Int
+    , footageTransition : Timeline Int
     , activeViewerPart : Timeline ViewerPart
-    , imageType : Timeline Project.TypeOfImage
+    , footageAbout : Timeline Project.FootageAbout
     }
 
 
@@ -37,10 +37,10 @@ type Msg
     | UrlChanged Url.Url
     | LinkClicked Browser.UrlRequest
     | ProjectClicked Project
-    | NextImageClicked Direction
-    | ImageIndexClicked Int
+    | NextFootageClicked Direction
+    | FootageIndexClicked Int
     | NewPagePartHovered ViewerPart
-    | NewImageTypeClicked Project.TypeOfImage
+    | NewFootageTypeClicked Project.FootageAbout
 
 
 type Direction

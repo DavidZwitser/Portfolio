@@ -45,7 +45,7 @@ projectPicker styles projects projectTransition =
                 (\project ->
                     row [ width fill, height fill ]
                         [ el
-                            [ width <| Debug.log "width" <| px <| round <| toProjectTransition project.id 0 30
+                            [ width <| px <| round <| toProjectTransition project.id 0 30
                             , alpha <| toProjectTransition project.id 0 1
                             , Font.color <| rgb 0.8 0.8 0.8
                             , Font.center
@@ -109,7 +109,7 @@ projectPicker styles projects projectTransition =
                                     , Background.color <| rgb 0.1 0.1 0.1
                                     , clip
                                     ]
-                                    { src = Project.getImagePath project.sources.thumbnail project Project.Final, description = "" }
+                                    { src = Project.getFootagePath project.sources.thumbnail project, description = project.sources.thumbnail.description }
                                 ]
                             ]
                         ]

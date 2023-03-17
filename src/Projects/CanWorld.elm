@@ -2,14 +2,13 @@ module Projects.CanWorld exposing (data)
 
 import Date
 import Element exposing (rgb255)
-import Project exposing (Client(..), Medium(..), Tool(..))
+import Project exposing (Client(..), Footage(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
 
 
 data : Project.Project
 data =
     { id = "can_world"
-    , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 15 Sep 15
         , hoursSpent = 24
@@ -38,12 +37,13 @@ data =
         }
     , sources =
         { folderName = "CanWorld"
-        , thumbnail = "noisy_noise.jpg"
-        , resultImages = [ ( "smeer.jpg", "" ), ( "starting_noise.jpg", "" ), ( "floating_paper.jpg", "" ) ]
-        , processImages = []
-        , embedVideo = Nothing
-        , localVideo = Nothing
-        , linkToProject = Nothing
+        , thumbnail = { fileName = "noisy_noise.jpg", description = "", footageAbout = Project.Final }
+        , footage =
+            [ Project.Image { fileName = "smeer.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "starting_noise.jpg", description = "", footageAbout = Project.Final }
+            , Project.Image { fileName = "floating_paper.jpg", description = "", footageAbout = Project.Final }
+            ]
+        , externalLink = Nothing
         }
     , tags =
         { toolStack = []

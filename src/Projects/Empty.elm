@@ -9,7 +9,6 @@ import Time exposing (Month(..))
 data : Project.Project
 data =
     { id = ""
-    , isFullProject = True
     , variables =
         { date = Date.fromCalendarDate 0 Jan 0
         , hoursSpent = 0
@@ -38,12 +37,9 @@ data =
         }
     , sources =
         { folderName = ""
-        , thumbnail = ""
-        , resultImages = []
-        , processImages = []
-        , embedVideo = Just ""
-        , localVideo = Just ""
-        , linkToProject = Just ""
+        , thumbnail = { fileName = "", description = "", footageAbout = Project.Final }
+        , footage = []
+        , externalLink = Just ""
         }
     , tags =
         { toolStack = []
