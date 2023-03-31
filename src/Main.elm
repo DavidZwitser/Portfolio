@@ -3,12 +3,15 @@ module Main exposing (..)
 import Animator exposing (..)
 import Browser
 import Browser.Dom exposing (Viewport, getViewport)
+import Browser.Events as BEvents
 import Browser.Navigation exposing (load)
 import Debug exposing (..)
 import Effects.LoadAnimation
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font
+import Html
+import Html.Attributes as HtmlAttriutes
 import List
 import List.Extra exposing (..)
 import Project exposing (..)
@@ -19,6 +22,7 @@ import Projects.CuddleKing2000
 import Projects.DavidZwitser
 import Projects.LifeLike
 import Projects.PersonalSharedPhysicsl
+import String exposing (toInt)
 import Task
 import Types exposing (..)
 import Url
@@ -36,7 +40,9 @@ main =
         , subscriptions =
             \model ->
                 Sub.batch
-                    [ animator |> Animator.toSubscription Tick model ]
+                    [ animator |> Animator.toSubscription Tick model
+                    , BEvents.onResize (\w h -> GotNewScreenSize w h)
+                    ]
         }
 
 
@@ -58,9 +64,22 @@ init _ _ _ =
       , footageAbout = Animator.init Project.Final
       , footageMuted = True
       , footageAutoplay = True
+      , isPortrait = False
+      , screensize = { w = 0, h = 0 }
       }
     , Cmd.batch
-        [ Task.perform PageLoaded (Task.succeed True) ]
+        [ Task.perform PageLoaded (Task.succeed True)
+        , Task.attempt
+            (\result ->
+                case result of
+                    Ok viewport ->
+                        GotNewScreenSize (round viewport.viewport.width) (round viewport.viewport.height)
+
+                    Err _ ->
+                        GotNewScreenSize 0 0
+            )
+            getViewport
+        ]
     )
 
 
@@ -120,6 +139,9 @@ update msg model =
     case msg of
         Tick newTime ->
             ( Animator.update newTime animator model, Cmd.none )
+
+        GotNewScreenSize w h ->
+            ( { model | isPortrait = w < h, screensize = { w = w, h = h } }, Cmd.none )
 
         PageLoaded _ ->
             ( { model | loaded = model.loaded |> Animator.go Animator.verySlowly True }, Cmd.none )

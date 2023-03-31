@@ -10,8 +10,28 @@ import Project exposing (..)
 import Types exposing (Msg(..), ViewerPart)
 
 
-projectPicker : List (Attribute Msg) -> List Project -> Animator.Timeline Project -> Element Msg
-projectPicker styles projects projectTransition =
+instagramRef =
+    [ ( "running experimentations", "https://www.instagram.com/coelepinda/" ) ]
+        |> List.map
+            (\( description, url ) ->
+                el
+                    [ height fill
+                    , width fill
+                    , Font.color <| rgb 1 1 1
+                    , Font.alignRight
+                    , Font.size 20
+                    , padding 10
+                    , pointer
+                    , Events.onClick <| OpenExternalPage url
+                    , Background.color <| rgb 0.5 0.7 0.5
+                    ]
+                <|
+                    text description
+            )
+
+
+projectPicker : List (Attribute Msg) -> List Project -> Bool -> Animator.Timeline Project -> Element Msg
+projectPicker styles projects isPortrait projectTransition =
     let
         currProject =
             projectTransition
@@ -42,23 +62,11 @@ projectPicker styles projects projectTransition =
                --    , spacing 5
                ]
         )
-        (([ ( "running experimentations", "https://www.instagram.com/coelepinda/" ) ]
-            |> List.map
-                (\( description, url ) ->
-                    el
-                        [ height fill
-                        , width fill
-                        , Font.color <| rgb 1 1 1
-                        , Font.alignRight
-                        , Font.size 20
-                        , padding 10
-                        , pointer
-                        , Events.onClick <| OpenExternalPage url
-                        , Background.color <| rgb 0.5 0.7 0.5
-                        ]
-                    <|
-                        text description
-                )
+        ((if not isPortrait then
+            instagramRef
+
+          else
+            []
          )
             ++ (projects
                     |> List.map
@@ -87,13 +95,26 @@ projectPicker styles projects projectTransition =
                                     ]
                                     [ column
                                         [ fillPortion 2
-                                            |> maximum 230
+                                            |> maximum
+                                                (if isPortrait then
+                                                    400
+
+                                                 else
+                                                    228
+                                                )
                                             |> width
+                                        , centerX
                                         ]
                                         [ paragraph
                                             [ width fill
                                             , height fill
-                                            , Font.size 18
+                                            , Font.size
+                                                (if isPortrait then
+                                                    30
+
+                                                 else
+                                                    18
+                                                )
                                             , Font.alignRight
                                             , padding 5
                                             , Background.color <| rgb 0.1 0.1 0.1
@@ -103,9 +124,16 @@ projectPicker styles projects projectTransition =
                                             [ text project.text.name ]
                                         , image
                                             [ width fill
-                                            , height <| px <| 200
+                                            , height <|
+                                                px <|
+                                                    if isPortrait then
+                                                        400
+
+                                                    else
+                                                        228
                                             , Background.color <| rgb 0.1 0.1 0.1
                                             , clip
+                                            , centerX
                                             ]
                                             { src = Project.getFootagePath project.sources.thumbnail project, description = project.sources.thumbnail.description }
                                         ]
