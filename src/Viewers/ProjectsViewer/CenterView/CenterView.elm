@@ -48,8 +48,8 @@ mediumLabel tags =
 variablesDisplay : Project.ProjectVariables -> Element Msg
 variablesDisplay variables =
     column [ width fill, height fill, Font.size 12, spacing 1 ]
-        [ el [ alignRight ] <| text <| ("team size: " ++ (Debug.toString <| variables.teamSize))
-        , el [ alignRight ] <| text <| ("Hours spent: " ++ (Debug.toString <| variables.hoursSpent))
+        [ el [ alignRight ] <| text <| ("team size: " ++ (String.fromInt <| variables.teamSize))
+        , el [ alignRight ] <| text <| ("Hours spent: " ++ (String.fromInt <| variables.hoursSpent))
         , el [ alignRight ] <|
             text <|
                 ("Date: "

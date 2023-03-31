@@ -1,7 +1,6 @@
 module Projects.DavidZwitser exposing (data)
 
 import Date
-import Debug exposing (toString)
 import Element exposing (rgb255)
 import Project exposing (Client(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
@@ -30,7 +29,7 @@ data =
         , shortDescription = "The maker of this portfolio and the works in it."
         , longDescription = "Hello, I am David. I am a starting artist. My works can be described as, works which trough interaction and experience, takes people with me emotionally to the philosophical conflicts playing in my head."
         , processDescription = "I have always been fascinated by combining technology with creativity. I started out studying Game Development at the MediaCollage Amsterdam and afterwards studied Image and Media Technology at HKU. If I am so lucky, I'd would also love to do a full philosophy study."
-        , context = "I was born in Haarlem in the Netherlands and am " ++ toString age ++ " years old."
+        , context = "I was born in Haarlem in the Netherlands and am " ++ String.fromInt age ++ " years old."
 
         --
         , philosophy = "I try to be very critical when taking on believes or presumptions. I try to reflect very critically on the things I do and strive to be physically, intellectually and emotionally connected with myself and the world around me ."
