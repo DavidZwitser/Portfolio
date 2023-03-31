@@ -1,7 +1,7 @@
 module Project exposing (..)
 
 import Date exposing (Date)
-import Element exposing (Color)
+import Element exposing (..)
 
 
 type Client
@@ -39,13 +39,19 @@ type alias ProjectText =
 type alias ProjectSources =
     { folderName : String
     , thumbnail : FootageMetadata
-    , footage : List Footage
+    , finalFootage : List Footage
+    , processFootage : List Footage
     , externalLink : Maybe String
     }
 
 
 type Tool
     = Touchdesigner
+    | GOLANG
+    | Pneumatics
+    | PureData
+    | Database
+    | DataAnalysis
     | Python
     | Elm
     | DavinciResolve
@@ -75,6 +81,21 @@ toolToString tool =
     case tool of
         Touchdesigner ->
             "touchdesigner"
+
+        Pneumatics ->
+            "pneumatics"
+
+        PureData ->
+            "pure data"
+
+        GOLANG ->
+            "golang"
+
+        Database ->
+            "database"
+
+        DataAnalysis ->
+            "data analysis"
 
         Python ->
             "python"
@@ -177,33 +198,46 @@ type FootageAbout
     | Process
 
 
+type alias URl =
+    { textDescription : String
+    , href : String
+    }
+
+
 type Footage
     = Image FootageMetadata
     | Video FootageMetadata
     | YoutubeEmbedded FootageMetadata
     | VimeoEmbedded FootageMetadata
+    | Audio FootageMetadata
+    | Custom (List URl)
 
 
-unpackFootage : Footage -> FootageMetadata
+unpackFootage : Footage -> Maybe FootageMetadata
 unpackFootage footage =
     case footage of
         Image data ->
-            data
+            Just data
 
         Video data ->
-            data
+            Just data
 
         YoutubeEmbedded data ->
-            data
+            Just data
 
         VimeoEmbedded data ->
-            data
+            Just data
+
+        Audio data ->
+            Just data
+
+        Custom _ ->
+            Nothing
 
 
 type alias FootageMetadata =
     { fileName : String
     , description : String
-    , footageAbout : FootageAbout
     }
 
 
@@ -218,4 +252,13 @@ type alias Project =
 
 getFootagePath : FootageMetadata -> Project -> String
 getFootagePath footage project =
-    "../media/images/projects/" ++ project.sources.folderName ++ "/" ++ footage.fileName
+    "../media/projects/" ++ project.sources.folderName ++ "/" ++ footage.fileName
+
+
+getApropiateFootage : FootageAbout -> Project -> List Footage
+getApropiateFootage about project =
+    if about == Final then
+        project.sources.finalFootage
+
+    else
+        project.sources.processFootage

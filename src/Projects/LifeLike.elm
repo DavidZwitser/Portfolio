@@ -10,7 +10,7 @@ data : Project.Project
 data =
     { id = "lifelike"
     , variables =
-        { date = Date.fromCalendarDate 10 Jun 2019
+        { date = Date.fromCalendarDate 2019 Jun 10
         , hoursSpent = 320
         , teamSize = 1
         , teamMates = Nothing
@@ -22,13 +22,13 @@ data =
         { name = "Life Like"
 
         --
-        , shortDescription = "In the search for finding simulated life, I found a computer algorithm named Reaction Diffusion and tried to bring it into the real world. The algorithm is projected onto a cube from 4 sides. The cube is equipped with sensors on all sides which makes it able to detect the physical presence of other creatures. If you give it space, it will flourish and grow, but if you come to close, it'll have a harder time."
-        , longDescription = ""
+        , shortDescription = "A quest to answer the question if life and conciousness come about trough logic and can thus be simulated by computers."
+        , longDescription = "I found the computer algorithm named Reaction Diffusion and tried to bring it into the real world. The algorithm is projected onto a pilar from 4 sides. With sensors on all sides it is able to detect physical presence. If you give it space, it will flourish and grow, but if you come to close, it'll have a harder time. With this I attempt to put ourselves in front of an algorithm in a fairer way then trough a screen and see if our human senses perceive it as something of our organic world."
         , processDescription = ""
-        , context = "As the final test of the first year of my current education, we went through a long research process, finding out the things that resonate with us personally. I ended up stranding on a search for life in computers."
+        , context = "This was the final test of my propaeduitic year."
 
         --
-        , philosophy = "The goal of this project is to convince the viewer that life is simply made out of complexity and can thus be simulated by a computer."
+        , philosophy = "It's a case on materialism. Showing the viewer that life might simply come from complexity and can thus be simulated by a computer."
         , myRole = ""
 
         --
@@ -41,14 +41,15 @@ data =
         }
     , sources =
         { folderName = "LifeLike"
-        , thumbnail = { fileName = "Front_projection.jpg", description = "", footageAbout = Project.Final }
-        , footage =
-            [ Project.Image { fileName = "Life_action.jpg", description = "", footageAbout = Project.Final }
-            , Project.Image { fileName = "Sensors.jpg", description = "", footageAbout = Project.Final }
-            , Project.Image { fileName = "Sensors_top.jpg", description = "", footageAbout = Project.Final }
-            , Project.Image { fileName = "Front_projection.jpg", description = "", footageAbout = Project.Final }
-            , Project.Image { fileName = "Process_behind.jpg", description = "", footageAbout = Project.Final }
+        , thumbnail = { fileName = "Front_projection.jpg", description = "" }
+        , finalFootage =
+            [ Project.Image { fileName = "Life_action.jpg", description = "" }
+            , Project.Image { fileName = "Sensors.jpg", description = "" }
+            , Project.Image { fileName = "Sensors_top.jpg", description = "" }
+            , Project.Image { fileName = "Front_projection.jpg", description = "" }
+            , Project.Image { fileName = "Process_behind.jpg", description = "" }
             ]
+        , processFootage = []
         , externalLink = Nothing
         }
     , tags =

@@ -8,6 +8,7 @@
         "direct": {
             "NoRedInk/elm-json-decode-pipeline": "1.0.0",
             "avh4/elm-color": "1.0.0",
+            "bellroy/elm-embed-youtube": "1.0.0",
             "elm/browser": "1.0.2",
             "elm/core": "1.0.5",
             "elm/html": "1.0.0",

@@ -4,6 +4,7 @@ import Date
 import Element exposing (rgb)
 import Project exposing (Client(..), Medium(..), Tool(..))
 import Time exposing (Month(..))
+import Types exposing (Msg)
 
 
 data : Project.Project
@@ -37,8 +38,9 @@ data =
         }
     , sources =
         { folderName = ""
-        , thumbnail = { fileName = "", description = "", footageAbout = Project.Final }
-        , footage = []
+        , thumbnail = { fileName = "", description = "" }
+        , finalFootage = []
+        , processFootage = []
         , externalLink = Just ""
         }
     , tags =

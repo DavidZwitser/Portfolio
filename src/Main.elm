@@ -3,7 +3,7 @@ module Main exposing (..)
 import Animator exposing (..)
 import Browser
 import Browser.Dom exposing (Viewport, getViewport)
-import Browser.Navigation
+import Browser.Navigation exposing (load)
 import Debug exposing (..)
 import Effects.LoadAnimation
 import Element exposing (..)
@@ -15,9 +15,10 @@ import Project exposing (..)
 import Projects.BuildUpAndRelease
 import Projects.CONFINED_SPACE
 import Projects.CanWorld
+import Projects.CuddleKing2000
 import Projects.DavidZwitser
 import Projects.LifeLike
-import Projects.MovingUp
+import Projects.PersonalSharedPhysicsl
 import Task
 import Types exposing (..)
 import Url
@@ -44,16 +45,19 @@ init _ _ _ =
     ( { loaded = Animator.init False
       , allProjects =
             [ Projects.DavidZwitser.data
-            , Projects.CONFINED_SPACE.data
-            , Projects.CanWorld.data
-            , Projects.MovingUp.data
-            , Projects.LifeLike.data
+            , Projects.CuddleKing2000.data
             , Projects.BuildUpAndRelease.data
+            , Projects.CONFINED_SPACE.data
+            , Projects.LifeLike.data
+            , Projects.PersonalSharedPhysicsl.data
+            , Projects.CanWorld.data
             ]
       , activeViewerPart = Animator.init Description
-      , projectTransition = Animator.init Projects.BuildUpAndRelease.data
+      , projectTransition = Animator.init Projects.DavidZwitser.data
       , footageTransition = Animator.init 0
       , footageAbout = Animator.init Project.Final
+      , footageMuted = True
+      , footageAutoplay = True
       }
     , Cmd.batch
         [ Task.perform PageLoaded (Task.succeed True) ]
@@ -132,6 +136,9 @@ update msg model =
                 , projectTransition =
                     model.projectTransition
                         |> Animator.go Animator.slowly project
+                , footageAbout =
+                    model.footageAbout
+                        |> Animator.go Animator.immediately Project.Final
               }
             , Cmd.none
             )
@@ -141,8 +148,7 @@ update msg model =
                 currProjectImagesAmount =
                     model.projectTransition
                         |> Animator.current
-                        |> .sources
-                        |> .footage
+                        |> Project.getApropiateFootage (Animator.current model.footageAbout)
                         |> List.length
 
                 currImageIndex =
@@ -173,4 +179,21 @@ update msg model =
             )
 
         NewFootageTypeClicked newImageType ->
-            ( { model | footageAbout = model.footageAbout |> Animator.go Animator.quickly newImageType }, Cmd.none )
+            ( { model
+                | footageAbout = model.footageAbout |> Animator.go Animator.quickly newImageType
+                , footageTransition = model.footageTransition |> Animator.go Animator.immediately 0
+              }
+            , Cmd.none
+            )
+
+        ToggleMute ->
+            ( { model | footageMuted = not model.footageMuted }, Cmd.none )
+
+        ToggleAutoplay ->
+            ( { model | footageAutoplay = not model.footageAutoplay }, Cmd.none )
+
+        SetAutoplay value ->
+            ( { model | footageMuted = value }, Cmd.none )
+
+        OpenExternalPage url ->
+            ( model, load url )

@@ -33,7 +33,7 @@ description styles projectTransition viewerPart =
                 ++ [ width fill ]
             )
           <|
-            [ text (""" " """ ++ project.text.shortDescription ++ """ " """) ]
+            [ text project.text.shortDescription ]
         , column
             [ padding 3
             , width fill

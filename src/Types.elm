@@ -28,6 +28,8 @@ type alias Model =
     , footageTransition : Timeline Int
     , activeViewerPart : Timeline ViewerPart
     , footageAbout : Timeline Project.FootageAbout
+    , footageMuted : Bool
+    , footageAutoplay : Bool
     }
 
 
@@ -41,6 +43,10 @@ type Msg
     | FootageIndexClicked Int
     | NewPagePartHovered ViewerPart
     | NewFootageTypeClicked Project.FootageAbout
+    | ToggleMute
+    | ToggleAutoplay
+    | SetAutoplay Bool
+    | OpenExternalPage String
 
 
 type Direction

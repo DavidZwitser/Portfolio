@@ -8,5 +8,9 @@
         "latex",
         "plaintext",
         "elm"
+    ],
+    "cSpell.language": "en,en-GB",
+    "cSpell.enableFiletypes": [
+        "elm"
     ]
 }

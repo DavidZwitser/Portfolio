@@ -7,6 +7,7 @@ import Color exposing (white)
 import Debug exposing (..)
 import Element as Element exposing (..)
 import Element.Background as Background
+import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Events
@@ -14,8 +15,8 @@ import Palette.Cubehelix exposing (..)
 import Palette.Generative exposing (..)
 import Project exposing (Medium(..))
 import Types exposing (..)
+import Viewers.ProjectsViewer.CenterView.CenterView exposing (centerViewer)
 import Viewers.ProjectsViewer.Description exposing (description)
-import Viewers.ProjectsViewer.FootageViewer exposing (footageViewer)
 import Viewers.ProjectsViewer.ProjectPicker exposing (projectPicker)
 
 
@@ -73,7 +74,7 @@ projectViewer model =
             -- , Events.onClick <| NewPagePartHovered Background
             , paddingXY (round <| activeViewpartAnimation model Background 25 200) 25
             ]
-            [ footageViewer [ width fill, centerY, padding 50 ] model.projectTransition model.footageTransition model.footageAbout
+            [ centerViewer [ width fill, centerY, padding 50 ] model.projectTransition model.footageTransition model.footageAbout model.footageMuted
             ]
         , column
             [ height fill
