@@ -3,14 +3,13 @@ module Viewers.ProjectsViewer.Description exposing (description)
 import Animator exposing (Timeline)
 import Element exposing (..)
 import Element.Background as Background
-import Element.Border as Border
 import Element.Font as Font
 import Project exposing (Project)
 import Types exposing (ViewerPart)
 
 
-description : List (Attribute msg) -> Timeline Project -> Timeline ViewerPart -> Element msg
-description styles projectTransition viewerPart =
+description : List (Attribute msg) -> Timeline Project -> Bool -> Timeline ViewerPart -> Element msg
+description styles projectTransition isPortrait viewerPart =
     let
         project =
             projectTransition
@@ -29,7 +28,7 @@ description styles projectTransition viewerPart =
                ]
         )
         [ column
-            (quote
+            (quote isPortrait
                 ++ [ width fill ]
             )
           <|
@@ -51,11 +50,11 @@ description styles projectTransition viewerPart =
                 )
             , alignTop
             ]
-            (subtitleParagraphPair Left "Context" project.text.context
-                ++ subtitleParagraphPair Right "Description" project.text.longDescription
-                ++ subtitleParagraphPair Left "Process" project.text.processDescription
-                ++ subtitleParagraphPair Right "Philosophy behind it" project.text.philosophy
-                ++ subtitleParagraphPair Left "Reflections" project.text.reflection
+            (subtitleParagraphPair Left "Context" project.text.context isPortrait
+                ++ subtitleParagraphPair Right "Description" project.text.longDescription isPortrait
+                ++ subtitleParagraphPair Left "Process" project.text.processDescription isPortrait
+                ++ subtitleParagraphPair Right "Philosophy behind it" project.text.philosophy isPortrait
+                ++ subtitleParagraphPair Left "Reflections" project.text.reflection isPortrait
             )
         ]
 
@@ -65,15 +64,15 @@ type Align
     | Right
 
 
-subtitleParagraphPair : Align -> String -> String -> List (Element msg)
-subtitleParagraphPair align titleText paragraphText =
+subtitleParagraphPair : Align -> String -> String -> Bool -> List (Element msg)
+subtitleParagraphPair align titleText paragraphText isPortrait =
     if paragraphText == "" then
         [ none ]
 
     else
         [ paragraph [ width fill, padding 10 ]
-            [ paragraph (styleSubtitle align) [ text titleText ]
-            , paragraph (styleParagraph align) [ text paragraphText ]
+            [ paragraph (styleSubtitle align isPortrait) [ text titleText ]
+            , paragraph (styleParagraph align isPortrait) [ text paragraphText ]
             ]
         ]
 
@@ -87,16 +86,39 @@ getAlign align =
         Font.alignRight
 
 
-styleSubtitle : Align -> List (Attribute msg)
-styleSubtitle align =
-    [ getAlign align, padding 3, Font.size 22, Font.color <| rgb 0.7 0.7 0.7 ]
+styleSubtitle : Align -> Bool -> List (Attribute msg)
+styleSubtitle align isPortrait =
+    [ getAlign align
+    , padding 3
+    , if isPortrait then
+        Font.size 30
+
+      else
+        Font.size 22
+    , Font.color <| rgb 0.7 0.7 0.7
+    ]
 
 
-quote : List (Attribute msg)
-quote =
-    [ padding 8, Font.size 15, Font.color <| rgb 0.4 0.4 0.4 ]
+quote : Bool -> List (Attribute msg)
+quote isPortrait =
+    [ padding 8
+    , if isPortrait then
+        Font.size 20
+
+      else
+        Font.size 15
+    , Font.color <| rgb 0.4 0.4 0.4
+    ]
 
 
-styleParagraph : Align -> List (Attribute msg)
-styleParagraph align =
-    [ getAlign align, Font.size 11, padding 3, Font.color <| rgb 1 1 1 ]
+styleParagraph : Align -> Bool -> List (Attribute msg)
+styleParagraph align isPortrait =
+    [ getAlign align
+    , if isPortrait then
+        Font.size 15
+
+      else
+        Font.size 11
+    , padding 3
+    , Font.color <| rgb 1 1 1
+    ]

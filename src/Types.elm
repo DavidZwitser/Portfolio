@@ -30,6 +30,8 @@ type alias Model =
     , footageAbout : Timeline Project.FootageAbout
     , footageMuted : Bool
     , footageAutoplay : Bool
+    , isPortrait : Bool
+    , screensize : { w : Int, h : Int }
     }
 
 
@@ -47,6 +49,7 @@ type Msg
     | ToggleAutoplay
     | SetAutoplay Bool
     | OpenExternalPage String
+    | GotNewScreenSize Int Int
 
 
 type Direction

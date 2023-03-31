@@ -134,8 +134,8 @@ projectTransitionAnimation transition openProject from to =
     transitionAnimation transition (\currProject -> currProject.id == openProject.id) from to
 
 
-centerViewer : List (Attribute Msg) -> Animator.Timeline Project -> Animator.Timeline Int -> Animator.Timeline Project.FootageAbout -> Bool -> Element Msg
-centerViewer importStyles projectTransition footageTransition footageType muted =
+centerViewer : List (Attribute Msg) -> Animator.Timeline Project -> Animator.Timeline Int -> Animator.Timeline Project.FootageAbout -> Bool -> Bool -> Element Msg
+centerViewer importStyles projectTransition footageTransition footageType muted isPortrait =
     let
         project =
             Animator.current projectTransition
@@ -305,7 +305,19 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
                 ++ [ -- Imgage overview dot
                      footageSelectorDot amountOfFootageInProject "⠶"
                    ]
-        , el [ Font.size 10, centerX, Font.center, padding 10 ] <|
+        , el
+            [ Font.size
+                (if isPortrait then
+                    20
+
+                 else
+                    10
+                )
+            , centerX
+            , Font.center
+            , padding 10
+            ]
+          <|
             text
                 (if atFootageOverview then
                     "overview"
