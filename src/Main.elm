@@ -2,7 +2,7 @@ module Main exposing (..)
 
 import Animator exposing (..)
 import Browser
-import Browser.Dom exposing (Viewport, getViewport)
+import Browser.Dom exposing (getViewport)
 import Browser.Events as BEvents
 import Browser.Navigation exposing (load)
 import Debug exposing (..)
@@ -10,8 +10,6 @@ import Effects.LoadAnimation
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font
-import Html
-import Html.Attributes as HtmlAttriutes
 import List
 import List.Extra exposing (..)
 import Project exposing (..)
@@ -22,7 +20,6 @@ import Projects.CuddleKing2000
 import Projects.DavidZwitser
 import Projects.LifeLike
 import Projects.PersonalSharedPhysicsl
-import String exposing (toInt)
 import Task
 import Types exposing (..)
 import Url
@@ -62,10 +59,10 @@ init _ _ _ =
       , projectTransition = Animator.init Projects.DavidZwitser.data
       , footageTransition = Animator.init 0
       , footageAbout = Animator.init Project.Final
-      , footageMuted = True
+      , footageMuted = False
       , footageAutoplay = True
-      , isPortrait = False
-      , screensize = { w = 0, h = 0 }
+      , onMobile = False
+      , screenSize = { w = 0, h = 0 }
       }
     , Cmd.batch
         [ Task.perform PageLoaded (Task.succeed True)
@@ -141,7 +138,7 @@ update msg model =
             ( Animator.update newTime animator model, Cmd.none )
 
         GotNewScreenSize w h ->
-            ( { model | isPortrait = w < h, screensize = { w = w, h = h } }, Cmd.none )
+            ( { model | onMobile = w < h, screenSize = { w = w, h = h } }, Cmd.none )
 
         PageLoaded _ ->
             ( { model | loaded = model.loaded |> Animator.go Animator.verySlowly True }, Cmd.none )
@@ -170,7 +167,7 @@ update msg model =
                 currProjectImagesAmount =
                     model.projectTransition
                         |> Animator.current
-                        |> Project.getApropiateFootage (Animator.current model.footageAbout)
+                        |> Project.getAppropriateFootage (Animator.current model.footageAbout)
                         |> List.length
 
                 currImageIndex =

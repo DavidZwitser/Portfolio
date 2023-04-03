@@ -30,8 +30,8 @@ type alias Model =
     , footageAbout : Timeline Project.FootageAbout
     , footageMuted : Bool
     , footageAutoplay : Bool
-    , isPortrait : Bool
-    , screensize : { w : Int, h : Int }
+    , onMobile : Bool
+    , screenSize : { w : Int, h : Int }
     }
 
 

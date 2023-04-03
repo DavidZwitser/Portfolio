@@ -1,16 +1,12 @@
 module Viewers.ProjectsViewer.ProjectsViewer exposing (projectViewer)
 
-import Angle exposing (degrees)
 import Animator exposing (..)
 import Animator.Inline exposing (..)
-import Color exposing (white)
 import Element as Element exposing (..)
 import Element.Background as Background
-import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Events
-import Palette.Cubehelix exposing (..)
 import Palette.Generative exposing (..)
 import Project exposing (Footage(..), Medium(..))
 import Types exposing (..)
@@ -19,145 +15,141 @@ import Viewers.ProjectsViewer.Description exposing (description)
 import Viewers.ProjectsViewer.ProjectPicker exposing (projectPicker)
 
 
-activeViewpartAnimation model viewPart from to =
+activeViewPartAnimation : Model -> ViewerPart -> Float -> Float -> Float
+activeViewPartAnimation model viewPart from to =
     Animator.move model.activeViewerPart <|
         \state ->
             if state == viewPart then
                 Animator.at to
-                    |> Animator.leaveSmoothly 0.5
 
             else
                 Animator.at from
-                    |> Animator.leaveSmoothly 0.5
 
 
 projectViewer : Model -> Element Msg
 projectViewer model =
     let
-        headerStyle =
-            [ Font.color <| rgb 0.8 0.8 0.8
-            , if model.isPortrait then
-                Font.size 60
-
-              else
-                Font.size 30
-            , padding 15
-            ]
+        activeViewPart =
+            Animator.current model.activeViewerPart
 
         flowDirection =
-            if model.isPortrait then
+            if model.onMobile then
                 column
 
             else
                 row
-    in
-    flowDirection
-        [ width fill
-        , height fill
-        ]
-        [ column
-            [ width fill
-            , height fill
-            , if model.isPortrait then
-                height (fill |> (maximum <| round <| activeViewpartAnimation model Description 80 (toFloat model.screensize.h) * 0.5))
 
-              else
-                width (fill |> (maximum <| round <| activeViewpartAnimation model Description 80 400))
-            , alignLeft
-            , Events.onMouseEnter <| NewPagePartHovered Description
+        partBanner partName part =
+            el
+                ([ Font.color <| rgb 1 1 1
+                 , centerY
+                 , centerX
+                 , alpha <| activeViewPartAnimation model part 1 0
+                 ]
+                    ++ (if model.onMobile then
+                            [ Font.size 60
+                            ]
 
-            -- , Events.onMouseLeave <| NewPagePartHovered Background
-            , Background.color <| rgba 0.3 0.3 (activeViewpartAnimation model Description 0.7 0.5) 1
-            , inFront <|
-                el
-                    ([ Font.color <| rgb 1 1 1
-                     , centerY
-                     , centerX
-                     , alpha <| activeViewpartAnimation model Description 1 0
-                     ]
-                        ++ (if model.isPortrait then
-                                [ Font.size 60
-                                ]
+                        else
+                            [ Element.rotate <| pi * 0.5, Font.size 30 ]
+                       )
+                )
+            <|
+                text partName
 
-                            else
-                                [ Element.rotate <| pi * 0.5, Font.size 30 ]
-                           )
-                    )
-                <|
-                    text "DESCRIPTION"
-            ]
-            [ el
+        partTitle partName part =
+            el
                 [ padding 5
-                , if model.isPortrait then
+                , if part == ProjectPicker then
+                    alignRight
+
+                  else
+                    alignLeft
+                , if model.onMobile then
                     Font.size 60
 
                   else
                     Font.size 30
                 , Font.color <| rgb 0.9 0.9 0.9
-                , alpha <| activeViewpartAnimation model Description 0 1
+                , alpha <| activeViewPartAnimation model part 0 1
                 ]
-              <|
-                text "DESCRPTION"
-            , description [ height fill, width fill, alpha <| activeViewpartAnimation model Description 0 1 ] model.projectTransition model.isPortrait model.activeViewerPart
-            ]
-        , flowDirection
-            ([ height fill
-             , width fill
-             , centerX
-             , clipX
-             ]
-                ++ (if model.isPortrait then
-                        []
+            <|
+                text partName
 
-                    else
-                        [ Events.onMouseEnter <| NewPagePartHovered Description, paddingXY (round <| activeViewpartAnimation model Background 25 200) 25 ]
-                   )
+        partSize part =
+            if not model.onMobile then
+                [ width (fill |> (maximum <| round <| activeViewPartAnimation model part 80 400)) ]
+
+            else
+                [ height (fill |> (maximum <| round <| activeViewPartAnimation model part 80 (toFloat model.screenSize.h) * 0.5)) ]
+
+        partColor part =
+            Background.color <| rgba 0.3 0.3 (activeViewPartAnimation model part 0.7 0.5) 1
+    in
+    flowDirection [ width fill, height fill ]
+        [ {- DESCRIPTION column -}
+          column
+            -- overwriting the width or height fills based on device
+            (([ width fill, height fill ] ++ partSize Description)
+                ++ [ alignLeft
+                   , Events.onMouseEnter <| NewPagePartHovered Description
+                   , partColor Description
+                   , inFront <| partBanner "DESCRIPTION" Description
+                   ]
             )
-            [ centerViewer [ width fill, centerY, padding 50 ] model.projectTransition model.footageTransition model.footageAbout model.footageMuted model.isPortrait
+            [ partTitle "DESCRIPTION" Description
+            , description
+                [ height fill
+                , width fill
+                , alpha <| activeViewPartAnimation model Description 0 1
+                ]
+                model.projectTransition
+                model.onMobile
+                model.activeViewerPart
             ]
-        , column
-            [ width fill
-            , height fill
-            , if model.isPortrait then
-                height (fill |> (maximum <| round <| activeViewpartAnimation model ProjectPicker 80 (toFloat model.screensize.h * 0.5)))
+
+        {- CENTER VIEWER element -}
+        , flowDirection
+            ((if not model.onMobile then
+                [ Events.onMouseEnter <| NewPagePartHovered Description
+                , paddingXY (round <| activeViewPartAnimation model Background 25 200) 25
+                ]
 
               else
-                width (fill |> (maximum <| round <| activeViewpartAnimation model ProjectPicker 80 400))
-            , alignRight
-            , Events.onMouseEnter <| NewPagePartHovered ProjectPicker
-
-            -- , Events.onMouseLeave <| NewPagePartHovered Background
-            , Background.color <| rgba 0.3 0.3 (activeViewpartAnimation model ProjectPicker 0.7 0.5) 1
-            , inFront <|
-                el
-                    ([ Font.color <| rgb 1 1 1
-                     , centerY
-                     , centerX
-                     , alpha <| activeViewpartAnimation model ProjectPicker 1 0
-                     ]
-                        ++ (if model.isPortrait then
-                                [ Font.size 60 ]
-
-                            else
-                                [ Element.rotate <| pi * -0.5, Font.size 30 ]
-                           )
-                    )
-                <|
-                    text "PROJECT PICKER"
-            ]
-            [ el
-                [ alignRight
-                , padding 5
-                , if model.isPortrait then
-                    Font.size 60
-
-                  else
-                    Font.size 30
-                , Font.color <| rgb 0.9 0.9 0.9
-                , alpha <| activeViewpartAnimation model ProjectPicker 0 1
+                []
+             )
+                ++ [ height fill, width fill, centerX, clipX ]
+            )
+            [ centerViewer
+                [ width fill
+                , centerY
+                , padding 50
                 ]
-              <|
-                text "PROJECT PICKER"
-            , projectPicker [ width fill, height fill, alpha <| activeViewpartAnimation model ProjectPicker 0 1 ] model.allProjects model.isPortrait model.projectTransition
+                model.projectTransition
+                model.footageTransition
+                model.footageAbout
+                model.footageMuted
+                model.onMobile
+            ]
+
+        {- PROJECT PICKER element -}
+        , column
+            (([ width fill, height fill ] ++ partSize ProjectPicker)
+                ++ [ alignRight
+                   , Events.onMouseEnter <| NewPagePartHovered ProjectPicker
+                   , partColor ProjectPicker
+                   , inFront <| partBanner "PROJECT PICKER" ProjectPicker
+                   ]
+            )
+          <|
+            [ partTitle "PROJECT PICKER" ProjectPicker
+            , projectPicker
+                [ width fill
+                , height fill
+                , alpha <| activeViewPartAnimation model ProjectPicker 0 1
+                ]
+                model.allProjects
+                model.onMobile
+                model.projectTransition
             ]
         ]
