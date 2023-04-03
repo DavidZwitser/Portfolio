@@ -64,11 +64,11 @@ data =
                 }
             ]
         , processFootage =
-            [ Project.Video
-                { fileName = "process_drawn_out.mov"
-                , description = "an overview of the creative research halfway trough the project"
-                }
-            , Project.Audio
+            [ -- [ Project.Video
+              --     { fileName = "process_drawn_out.mov"
+              --     , description = "an overview of the creative research halfway trough the project"
+              --     }
+              Project.Audio
                 { fileName = "philosophy_behind_it.wav"
                 , description = "a snipped of the ideas that were going trough my head during the creation process"
                 }

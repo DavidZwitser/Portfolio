@@ -255,8 +255,8 @@ getFootagePath footage project =
     "../media/projects/" ++ project.sources.folderName ++ "/" ++ footage.fileName
 
 
-getApropiateFootage : FootageAbout -> Project -> List Footage
-getApropiateFootage about project =
+getAppropriateFootage : FootageAbout -> Project -> List Footage
+getAppropriateFootage about project =
     if about == Final then
         project.sources.finalFootage
 
