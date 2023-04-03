@@ -1,6 +1,7 @@
 module Viewers.ProjectsViewer.CenterView.CenterView exposing (centerViewer)
 
 import Animator
+import Animator.Css exposing (opacity)
 import Date
 import Element exposing (..)
 import Element.Background as Background
@@ -10,10 +11,9 @@ import Element.Input as Input
 import List.Extra
 import Palette.Cubehelix exposing (..)
 import Palette.Generative exposing (..)
-import Project exposing (Footage(..), FootageAbout(..), Project, getApropiateFootage, mediumToString)
+import Project exposing (Footage(..), FootageAbout(..), Project, getAppropriateFootage, mediumToString)
 import SolidColor exposing (..)
 import Types exposing (Msg(..))
-import Viewers.ProjectsViewer.CenterView.FootageOverviewer exposing (overviewFootage)
 import Viewers.ProjectsViewer.CenterView.FootageViewer exposing (footageView)
 
 
@@ -96,23 +96,35 @@ typeOfFootageSelector currTypeOfImage =
             )
 
 
-footageNavigationButtons : Types.Direction -> String -> Element Msg
-footageNavigationButtons dir str =
+footageNavigationButtons : Types.Direction -> Bool -> Bool -> Animator.Timeline Int -> String -> Element Msg
+footageNavigationButtons dir onDesktop clickable footageTransition str =
     Input.button
-        [ Background.color <| rgb 0.2 0.2 0.2
-        , centerY
-        , height <| px 200
-        , width <| px <| 30
-        , padding 15
-        , if dir == Types.Left then
-            Font.alignLeft
+        ((if onDesktop then
+            [ width <| px 30 ]
 
           else
-            Font.alignRight
-        , Font.color <| rgb 0.5 0.5 0.5
-        ]
+            [ width <| px 60 ]
+         )
+            ++ [ Background.color <| rgb 0.2 0.2 0.2
+               , centerY
+               , alpha <| transitionAnimation footageTransition (\_ -> clickable) 0 1
+               , height <| px 100
+               , padding 10
+               , if dir == Types.Left then
+                    Font.alignLeft
+
+                 else
+                    Font.alignRight
+               , Font.color <| rgb 0.5 0.5 0.5
+               ]
+        )
     <|
-        { onPress = Just <| Types.NextFootageClicked dir
+        { onPress =
+            if clickable then
+                Just <| Types.NextFootageClicked dir
+
+            else
+                Nothing
         , label = text str
         }
 
@@ -148,13 +160,10 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
 
         footageToShow =
             project
-                |> getApropiateFootage currFootageAbout
+                |> getAppropriateFootage currFootageAbout
 
         amountOfFootageInProject =
             List.length footageToShow
-
-        atFootageOverview =
-            footageIndex == amountOfFootageInProject
 
         processFootageExists =
             let
@@ -174,7 +183,7 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
                , height fill
                , inFront <|
                     if
-                        getApropiateFootage currFootageAbout project
+                        getAppropriateFootage currFootageAbout project
                             |> List.foldl
                                 (\footage foundAVideo ->
                                     foundAVideo
@@ -244,27 +253,14 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
         -- Image part
         , row [ width fill, height fill, paddingXY 0 15 ]
             [ -- Nav button left
-              if footageIndex > 0 then
-                footageNavigationButtons Types.Left "<"
-
-              else
-                Element.none
-            , if not atFootageOverview then
-                -- Standard image
-                footageToShow
-                    |> List.Extra.getAt footageIndex
-                    |> footageView projectTransition footageTransition muted
-
-              else
-                -- Image overview
-                overviewFootage projectTransition footageTransition footageToShow
+              footageNavigationButtons Types.Left (not isPortrait) (footageIndex > 0) footageTransition "<"
+            , -- Standard image
+              footageToShow
+                |> List.Extra.getAt footageIndex
+                |> footageView projectTransition footageTransition muted
 
             -- Nav button right
-            , if footageIndex < amountOfFootageInProject then
-                footageNavigationButtons Types.Right ">"
-
-              else
-                Element.none
+            , footageNavigationButtons Types.Right (not isPortrait) (footageIndex < amountOfFootageInProject - 1) footageTransition ">"
             ]
 
         -- Image selector dots
@@ -276,6 +272,7 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
 
                 else
                     0
+            , spacing 30
             ]
           <|
             let
@@ -283,28 +280,41 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
                     el
                         [ centerX
                         , centerY
-                        , padding 15
+                        , height <| px <| 30
                         , Events.onClick <| FootageIndexClicked associatedFootageIndex
+                        , Font.size <| round <| transitionAnimation footageTransition (\state -> state == associatedFootageIndex) 20 30
+
+                        -- , Background.color <| rgba 0.3 0.3 0.3 (transitionAnimation footageTransition (\state -> state == associatedFootageIndex) 0 1)
+                        , Font.bold
                         , pointer
                         ]
                     <|
                         text character
             in
-            (footageToShow
+            footageToShow
                 |> List.indexedMap
-                    (\i _ ->
-                        if i == footageIndex then
-                            -- Selected image dot
-                            footageSelectorDot i "✚"
+                    (\i footage ->
+                        footageSelectorDot i
+                            (case footage of
+                                Image _ ->
+                                    "⎅"
 
-                        else
-                            -- Unselected image dot
-                            footageSelectorDot i "⚬"
+                                Video _ ->
+                                    "⌲"
+
+                                YoutubeEmbedded _ ->
+                                    "⇱"
+
+                                VimeoEmbedded _ ->
+                                    "⇱"
+
+                                Audio _ ->
+                                    "⍩"
+
+                                Custom _ ->
+                                    "⎁"
+                            )
                     )
-            )
-                ++ [ -- Imgage overview dot
-                     footageSelectorDot amountOfFootageInProject "⠶"
-                   ]
         , el
             [ Font.size
                 (if isPortrait then
@@ -319,18 +329,14 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
             ]
           <|
             text
-                (if atFootageOverview then
-                    "overview"
-
-                 else
-                    footageToShow
-                        |> List.Extra.getAt footageIndex
-                        |> Maybe.andThen
-                            (\footage ->
-                                footage
-                                    |> Project.unpackFootage
-                                    |> Maybe.andThen (\footageMetadata -> Just <| footageMetadata.description)
-                            )
-                        |> Maybe.withDefault ""
+                (footageToShow
+                    |> List.Extra.getAt footageIndex
+                    |> Maybe.andThen
+                        (\footage ->
+                            footage
+                                |> Project.unpackFootage
+                                |> Maybe.andThen (\footageMetadata -> Just <| footageMetadata.description)
+                        )
+                    |> Maybe.withDefault "Contact information"
                 )
         ]
