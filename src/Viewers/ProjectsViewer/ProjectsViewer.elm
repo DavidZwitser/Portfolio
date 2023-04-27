@@ -47,8 +47,7 @@ projectViewer model =
                  , alpha <| activeViewPartAnimation model part 1 0
                  ]
                     ++ (if model.onMobile then
-                            [ Font.size 60
-                            ]
+                            [ Font.size 60 ]
 
                         else
                             [ Element.rotate <| pi * 0.5, Font.size 30 ]
@@ -81,7 +80,7 @@ projectViewer model =
                 [ width (fill |> (maximum <| round <| activeViewPartAnimation model part 80 400)) ]
 
             else
-                [ height (fill |> (maximum <| round <| activeViewPartAnimation model part 80 (toFloat model.screenSize.h) * 0.5)) ]
+                [ height (fill |> (maximum <| round <| activeViewPartAnimation model part 80 (toFloat model.screenSize.h))) ]
 
         partColor part =
             Background.color <| rgba 0.3 0.3 (activeViewPartAnimation model part 0.7 0.5) 1
@@ -92,10 +91,12 @@ projectViewer model =
             -- overwriting the width or height fills based on device
             (([ width fill, height fill ] ++ partSize Description)
                 ++ [ alignLeft
-                   , Events.onMouseEnter <| NewPagePartHovered Description
                    , partColor Description
                    , inFront <| partBanner "DESCRIPTION" Description
-                   ]
+                   ] ++ (if model.onMobile then
+                        [Events.onClick <| NewPagePartHovered Description]
+                    else
+                        [Events.onMouseEnter <| NewPagePartHovered Description])
             )
             [ partTitle "DESCRIPTION" Description
             , description
@@ -136,10 +137,13 @@ projectViewer model =
         , column
             (([ width fill, height fill ] ++ partSize ProjectPicker)
                 ++ [ alignRight
-                   , Events.onMouseEnter <| NewPagePartHovered ProjectPicker
                    , partColor ProjectPicker
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
-                   ]
+                   ] ++ (if model.onMobile then
+                        [Events.onClick <| NewPagePartHovered ProjectPicker]
+                    else
+                        [Events.onMouseEnter <| NewPagePartHovered ProjectPicker])
+
             )
           <|
             [ partTitle "PROJECT PICKER" ProjectPicker
