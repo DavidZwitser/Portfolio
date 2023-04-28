@@ -17933,7 +17933,7 @@ var $author$project$Viewers$ProjectsViewer$ProjectsViewer$projectViewer = functi
 					$elm$core$Basics$apL,
 					$mdgriffith$elm_ui$Element$maximum,
 					$elm$core$Basics$round(
-						A4($author$project$Viewers$ProjectsViewer$ProjectsViewer$activeViewPartAnimation, model, part, 80, model.f6.e0) * 0.5),
+						A4($author$project$Viewers$ProjectsViewer$ProjectsViewer$activeViewPartAnimation, model, part, 80, model.f6.e0)),
 					$mdgriffith$elm_ui$Element$fill))
 			]);
 	};
@@ -17991,15 +17991,23 @@ var $author$project$Viewers$ProjectsViewer$ProjectsViewer$projectViewer = functi
 								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 							]),
 						partSize(0)),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$alignLeft,
-							$mdgriffith$elm_ui$Element$Events$onMouseEnter(
-							$author$project$Types$NewPagePartHovered(0)),
-							partColor(0),
-							$mdgriffith$elm_ui$Element$inFront(
-							A2(partBanner, 'DESCRIPTION', 0))
-						])),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$alignLeft,
+								partColor(0),
+								$mdgriffith$elm_ui$Element$inFront(
+								A2(partBanner, 'DESCRIPTION', 0))
+							]),
+						model.fP ? _List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Events$onClick(
+								$author$project$Types$NewPagePartHovered(0))
+							]) : _List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Events$onMouseEnter(
+								$author$project$Types$NewPagePartHovered(0))
+							]))),
 				_List_fromArray(
 					[
 						A2(partTitle, 'DESCRIPTION', 0),
@@ -18062,15 +18070,23 @@ var $author$project$Viewers$ProjectsViewer$ProjectsViewer$projectViewer = functi
 								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 							]),
 						partSize(1)),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$alignRight,
-							$mdgriffith$elm_ui$Element$Events$onMouseEnter(
-							$author$project$Types$NewPagePartHovered(1)),
-							partColor(1),
-							$mdgriffith$elm_ui$Element$inFront(
-							A2(partBanner, 'PROJECT PICKER', 1))
-						])),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$alignRight,
+								partColor(1),
+								$mdgriffith$elm_ui$Element$inFront(
+								A2(partBanner, 'PROJECT PICKER', 1))
+							]),
+						model.fP ? _List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Events$onClick(
+								$author$project$Types$NewPagePartHovered(1))
+							]) : _List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Events$onMouseEnter(
+								$author$project$Types$NewPagePartHovered(1))
+							]))),
 				_List_fromArray(
 					[
 						A2(partTitle, 'PROJECT PICKER', 1),
