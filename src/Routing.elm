@@ -8,7 +8,7 @@ import Url.Parser exposing (..)
 
 type Route
     = Project String
-    | Nothing
+    | DeadEnd
 
 
 urlParser : Url.Parser.Parser (Route -> a) a
@@ -18,8 +18,12 @@ urlParser =
 
 urlToProject : Url.Url -> Project
 urlToProject url =
-    Url.Parser.parse urlParser url
-        |> Maybe.withDefault Nothing
+    let
+        fragUrl =
+            { url | path = Maybe.withDefault "" url.fragment, fragment = Nothing }
+    in
+    Url.Parser.parse urlParser fragUrl
+        |> Maybe.withDefault DeadEnd
         |> routeToProject
 
 

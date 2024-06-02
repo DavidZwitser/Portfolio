@@ -76,7 +76,7 @@ projectButton model toProjectTransition project =
           in
           row
             [ mouseOver [ Element.alpha 0.8 ]
-            , Events.onClick <| Types.LinkClicked <| Browser.Internal { url | path = "/" ++ project.id }
+            , Events.onClick <| Types.LinkClicked <| Browser.Internal { url | fragment = Just project.id }
             , scale <| toProjectTransition project.id 1 0.92
             , width <| fillPortion 5
             , height fill

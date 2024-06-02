@@ -8136,7 +8136,7 @@ var $mdgriffith$elm_animator$Animator$update = F3(
 		var updateModel = _v0.b;
 		return A2(updateModel, newTime, model);
 	});
-var $author$project$Routing$Nothing = {$: 'Nothing'};
+var $author$project$Routing$DeadEnd = {$: 'DeadEnd'};
 var $elm$url$Url$Parser$State = F5(
 	function (visited, unvisited, params, frag, value) {
 		return {frag: frag, params: params, unvisited: unvisited, value: value, visited: visited};
@@ -8762,11 +8762,17 @@ var $elm$url$Url$Parser$custom = F2(
 var $elm$url$Url$Parser$string = A2($elm$url$Url$Parser$custom, 'STRING', $elm$core$Maybe$Just);
 var $author$project$Routing$urlParser = A2($elm$url$Url$Parser$map, $author$project$Routing$Project, $elm$url$Url$Parser$string);
 var $author$project$Routing$urlToProject = function (url) {
+	var fragUrl = _Utils_update(
+		url,
+		{
+			fragment: $elm$core$Maybe$Nothing,
+			path: A2($elm$core$Maybe$withDefault, '', url.fragment)
+		});
 	return $author$project$Routing$routeToProject(
 		A2(
 			$elm$core$Maybe$withDefault,
-			$author$project$Routing$Nothing,
-			A2($elm$url$Url$Parser$parse, $author$project$Routing$urlParser, url)));
+			$author$project$Routing$DeadEnd,
+			A2($elm$url$Url$Parser$parse, $author$project$Routing$urlParser, fragUrl)));
 };
 var $mdgriffith$elm_animator$Animator$verySlowly = $mdgriffith$elm_animator$Animator$millis(500);
 var $author$project$Main$update = F2(
@@ -18462,7 +18468,9 @@ var $author$project$Viewers$ProjectsViewer$ProjectPicker$projectButton = F3(
 									$elm$browser$Browser$Internal(
 										_Utils_update(
 											url,
-											{path: '/' + project.id})))),
+											{
+												fragment: $elm$core$Maybe$Just(project.id)
+											})))),
 								$mdgriffith$elm_ui$Element$scale(
 								A3(toProjectTransition, project.id, 1, 0.92)),
 								$mdgriffith$elm_ui$Element$width(
