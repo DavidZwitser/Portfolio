@@ -8,7 +8,6 @@ import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font
 import Funcs exposing (when)
-import Html.Attributes exposing (draggable, href)
 import Project exposing (..)
 import Projects.AllProjects exposing (projects)
 import Types exposing (Model, Msg(..))

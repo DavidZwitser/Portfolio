@@ -6849,7 +6849,7 @@ var $mdgriffith$elm_ui$Element$rgb255 = F3(
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
 	});
 var $author$project$Projects$DavidZwitser$data = function () {
-	var age = 24;
+	var age = 25;
 	return {
 		id: 'about',
 		sources: {
@@ -6881,12 +6881,12 @@ var $author$project$Projects$DavidZwitser$data = function () {
 		text: {
 			context: 'I was born in Haarlem in the Netherlands and am ' + ($elm$core$String$fromInt(age) + ' years old.'),
 			interestingDetails: $elm$core$Maybe$Nothing,
-			longDescription: 'Hello, I am David. I am a starting artist. My works can be described as, works which trough interaction and experience, takes people with me emotionally to the philosophical conflicts playing in my head.',
+			longDescription: 'Hello, I am David. I am an installation artist and creative technologist. My works are often meditations on my internal world or our external world. I\'m very interested in interactivity as a deep story telling technique and love programming. I do all sorts of experiments that try to push the digital world towards expressivness.',
 			myRole: '',
 			name: 'About',
-			philosophy: 'I try to be very critical when taking on believes or presumptions. I try to reflect very critically on the things I do and strive to be physically, intellectually and emotionally connected with myself and the world around me .',
-			processDescription: 'I have always been fascinated by combining technology with creativity. I started out studying Game Development at the MediaCollage Amsterdam and afterwards studied Image and Media Technology at HKU. If I am so lucky, I\'d would also love to do a full philosophy study.',
-			reflection: 'I am very happy with who I am and how things are going. I didn\'t grow op with art, not even with technology, but found it connects very well with the way my brain works.',
+			philosophy: '',
+			processDescription: 'I have always been fascinated by combining technology with creativity. I started out studying Game Development at the MediaCollage Amsterdam and afterwards studied Image and Media Technology at HKU. I would also love to study philosophy still. I\'m now working as a freelance artist where I\'m doing very intersting jobs and exhibiting my own works. Besides that I\'m also teaching.',
+			reflection: '',
 			shortDescription: 'The maker of this portfolio and the works in it.'
 		},
 		variables: {
@@ -7280,8 +7280,43 @@ var $author$project$Projects$PersonalSharedPhysicsl$data = {
 		teamSize: 1
 	}
 };
+var $author$project$Project$EXboot = {$: 'EXboot'};
+var $elm$time$Time$May = {$: 'May'};
+var $author$project$Projects$WhooshWhoosh$data = {
+	id: 'whoosh_whoosh',
+	sources: {
+		externalLink: $elm$core$Maybe$Just(''),
+		finalFootage: _List_fromArray(
+			[
+				$author$project$Project$Image(
+				{description: '', fileName: 'DAVIDZ-Laag-2.jpg'}),
+				$author$project$Project$Image(
+				{description: '', fileName: 'DAVIDZ-Laag-1.jpg'}),
+				$author$project$Project$Image(
+				{description: '', fileName: 'DAVIDZ-Laag-3.jpg'}),
+				$author$project$Project$Image(
+				{description: '', fileName: 'DAVIDZ-Laag-5.jpg'}),
+				$author$project$Project$Image(
+				{description: '', fileName: 'DAVIDZ-Laag-6.jpg'})
+			]),
+		folderName: 'WhooshWhoosh',
+		processFootage: _List_Nil,
+		thumbnail: {description: '', fileName: 'DAVIDZ-Laag-2.jpg'}
+	},
+	tags: {medium: $author$project$Project$Installation, toolStack: _List_Nil},
+	text: {context: 'Whoosh Whoosh is an artwork that comes from a love for programming.', interestingDetails: $elm$core$Maybe$Nothing, longDescription: 'In contrast to works of its kind, it steps back from being purely an experience and shows its own code openly. It is a celebration of us humans having created this digital machinery and the power it gives us to create. With a minimal amount of nodes, a lot is going on. Besides this it is also an exploration of the relationship between the work, the software and the maker. Each tool is a canvas for the maker to draw on, and it is a shame to hide that. Lastly, for its maker, it is a conscious step back from social issues or philosophical reflection. That is why its name is purposefully non descriptive. Letting go of the endless reflecting and analysing, making something for the beauty of making.', myRole: '', name: 'Whoosh Whoosh', philosophy: '', processDescription: '', reflection: '', shortDescription: ''},
+	variables: {
+		client: $author$project$Project$EXboot,
+		clientLink: $elm$core$Maybe$Nothing,
+		color: A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1),
+		date: A3($justinmimbs$date$Date$fromCalendarDate, 1, $elm$time$Time$May, 2024),
+		hoursSpent: 160,
+		teamMates: $elm$core$Maybe$Nothing,
+		teamSize: 1
+	}
+};
 var $author$project$Projects$AllProjects$projects = _List_fromArray(
-	[$author$project$Projects$DavidZwitser$data, $author$project$Projects$CuddleKing2000$data, $author$project$Projects$BuildUpAndRelease$data, $author$project$Projects$CONFINED_SPACE$data, $author$project$Projects$LifeLike$data, $author$project$Projects$PersonalSharedPhysicsl$data, $author$project$Projects$CanWorld$data]);
+	[$author$project$Projects$DavidZwitser$data, $author$project$Projects$CuddleKing2000$data, $author$project$Projects$WhooshWhoosh$data, $author$project$Projects$BuildUpAndRelease$data, $author$project$Projects$CONFINED_SPACE$data, $author$project$Projects$LifeLike$data, $author$project$Projects$PersonalSharedPhysicsl$data, $author$project$Projects$CanWorld$data]);
 var $elm$core$Basics$round = _Basics_round;
 var $author$project$Main$init = F3(
 	function (flags, url, key) {
@@ -16582,7 +16617,6 @@ var $elm$time$Time$Aug = {$: 'Aug'};
 var $elm$time$Time$Dec = {$: 'Dec'};
 var $elm$time$Time$Jul = {$: 'Jul'};
 var $elm$time$Time$Mar = {$: 'Mar'};
-var $elm$time$Time$May = {$: 'May'};
 var $elm$time$Time$Nov = {$: 'Nov'};
 var $justinmimbs$date$Date$numberToMonth = function (mn) {
 	var _v0 = A2($elm$core$Basics$max, 1, mn);

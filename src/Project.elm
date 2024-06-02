@@ -9,6 +9,7 @@ type Client
     | HKU
     | MediaCollege
     | Cinedans
+    | EXboot
     | None
 
 

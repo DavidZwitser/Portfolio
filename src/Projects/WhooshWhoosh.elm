@@ -11,22 +11,22 @@ data : Project.Project
 data =
     { id = "whoosh_whoosh"
     , variables =
-        { date = Date.fromCalendarDate 0 Jan 0
-        , hoursSpent = 0
-        , teamSize = 0
+        { date = Date.fromCalendarDate 1 May 2024
+        , hoursSpent = 160
+        , teamSize = 1
         , teamMates = Nothing
-        , client = None
+        , client = EXboot
         , clientLink = Nothing
         , color = rgb 1 1 1
         }
     , text =
-        { name = ""
+        { name = "Whoosh Whoosh"
 
         --
         , shortDescription = ""
-        , longDescription = ""
+        , longDescription = "In contrast to works of its kind, it steps back from being purely an experience and shows its own code openly. It is a celebration of us humans having created this digital machinery and the power it gives us to create. With a minimal amount of nodes, a lot is going on. Besides this it is also an exploration of the relationship between the work, the software and the maker. Each tool is a canvas for the maker to draw on, and it is a shame to hide that. Lastly, for its maker, it is a conscious step back from social issues or philosophical reflection. That is why its name is purposefully non descriptive. Letting go of the endless reflecting and analysing, making something for the beauty of making."
         , processDescription = ""
-        , context = ""
+        , context = "Whoosh Whoosh is an artwork that comes from a love for programming."
 
         --
         , philosophy = ""
@@ -37,9 +37,19 @@ data =
         , reflection = ""
         }
     , sources =
-        { folderName = ""
-        , thumbnail = { fileName = "", description = "" }
-        , finalFootage = []
+        { folderName = "WhooshWhoosh"
+        , thumbnail = { fileName = "DAVIDZ-Laag-2.jpg", description = "" }
+        , finalFootage =
+            [ Project.Image { fileName = "DAVIDZ-Laag-2.jpg", description = "" }
+            , Project.Image
+                { fileName = "DAVIDZ-Laag-1.jpg", description = "" }
+            , Project.Image
+                { fileName = "DAVIDZ-Laag-3.jpg", description = "" }
+            , Project.Image
+                { fileName = "DAVIDZ-Laag-5.jpg", description = "" }
+            , Project.Image
+                { fileName = "DAVIDZ-Laag-6.jpg", description = "" }
+            ]
         , processFootage = []
         , externalLink = Just ""
         }
