@@ -48,10 +48,10 @@ data =
         , finalFootage =
             [ Project.Image { fileName = "pf.jpg", description = "David Zwitser making a picture on a very dangerous road" }
             , Project.Custom
-                [ { textDescription = "@Coelepinda", href = "https://www.instagram.com/coelepinda/" }
-                , { textDescription = "talk@davidzwitser.com", href = "mailto:talk@davidzwitser.com" }
-                , { textDescription = "Slachtstraat 19", href = "https://goo.gl/maps/H4bLNdehU1HGRw8b6" }
-                , { textDescription = "3512AD Utrecht", href = "https://goo.gl/maps/H4bLNdehU1HGRw8b6" }
+                [ { textDescription = "Instagram: @Coelepinda", href = "https://www.instagram.com/coelepinda/" }
+                , { textDescription = "Youtube: David Zwitser", href = "https://www.youtube.com/@davidzwitser/videos" }
+                , { textDescription = "Email: talk@davidzwitser.com", href = "mailto:talk@davidzwitser.com" }
+                , { textDescription = "Location: Oudegracht 371 3511 PG", href = "https://maps.app.goo.gl/fSWAYYDFYP343BUU9" }
                 ]
             , Project.Image { fileName = "aan_het_werk.jpg", description = "David Zwitser working behind his laptop" }
             , Project.Image { fileName = "floating.jpg", description = "David Zwitser floating in a void" }

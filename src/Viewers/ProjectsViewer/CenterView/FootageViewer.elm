@@ -8,6 +8,7 @@ import Element.Events as Events
 import Element.Font as Font
 import Embed.Youtube as YTEmbed
 import Embed.Youtube.Attributes as YTAttributes
+import Funcs exposing (when)
 import Html exposing (audio, iframe, source, video)
 import Html.Attributes as Attributes
 import Html.Keyed as Keyed
@@ -54,13 +55,7 @@ footageView projectTransition footageTransition muted possibleFootage =
                     , height fill
                     , alpha <|
                         Animator.move footageTransition
-                            (\currFootage ->
-                                if currFootage == footageIndex then
-                                    Animator.at 1
-
-                                else
-                                    Animator.at 0
-                            )
+                            (\currFootage -> when (currFootage == footageIndex) (Animator.at 1) (Animator.at 0))
 
                     -- footageTransitionAnimation footageTransition footageIndex 0 1
                     , Background.uncropped <| Project.getFootagePath data project
@@ -68,25 +63,29 @@ footageView projectTransition footageTransition muted possibleFootage =
                     none
 
             Project.Video data ->
-                Element.html
-                    (Keyed.node "video_footage" [] <|
-                        [ ( data.fileName
-                          , video
-                                [ Attributes.controls False
-                                , Attributes.loop True
-                                , Attributes.id data.fileName
-                                , Attributes.preload "auto"
-                                , Attributes.autoplay True
+                el [ width fill, height fill, centerX, centerY ]
+                    (Element.html
+                        (Keyed.node "video_footage" [] <|
+                            [ ( data.fileName
+                              , video
+                                    [ Attributes.controls False
+                                    , Attributes.loop True
+                                    , Attributes.id data.fileName
+                                    , Attributes.preload "auto"
+                                    , Attributes.autoplay True
 
-                                -- , onClick ToggleAutoplay
-                                , Attributes.style "width" "100%"
-                                , Attributes.property "muted" (Json.Encode.bool muted)
-                                , Attributes.style "height" "55vh"
-                                ]
-                                [ source [ Attributes.src <| Project.getFootagePath data project ] []
-                                ]
-                          )
-                        ]
+                                    -- , onClick ToggleAutoplay
+                                    , Attributes.style "width" "100%"
+                                    , Attributes.property "muted" (Json.Encode.bool muted)
+                                    , Attributes.style "height" "55vh"
+
+                                    -- , Attributes.style "object-fit" "contain"
+                                    ]
+                                    [ source [ Attributes.src <| Project.getFootagePath data project ] []
+                                    ]
+                              )
+                            ]
+                        )
                     )
 
             Project.YoutubeEmbedded data ->
