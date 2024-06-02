@@ -1,28 +1,25 @@
 module Viewers.ProjectsViewer.ProjectPicker exposing (projectPicker)
 
 import Animator exposing (..)
+import Browser exposing (..)
+import Browser.Navigation exposing (..)
 import Element exposing (..)
 import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font
-import Element.Input exposing (OptionState(..))
+import Funcs exposing (when)
+import Html.Attributes exposing (draggable, href)
 import Project exposing (..)
-import Types exposing (Msg(..))
+import Projects.AllProjects exposing (projects)
+import Types exposing (Model, Msg(..))
 
 
-projectPicker : List (Attribute Msg) -> List Project -> Bool -> Animator.Timeline Project -> Element Msg
-projectPicker styles projects onMobile projectTransition =
+projectPicker : List (Attribute Msg) -> Model -> Element Msg
+projectPicker styles model =
     let
         toProjectTransition id off on =
-            Animator.move projectTransition
-                (\proj ->
-                    if proj.id == id then
-                        Animator.at on
-                            |> Animator.leaveLate 0.5
-
-                    else
-                        Animator.at off
-                )
+            Animator.move model.projectTransition
+                (\proj -> when (proj.id == id) (Animator.at on |> Animator.leaveLate 0.5) (Animator.at off))
     in
     column
         (styles
@@ -32,7 +29,8 @@ projectPicker styles projects onMobile projectTransition =
                , height fill
                ]
         )
-        ((if not onMobile then
+        (when model.onMobile
+            []
             [ el
                 [ height fill
                 , width fill
@@ -41,27 +39,23 @@ projectPicker styles projects onMobile projectTransition =
                 , Font.size 20
                 , padding 10
                 , pointer
-                , Events.onClick <| OpenExternalPage "https://www.instagram.com/coelepinda/"
+                , Events.onClick <| Types.LinkClicked <| Browser.External "https://www.instagram.com/coelepinda/"
                 , Background.color <| rgb 0.5 0.7 0.5
                 ]
               <|
                 text "running experimentations"
             ]
-
-          else
-            []
-         )
             ++ (projects
                     |> List.map
                         (\project ->
-                            projectButton onMobile toProjectTransition project
+                            projectButton model toProjectTransition project
                         )
                )
         )
 
 
-projectButton : Bool -> (String -> Float -> Float -> Float) -> Project -> Element Msg
-projectButton onMobile toProjectTransition project =
+projectButton : Model -> (String -> Float -> Float -> Float) -> Project -> Element Msg
+projectButton model toProjectTransition project =
     row
         [ width fill
         , height fill
@@ -74,19 +68,15 @@ projectButton onMobile toProjectTransition project =
                 , centerY
                 , Font.bold
                 ]
-            <|
-                text
-                    (if onMobile then
-                        "^"
-
-                     else
-                        "<"
-                    )
+                (text (when model.onMobile "^" "<"))
         ]
-        [ -- Pointing arrow when project is selected
+        [ let
+            url =
+                model.url
+          in
           row
             [ mouseOver [ Element.alpha 0.8 ]
-            , Events.onClick <| Types.ProjectClicked project
+            , Events.onClick <| Types.LinkClicked <| Browser.Internal { url | path = "/" ++ project.id }
             , scale <| toProjectTransition project.id 1 0.92
             , width <| fillPortion 5
             , height fill
@@ -96,46 +86,27 @@ projectButton onMobile toProjectTransition project =
             ]
             [ column
                 [ fillPortion 2
-                    |> maximum
-                        (if onMobile then
-                            400
-
-                         else
-                            228
-                        )
+                    |> maximum (when model.onMobile 400 228)
                     |> width
                 , centerX
                 ]
                 [ paragraph
-                    ((if onMobile then
-                        [ Font.size 30 ]
-
-                      else
-                        [ Font.size 18 ]
-                     )
-                        ++ [ width fill
-                           , height fill
-                           , Font.alignRight
-                           , padding 5
-                           , Background.color <| rgb 0.1 0.1 0.1
-                           , Font.color <| rgb 0.9 0.9 0.9
-                           ]
-                    )
-                  <|
+                    [ Font.size <| when model.onMobile 30 18
+                    , width fill
+                    , height fill
+                    , Font.alignRight
+                    , padding 5
+                    , Background.color <| rgb 0.1 0.1 0.1
+                    , Font.color <| rgb 0.9 0.9 0.9
+                    ]
                     [ text project.text.name ]
                 , image
-                    ((if onMobile then
-                        [ height <| px 400 ]
-
-                      else
-                        [ height <| px 228 ]
-                     )
-                        ++ [ width fill
-                           , Background.color <| rgb 0.1 0.1 0.1
-                           , clip
-                           , centerX
-                           ]
-                    )
+                    [ height <| px (when model.onMobile 400 228)
+                    , width fill
+                    , Background.color <| rgb 0.1 0.1 0.1
+                    , clip
+                    , centerX
+                    ]
                     { src = Project.getFootagePath project.sources.thumbnail project, description = project.sources.thumbnail.description }
                 ]
             ]

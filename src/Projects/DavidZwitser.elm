@@ -12,7 +12,7 @@ data =
         age =
             24
     in
-    { id = "david_zwitser"
+    { id = "about"
     , variables =
         { date = Date.fromCalendarDate 1998 Oct 8
         , hoursSpent = age * 365

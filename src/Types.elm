@@ -2,6 +2,7 @@ module Types exposing (..)
 
 import Animator exposing (Timeline)
 import Browser
+import Browser.Navigation exposing (Key)
 import Project exposing (Project)
 import Time
 import Url
@@ -19,6 +20,8 @@ type Transition from to
 
 type alias Model =
     { loaded : Timeline Bool
+    , url : Url.Url
+    , key : Key
 
     -- List project viewer
     , projectTransition : Timeline Project
@@ -36,11 +39,10 @@ type alias Model =
 
 
 type Msg
-    = Tick Time.Posix
+    = TimeTick Time.Posix
     | PageLoaded Bool
     | UrlChanged Url.Url
     | LinkClicked Browser.UrlRequest
-    | ProjectClicked Project
     | NextFootageClicked Direction
     | FootageIndexClicked Int
     | NewPagePartHovered ViewerPart
@@ -48,7 +50,6 @@ type Msg
     | ToggleMute
     | ToggleAutoplay
     | SetAutoplay Bool
-    | OpenExternalPage String
     | GotNewScreenSize Int Int
 
 

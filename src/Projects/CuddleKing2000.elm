@@ -8,7 +8,7 @@ import Time exposing (Month(..))
 
 data : Project.Project
 data =
-    { id = "cuddleking2000"
+    { id = "cuddle_king_2000"
     , variables =
         { date = Date.fromCalendarDate 2023 Feb 1
         , hoursSpent = 1500

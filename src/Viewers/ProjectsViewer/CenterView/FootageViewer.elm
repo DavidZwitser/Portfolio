@@ -1,6 +1,7 @@
 module Viewers.ProjectsViewer.CenterView.FootageViewer exposing (..)
 
 import Animator
+import Browser exposing (..)
 import Element exposing (..)
 import Element.Background as Background
 import Element.Events as Events
@@ -126,7 +127,7 @@ footageView projectTransition footageTransition muted possibleFootage =
                                 el
                                     [ width fill
                                     , pointer
-                                    , Events.onClick (Types.OpenExternalPage href)
+                                    , Events.onClick <| Types.LinkClicked <| Browser.External href
                                     , Font.size 15
                                     , Font.center
                                     , centerY

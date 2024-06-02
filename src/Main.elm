@@ -5,24 +5,19 @@ import Browser
 import Browser.Dom exposing (getViewport)
 import Browser.Events as BEvents
 import Browser.Navigation exposing (load)
-import Debug exposing (..)
+import Debug exposing (log)
 import Effects.LoadAnimation
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font
 import List
-import List.Extra exposing (..)
 import Project exposing (..)
-import Projects.BuildUpAndRelease
-import Projects.CONFINED_SPACE
-import Projects.CanWorld
-import Projects.CuddleKing2000
-import Projects.DavidZwitser
-import Projects.LifeLike
-import Projects.PersonalSharedPhysicsl
+import Projects.AllProjects exposing (defaultProject, projects)
+import Routing exposing (urlToProject)
 import Task
 import Types exposing (..)
-import Url
+import Url exposing (..)
+import Url.Parser
 import Viewers.ProjectsViewer.ProjectsViewer exposing (projectViewer)
 
 
@@ -37,35 +32,30 @@ main =
         , subscriptions =
             \model ->
                 Sub.batch
-                    [ animator |> Animator.toSubscription Tick model
+                    [ animator |> Animator.toSubscription TimeTick model
                     , BEvents.onResize (\w h -> GotNewScreenSize w h)
                     ]
         }
 
 
 init : () -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
-init _ _ _ =
+init flags url key =
     ( { loaded = Animator.init False
-      , allProjects =
-            [ Projects.DavidZwitser.data
-            , Projects.CuddleKing2000.data
-            , Projects.BuildUpAndRelease.data
-            , Projects.CONFINED_SPACE.data
-            , Projects.LifeLike.data
-            , Projects.PersonalSharedPhysicsl.data
-            , Projects.CanWorld.data
-            ]
+      , allProjects = projects
       , activeViewerPart = Animator.init Description
-      , projectTransition = Animator.init Projects.DavidZwitser.data
+      , projectTransition = Animator.init defaultProject
       , footageTransition = Animator.init 0
       , footageAbout = Animator.init Project.Final
       , footageMuted = False
       , footageAutoplay = True
       , onMobile = False
+      , key = key
+      , url = url
       , screenSize = { w = 0, h = 0 }
       }
     , Cmd.batch
         [ Task.perform PageLoaded (Task.succeed True)
+        , Task.perform UrlChanged (Task.succeed url)
         , Task.attempt
             (\result ->
                 case result of
@@ -122,11 +112,8 @@ view model =
             ]
           <|
             row
-                [ Element.height fill
-                , Element.width fill
-                ]
-                [ projectViewer model
-                ]
+                [ Element.height fill, Element.width fill ]
+                [ projectViewer model ]
         ]
     }
 
@@ -134,33 +121,32 @@ view model =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Tick newTime ->
+        TimeTick newTime ->
             ( Animator.update newTime animator model, Cmd.none )
 
         GotNewScreenSize w h ->
-            ( { model | onMobile = w < h, screenSize = { w = w, h = h } }, Cmd.none )
+            ( { model | onMobile = w * 3 < h, screenSize = { w = w, h = h } }, Cmd.none )
 
         PageLoaded _ ->
             ( { model | loaded = model.loaded |> Animator.go Animator.verySlowly True }, Cmd.none )
 
-        UrlChanged _ ->
-            ( model, Cmd.none )
-
-        LinkClicked _ ->
-            ( model, Cmd.none )
-
-        ProjectClicked project ->
+        UrlChanged url ->
             ( { model
                 | footageTransition = model.footageTransition |> Animator.go Animator.slowly 0
                 , projectTransition =
-                    model.projectTransition
-                        |> Animator.go Animator.slowly project
-                , footageAbout =
-                    model.footageAbout
-                        |> Animator.go Animator.immediately Project.Final
+                    model.projectTransition |> Animator.go Animator.slowly (urlToProject url)
+                , footageAbout = model.footageAbout |> Animator.go Animator.immediately Project.Final
               }
             , Cmd.none
             )
+
+        LinkClicked urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model, Browser.Navigation.pushUrl model.key <| Url.toString url )
+
+                Browser.External href ->
+                    ( model, Browser.Navigation.load href )
 
         NextFootageClicked dir ->
             let
@@ -188,12 +174,7 @@ update msg model =
             ( { model | footageTransition = model.footageTransition |> Animator.go Animator.quickly index }, Cmd.none )
 
         NewPagePartHovered viewerPart ->
-            ( { model
-                | activeViewerPart =
-                    model.activeViewerPart
-                        |> Animator.queue
-                            [ Animator.event Animator.slowly viewerPart ]
-              }
+            ( { model | activeViewerPart = model.activeViewerPart |> Animator.queue [ Animator.event Animator.slowly viewerPart ] }
             , Cmd.none
             )
 
@@ -213,6 +194,3 @@ update msg model =
 
         SetAutoplay value ->
             ( { model | footageMuted = value }, Cmd.none )
-
-        OpenExternalPage url ->
-            ( model, load url )

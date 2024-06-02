@@ -1,18 +1,15 @@
 module Viewers.ProjectsViewer.CenterView.CenterView exposing (centerViewer)
 
 import Animator
-import Animator.Css exposing (opacity)
 import Date
 import Element exposing (..)
 import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font exposing (center)
 import Element.Input as Input
+import Funcs exposing (when)
 import List.Extra
-import Palette.Cubehelix exposing (..)
-import Palette.Generative exposing (..)
 import Project exposing (Footage(..), FootageAbout(..), Project, getAppropriateFootage, mediumToString)
-import SolidColor exposing (..)
 import Types exposing (Msg(..))
 import Viewers.ProjectsViewer.CenterView.FootageViewer exposing (footageView)
 
@@ -73,12 +70,7 @@ typeOfFootageSelector currTypeOfImage =
                     , width fill
                     , height fill
                     , Font.center
-                    , Background.color <|
-                        if currTypeOfImage == imageTypeButton then
-                            rgb 0.5 0.5 0.5
-
-                        else
-                            rgb 0.3 0.3 0.3
+                    , Background.color <| when (currTypeOfImage == imageTypeButton) (rgb 0.5 0.5 0.5) (rgb 0.3 0.3 0.3)
                     ]
                     { onPress = Just <| NewFootageTypeClicked imageTypeButton
                     , label =
@@ -119,12 +111,7 @@ footageNavigationButtons dir onDesktop clickable footageTransition str =
                ]
         )
     <|
-        { onPress =
-            if clickable then
-                Just <| Types.NextFootageClicked dir
-
-            else
-                Nothing
+        { onPress = when clickable (Just <| Types.NextFootageClicked dir) Nothing
         , label = text str
         }
 

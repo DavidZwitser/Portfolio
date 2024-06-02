@@ -2,7 +2,7 @@ module Projects.CONFINED_SPACE exposing (..)
 
 import Date
 import Element exposing (rgb255)
-import Project exposing (Client(..), Footage, FootageMetadata, Medium(..), Tool(..))
+import Project exposing (Client(..), FootageMetadata, Medium(..), Tool(..))
 import Time exposing (Month(..))
 import Types exposing (Msg)
 

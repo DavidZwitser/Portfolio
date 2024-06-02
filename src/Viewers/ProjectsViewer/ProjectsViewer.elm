@@ -1,13 +1,12 @@
 module Viewers.ProjectsViewer.ProjectsViewer exposing (projectViewer)
 
 import Animator exposing (..)
-import Animator.Inline exposing (..)
 import Element as Element exposing (..)
 import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Events
-import Palette.Generative exposing (..)
+import Funcs exposing (when)
 import Project exposing (Footage(..), Medium(..))
 import Types exposing (..)
 import Viewers.ProjectsViewer.CenterView.CenterView exposing (centerViewer)
@@ -18,40 +17,21 @@ import Viewers.ProjectsViewer.ProjectPicker exposing (projectPicker)
 activeViewPartAnimation : Model -> ViewerPart -> Float -> Float -> Float
 activeViewPartAnimation model viewPart from to =
     Animator.move model.activeViewerPart <|
-        \state ->
-            if state == viewPart then
-                Animator.at to
-
-            else
-                Animator.at from
+        \state -> when (state == viewPart) (Animator.at to) (Animator.at from)
 
 
 projectViewer : Model -> Element Msg
 projectViewer model =
     let
-        activeViewPart =
-            Animator.current model.activeViewerPart
-
+        -- activeViewPart =
+        -- Animator.current model.activeViewerPart
         flowDirection =
-            if model.onMobile then
-                column
-
-            else
-                row
+            when model.onMobile column row
 
         partBanner partName part =
             el
-                ([ Font.color <| rgb 1 1 1
-                 , centerY
-                 , centerX
-                 , alpha <| activeViewPartAnimation model part 1 0
-                 ]
-                    ++ (if model.onMobile then
-                            [ Font.size 60 ]
-
-                        else
-                            [ Element.rotate <| pi * 0.5, Font.size 30 ]
-                       )
+                ([ Font.color <| rgb 1 1 1, centerY, centerX, alpha <| activeViewPartAnimation model part 1 0 ]
+                    ++ when model.onMobile [ Font.size 60 ] [ Element.rotate <| pi * 0.5, Font.size 30 ]
                 )
             <|
                 text partName
@@ -59,16 +39,8 @@ projectViewer model =
         partTitle partName part =
             el
                 [ padding 5
-                , if part == ProjectPicker then
-                    alignRight
-
-                  else
-                    alignLeft
-                , if model.onMobile then
-                    Font.size 60
-
-                  else
-                    Font.size 30
+                , when (part == ProjectPicker) alignRight alignLeft
+                , when model.onMobile (Font.size 60) (Font.size 30)
                 , Font.color <| rgb 0.9 0.9 0.9
                 , alpha <| activeViewPartAnimation model part 0 1
                 ]
@@ -93,10 +65,8 @@ projectViewer model =
                 ++ [ alignLeft
                    , partColor Description
                    , inFront <| partBanner "DESCRIPTION" Description
-                   ] ++ (if model.onMobile then
-                        [Events.onClick <| NewPagePartHovered Description]
-                    else
-                        [Events.onMouseEnter <| NewPagePartHovered Description])
+                   ]
+                ++ when model.onMobile [ Events.onClick <| NewPagePartHovered Description ] [ Events.onMouseEnter <| NewPagePartHovered Description ]
             )
             [ partTitle "DESCRIPTION" Description
             , description
@@ -111,21 +81,15 @@ projectViewer model =
 
         {- CENTER VIEWER element -}
         , flowDirection
-            ((if not model.onMobile then
-                [ Events.onMouseEnter <| NewPagePartHovered Description
-                , paddingXY (round <| activeViewPartAnimation model Background 25 200) 25
-                ]
-
-              else
-                []
-             )
-                ++ [ height fill, width fill, centerX, clipX ]
+            ([ height fill, width fill, centerX, clipX ]
+                ++ when model.onMobile
+                    []
+                    [ Events.onMouseEnter <| NewPagePartHovered Description
+                    , paddingXY (round <| activeViewPartAnimation model Background 25 200) 25
+                    ]
             )
             [ centerViewer
-                [ width fill
-                , centerY
-                , padding 50
-                ]
+                [ width fill, centerY, padding 50 ]
                 model.projectTransition
                 model.footageTransition
                 model.footageAbout
@@ -139,21 +103,13 @@ projectViewer model =
                 ++ [ alignRight
                    , partColor ProjectPicker
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
-                   ] ++ (if model.onMobile then
-                        [Events.onClick <| NewPagePartHovered ProjectPicker]
-                    else
-                        [Events.onMouseEnter <| NewPagePartHovered ProjectPicker])
-
+                   ]
+                ++ when model.onMobile [ Events.onClick <| NewPagePartHovered ProjectPicker ] [ Events.onMouseEnter <| NewPagePartHovered ProjectPicker ]
             )
           <|
             [ partTitle "PROJECT PICKER" ProjectPicker
             , projectPicker
-                [ width fill
-                , height fill
-                , alpha <| activeViewPartAnimation model ProjectPicker 0 1
-                ]
-                model.allProjects
-                model.onMobile
-                model.projectTransition
+                [ width fill, height fill, alpha <| activeViewPartAnimation model ProjectPicker 0 1 ]
+                model
             ]
         ]

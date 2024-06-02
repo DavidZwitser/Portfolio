@@ -2,15 +2,10 @@ module Viewers.ProjectsViewer.CenterView.FootageOverviewer exposing (..)
 
 import Animator
 import Element exposing (..)
-import Element.Background as Background
 import Element.Events as Events
-import Element.Font as Font
-import Embed.Youtube as YTEmbed
-import Embed.Youtube.Attributes as YTAttributes
-import Html exposing (audio, iframe, source, video)
+import Html exposing (source, video)
 import Html.Attributes as Attributes
 import Html.Events as HtmlEvents
-import Html.Keyed as Keyed
 import Json.Encode
 import Project exposing (..)
 import Types exposing (..)
