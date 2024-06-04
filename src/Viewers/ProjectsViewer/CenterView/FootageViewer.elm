@@ -10,7 +10,7 @@ import Embed.Youtube as YTEmbed
 import Embed.Youtube.Attributes as YTAttributes
 import Funcs exposing (when)
 import Html exposing (audio, iframe, source, video)
-import Html.Attributes as Attributes
+import Html.Attributes as Attributes exposing (style)
 import Html.Keyed as Keyed
 import Json.Encode
 import Project exposing (..)
@@ -63,7 +63,8 @@ footageView projectTransition footageTransition muted possibleFootage =
                     none
 
             Project.Video data ->
-                el [ width fill, height fill, centerX, centerY ]
+                el
+                    [ width fill, height fill ]
                     (Element.html
                         (Keyed.node "video_footage" [] <|
                             [ ( data.fileName
@@ -73,13 +74,14 @@ footageView projectTransition footageTransition muted possibleFootage =
                                     , Attributes.id data.fileName
                                     , Attributes.preload "auto"
                                     , Attributes.autoplay True
-
-                                    -- , onClick ToggleAutoplay
-                                    , Attributes.style "width" "100%"
+                                    , style "position" "absolute"
+                                    , style "top" "50%"
+                                    , style "left" "50%"
+                                    , style "transform" "translate(-50%, -50%)"
+                                    , style "width" "100%"
+                                    , style "height" "100%"
+                                    , style "object-fit" "contain"
                                     , Attributes.property "muted" (Json.Encode.bool muted)
-                                    , Attributes.style "height" "55vh"
-
-                                    -- , Attributes.style "object-fit" "contain"
                                     ]
                                     [ source [ Attributes.src <| Project.getFootagePath data project ] []
                                     ]
@@ -89,16 +91,22 @@ footageView projectTransition footageTransition muted possibleFootage =
                     )
 
             Project.YoutubeEmbedded data ->
-                Element.html <|
-                    YTEmbed.toHtml <|
-                        YTEmbed.attributes [ YTAttributes.height 500 ] <|
-                            YTEmbed.fromString data.fileName
+                el [ width fill, height <| px 600, centerY ] <|
+                    Element.html <|
+                        YTEmbed.toHtml <|
+                            YTEmbed.attributes [ YTAttributes.height 600, YTAttributes.modestBranding ] <|
+                                YTEmbed.fromString data.fileName
 
             Project.VimeoEmbedded data ->
                 Element.html <|
                     iframe
-                        [ Attributes.style "width" "100%"
-                        , Attributes.style "height" "100%"
+                        [ style "position" "absolute"
+                        , style "top" "50%"
+                        , style "left" "50%"
+                        , style "transform" "translate(-50%, -50%)"
+                        , style "width" "100%"
+                        , style "height" "100%"
+                        , style "object-fit" "contain"
                         , Attributes.src <| data.fileName
                         , Attributes.property "frameborder" (Json.Encode.string "0")
                         , Attributes.property "allowfullscreen" (Json.Encode.string "true")
@@ -106,7 +114,7 @@ footageView projectTransition footageTransition muted possibleFootage =
                         []
 
             Project.Audio data ->
-                el [ width fill, height fill, centerX, centerY, spacing 10 ] <|
+                el [ width fill, height fill ] <|
                     Element.html <|
                         audio
                             [ Attributes.controls True

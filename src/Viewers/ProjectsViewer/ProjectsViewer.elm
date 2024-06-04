@@ -64,9 +64,11 @@ projectViewer model =
             (([ width fill, height fill ] ++ partSize Description)
                 ++ [ alignLeft
                    , partColor Description
+                   , pointer
                    , inFront <| partBanner "DESCRIPTION" Description
+                   , Events.onClick <| NewPagePartHovered Description
                    ]
-                ++ when model.onMobile [ Events.onClick <| NewPagePartHovered Description ] [ Events.onMouseEnter <| NewPagePartHovered Description ]
+             -- ++ when model.onMobile [ Events.onClick <| NewPagePartHovered Description ] [ Events.onMouseEnter <| NewPagePartHovered Description ]
             )
             [ partTitle "DESCRIPTION" Description
             , description
@@ -84,8 +86,8 @@ projectViewer model =
             ([ height fill, width fill, centerX, clipX ]
                 ++ when model.onMobile
                     []
-                    [ Events.onMouseEnter <| NewPagePartHovered Description
-                    , paddingXY (round <| activeViewPartAnimation model Background 25 200) 25
+                    [ -- Events.onMouseEnter <| NewPagePartHovered Description
+                      paddingXY (round <| activeViewPartAnimation model Background 25 200) 25
                     ]
             )
             [ centerViewer
@@ -101,10 +103,12 @@ projectViewer model =
         , column
             (([ width fill, height fill ] ++ partSize ProjectPicker)
                 ++ [ alignRight
+                   , pointer
                    , partColor ProjectPicker
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
+                   , Events.onClick <| NewPagePartHovered ProjectPicker
                    ]
-                ++ when model.onMobile [ Events.onClick <| NewPagePartHovered ProjectPicker ] [ Events.onMouseEnter <| NewPagePartHovered ProjectPicker ]
+             -- ++ when model.onMobile [ Events.onClick <| NewPagePartHovered ProjectPicker ] [ Events.onMouseEnter <| NewPagePartHovered ProjectPicker ]
             )
           <|
             [ partTitle "PROJECT PICKER" ProjectPicker
