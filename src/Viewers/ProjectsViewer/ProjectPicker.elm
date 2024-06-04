@@ -58,6 +58,7 @@ projectButton model toProjectTransition project =
     row
         [ width fill
         , height fill
+        , pointer
         , inFront <|
             el
                 [ alpha <| toProjectTransition project.id 0 1
@@ -74,15 +75,17 @@ projectButton model toProjectTransition project =
                 model.url
           in
           row
-            [ mouseOver [ Element.alpha 0.8 ]
-            , Events.onClick <| Types.LinkClicked <| Browser.Internal { url | fragment = Just project.id }
-            , scale <| toProjectTransition project.id 1 0.92
-            , width <| fillPortion 5
-            , height fill
-            , pointer
-            , Background.color <| rgb 0.15 0.15 0.15
-            , padding 50
-            ]
+            ([ mouseOver [ Element.alpha 0.8 ]
+             , scale <| toProjectTransition project.id 1 0.92
+             , width <| fillPortion 5
+             , height fill
+             , Background.color <| rgb 0.15 0.15 0.15
+             , padding 50
+             ]
+                ++ when (Animator.current model.activeViewerPart == Types.ProjectPicker)
+                    [ Events.onClick <| Types.LinkClicked <| Browser.Internal { url | fragment = Just project.id } ]
+                    []
+            )
             [ column
                 [ fillPortion 2
                     |> maximum (when model.onMobile 400 228)

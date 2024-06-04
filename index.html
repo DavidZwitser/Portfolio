@@ -18622,6 +18622,7 @@ var $author$project$Viewers$ProjectsViewer$ProjectPicker$projectButton = F3(
 				[
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$pointer,
 					$mdgriffith$elm_ui$Element$inFront(
 					A2(
 						$mdgriffith$elm_ui$Element$el,
@@ -18650,31 +18651,40 @@ var $author$project$Viewers$ProjectsViewer$ProjectPicker$projectButton = F3(
 					var url = model.url;
 					return A2(
 						$mdgriffith$elm_ui$Element$row,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$mouseOver(
+						_Utils_ap(
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$mouseOver(
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$alpha(0.8)
+										])),
+									$mdgriffith$elm_ui$Element$scale(
+									A3(toProjectTransition, project.id, 1, 0.92)),
+									$mdgriffith$elm_ui$Element$width(
+									$mdgriffith$elm_ui$Element$fillPortion(5)),
+									$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+									$mdgriffith$elm_ui$Element$Background$color(
+									A3($mdgriffith$elm_ui$Element$rgb, 0.15, 0.15, 0.15)),
+									$mdgriffith$elm_ui$Element$padding(50)
+								]),
+							A3(
+								$author$project$Funcs$when,
+								_Utils_eq(
+									$mdgriffith$elm_animator$Animator$current(model.activeViewerPart),
+									$author$project$Types$ProjectPicker),
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$alpha(0.8)
-									])),
-								$mdgriffith$elm_ui$Element$Events$onClick(
-								$author$project$Types$LinkClicked(
-									$elm$browser$Browser$Internal(
-										_Utils_update(
-											url,
-											{
-												fragment: $elm$core$Maybe$Just(project.id)
-											})))),
-								$mdgriffith$elm_ui$Element$scale(
-								A3(toProjectTransition, project.id, 1, 0.92)),
-								$mdgriffith$elm_ui$Element$width(
-								$mdgriffith$elm_ui$Element$fillPortion(5)),
-								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$pointer,
-								$mdgriffith$elm_ui$Element$Background$color(
-								A3($mdgriffith$elm_ui$Element$rgb, 0.15, 0.15, 0.15)),
-								$mdgriffith$elm_ui$Element$padding(50)
-							]),
+										$mdgriffith$elm_ui$Element$Events$onClick(
+										$author$project$Types$LinkClicked(
+											$elm$browser$Browser$Internal(
+												_Utils_update(
+													url,
+													{
+														fragment: $elm$core$Maybe$Just(project.id)
+													}))))
+									]),
+								_List_Nil)),
 						_List_fromArray(
 							[
 								A2(
