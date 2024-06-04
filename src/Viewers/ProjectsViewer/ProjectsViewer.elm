@@ -64,6 +64,7 @@ projectViewer model =
                    , partColor Description
                    , pointer
                    , inFront <| partBanner "DESCRIPTION" Description
+                   , mouseOver <| when (Animator.current model.activeViewerPart == Description) [] [ moveLeft 3, alpha 0.8 ]
                    , Events.onClick <| NewPagePartHovered Description
                    ]
              -- ++ when model.onMobile [ Events.onClick <| NewPagePartHovered Description ] [ Events.onMouseEnter <| NewPagePartHovered Description ]
@@ -107,6 +108,7 @@ projectViewer model =
                    , partColor ProjectPicker
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
                    , Events.onClick <| NewPagePartHovered ProjectPicker
+                   , mouseOver <| when (Animator.current model.activeViewerPart == ProjectPicker) [] [ moveRight 3, alpha 0.8 ]
                    ]
              -- ++ when model.onMobile [ Events.onClick <| NewPagePartHovered ProjectPicker ] [ Events.onMouseEnter <| NewPagePartHovered ProjectPicker ]
             )
