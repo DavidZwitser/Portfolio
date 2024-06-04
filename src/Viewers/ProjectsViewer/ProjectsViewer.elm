@@ -23,8 +23,6 @@ activeViewPartAnimation model viewPart from to =
 projectViewer : Model -> Element Msg
 projectViewer model =
     let
-        -- activeViewPart =
-        -- Animator.current model.activeViewerPart
         flowDirection =
             when model.onMobile column row
 
@@ -64,6 +62,7 @@ projectViewer model =
             (([ width fill, height fill ] ++ partSize Description)
                 ++ [ alignLeft
                    , partColor Description
+                   , when ((model.activeViewerPart |> Animator.current) == Description) pointer (mouseOver [ moveLeft 3, alpha 0.8 ])
                    , pointer
                    , inFront <| partBanner "DESCRIPTION" Description
                    , Events.onClick <| NewPagePartHovered Description
@@ -75,6 +74,8 @@ projectViewer model =
                 [ height fill
                 , width fill
                 , alpha <| activeViewPartAnimation model Description 0 1
+
+                -- , alpha <| when (Animator.current model.activeViewerPart == Description) 1 0
                 ]
                 model.projectTransition
                 model.onMobile
@@ -104,6 +105,7 @@ projectViewer model =
             (([ width fill, height fill ] ++ partSize ProjectPicker)
                 ++ [ alignRight
                    , pointer
+                   , when ((model.activeViewerPart |> Animator.current) == ProjectPicker) pointer (mouseOver [ moveRight 3, alpha 0.8 ])
                    , partColor ProjectPicker
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
                    , Events.onClick <| NewPagePartHovered ProjectPicker

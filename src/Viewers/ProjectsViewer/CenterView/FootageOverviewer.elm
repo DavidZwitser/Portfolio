@@ -4,7 +4,7 @@ import Animator
 import Element exposing (..)
 import Element.Events as Events
 import Html exposing (source, video)
-import Html.Attributes as Attributes
+import Html.Attributes as Attributes exposing (style)
 import Html.Events as HtmlEvents
 import Json.Encode
 import Project exposing (..)
@@ -60,13 +60,13 @@ overviewFootage projectTransition footageTransition footageToShow =
                                     , Attributes.preload "auto"
                                     , Attributes.autoplay False
                                     , HtmlEvents.onClick <| FootageIndexClicked i
-                                    , Attributes.style "allign-self" "center"
-                                    , Attributes.style "width" "100%"
-                                    , Attributes.style "padding" "5px"
-                                    , Attributes.style "flex-basis" "0px"
-                                    , Attributes.style "min-height" "10vh"
-                                    , Attributes.style "object-fit" "cover"
-                                    , Attributes.style "cursor" "pointer"
+                                    , style "allign-self" "center"
+                                    , style "width" "100%"
+                                    , style "padding" "5px"
+                                    , style "flex-basis" "0px"
+                                    , style "min-height" "10vh"
+                                    , style "object-fit" "cover"
+                                    , style "cursor" "pointer"
                                     , Attributes.property "muted" (Json.Encode.bool True)
                                     ]
                                     [ source
