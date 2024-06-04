@@ -5985,74 +5985,102 @@ var $mdgriffith$elm_animator$Animator$watchingWith = F4(
 var $author$project$Main$animator = A4(
 	$mdgriffith$elm_animator$Animator$watchingWith,
 	function ($) {
-		return $.footageAbout;
+		return $.hoveredProjectPicker;
 	},
 	F2(
-		function (newFootageAbout, model) {
+		function (newHoveredProjectPicker, model) {
 			return _Utils_update(
 				model,
-				{footageAbout: newFootageAbout});
+				{hoveredProjectPicker: newHoveredProjectPicker});
 		}),
-	function (_v4) {
+	function (_v6) {
 		return false;
 	},
 	A4(
 		$mdgriffith$elm_animator$Animator$watchingWith,
 		function ($) {
-			return $.footageTransition;
+			return $.hoveredDescription;
 		},
 		F2(
-			function (newTransition, model) {
+			function (newHoveredDescription, model) {
 				return _Utils_update(
 					model,
-					{footageTransition: newTransition});
+					{hoveredDescription: newHoveredDescription});
 			}),
-		function (_v3) {
+		function (_v5) {
 			return false;
 		},
 		A4(
 			$mdgriffith$elm_animator$Animator$watchingWith,
 			function ($) {
-				return $.projectTransition;
+				return $.footageAbout;
 			},
 			F2(
-				function (newTransition, model) {
+				function (newFootageAbout, model) {
 					return _Utils_update(
 						model,
-						{projectTransition: newTransition});
+						{footageAbout: newFootageAbout});
 				}),
-			function (_v2) {
+			function (_v4) {
 				return false;
 			},
 			A4(
 				$mdgriffith$elm_animator$Animator$watchingWith,
 				function ($) {
-					return $.activeViewerPart;
+					return $.footageTransition;
 				},
 				F2(
-					function (newViewPart, model) {
+					function (newTransition, model) {
 						return _Utils_update(
 							model,
-							{activeViewerPart: newViewPart});
+							{footageTransition: newTransition});
 					}),
-				function (_v1) {
+				function (_v3) {
 					return false;
 				},
 				A4(
 					$mdgriffith$elm_animator$Animator$watchingWith,
 					function ($) {
-						return $.loaded;
+						return $.projectTransition;
 					},
 					F2(
-						function (newLoadedStatus, model) {
+						function (newTransition, model) {
 							return _Utils_update(
 								model,
-								{loaded: newLoadedStatus});
+								{projectTransition: newTransition});
 						}),
-					function (_v0) {
+					function (_v2) {
 						return false;
 					},
-					$mdgriffith$elm_animator$Animator$animator)))));
+					A4(
+						$mdgriffith$elm_animator$Animator$watchingWith,
+						function ($) {
+							return $.activeViewerPart;
+						},
+						F2(
+							function (newViewPart, model) {
+								return _Utils_update(
+									model,
+									{activeViewerPart: newViewPart});
+							}),
+						function (_v1) {
+							return false;
+						},
+						A4(
+							$mdgriffith$elm_animator$Animator$watchingWith,
+							function ($) {
+								return $.loaded;
+							},
+							F2(
+								function (newLoadedStatus, model) {
+									return _Utils_update(
+										model,
+										{loaded: newLoadedStatus});
+								}),
+							function (_v0) {
+								return false;
+							},
+							$mdgriffith$elm_animator$Animator$animator)))))));
 var $elm$core$Result$Err = function (a) {
 	return {$: 'Err', a: a};
 };
@@ -7328,6 +7356,8 @@ var $author$project$Main$init = F3(
 				footageAutoplay: true,
 				footageMuted: true,
 				footageTransition: $mdgriffith$elm_animator$Animator$init(0),
+				hoveredDescription: $mdgriffith$elm_animator$Animator$init(false),
+				hoveredProjectPicker: $mdgriffith$elm_animator$Animator$init(false),
 				key: key,
 				loaded: $mdgriffith$elm_animator$Animator$init(false),
 				onMobile: false,
@@ -8897,7 +8927,7 @@ var $author$project$Main$update = F2(
 							footageTransition: A3($mdgriffith$elm_animator$Animator$go, $mdgriffith$elm_animator$Animator$quickly, index, model.footageTransition)
 						}),
 					$elm$core$Platform$Cmd$none);
-			case 'NewPagePartHovered':
+			case 'NewPagePartActive':
 				var viewerPart = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
@@ -8912,6 +8942,29 @@ var $author$project$Main$update = F2(
 								model.activeViewerPart)
 						}),
 					$elm$core$Platform$Cmd$none);
+			case 'NewHover':
+				var viewerPart = msg.a;
+				var bool = msg.b;
+				switch (viewerPart.$) {
+					case 'Description':
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									hoveredDescription: A3($mdgriffith$elm_animator$Animator$go, $mdgriffith$elm_animator$Animator$quickly, bool, model.hoveredDescription)
+								}),
+							$elm$core$Platform$Cmd$none);
+					case 'ProjectPicker':
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									hoveredProjectPicker: A3($mdgriffith$elm_animator$Animator$go, $mdgriffith$elm_animator$Animator$quickly, bool, model.hoveredProjectPicker)
+								}),
+							$elm$core$Platform$Cmd$none);
+					default:
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
 			case 'NewFootageTypeClicked':
 				var newImageType = msg.a;
 				return _Utils_Tuple2(
@@ -15497,8 +15550,12 @@ var $author$project$Effects$LoadAnimation$loadFadein = function (pageLoaded) {
 		$mdgriffith$elm_ui$Element$none);
 };
 var $author$project$Types$Background = {$: 'Background'};
-var $author$project$Types$NewPagePartHovered = function (a) {
-	return {$: 'NewPagePartHovered', a: a};
+var $author$project$Types$NewHover = F2(
+	function (a, b) {
+		return {$: 'NewHover', a: a, b: b};
+	});
+var $author$project$Types$NewPagePartActive = function (a) {
+	return {$: 'NewPagePartActive', a: a};
 };
 var $author$project$Types$ProjectPicker = {$: 'ProjectPicker'};
 var $author$project$Funcs$when = F3(
@@ -18293,6 +18350,44 @@ var $author$project$Viewers$ProjectsViewer$Description$description = F4(
 										A3(subtitleParagraphPair, $author$project$Viewers$ProjectsViewer$Description$Left, 'Reflections', project.text.reflection)))))))
 				]));
 	});
+var $author$project$Viewers$ProjectsViewer$ProjectsViewer$hoverAnimation = F4(
+	function (model, viewPart, from, to) {
+		switch (viewPart.$) {
+			case 'Description':
+				return A2(
+					$mdgriffith$elm_animator$Animator$move,
+					model.hoveredDescription,
+					function (state) {
+						return A3(
+							$author$project$Funcs$when,
+							state,
+							$mdgriffith$elm_animator$Animator$at(to),
+							$mdgriffith$elm_animator$Animator$at(from));
+					});
+			case 'ProjectPicker':
+				return A2(
+					$mdgriffith$elm_animator$Animator$move,
+					model.hoveredProjectPicker,
+					function (state) {
+						return A3(
+							$author$project$Funcs$when,
+							state,
+							$mdgriffith$elm_animator$Animator$at(to),
+							$mdgriffith$elm_animator$Animator$at(from));
+					});
+			default:
+				return A2(
+					$mdgriffith$elm_animator$Animator$move,
+					model.activeViewerPart,
+					function (state) {
+						return A3(
+							$author$project$Funcs$when,
+							_Utils_eq(state, viewPart),
+							$mdgriffith$elm_animator$Animator$at(to),
+							$mdgriffith$elm_animator$Animator$at(from));
+					});
+		}
+	});
 var $mdgriffith$elm_ui$Internal$Model$Max = F2(
 	function (a, b) {
 		return {$: 'Max', a: a, b: b};
@@ -18300,6 +18395,84 @@ var $mdgriffith$elm_ui$Internal$Model$Max = F2(
 var $mdgriffith$elm_ui$Element$maximum = F2(
 	function (i, l) {
 		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
+	});
+var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
+	return {$: 'MoveX', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
+var $mdgriffith$elm_ui$Element$moveLeft = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveX,
+		$mdgriffith$elm_ui$Internal$Model$MoveX(-x));
+};
+var $mdgriffith$elm_ui$Element$moveRight = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveX,
+		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
+};
+var $elm$html$Html$Events$onMouseEnter = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'mouseenter',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $mdgriffith$elm_ui$Element$Events$onMouseEnter = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Attr, $elm$html$Html$Events$onMouseEnter);
+var $elm$html$Html$Events$onMouseLeave = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'mouseleave',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $mdgriffith$elm_ui$Element$Events$onMouseLeave = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Attr, $elm$html$Html$Events$onMouseLeave);
+var $elm$core$Basics$pi = _Basics_pi;
+var $mdgriffith$elm_ui$Element$clip = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clip);
+var $mdgriffith$elm_ui$Element$fillPortion = $mdgriffith$elm_ui$Internal$Model$Fill;
+var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
+var $mdgriffith$elm_ui$Element$image = F2(
+	function (attrs, _v0) {
+		var src = _v0.src;
+		var description = _v0.description;
+		var imageAttributes = A2(
+			$elm$core$List$filter,
+			function (a) {
+				switch (a.$) {
+					case 'Width':
+						return true;
+					case 'Height':
+						return true;
+					default:
+						return false;
+				}
+			},
+			attrs);
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.imageContainer),
+				attrs),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[
+						A4(
+						$mdgriffith$elm_ui$Internal$Model$element,
+						$mdgriffith$elm_ui$Internal$Model$asEl,
+						$mdgriffith$elm_ui$Internal$Model$NodeName('img'),
+						_Utils_ap(
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Internal$Model$Attr(
+									$elm$html$Html$Attributes$src(src)),
+									$mdgriffith$elm_ui$Internal$Model$Attr(
+									$elm$html$Html$Attributes$alt(description))
+								]),
+							imageAttributes),
+						$mdgriffith$elm_ui$Internal$Model$Unkeyed(_List_Nil))
+					])));
 	});
 var $mdgriffith$elm_ui$Internal$Model$Hover = {$: 'Hover'};
 var $mdgriffith$elm_ui$Internal$Model$PseudoSelector = F2(
@@ -18430,70 +18603,6 @@ var $mdgriffith$elm_ui$Element$mouseOver = function (decs) {
 			$mdgriffith$elm_ui$Internal$Model$Hover,
 			$mdgriffith$elm_ui$Internal$Model$unwrapDecorations(decs)));
 };
-var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
-	return {$: 'MoveX', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
-var $mdgriffith$elm_ui$Element$moveLeft = function (x) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveX,
-		$mdgriffith$elm_ui$Internal$Model$MoveX(-x));
-};
-var $mdgriffith$elm_ui$Element$moveRight = function (x) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveX,
-		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
-};
-var $elm$core$Basics$pi = _Basics_pi;
-var $mdgriffith$elm_ui$Element$clip = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clip);
-var $mdgriffith$elm_ui$Element$fillPortion = $mdgriffith$elm_ui$Internal$Model$Fill;
-var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
-var $mdgriffith$elm_ui$Element$image = F2(
-	function (attrs, _v0) {
-		var src = _v0.src;
-		var description = _v0.description;
-		var imageAttributes = A2(
-			$elm$core$List$filter,
-			function (a) {
-				switch (a.$) {
-					case 'Width':
-						return true;
-					case 'Height':
-						return true;
-					default:
-						return false;
-				}
-			},
-			attrs);
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asEl,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.imageContainer),
-				attrs),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
-				_List_fromArray(
-					[
-						A4(
-						$mdgriffith$elm_ui$Internal$Model$element,
-						$mdgriffith$elm_ui$Internal$Model$asEl,
-						$mdgriffith$elm_ui$Internal$Model$NodeName('img'),
-						_Utils_ap(
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Internal$Model$Attr(
-									$elm$html$Html$Attributes$src(src)),
-									$mdgriffith$elm_ui$Internal$Model$Attr(
-									$elm$html$Html$Attributes$alt(description))
-								]),
-							imageAttributes),
-						$mdgriffith$elm_ui$Internal$Model$Unkeyed(_List_Nil))
-					])));
-	});
 var $mdgriffith$elm_ui$Internal$Model$Scale = function (a) {
 	return {$: 'Scale', a: a};
 };
@@ -18804,28 +18913,34 @@ var $author$project$Viewers$ProjectsViewer$ProjectsViewer$projectViewer = functi
 								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 							]),
 						partSize($author$project$Types$Description)),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$alignLeft,
-							partColor($author$project$Types$Description),
-							$mdgriffith$elm_ui$Element$pointer,
-							$mdgriffith$elm_ui$Element$inFront(
-							A2(partBanner, 'DESCRIPTION', $author$project$Types$Description)),
-							$mdgriffith$elm_ui$Element$mouseOver(
-							A3(
-								$author$project$Funcs$when,
-								_Utils_eq(
-									$mdgriffith$elm_animator$Animator$current(model.activeViewerPart),
-									$author$project$Types$Description),
-								_List_Nil,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$moveLeft(3),
-										$mdgriffith$elm_ui$Element$alpha(0.8)
-									]))),
-							$mdgriffith$elm_ui$Element$Events$onClick(
-							$author$project$Types$NewPagePartHovered($author$project$Types$Description))
-						])),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$alignLeft,
+								partColor($author$project$Types$Description),
+								$mdgriffith$elm_ui$Element$pointer,
+								$mdgriffith$elm_ui$Element$inFront(
+								A2(partBanner, 'DESCRIPTION', $author$project$Types$Description)),
+								$mdgriffith$elm_ui$Element$Events$onMouseEnter(
+								A2($author$project$Types$NewHover, $author$project$Types$Description, true)),
+								$mdgriffith$elm_ui$Element$Events$onMouseLeave(
+								A2($author$project$Types$NewHover, $author$project$Types$Description, false)),
+								$mdgriffith$elm_ui$Element$Events$onClick(
+								$author$project$Types$NewPagePartActive($author$project$Types$Description))
+							]),
+						A3(
+							$author$project$Funcs$when,
+							_Utils_eq(
+								$mdgriffith$elm_animator$Animator$current(model.activeViewerPart),
+								$author$project$Types$Description),
+							_List_Nil,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$alpha(
+									A4($author$project$Viewers$ProjectsViewer$ProjectsViewer$hoverAnimation, model, $author$project$Types$Description, 1, 0.7)),
+									$mdgriffith$elm_ui$Element$moveLeft(
+									A4($author$project$Viewers$ProjectsViewer$ProjectsViewer$hoverAnimation, model, $author$project$Types$Description, 0, 3))
+								])))),
 				_List_fromArray(
 					[
 						A2(partTitle, 'DESCRIPTION', $author$project$Types$Description),
@@ -18890,28 +19005,34 @@ var $author$project$Viewers$ProjectsViewer$ProjectsViewer$projectViewer = functi
 								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 							]),
 						partSize($author$project$Types$ProjectPicker)),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$alignRight,
-							$mdgriffith$elm_ui$Element$pointer,
-							partColor($author$project$Types$ProjectPicker),
-							$mdgriffith$elm_ui$Element$inFront(
-							A2(partBanner, 'PROJECT PICKER', $author$project$Types$ProjectPicker)),
-							$mdgriffith$elm_ui$Element$Events$onClick(
-							$author$project$Types$NewPagePartHovered($author$project$Types$ProjectPicker)),
-							$mdgriffith$elm_ui$Element$mouseOver(
-							A3(
-								$author$project$Funcs$when,
-								_Utils_eq(
-									$mdgriffith$elm_animator$Animator$current(model.activeViewerPart),
-									$author$project$Types$ProjectPicker),
-								_List_Nil,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$moveRight(3),
-										$mdgriffith$elm_ui$Element$alpha(0.8)
-									])))
-						])),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$alignRight,
+								$mdgriffith$elm_ui$Element$pointer,
+								partColor($author$project$Types$ProjectPicker),
+								$mdgriffith$elm_ui$Element$inFront(
+								A2(partBanner, 'PROJECT PICKER', $author$project$Types$ProjectPicker)),
+								$mdgriffith$elm_ui$Element$Events$onClick(
+								$author$project$Types$NewPagePartActive($author$project$Types$ProjectPicker)),
+								$mdgriffith$elm_ui$Element$Events$onMouseEnter(
+								A2($author$project$Types$NewHover, $author$project$Types$ProjectPicker, true)),
+								$mdgriffith$elm_ui$Element$Events$onMouseLeave(
+								A2($author$project$Types$NewHover, $author$project$Types$ProjectPicker, false))
+							]),
+						A3(
+							$author$project$Funcs$when,
+							_Utils_eq(
+								$mdgriffith$elm_animator$Animator$current(model.activeViewerPart),
+								$author$project$Types$ProjectPicker),
+							_List_Nil,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$alpha(
+									A4($author$project$Viewers$ProjectsViewer$ProjectsViewer$hoverAnimation, model, $author$project$Types$ProjectPicker, 1, 0.7)),
+									$mdgriffith$elm_ui$Element$moveRight(
+									A4($author$project$Viewers$ProjectsViewer$ProjectsViewer$hoverAnimation, model, $author$project$Types$ProjectPicker, 0, 3))
+								])))),
 				_List_fromArray(
 					[
 						A2(partTitle, 'PROJECT PICKER', $author$project$Types$ProjectPicker),

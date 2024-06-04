@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Animator exposing (..)
+import Animator.Css exposing (offset)
 import Browser
 import Browser.Dom exposing (getViewport)
 import Browser.Events as BEvents
@@ -46,6 +47,8 @@ init flags url key =
       , projectTransition = Animator.init defaultProject
       , footageTransition = Animator.init 0
       , footageAbout = Animator.init Project.Final
+      , hoveredProjectPicker = Animator.init False
+      , hoveredDescription = Animator.init False
       , footageMuted = True
       , footageAutoplay = True
       , onMobile = False
@@ -92,6 +95,14 @@ animator =
         |> Animator.watchingWith
             .footageAbout
             (\newFootageAbout model -> { model | footageAbout = newFootageAbout })
+            (\_ -> False)
+        |> Animator.watchingWith
+            .hoveredDescription
+            (\newHoveredDescription model -> { model | hoveredDescription = newHoveredDescription })
+            (\_ -> False)
+        |> Animator.watchingWith
+            .hoveredProjectPicker
+            (\newHoveredProjectPicker model -> { model | hoveredProjectPicker = newHoveredProjectPicker })
             (\_ -> False)
 
 
@@ -173,10 +184,21 @@ update msg model =
         FootageIndexClicked index ->
             ( { model | footageTransition = model.footageTransition |> Animator.go Animator.quickly index }, Cmd.none )
 
-        NewPagePartHovered viewerPart ->
+        NewPagePartActive viewerPart ->
             ( { model | activeViewerPart = model.activeViewerPart |> Animator.queue [ Animator.event Animator.slowly viewerPart ] }
             , Cmd.none
             )
+
+        NewHover viewerPart bool ->
+            case viewerPart of
+                Description ->
+                    ( { model | hoveredDescription = model.hoveredDescription |> Animator.go Animator.quickly bool }, Cmd.none )
+
+                ProjectPicker ->
+                    ( { model | hoveredProjectPicker = model.hoveredProjectPicker |> Animator.go Animator.quickly bool }, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
 
         NewFootageTypeClicked newImageType ->
             ( { model

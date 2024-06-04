@@ -31,6 +31,8 @@ type alias Model =
     , footageTransition : Timeline Int
     , activeViewerPart : Timeline ViewerPart
     , footageAbout : Timeline Project.FootageAbout
+    , hoveredProjectPicker : Timeline Bool
+    , hoveredDescription : Timeline Bool
     , footageMuted : Bool
     , footageAutoplay : Bool
     , onMobile : Bool
@@ -45,7 +47,8 @@ type Msg
     | LinkClicked Browser.UrlRequest
     | NextFootageClicked Direction
     | FootageIndexClicked Int
-    | NewPagePartHovered ViewerPart
+    | NewHover ViewerPart Bool
+    | NewPagePartActive ViewerPart
     | NewFootageTypeClicked Project.FootageAbout
     | ToggleMute
     | ToggleAutoplay

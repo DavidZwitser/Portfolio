@@ -20,6 +20,22 @@ activeViewPartAnimation model viewPart from to =
         \state -> when (state == viewPart) (Animator.at to) (Animator.at from)
 
 
+hoverAnimation : Model -> ViewerPart -> Float -> Float -> Float
+hoverAnimation model viewPart from to =
+    case viewPart of
+        Description ->
+            Animator.move model.hoveredDescription <|
+                \state -> when (state == True) (Animator.at to) (Animator.at from)
+
+        ProjectPicker ->
+            Animator.move model.hoveredProjectPicker <|
+                \state -> when (state == True) (Animator.at to) (Animator.at from)
+
+        _ ->
+            Animator.move model.activeViewerPart <|
+                \state -> when (state == viewPart) (Animator.at to) (Animator.at from)
+
+
 projectViewer : Model -> Element Msg
 projectViewer model =
     let
@@ -64,9 +80,15 @@ projectViewer model =
                    , partColor Description
                    , pointer
                    , inFront <| partBanner "DESCRIPTION" Description
-                   , mouseOver <| when (Animator.current model.activeViewerPart == Description) [] [ moveLeft 3, alpha 0.8 ]
-                   , Events.onClick <| NewPagePartHovered Description
+                   , Events.onMouseEnter <| NewHover Description True
+                   , Events.onMouseLeave <| NewHover Description False
+                   , Events.onClick <| NewPagePartActive Description
                    ]
+                ++ when (Animator.current model.activeViewerPart == Description)
+                    []
+                    [ alpha <| hoverAnimation model Description 1 0.7
+                    , moveLeft <| hoverAnimation model Description 0 3
+                    ]
              -- ++ when model.onMobile [ Events.onClick <| NewPagePartHovered Description ] [ Events.onMouseEnter <| NewPagePartHovered Description ]
             )
             [ partTitle "DESCRIPTION" Description
@@ -107,9 +129,15 @@ projectViewer model =
                    , pointer
                    , partColor ProjectPicker
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
-                   , Events.onClick <| NewPagePartHovered ProjectPicker
-                   , mouseOver <| when (Animator.current model.activeViewerPart == ProjectPicker) [] [ moveRight 3, alpha 0.8 ]
+                   , Events.onClick <| NewPagePartActive ProjectPicker
+                   , Events.onMouseEnter <| NewHover ProjectPicker True
+                   , Events.onMouseLeave <| NewHover ProjectPicker False
                    ]
+                ++ when (Animator.current model.activeViewerPart == ProjectPicker)
+                    []
+                    [ alpha <| hoverAnimation model ProjectPicker 1 0.7
+                    , moveRight <| hoverAnimation model ProjectPicker 0 3
+                    ]
              -- ++ when model.onMobile [ Events.onClick <| NewPagePartHovered ProjectPicker ] [ Events.onMouseEnter <| NewPagePartHovered ProjectPicker ]
             )
           <|
