@@ -19,7 +19,7 @@ data =
         , color = rgb 1 1 1
         }
     , text =
-        { name = "CuddleKing2000"
+        { name = "De Cuddle King 2000"
 
         --
         , shortDescription = "Awkwardness is outdated. Optimize your dating life by training to give the ultimate first date greeting hug!"
@@ -47,7 +47,7 @@ data =
             , VimeoEmbedded { fileName = "https://player.vimeo.com/video/794884983?h=0f62f716df", description = "a video showing the exposition in Hoog Catherijne" }
             ]
         , processFootage =
-            [ VimeoEmbedded { fileName = "https://player.vimeo.com/video/787529568?h=74d7acfb02", description = "a video showing a bit of the creative process" }
+            [ Project.YoutubeEmbedded { fileName = "ATCA8wG33Y4?si=gK2dqwoaY1CN6Yjt", description = "a video showing a bit of the creative process" }
             , Project.Image { fileName = "prototype.jpg", description = "a prototype version with the torso" }
             , Project.Image { fileName = "cloth_tryout.jpg", description = "Juliette Mout trying out different cloths to dress the torso" }
             , Project.Video { fileName = "hug_hands_moving.mov", description = "a snapshot of the process of making the real time hug simulation arms" }

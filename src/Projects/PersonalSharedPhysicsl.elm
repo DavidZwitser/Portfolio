@@ -19,7 +19,7 @@ data =
         , color = rgb 1 1 1
         }
     , text =
-        { name = "PersonalSharedPhysical"
+        { name = "Personal Shared Physical"
 
         --
         , shortDescription = "Exploring a theory of three different separated realities."

@@ -19,7 +19,7 @@ data =
         , color = rgb255 151 142 120
         }
     , text =
-        { name = "CanWorld"
+        { name = "Can world"
 
         --
         , shortDescription = "A audio visual experience made together with Can Yursten"

@@ -125,7 +125,7 @@ update msg model =
             ( Animator.update newTime animator model, Cmd.none )
 
         GotNewScreenSize w h ->
-            ( { model | onMobile = w * 3 < h, screenSize = { w = w, h = h } }, Cmd.none )
+            ( { model | onMobile = (toFloat w * 1.5) < toFloat h, screenSize = { w = w, h = h } }, Cmd.none )
 
         PageLoaded _ ->
             ( { model | loaded = model.loaded |> Animator.go Animator.verySlowly True }, Cmd.none )

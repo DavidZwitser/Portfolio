@@ -4,6 +4,7 @@ import Animator exposing (Timeline)
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font as Font
+import Funcs exposing (when)
 import Project exposing (Project)
 import Types exposing (ViewerPart)
 
@@ -16,36 +17,21 @@ description importStyles projectTransition isPortrait viewerPart =
                 |> Animator.current
 
         subtitleAttributes align =
-            (if isPortrait then
-                [ Font.size 30 ]
-
-             else
-                [ Font.size 22 ]
-            )
+            when isPortrait [ Font.size 30 ] [ Font.size 22 ]
                 ++ [ alignToFontAlign align
                    , padding 3
                    , Font.color <| rgb 0.7 0.7 0.7
                    ]
 
         paragraphAttributes align =
-            (if isPortrait then
-                [ Font.size 22 ]
-
-             else
-                [ Font.size 11 ]
-            )
+            when isPortrait [ Font.size 12 ] [ Font.size 11 ]
                 ++ [ alignToFontAlign align
                    , padding 3
                    , Font.color <| rgb 1 1 1
                    ]
 
         quiteAttributes =
-            (if isPortrait then
-                [ Font.size 20 ]
-
-             else
-                [ Font.size 15 ]
-            )
+            when isPortrait [ Font.size 20 ] [ Font.size 15 ]
                 ++ [ padding 8
                    , Font.color <| rgb 0.4 0.4 0.4
                    ]
