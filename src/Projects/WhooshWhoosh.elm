@@ -41,6 +41,7 @@ data =
         , thumbnail = { fileName = "DAVIDZ-Laag-2.jpg", description = "" }
         , finalFootage =
             [ Project.Image { fileName = "DAVIDZ-Laag-2.jpg", description = "" }
+            , Project.YoutubeEmbedded { fileName = "jrPWUyBuM24?si=Ljp9fdDgrKscecWg", description = ""}
             , Project.Image
                 { fileName = "DAVIDZ-Laag-1.jpg", description = "" }
             , Project.Image

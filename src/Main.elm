@@ -47,8 +47,7 @@ init flags url key =
       , projectTransition = Animator.init defaultProject
       , footageTransition = Animator.init 0
       , footageAbout = Animator.init Project.Final
-      , hoveredProjectPicker = Animator.init False
-      , hoveredDescription = Animator.init False
+      , hovered = Animator.init Background
       , footageMuted = True
       , footageAutoplay = True
       , onMobile = False
@@ -97,12 +96,8 @@ animator =
             (\newFootageAbout model -> { model | footageAbout = newFootageAbout })
             (\_ -> False)
         |> Animator.watchingWith
-            .hoveredDescription
-            (\newHoveredDescription model -> { model | hoveredDescription = newHoveredDescription })
-            (\_ -> False)
-        |> Animator.watchingWith
-            .hoveredProjectPicker
-            (\newHoveredProjectPicker model -> { model | hoveredProjectPicker = newHoveredProjectPicker })
+            .hovered
+            (\newHovered model -> { model | hovered = newHovered })
             (\_ -> False)
 
 
@@ -122,9 +117,9 @@ view model =
                 ]
             ]
           <|
-            row
+            el
                 [ Element.height fill, Element.width fill ]
-                [ projectViewer model ]
+                (projectViewer model)
         ]
     }
 
@@ -189,16 +184,8 @@ update msg model =
             , Cmd.none
             )
 
-        NewHover viewerPart bool ->
-            case viewerPart of
-                Description ->
-                    ( { model | hoveredDescription = model.hoveredDescription |> Animator.go Animator.quickly bool }, Cmd.none )
-
-                ProjectPicker ->
-                    ( { model | hoveredProjectPicker = model.hoveredProjectPicker |> Animator.go Animator.quickly bool }, Cmd.none )
-
-                _ ->
-                    ( model, Cmd.none )
+        NewHover viewerPart ->
+            ( { model | hovered = model.hovered |> Animator.go Animator.quickly viewerPart }, Cmd.none )
 
         NewFootageTypeClicked newImageType ->
             ( { model

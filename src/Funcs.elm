@@ -1,6 +1,4 @@
-module Funcs exposing (when)
-
-import Url.Parser as Parser exposing (Parser, string)
+module Funcs exposing (styleWhen, when)
 
 
 when : Bool -> a -> a -> a
@@ -10,3 +8,12 @@ when condition trueValue falseValue =
 
     else
         falseValue
+
+
+styleWhen : Bool -> List a -> List a
+styleWhen condition trueValue =
+    if condition then
+        trueValue
+
+    else
+        []

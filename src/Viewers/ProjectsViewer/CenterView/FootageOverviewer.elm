@@ -3,6 +3,7 @@ module Viewers.ProjectsViewer.CenterView.FootageOverviewer exposing (..)
 import Animator
 import Element exposing (..)
 import Element.Events as Events
+import Funcs exposing (when)
 import Html exposing (source, video)
 import Html.Attributes as Attributes exposing (style)
 import Html.Events as HtmlEvents
@@ -41,13 +42,7 @@ overviewFootage projectTransition footageTransition footageToShow =
                                 , pointer
                                 , alpha <|
                                     Animator.move footageTransition
-                                        (\currFootage ->
-                                            if currFootage == footageIndex then
-                                                Animator.at 1
-
-                                            else
-                                                Animator.at 0
-                                        )
+                                        (\currFootage -> Animator.at (when (currFootage == footageIndex) 1 0))
                                 , Events.onClick <| Types.FootageIndexClicked i
                                 ]
                                 { description = data.description, src = Project.getFootagePath data project }

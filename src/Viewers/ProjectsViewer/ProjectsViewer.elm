@@ -6,7 +6,7 @@ import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Events
-import Funcs exposing (when)
+import Funcs exposing (styleWhen, when)
 import Project exposing (Footage(..), Medium(..))
 import Types exposing (..)
 import Viewers.ProjectsViewer.CenterView.CenterView exposing (centerViewer)
@@ -22,18 +22,8 @@ activeViewPartAnimation model viewPart from to =
 
 hoverAnimation : Model -> ViewerPart -> Float -> Float -> Float
 hoverAnimation model viewPart from to =
-    case viewPart of
-        Description ->
-            Animator.move model.hoveredDescription <|
-                \state -> when (state == True) (Animator.at to) (Animator.at from)
-
-        ProjectPicker ->
-            Animator.move model.hoveredProjectPicker <|
-                \state -> when (state == True) (Animator.at to) (Animator.at from)
-
-        _ ->
-            Animator.move model.activeViewerPart <|
-                \state -> when (state == viewPart) (Animator.at to) (Animator.at from)
+    Animator.move model.hovered <|
+        \state -> when (state == viewPart) (Animator.at to) (Animator.at from)
 
 
 projectViewer : Model -> Element Msg
@@ -80,12 +70,11 @@ projectViewer model =
                    , partColor Description
                    , pointer
                    , inFront <| partBanner "DESCRIPTION" Description
-                   , Events.onMouseEnter <| NewHover Description True
-                   , Events.onMouseLeave <| NewHover Description False
+                   , Events.onMouseEnter <| NewHover Description
+                   , Events.onMouseLeave <| NewHover Background
                    , Events.onClick <| NewPagePartActive Description
                    ]
-                ++ when (Animator.current model.activeViewerPart == Description)
-                    []
+                ++ styleWhen (Animator.current model.activeViewerPart == Description)
                     [ alpha <| hoverAnimation model Description 1 0.7
                     , moveLeft <| hoverAnimation model Description 0 3
                     ]
@@ -107,8 +96,7 @@ projectViewer model =
         {- CENTER VIEWER element -}
         , flowDirection
             ([ height fill, width fill, centerX, clipX ]
-                ++ when model.onMobile
-                    []
+                ++ styleWhen (not model.onMobile)
                     [ -- Events.onMouseEnter <| NewPagePartHovered Description
                       paddingXY (round <| activeViewPartAnimation model Background 25 200) 25
                     ]
@@ -130,11 +118,10 @@ projectViewer model =
                    , partColor ProjectPicker
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
                    , Events.onClick <| NewPagePartActive ProjectPicker
-                   , Events.onMouseEnter <| NewHover ProjectPicker True
-                   , Events.onMouseLeave <| NewHover ProjectPicker False
+                   , Events.onMouseEnter <| NewHover ProjectPicker
+                   , Events.onMouseLeave <| NewHover Background
                    ]
-                ++ when (Animator.current model.activeViewerPart == ProjectPicker)
-                    []
+                ++ styleWhen (Animator.current model.activeViewerPart == ProjectPicker)
                     [ alpha <| hoverAnimation model ProjectPicker 1 0.7
                     , moveRight <| hoverAnimation model ProjectPicker 0 3
                     ]

@@ -32,13 +32,7 @@ footageView projectTransition footageTransition muted possibleFootage =
                 , height fill
                 , alpha <|
                     Animator.move projectTransition
-                        (\currProject ->
-                            if project.id == currProject.id then
-                                Animator.at 1
-
-                            else
-                                Animator.at 0
-                        )
+                        (\currProject -> Animator.at (when (project.id == currProject.id) 1 0))
                 , inFront footageEl
                 ]
                 none

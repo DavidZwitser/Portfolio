@@ -48,11 +48,7 @@ description importStyles projectTransition isPortrait viewerPart =
                 ]
 
         alignToFontAlign align =
-            if align == Left then
-                Font.alignLeft
-
-            else
-                Font.alignRight
+            when (align == Left) Font.alignLeft Font.alignRight
     in
     paragraph
         (importStyles
@@ -73,11 +69,11 @@ description importStyles projectTransition isPortrait viewerPart =
                         case state of
                             Types.Description ->
                                 Animator.at 1
-                                    |> Animator.leaveLate 0.8
+                                    |> Animator.leaveLate 1
 
                             _ ->
                                 Animator.at 0
-                                    |> Animator.arriveSmoothly 0
+                                    |> Animator.arriveSmoothly 1
                 )
             , alignTop
             ]

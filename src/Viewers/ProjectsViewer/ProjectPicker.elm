@@ -7,7 +7,7 @@ import Element exposing (..)
 import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font
-import Funcs exposing (when)
+import Funcs exposing (styleWhen, when)
 import Project exposing (..)
 import Projects.AllProjects exposing (projects)
 import Types exposing (Model, Msg(..))
@@ -28,8 +28,7 @@ projectPicker styles model =
                , height fill
                ]
         )
-        (when model.onMobile
-            []
+        (styleWhen (not model.onMobile)
             [ el
                 [ height fill
                 , width fill
@@ -82,9 +81,8 @@ projectButton model toProjectTransition project =
              , Background.color <| rgb 0.15 0.15 0.15
              , padding 50
              ]
-                ++ when (Animator.current model.activeViewerPart == Types.ProjectPicker)
+                ++ styleWhen (Animator.current model.activeViewerPart == Types.ProjectPicker)
                     [ Events.onClick <| Types.LinkClicked <| Browser.Internal { url | fragment = Just project.id } ]
-                    []
             )
             [ column
                 [ fillPortion 2

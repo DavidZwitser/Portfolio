@@ -253,12 +253,7 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
         -- Image selector dots
         , row
             [ centerX
-            , alpha <|
-                if amountOfFootageInProject > 1 then
-                    0.8
-
-                else
-                    0
+            , alpha <| when (amountOfFootageInProject > 1) 0.8 0
             , spacing 30
             ]
           <|
@@ -303,13 +298,7 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
                             )
                     )
         , el
-            [ Font.size
-                (if isPortrait then
-                    20
-
-                 else
-                    10
-                )
+            [ Font.size <| when isPortrait 20 10
             , centerX
             , Font.center
             , padding 10
