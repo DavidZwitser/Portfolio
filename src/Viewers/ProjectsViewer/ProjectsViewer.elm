@@ -1,7 +1,7 @@
 module Viewers.ProjectsViewer.ProjectsViewer exposing (projectViewer)
 
 import Animator exposing (..)
-import Element as Element exposing (..)
+import Element exposing (..)
 import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font
@@ -74,7 +74,7 @@ projectViewer model =
                    , Events.onMouseLeave <| NewHover Background
                    , Events.onClick <| NewPagePartActive Description
                    ]
-                ++ styleWhen (Animator.current model.activeViewerPart == Description)
+                ++ styleWhen (Animator.current model.activeViewerPart == ProjectPicker)
                     [ alpha <| hoverAnimation model Description 1 0.7
                     , moveLeft <| hoverAnimation model Description 0 3
                     ]
@@ -121,7 +121,7 @@ projectViewer model =
                    , Events.onMouseEnter <| NewHover ProjectPicker
                    , Events.onMouseLeave <| NewHover Background
                    ]
-                ++ styleWhen (Animator.current model.activeViewerPart == ProjectPicker)
+                ++ styleWhen (Animator.current model.activeViewerPart == Description)
                     [ alpha <| hoverAnimation model ProjectPicker 1 0.7
                     , moveRight <| hoverAnimation model ProjectPicker 0 3
                     ]
