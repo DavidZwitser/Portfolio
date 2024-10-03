@@ -28,17 +28,18 @@ projectPicker styles model =
                , Background.color <| rgb 0.25 0.25 0.25
                , height <| px 200
                , scrollbarY
+               , Element.htmlAttribute <| Html.Attributes.style "height" "100vh"
                ]
         )
         (styleWhen (not model.onMobile)
             [ el
-                [ height fill
-                , width fill
+                [ width fill
+                , height fill
                 , Font.color <| rgb 1 1 1
                 , Font.alignRight
                 , Font.size 20
                 , scrollbarY
-                , padding 10
+                , padding 20
                 , pointer
                 , Events.onClick <| Types.LinkClicked <| Browser.External "https://www.instagram.com/coelepinda/"
                 , Background.color <| rgb 0.5 0.7 0.5
