@@ -8,9 +8,11 @@ import Element.Background as Background
 import Element.Events as Events
 import Element.Font as Font
 import Funcs exposing (styleWhen, when)
+import Html
+import Html.Attributes
 import Project exposing (..)
 import Projects.AllProjects exposing (projects)
-import Types exposing (Model, Msg(..))
+import Types exposing (Model, Msg(..), ViewerPart(..))
 
 
 projectPicker : List (Attribute Msg) -> Model -> Element Msg
@@ -22,10 +24,10 @@ projectPicker styles model =
     in
     column
         (styles
-            ++ [ scrollbarY
-               , alignTop
+            ++ [ alignTop
                , Background.color <| rgb 0.25 0.25 0.25
-               , height fill
+               , height <| px 200
+               , scrollbarY
                ]
         )
         (styleWhen (not model.onMobile)
@@ -35,6 +37,7 @@ projectPicker styles model =
                 , Font.color <| rgb 1 1 1
                 , Font.alignRight
                 , Font.size 20
+                , scrollbarY
                 , padding 10
                 , pointer
                 , Events.onClick <| Types.LinkClicked <| Browser.External "https://www.instagram.com/coelepinda/"

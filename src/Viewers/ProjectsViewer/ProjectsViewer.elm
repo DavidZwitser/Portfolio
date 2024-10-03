@@ -7,6 +7,7 @@ import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Events
 import Funcs exposing (styleWhen, when)
+import Html.Attributes
 import Project exposing (Footage(..), Medium(..))
 import Types exposing (..)
 import Viewers.ProjectsViewer.CenterView.CenterView exposing (centerViewer)
@@ -68,6 +69,15 @@ projectViewer model =
             (([ width fill, height fill ] ++ partSize Description)
                 ++ [ alignLeft
                    , partColor Description
+                   , Element.htmlAttribute <|
+                        Html.Attributes.style "overflow"
+                            (if Animator.arrived model.activeViewerPart /= Types.Description then
+                                "clip"
+
+                             else
+                                "scroll"
+                            )
+                   , Element.htmlAttribute <| Html.Attributes.style "height" "100vh"
                    , pointer
                    , inFront <| partBanner "DESCRIPTION" Description
                    , Events.onMouseEnter <| NewHover Description
@@ -112,10 +122,19 @@ projectViewer model =
 
         {- PROJECT PICKER element -}
         , column
-            (([ width fill, height fill ] ++ partSize ProjectPicker)
+            (([ width fill, height fill, clipY ] ++ partSize ProjectPicker)
                 ++ [ alignRight
                    , pointer
                    , partColor ProjectPicker
+                   , Element.htmlAttribute <|
+                        Html.Attributes.style "overflow"
+                            (if Animator.arrived model.activeViewerPart /= Types.ProjectPicker then
+                                "clip"
+
+                             else
+                                "scroll"
+                            )
+                   , Element.htmlAttribute <| Html.Attributes.style "height" "100vh"
                    , inFront <| partBanner "PROJECT PICKER" ProjectPicker
                    , Events.onClick <| NewPagePartActive ProjectPicker
                    , Events.onMouseEnter <| NewHover ProjectPicker
