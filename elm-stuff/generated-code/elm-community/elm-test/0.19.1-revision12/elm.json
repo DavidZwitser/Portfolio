@@ -2,7 +2,7 @@
     "type": "application",
     "source-directories": [
         "src",
-        "../../../../../../../../../../../../../../../nix/store/l1s8hq69a6siqhacspvzm9c6mbk2213h-elm-test-0.19.1-revision12/lib/node_modules/elm-test/elm/src",
+        "../../../../../../../../../../../../../../../../nix/store/l1s8hq69a6siqhacspvzm9c6mbk2213h-elm-test-0.19.1-revision12/lib/node_modules/elm-test/elm/src",
         "../../../../../src"
     ],
     "elm-version": "0.19.1",
