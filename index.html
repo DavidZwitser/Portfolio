@@ -16060,6 +16060,48 @@ var $elm$html$Html$iframe = _VirtualDom_node('iframe');
 var $elm$html$Html$Attributes$loop = $elm$html$Html$Attributes$boolProperty('loop');
 var $bellroy$elm_embed_youtube$Embed$Youtube$Internal$Attribute$ModestBranding = {$: 'ModestBranding'};
 var $bellroy$elm_embed_youtube$Embed$Youtube$Attributes$modestBranding = $bellroy$elm_embed_youtube$Embed$Youtube$Internal$Attribute$ModestBranding;
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $elm$html$Html$Attributes$rel = _VirtualDom_attribute('rel');
+var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
+var $mdgriffith$elm_ui$Element$newTabLink = F2(
+	function (attrs, _v0) {
+		var label = _v0.label;
+		var url = _v0.url;
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$NodeName('a'),
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$Attr(
+					$elm$html$Html$Attributes$href(url)),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Internal$Model$Attr(
+						$elm$html$Html$Attributes$rel('noopener noreferrer')),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Internal$Model$Attr(
+							$elm$html$Html$Attributes$target('_blank')),
+						A2(
+							$elm$core$List$cons,
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+							A2(
+								$elm$core$List$cons,
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+								A2(
+									$elm$core$List$cons,
+									$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
+									attrs)))))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[label])));
+	});
 var $elm$html$Html$Keyed$node = $elm$virtual_dom$VirtualDom$keyedNode;
 var $elm$html$Html$Attributes$preload = $elm$html$Html$Attributes$stringProperty('preload');
 var $elm$html$Html$Attributes$property = $elm$virtual_dom$VirtualDom$property;
@@ -16527,19 +16569,18 @@ var $author$project$Viewers$ProjectsViewer$CenterView$FootageViewer$footageView 
 									var href = _v1.href;
 									var textDescription = _v1.textDescription;
 									return A2(
-										$mdgriffith$elm_ui$Element$el,
+										$mdgriffith$elm_ui$Element$newTabLink,
 										_List_fromArray(
 											[
 												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-												$mdgriffith$elm_ui$Element$pointer,
-												$mdgriffith$elm_ui$Element$Events$onClick(
-												$author$project$Types$LinkClicked(
-													$elm$browser$Browser$External(href))),
 												$mdgriffith$elm_ui$Element$Font$size(15),
 												$mdgriffith$elm_ui$Element$Font$center,
 												$mdgriffith$elm_ui$Element$centerY
 											]),
-										$mdgriffith$elm_ui$Element$text(textDescription));
+										{
+											label: $mdgriffith$elm_ui$Element$text(textDescription),
+											url: href
+										});
 								},
 								urls));
 				}
@@ -16832,48 +16873,6 @@ var $author$project$Project$clientToString = function (client) {
 var $elm$core$String$dropRight = F2(
 	function (n, string) {
 		return (n < 1) ? string : A3($elm$core$String$slice, 0, -n, string);
-	});
-var $elm$html$Html$Attributes$href = function (url) {
-	return A2(
-		$elm$html$Html$Attributes$stringProperty,
-		'href',
-		_VirtualDom_noJavaScriptUri(url));
-};
-var $elm$html$Html$Attributes$rel = _VirtualDom_attribute('rel');
-var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
-var $mdgriffith$elm_ui$Element$newTabLink = F2(
-	function (attrs, _v0) {
-		var label = _v0.label;
-		var url = _v0.url;
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asEl,
-			$mdgriffith$elm_ui$Internal$Model$NodeName('a'),
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$Attr(
-					$elm$html$Html$Attributes$href(url)),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Internal$Model$Attr(
-						$elm$html$Html$Attributes$rel('noopener noreferrer')),
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Internal$Model$Attr(
-							$elm$html$Html$Attributes$target('_blank')),
-						A2(
-							$elm$core$List$cons,
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-							A2(
-								$elm$core$List$cons,
-								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-								A2(
-									$elm$core$List$cons,
-									$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
-									attrs)))))),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
-				_List_fromArray(
-					[label])));
 	});
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {

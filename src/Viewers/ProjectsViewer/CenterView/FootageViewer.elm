@@ -125,16 +125,13 @@ footageView projectTransition footageTransition muted possibleFootage =
                     (urls
                         |> List.map
                             (\{ textDescription, href } ->
-                                el
+                                newTabLink
                                     [ width fill
-                                    , pointer
-                                    , Events.onClick <| Types.LinkClicked <| Browser.External href
                                     , Font.size 15
                                     , Font.center
                                     , centerY
                                     ]
-                                <|
-                                    text textDescription
+                                    { url = href, label = text textDescription }
                             )
                     )
         )
