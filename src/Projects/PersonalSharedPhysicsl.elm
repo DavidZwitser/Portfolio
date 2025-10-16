@@ -70,7 +70,7 @@ data =
                 }
             ]
         , processFootage = []
-        , externalLink = Just ""
+        , externalLink = Nothing
         }
     , tags =
         { toolStack = []

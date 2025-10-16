@@ -43,11 +43,12 @@ data =
         { folderName = "LifeLike"
         , thumbnail = { fileName = "Front_projection.jpg", description = "" }
         , finalFootage =
-            [ Project.Image { fileName = "Life_action.jpg", description = "" }
-            , Project.Image { fileName = "Sensors.jpg", description = "" }
-            , Project.Image { fileName = "Sensors_top.jpg", description = "" }
-            , Project.Image { fileName = "Front_projection.jpg", description = "" }
-            , Project.Image { fileName = "Process_behind.jpg", description = "" }
+            [ Project.Image { fileName = "Life_action.jpg", description = "People interacting with the piece" }
+            , Project.Video { fileName = "in_action.mov", description = "A video of someone walking around it" }
+            , Project.Image { fileName = "Sensors.jpg", description = "The sensors on the top (which I should have actually build a casing for in retrospect)" }
+            , Project.Image { fileName = "Sensors_top.jpg", description = "Another picture of the sensors" }
+            , Project.Image { fileName = "Front_projection.jpg", description = "The projection from the front" }
+            , Project.Image { fileName = "Process_behind.jpg", description = "A pictuer of the surrounding reserach" }
             ]
         , processFootage = []
         , externalLink = Nothing

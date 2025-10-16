@@ -16,7 +16,7 @@ data =
         , teamSize = 1
         , teamMates = Nothing
         , client = EXboot
-        , clientLink = Nothing
+        , clientLink = Just "https://exutrecht.nl/en/exhibitions/woosh-woosh"
         , color = rgb 1 1 1
         }
     , text =
@@ -41,7 +41,7 @@ data =
         , thumbnail = { fileName = "DAVIDZ-Laag-2.jpg", description = "" }
         , finalFootage =
             [ Project.Image { fileName = "DAVIDZ-Laag-2.jpg", description = "" }
-            , Project.YoutubeEmbedded { fileName = "jrPWUyBuM24?si=Ljp9fdDgrKscecWg", description = ""}
+            , Project.YoutubeEmbedded { fileName = "jrPWUyBuM24?si=Ljp9fdDgrKscecWg", description = "" }
             , Project.Image
                 { fileName = "DAVIDZ-Laag-1.jpg", description = "" }
             , Project.Image

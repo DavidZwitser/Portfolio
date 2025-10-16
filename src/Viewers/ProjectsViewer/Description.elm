@@ -20,7 +20,8 @@ description importStyles projectTransition isPortrait viewerPart =
             when isPortrait [ Font.size 30 ] [ Font.size 22 ]
                 ++ [ alignToFontAlign align
                    , padding 3
-                   , Font.color <| rgb 0.7 0.7 0.7
+                   , Background.color <| rgb 0.8 0.8 0.8
+                   , Font.color <| rgb 0.3 0.3 0.3
                    ]
 
         paragraphAttributes align =

@@ -42,20 +42,20 @@ data =
     , sources =
         { folderName = "DavidZwitser"
         , thumbnail =
-            { fileName = "pf.jpg"
+            { fileName = "in_code.jpeg"
             , description = ""
             }
         , finalFootage =
-            [ Project.Image { fileName = "pf.jpg", description = "David Zwitser making a picture on a very dangerous road" }
+            [ Project.Image { fileName = "in_code.jpeg", description = "David Zwitser" }
             , Project.Custom
                 [ { textDescription = "Instagram: @Coelepinda", href = "https://www.instagram.com/coelepinda/" }
                 , { textDescription = "Youtube: David Zwitser", href = "https://www.youtube.com/@davidzwitser/videos" }
                 , { textDescription = "Email: talk@davidzwitser.com", href = "mailto:talk@davidzwitser.com" }
-                , { textDescription = "Location: Oudegracht 371 3511 PG", href = "https://maps.app.goo.gl/fSWAYYDFYP343BUU9" }
+                , { textDescription = "Studio adress: Oudegracht 371 3511 PG", href = "https://maps.app.goo.gl/fSWAYYDFYP343BUU9" }
                 ]
-            , Project.Image { fileName = "aan_het_werk.jpg", description = "David Zwitser working behind his laptop" }
-            , Project.Image { fileName = "floating.jpg", description = "David Zwitser floating in a void" }
-            , Project.Image { fileName = "interview.jpg", description = "David Zwitser at the HKU exposition talking about his work" }
+            , Project.Image { fileName = "aan_het_werk.jpg", description = "Working behind laptop" }
+            , Project.Image { fileName = "pf.jpg", description = "On the road" }
+            , Project.Image { fileName = "interview.jpg", description = "At the HKU exposition talking about work" }
             ]
         , processFootage =
             []

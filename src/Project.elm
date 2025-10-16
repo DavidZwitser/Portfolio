@@ -10,7 +10,37 @@ type Client
     | MediaCollege
     | Cinedans
     | EXboot
+    | Tellart
+    | SETUP
     | None
+
+
+clientToString : Client -> String
+clientToString client =
+    case client of
+        Azerion ->
+            "Azerion"
+
+        HKU ->
+            "HKU"
+
+        SETUP ->
+            "SETUP"
+
+        MediaCollege ->
+            "MediaCollege"
+
+        Cinedans ->
+            "Cinedans"
+
+        EXboot ->
+            "EXboot"
+
+        Tellart ->
+            "Tellart"
+
+        None ->
+            "none"
 
 
 type alias ProjectVariables =
@@ -169,6 +199,7 @@ type Medium
     = Installation
     | Game
     | AudioVisual
+    | TechnicalExploration
     | Human
 
 
@@ -186,6 +217,9 @@ mediumToString medium =
 
         Human ->
             "human"
+
+        TechnicalExploration ->
+            "technical exploration"
 
 
 type alias ProjectTags =

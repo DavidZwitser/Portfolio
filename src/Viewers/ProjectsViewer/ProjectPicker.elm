@@ -100,8 +100,8 @@ projectButton model toProjectTransition project =
                     , height fill
                     , Font.alignRight
                     , padding 5
-                    , Background.color <| rgb 0.1 0.1 0.1
-                    , Font.color <| rgb 0.9 0.9 0.9
+                    , Background.color <| rgb 0.9 0.9 0.9
+                    , Font.color <| rgb 0.2 0.2 0.2
                     ]
                     [ text project.text.name ]
                 , image

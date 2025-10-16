@@ -41,7 +41,7 @@ data =
         , thumbnail = { fileName = "", description = "" }
         , finalFootage = []
         , processFootage = []
-        , externalLink = Just ""
+        , externalLink = Nothing
         }
     , tags =
         { toolStack = []

@@ -1,6 +1,7 @@
 module Viewers.ProjectsViewer.CenterView.CenterView exposing (centerViewer)
 
 import Animator
+import Browser exposing (..)
 import Date
 import Element exposing (..)
 import Element.Background as Background
@@ -8,8 +9,10 @@ import Element.Events as Events
 import Element.Font as Font exposing (center)
 import Element.Input as Input
 import Funcs exposing (when)
+import Html exposing (ul)
 import List.Extra
-import Project exposing (Footage(..), FootageAbout(..), Project, getAppropriateFootage, mediumToString)
+import Maybe exposing (withDefault)
+import Project exposing (Client, Footage(..), FootageAbout(..), Project, getAppropriateFootage, mediumToString)
 import Types exposing (Msg(..))
 import Viewers.ProjectsViewer.CenterView.FootageViewer exposing (footageView)
 
@@ -42,12 +45,12 @@ mediumLabel tags =
         text (mediumToString tags.medium)
 
 
-variablesDisplay : Project.ProjectVariables -> Element Msg
-variablesDisplay variables =
+variablesDisplay : Project.ProjectVariables -> Project.ProjectSources -> Element Msg
+variablesDisplay variables sources =
     column [ width fill, height fill, Font.size 12, spacing 1 ]
-        [ el [ alignRight ] <| text <| ("team size: " ++ (String.fromInt <| variables.teamSize))
-        , el [ alignRight ] <| text <| ("Hours spent: " ++ (String.fromInt <| variables.hoursSpent))
-        , el [ alignRight ] <|
+        ([ --el [ alignRight ] <| text <| ("team size: " ++ (String.fromInt <| variables.teamSize))
+           -- , el [ alignRight ] <| text <| ("Hours spent: " ++ (String.fromInt <| variables.hoursSpent))
+           el [ alignRight, Font.size 18 ] <|
             text <|
                 ("Date: "
                     ++ (variables.date
@@ -57,7 +60,25 @@ variablesDisplay variables =
                             |> String.dropRight 1
                        )
                 )
-        ]
+         ]
+            ++ (if variables.client /= Project.None && variables.clientLink /= Nothing then
+                    [ newTabLink [ alignRight, Font.size 18, Font.underline ]
+                        { url = Maybe.withDefault "" variables.clientLink
+                        , label = text <| ("Together with " ++ Project.clientToString variables.client)
+                        }
+                    ]
+
+                else if sources.externalLink /= Nothing then
+                    [ newTabLink [ alignRight, Font.size 18, Font.underline ]
+                        { url = Maybe.withDefault "" sources.externalLink
+                        , label = text <| "explore"
+                        }
+                    ]
+
+                else
+                    []
+               )
+        )
 
 
 typeOfFootageSelector : FootageAbout -> List (Element Msg)
@@ -215,7 +236,7 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
                   in
                   -- Title
                   el
-                    [ Font.size 45, alignLeft, alignTop ]
+                    [ Font.size 45, alignLeft, alignTop, Background.color <| rgb 0.9 0.9 0.9, Font.color <| rgb 0.2 0.2 0.2 ]
                     (project.text.name
                         |> String.left (round titleAnimation)
                         |> text
@@ -228,7 +249,7 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
             -- Medium and variables column
             , column [ width fill, height fill, spacing 20 ]
                 [ mediumLabel project.tags
-                , variablesDisplay project.variables
+                , variablesDisplay project.variables project.sources
                 ]
             ]
         , if processFootageExists then
