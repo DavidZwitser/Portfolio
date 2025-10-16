@@ -11,7 +11,7 @@ data : Project.Project
 data =
     { id = "whoosh_whoosh"
     , variables =
-        { date = Date.fromCalendarDate 1 May 2024
+        { date = Date.fromCalendarDate 2024 May 1
         , hoursSpent = 160
         , teamSize = 1
         , teamMates = Nothing

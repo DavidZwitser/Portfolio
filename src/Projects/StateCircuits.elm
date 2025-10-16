@@ -26,7 +26,7 @@ data =
         , shortDescription = ""
         , longDescription = "A tool I developed to handle state in TouchDesigner"
         , processDescription = ""
-        , context = "https://olib.amb-service.net/component/state-circuits"
+        , context = ""
 
         --
         , philosophy = ""

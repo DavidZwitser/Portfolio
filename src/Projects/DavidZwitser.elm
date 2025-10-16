@@ -10,7 +10,7 @@ data : Project.Project
 data =
     let
         age =
-            25
+            27
     in
     { id = "about"
     , variables =
@@ -28,8 +28,8 @@ data =
         --
         , shortDescription = "The maker of this portfolio and the works in it."
         , longDescription = "Hello, I am David. I am an installation artist and creative technologist. My works are often meditations on my internal world or our external world. I'm very interested in interactivity as a deep story telling technique and love programming. I do all sorts of experiments that try to push the digital world towards expressivness."
-        , processDescription = "I have always been fascinated by combining technology with creativity. I started out studying Game Development at the MediaCollage Amsterdam and afterwards studied Image and Media Technology at HKU. I would also love to study philosophy still. I'm now working as a freelance artist where I'm doing very intersting jobs and exhibiting my own works. Besides that I'm also teaching."
-        , context = "I was born in Haarlem in the Netherlands and am " ++ String.fromInt age ++ " years old."
+        , processDescription = "I have always been fascinated by combining technology with creativity. I started out studying Game Development at the MediaCollage Amsterdam and afterwards studied Image and Media Technology at HKU. I would also love to study philosophy still. I'm now working as a freelance artist where I'm doing very intersting jobs and exhibiting my own works. Besides that I love teaching."
+        , context = "I was born in Haarlem in the Netherlands and am " ++ String.fromInt age ++ " years old. I now live in Utrecht where I have a studio at de Oudegracht together with 6 other wonderfull makers. We also sometimes try to be a collective and work together under the name `Wildgroei`."
 
         --
         , philosophy = "" -- "I try to be very critical when taking on believes or presumptions. I try to reflect very critically on the things I do and strive to be physically, intellectually and emotionally connected with myself and the world around me."
