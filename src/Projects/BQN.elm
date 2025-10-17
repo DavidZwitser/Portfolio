@@ -43,17 +43,17 @@ data =
             [ Project.Image { fileName = "language2.jpg", description = "A short view of what the language looks like (it's the top line)" }
             , Project.YoutubeEmbedded { fileName = "crz6kn71RXY?si=rlrkvI5d3pWIfd4l", description = "A live coding tool experiment I worked on in BQN with my own custom editor using an inmplementation of raylib in BQN (Rayed-BQN)" }
             , Project.Video { fileName = "Particles.mov", description = "A fun particle system which throws around BQN characters, also in Rayed-BQN" }
+            , Project.YoutubeEmbedded { fileName = "tOZde7zrsLM?si=_BpcA8dnz4yQYi64", description = "Writing snake in 8 minutes in BQN" }
             , Project.Image { fileName = "youtube.png", description = "A series of youtube videos on my channel about this language, me working in it, giving tutorials and my ideas around it!" }
-            , Project.Image { fileName = "podcast.png", description = "Me being allowed to talk on my favoroute poscast which is about languages like this" }
+            , Project.YoutubeEmbedded { fileName = "nrSst9keXO8?si=k1KgPkV1OlEteqKT", description = "Me being allowed to talk on my favoroute poscast which is about languages like this" }
             , Project.Image { fileName = "workshop_adverticement.png", description = "The promotion for a workshop I gave about this language" }
             , Project.Image { fileName = "workshop_image.jpg", description = "An image of that workshop!" }
             , Project.Image { fileName = "language_extension_zed.png", description = "An extension I made for the ZED code editor to run BQN. Here I learned about LSP's and TreeSitter!" }
             , Project.Image { fileName = "text_editor_code.png", description = "A look at the code behind the text editor for the live-coding tool" }
             , Project.Video { fileName = "LiveCoder2.mov", description = "Another video of that LiveCoding tool. I like the LFO interactive system I made to quickly and intuitively add movements" }
-            , Project.Image { fileName = "workshop_image2.jpg", description = "Another image of that workshop" }
             ]
         , processFootage = []
-        , externalLink = Just "https://www.youtube.com/@davidzwitser/videos"
+        , externalLink = Just "https://github.com/DavidZwitser/BQN-Experiments"
         }
     , tags =
         { toolStack = []

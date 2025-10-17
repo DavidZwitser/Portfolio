@@ -45,6 +45,7 @@ data =
             , Project.Video { fileName = "interact.mov", description = "Binding analogue button sounds to the network movements" }
             , Project.Video { fileName = "timer.mov", description = "The same but with a timer" }
             , Project.Video { fileName = "example_systems.mov", description = "Some more example snippets" }
+            , Project.YoutubeEmbedded { fileName = "oC1592EncG4?si=YblP9K_T1a__615-", description = "An explainer video for the tool" }
             ]
         , processFootage = []
         , externalLink = Just "https://olib.amb-service.net/component/state-circuit-snippets"

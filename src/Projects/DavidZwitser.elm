@@ -10,12 +10,12 @@ data : Project.Project
 data =
     let
         age =
-            27
+            Date.diff Date.Years (Date.fromCalendarDate 1998 Oct 8) (Date.fromCalendarDate 2025 Oct 17)
     in
     { id = "about"
     , variables =
         { date = Date.fromCalendarDate 1998 Oct 8
-        , hoursSpent = age * 365
+        , hoursSpent = Date.diff Date.Days (Date.fromCalendarDate 1998 Oct 8) (Date.fromCalendarDate 2025 Oct 17)
         , teamSize = 1
         , teamMates = Nothing
         , client = None
@@ -53,7 +53,6 @@ data =
                 , { textDescription = "Email: talk@davidzwitser.com", href = "mailto:talk@davidzwitser.com" }
                 , { textDescription = "Studio adress: Oudegracht 371 3511 PG", href = "https://maps.app.goo.gl/fSWAYYDFYP343BUU9" }
                 ]
-            , Project.Image { fileName = "aan_het_werk.jpg", description = "Working behind laptop" }
             , Project.Image { fileName = "pf.jpg", description = "On the road" }
             , Project.Image { fileName = "interview.jpg", description = "At the HKU exposition talking about work" }
             ]

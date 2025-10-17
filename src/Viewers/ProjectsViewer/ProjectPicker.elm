@@ -32,7 +32,7 @@ projectPicker styles model =
                ]
         )
         (styleWhen (not model.onMobile)
-            [ el
+            [ newTabLink
                 [ width fill
                 , height fill
                 , Font.color <| rgb 1 1 1
@@ -40,12 +40,10 @@ projectPicker styles model =
                 , Font.size 20
                 , scrollbarY
                 , padding 20
-                , pointer
-                , Events.onClick <| Types.LinkClicked <| Browser.External "https://www.instagram.com/coelepinda/"
                 , Background.color <| rgb 0.5 0.7 0.5
                 ]
               <|
-                text "running experimentations"
+                { url = "https://www.instagram.com/coelepinda/", label = text "running experimentations" }
             ]
             ++ (projects
                     |> List.map

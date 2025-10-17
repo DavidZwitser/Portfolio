@@ -6761,61 +6761,49 @@ var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $author$project$Project$Custom = function (a) {
 	return {$: 'Custom', a: a};
 };
+var $justinmimbs$date$Date$Days = {$: 'Days'};
 var $author$project$Project$Human = {$: 'Human'};
 var $author$project$Project$Image = function (a) {
 	return {$: 'Image', a: a};
 };
 var $author$project$Project$None = {$: 'None'};
 var $elm$time$Time$Oct = {$: 'Oct'};
+var $justinmimbs$date$Date$Years = {$: 'Years'};
 var $justinmimbs$date$Date$RD = function (a) {
 	return {$: 'RD', a: a};
 };
-var $elm$core$Basics$clamp = F3(
-	function (low, high, number) {
-		return (_Utils_cmp(number, low) < 0) ? low : ((_Utils_cmp(number, high) > 0) ? high : number);
-	});
+var $justinmimbs$date$Date$monthToNumber = function (m) {
+	switch (m.$) {
+		case 'Jan':
+			return 1;
+		case 'Feb':
+			return 2;
+		case 'Mar':
+			return 3;
+		case 'Apr':
+			return 4;
+		case 'May':
+			return 5;
+		case 'Jun':
+			return 6;
+		case 'Jul':
+			return 7;
+		case 'Aug':
+			return 8;
+		case 'Sep':
+			return 9;
+		case 'Oct':
+			return 10;
+		case 'Nov':
+			return 11;
+		default:
+			return 12;
+	}
+};
+var $elm$time$Time$Jan = {$: 'Jan'};
 var $elm$core$Basics$modBy = _Basics_modBy;
 var $justinmimbs$date$Date$isLeapYear = function (y) {
 	return ((!A2($elm$core$Basics$modBy, 4, y)) && (!(!A2($elm$core$Basics$modBy, 100, y)))) || (!A2($elm$core$Basics$modBy, 400, y));
-};
-var $justinmimbs$date$Date$daysBeforeMonth = F2(
-	function (y, m) {
-		var leapDays = $justinmimbs$date$Date$isLeapYear(y) ? 1 : 0;
-		switch (m.$) {
-			case 'Jan':
-				return 0;
-			case 'Feb':
-				return 31;
-			case 'Mar':
-				return 59 + leapDays;
-			case 'Apr':
-				return 90 + leapDays;
-			case 'May':
-				return 120 + leapDays;
-			case 'Jun':
-				return 151 + leapDays;
-			case 'Jul':
-				return 181 + leapDays;
-			case 'Aug':
-				return 212 + leapDays;
-			case 'Sep':
-				return 243 + leapDays;
-			case 'Oct':
-				return 273 + leapDays;
-			case 'Nov':
-				return 304 + leapDays;
-			default:
-				return 334 + leapDays;
-		}
-	});
-var $justinmimbs$date$Date$floorDiv = F2(
-	function (a, b) {
-		return $elm$core$Basics$floor(a / b);
-	});
-var $justinmimbs$date$Date$daysBeforeYear = function (y1) {
-	var y = y1 - 1;
-	var leapYears = (A2($justinmimbs$date$Date$floorDiv, y, 4) - A2($justinmimbs$date$Date$floorDiv, y, 100)) + A2($justinmimbs$date$Date$floorDiv, y, 400);
-	return (365 * y) + leapYears;
 };
 var $justinmimbs$date$Date$daysInMonth = F2(
 	function (y, m) {
@@ -6846,6 +6834,167 @@ var $justinmimbs$date$Date$daysInMonth = F2(
 				return 31;
 		}
 	});
+var $elm$time$Time$Apr = {$: 'Apr'};
+var $elm$time$Time$Aug = {$: 'Aug'};
+var $elm$time$Time$Dec = {$: 'Dec'};
+var $elm$time$Time$Feb = {$: 'Feb'};
+var $elm$time$Time$Jul = {$: 'Jul'};
+var $elm$time$Time$Jun = {$: 'Jun'};
+var $elm$time$Time$Mar = {$: 'Mar'};
+var $elm$time$Time$May = {$: 'May'};
+var $elm$time$Time$Nov = {$: 'Nov'};
+var $elm$time$Time$Sep = {$: 'Sep'};
+var $justinmimbs$date$Date$numberToMonth = function (mn) {
+	var _v0 = A2($elm$core$Basics$max, 1, mn);
+	switch (_v0) {
+		case 1:
+			return $elm$time$Time$Jan;
+		case 2:
+			return $elm$time$Time$Feb;
+		case 3:
+			return $elm$time$Time$Mar;
+		case 4:
+			return $elm$time$Time$Apr;
+		case 5:
+			return $elm$time$Time$May;
+		case 6:
+			return $elm$time$Time$Jun;
+		case 7:
+			return $elm$time$Time$Jul;
+		case 8:
+			return $elm$time$Time$Aug;
+		case 9:
+			return $elm$time$Time$Sep;
+		case 10:
+			return $elm$time$Time$Oct;
+		case 11:
+			return $elm$time$Time$Nov;
+		default:
+			return $elm$time$Time$Dec;
+	}
+};
+var $justinmimbs$date$Date$toCalendarDateHelp = F3(
+	function (y, m, d) {
+		toCalendarDateHelp:
+		while (true) {
+			var monthDays = A2($justinmimbs$date$Date$daysInMonth, y, m);
+			var mn = $justinmimbs$date$Date$monthToNumber(m);
+			if ((mn < 12) && (_Utils_cmp(d, monthDays) > 0)) {
+				var $temp$y = y,
+					$temp$m = $justinmimbs$date$Date$numberToMonth(mn + 1),
+					$temp$d = d - monthDays;
+				y = $temp$y;
+				m = $temp$m;
+				d = $temp$d;
+				continue toCalendarDateHelp;
+			} else {
+				return {day: d, month: m, year: y};
+			}
+		}
+	});
+var $justinmimbs$date$Date$floorDiv = F2(
+	function (a, b) {
+		return $elm$core$Basics$floor(a / b);
+	});
+var $justinmimbs$date$Date$daysBeforeYear = function (y1) {
+	var y = y1 - 1;
+	var leapYears = (A2($justinmimbs$date$Date$floorDiv, y, 4) - A2($justinmimbs$date$Date$floorDiv, y, 100)) + A2($justinmimbs$date$Date$floorDiv, y, 400);
+	return (365 * y) + leapYears;
+};
+var $justinmimbs$date$Date$divWithRemainder = F2(
+	function (a, b) {
+		return _Utils_Tuple2(
+			A2($justinmimbs$date$Date$floorDiv, a, b),
+			A2($elm$core$Basics$modBy, b, a));
+	});
+var $justinmimbs$date$Date$year = function (_v0) {
+	var rd = _v0.a;
+	var _v1 = A2($justinmimbs$date$Date$divWithRemainder, rd, 146097);
+	var n400 = _v1.a;
+	var r400 = _v1.b;
+	var _v2 = A2($justinmimbs$date$Date$divWithRemainder, r400, 36524);
+	var n100 = _v2.a;
+	var r100 = _v2.b;
+	var _v3 = A2($justinmimbs$date$Date$divWithRemainder, r100, 1461);
+	var n4 = _v3.a;
+	var r4 = _v3.b;
+	var _v4 = A2($justinmimbs$date$Date$divWithRemainder, r4, 365);
+	var n1 = _v4.a;
+	var r1 = _v4.b;
+	var n = (!r1) ? 0 : 1;
+	return ((((n400 * 400) + (n100 * 100)) + (n4 * 4)) + n1) + n;
+};
+var $justinmimbs$date$Date$toOrdinalDate = function (_v0) {
+	var rd = _v0.a;
+	var y = $justinmimbs$date$Date$year(
+		$justinmimbs$date$Date$RD(rd));
+	return {
+		ordinalDay: rd - $justinmimbs$date$Date$daysBeforeYear(y),
+		year: y
+	};
+};
+var $justinmimbs$date$Date$toCalendarDate = function (_v0) {
+	var rd = _v0.a;
+	var date = $justinmimbs$date$Date$toOrdinalDate(
+		$justinmimbs$date$Date$RD(rd));
+	return A3($justinmimbs$date$Date$toCalendarDateHelp, date.year, $elm$time$Time$Jan, date.ordinalDay);
+};
+var $justinmimbs$date$Date$toMonths = function (rd) {
+	var date = $justinmimbs$date$Date$toCalendarDate(
+		$justinmimbs$date$Date$RD(rd));
+	var wholeMonths = (12 * (date.year - 1)) + ($justinmimbs$date$Date$monthToNumber(date.month) - 1);
+	return wholeMonths + (date.day / 100);
+};
+var $elm$core$Basics$truncate = _Basics_truncate;
+var $justinmimbs$date$Date$diff = F3(
+	function (unit, _v0, _v1) {
+		var rd1 = _v0.a;
+		var rd2 = _v1.a;
+		switch (unit.$) {
+			case 'Years':
+				return ((($justinmimbs$date$Date$toMonths(rd2) - $justinmimbs$date$Date$toMonths(rd1)) | 0) / 12) | 0;
+			case 'Months':
+				return ($justinmimbs$date$Date$toMonths(rd2) - $justinmimbs$date$Date$toMonths(rd1)) | 0;
+			case 'Weeks':
+				return ((rd2 - rd1) / 7) | 0;
+			default:
+				return rd2 - rd1;
+		}
+	});
+var $elm$core$Basics$clamp = F3(
+	function (low, high, number) {
+		return (_Utils_cmp(number, low) < 0) ? low : ((_Utils_cmp(number, high) > 0) ? high : number);
+	});
+var $justinmimbs$date$Date$daysBeforeMonth = F2(
+	function (y, m) {
+		var leapDays = $justinmimbs$date$Date$isLeapYear(y) ? 1 : 0;
+		switch (m.$) {
+			case 'Jan':
+				return 0;
+			case 'Feb':
+				return 31;
+			case 'Mar':
+				return 59 + leapDays;
+			case 'Apr':
+				return 90 + leapDays;
+			case 'May':
+				return 120 + leapDays;
+			case 'Jun':
+				return 151 + leapDays;
+			case 'Jul':
+				return 181 + leapDays;
+			case 'Aug':
+				return 212 + leapDays;
+			case 'Sep':
+				return 243 + leapDays;
+			case 'Oct':
+				return 273 + leapDays;
+			case 'Nov':
+				return 304 + leapDays;
+			default:
+				return 334 + leapDays;
+		}
+	});
 var $justinmimbs$date$Date$fromCalendarDate = F3(
 	function (y, m, d) {
 		return $justinmimbs$date$Date$RD(
@@ -6864,7 +7013,11 @@ var $mdgriffith$elm_ui$Element$rgb255 = F3(
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
 	});
 var $author$project$Projects$DavidZwitser$data = function () {
-	var age = 27;
+	var age = A3(
+		$justinmimbs$date$Date$diff,
+		$justinmimbs$date$Date$Years,
+		A3($justinmimbs$date$Date$fromCalendarDate, 1998, $elm$time$Time$Oct, 8),
+		A3($justinmimbs$date$Date$fromCalendarDate, 2025, $elm$time$Time$Oct, 17));
 	return {
 		id: 'about',
 		sources: {
@@ -6881,8 +7034,6 @@ var $author$project$Projects$DavidZwitser$data = function () {
 							{href: 'mailto:talk@davidzwitser.com', textDescription: 'Email: talk@davidzwitser.com'},
 							{href: 'https://maps.app.goo.gl/fSWAYYDFYP343BUU9', textDescription: 'Studio adress: Oudegracht 371 3511 PG'}
 						])),
-					$author$project$Project$Image(
-					{description: 'Working behind laptop', fileName: 'aan_het_werk.jpg'}),
 					$author$project$Project$Image(
 					{description: 'On the road', fileName: 'pf.jpg'}),
 					$author$project$Project$Image(
@@ -6909,7 +7060,11 @@ var $author$project$Projects$DavidZwitser$data = function () {
 			clientLink: $elm$core$Maybe$Nothing,
 			color: A3($mdgriffith$elm_ui$Element$rgb255, 82, 75, 65),
 			date: A3($justinmimbs$date$Date$fromCalendarDate, 1998, $elm$time$Time$Oct, 8),
-			hoursSpent: age * 365,
+			hoursSpent: A3(
+				$justinmimbs$date$Date$diff,
+				$justinmimbs$date$Date$Days,
+				A3($justinmimbs$date$Date$fromCalendarDate, 1998, $elm$time$Time$Oct, 8),
+				A3($justinmimbs$date$Date$fromCalendarDate, 2025, $elm$time$Time$Oct, 17)),
 			teamMates: $elm$core$Maybe$Nothing,
 			teamSize: 1
 		}
@@ -6933,7 +7088,6 @@ var $mdgriffith$elm_animator$Animator$init = function (first) {
 			running: true
 		});
 };
-var $elm$time$Time$Jul = {$: 'Jul'};
 var $author$project$Project$TechnicalExploration = {$: 'TechnicalExploration'};
 var $author$project$Project$Video = function (a) {
 	return {$: 'Video', a: a};
@@ -6948,7 +7102,7 @@ var $mdgriffith$elm_ui$Element$rgb = F3(
 var $author$project$Projects$BQN$data = {
 	id: 'BQN',
 	sources: {
-		externalLink: $elm$core$Maybe$Just('https://www.youtube.com/@davidzwitser/videos'),
+		externalLink: $elm$core$Maybe$Just('https://github.com/DavidZwitser/BQN-Experiments'),
 		finalFootage: _List_fromArray(
 			[
 				$author$project$Project$Image(
@@ -6957,10 +7111,12 @@ var $author$project$Projects$BQN$data = {
 				{description: 'A live coding tool experiment I worked on in BQN with my own custom editor using an inmplementation of raylib in BQN (Rayed-BQN)', fileName: 'crz6kn71RXY?si=rlrkvI5d3pWIfd4l'}),
 				$author$project$Project$Video(
 				{description: 'A fun particle system which throws around BQN characters, also in Rayed-BQN', fileName: 'Particles.mov'}),
+				$author$project$Project$YoutubeEmbedded(
+				{description: 'Writing snake in 8 minutes in BQN', fileName: 'tOZde7zrsLM?si=_BpcA8dnz4yQYi64'}),
 				$author$project$Project$Image(
 				{description: 'A series of youtube videos on my channel about this language, me working in it, giving tutorials and my ideas around it!', fileName: 'youtube.png'}),
-				$author$project$Project$Image(
-				{description: 'Me being allowed to talk on my favoroute poscast which is about languages like this', fileName: 'podcast.png'}),
+				$author$project$Project$YoutubeEmbedded(
+				{description: 'Me being allowed to talk on my favoroute poscast which is about languages like this', fileName: 'nrSst9keXO8?si=k1KgPkV1OlEteqKT'}),
 				$author$project$Project$Image(
 				{description: 'The promotion for a workshop I gave about this language', fileName: 'workshop_adverticement.png'}),
 				$author$project$Project$Image(
@@ -6970,9 +7126,7 @@ var $author$project$Projects$BQN$data = {
 				$author$project$Project$Image(
 				{description: 'A look at the code behind the text editor for the live-coding tool', fileName: 'text_editor_code.png'}),
 				$author$project$Project$Video(
-				{description: 'Another video of that LiveCoding tool. I like the LFO interactive system I made to quickly and intuitively add movements', fileName: 'LiveCoder2.mov'}),
-				$author$project$Project$Image(
-				{description: 'Another image of that workshop', fileName: 'workshop_image2.jpg'})
+				{description: 'Another video of that LiveCoding tool. I like the LFO interactive system I made to quickly and intuitively add movements', fileName: 'LiveCoder2.mov'})
 			]),
 		folderName: 'BQN',
 		processFootage: _List_Nil,
@@ -6995,7 +7149,6 @@ var $author$project$Project$Audio = function (a) {
 };
 var $author$project$Project$HKU = {$: 'HKU'};
 var $author$project$Project$Installation = {$: 'Installation'};
-var $elm$time$Time$Jun = {$: 'Jun'};
 var $author$project$Project$Pneumatics = {$: 'Pneumatics'};
 var $author$project$Project$PureData = {$: 'PureData'};
 var $author$project$Project$RaspberryPI = {$: 'RaspberryPI'};
@@ -7064,7 +7217,6 @@ var $author$project$Projects$BuildUpAndRelease$data = {
 var $author$project$Project$Arduino = {$: 'Arduino'};
 var $author$project$Project$Building = {$: 'Building'};
 var $author$project$Project$Cinedans = {$: 'Cinedans'};
-var $elm$time$Time$Jan = {$: 'Jan'};
 var $author$project$Projects$CONFINED_SPACE$data = {
 	id: 'confined_space',
 	sources: {
@@ -7149,7 +7301,6 @@ var $author$project$Projects$CONFINED_SPACE$data = {
 	}
 };
 var $author$project$Project$AudioVisual = {$: 'AudioVisual'};
-var $elm$time$Time$Sep = {$: 'Sep'};
 var $author$project$Projects$CanWorld$data = {
 	id: 'can_world',
 	sources: {
@@ -7186,7 +7337,6 @@ var $author$project$Projects$CanWorld$data = {
 	}
 };
 var $author$project$Project$DataAnalysis = {$: 'DataAnalysis'};
-var $elm$time$Time$Feb = {$: 'Feb'};
 var $author$project$Project$GOLANG = {$: 'GOLANG'};
 var $author$project$Project$Python = {$: 'Python'};
 var $author$project$Project$SETUP = {$: 'SETUP'};
@@ -7257,7 +7407,6 @@ var $author$project$Projects$CuddleKing2000$data = {
 		teamSize: 2
 	}
 };
-var $elm$time$Time$Dec = {$: 'Dec'};
 var $author$project$Project$Tellart = {$: 'Tellart'};
 var $author$project$Projects$Dinner2050$data = {
 	id: 'Dinner2050',
@@ -7380,7 +7529,6 @@ var $author$project$Projects$PersonalSharedPhysicsl$data = {
 		teamSize: 1
 	}
 };
-var $elm$time$Time$Apr = {$: 'Apr'};
 var $author$project$Projects$PledgeStation$data = {
 	id: 'pledge_station',
 	sources: {
@@ -7397,12 +7545,16 @@ var $author$project$Projects$PledgeStation$data = {
 				{description: 'The Pledge Station network halfway during development (it got more structured, well named and minimal after)', fileName: 'pledge_network.png'}),
 				$author$project$Project$Image(
 				{description: 'A picture of the Dutch Pavillion in the World Expo', fileName: 'building.jpg'}),
+				$author$project$Project$YoutubeEmbedded(
+				{description: 'The trailer for the Dutch pavillion on Tellart\'s youbtube channel', fileName: '2TucCktwmKg?si=T-ah4ktQeF0KgvUL'}),
 				$author$project$Project$Image(
 				{description: 'A picture of the Phillipines Pavillion at World Expo', fileName: 'PhillipinesBuilding.jpg'}),
 				$author$project$Project$Image(
 				{description: 'The introduction show space where I helped', fileName: 'Woven-Introduction-1-©️-Tellart.jpeg'}),
 				$author$project$Project$Video(
-				{description: 'A torn down/ renamed example of what the editor system for the introduction show looked like. It was also designed to share render power between computers', fileName: 'editor_system.mov'})
+				{description: 'A torn down/ renamed example of what the editor system for the introduction show looked like. It was also designed to share render power between computers', fileName: 'editor_system.mov'}),
+				$author$project$Project$YoutubeEmbedded(
+				{description: 'The trailer for the Philippine pavillion on Tellart\'s youbtube channel', fileName: 'JTwsfW7KoKo?si=0AnAm2kkhW0qfXaE'})
 			]),
 		folderName: 'PledgeStation',
 		processFootage: _List_Nil,
@@ -7412,7 +7564,7 @@ var $author$project$Projects$PledgeStation$data = {
 	text: {
 		context: 'This project was for the World Expo in Osaka Japan 2025. I got to travel there and implement it on site, which was a wonderfull and exciting learning experience.',
 		interestingDetails: $elm$core$Maybe$Just('The pledge station previs originally used raymarched reflections I hand coded which simulated the infinity mirror effect more faithfully. I removed it since it was more performant to hard code simulate the infinity mirror effect. It was very educational to program tho!'),
-		longDescription: 'I had the pleasure of working together with Tellart, where I got to help out with two pavillions. One was the Dutch pavillion where I got to develop the visual/ interactive part of an infinity mirror installation designed to leave the visitors with optimism and inpsiration. The other was the introduction projection show for the Phillipines pavillion where I got to develop tools and setup a system for that show. A product of that was a nice timeline editor, render and playout tool in TouchDesigner originally also designed to distribute real time render power between two pc\'s.',
+		longDescription: 'I had the pleasure of working together with Tellart, where I got to help out with two pavillions. One was the Dutch pavillion where I got to develop the visual/ interactive part of an infinity mirror installation designed to leave the visitors with optimism and inpsiration. The other was the introduction projection show for the Philippines pavillion where I got to develop tools and setup a system for that show. A product of that was a nice timeline editor, render and playout tool in TouchDesigner originally also designed to distribute real time render power between two pc\'s.',
 		myRole: '',
 		name: 'World Expo Osaka',
 		philosophy: '',
@@ -7445,7 +7597,9 @@ var $author$project$Projects$StateCircuits$data = {
 				$author$project$Project$Video(
 				{description: 'The same but with a timer', fileName: 'timer.mov'}),
 				$author$project$Project$Video(
-				{description: 'Some more example snippets', fileName: 'example_systems.mov'})
+				{description: 'Some more example snippets', fileName: 'example_systems.mov'}),
+				$author$project$Project$YoutubeEmbedded(
+				{description: 'An explainer video for the tool', fileName: 'oC1592EncG4?si=YblP9K_T1a__615-'})
 			]),
 		folderName: 'StateCircuits',
 		processFootage: _List_Nil,
@@ -7464,7 +7618,6 @@ var $author$project$Projects$StateCircuits$data = {
 	}
 };
 var $author$project$Project$EXboot = {$: 'EXboot'};
-var $elm$time$Time$May = {$: 'May'};
 var $author$project$Projects$WhooshWhoosh$data = {
 	id: 'whoosh_whoosh',
 	sources: {
@@ -16879,123 +17032,6 @@ var $elm$core$Basics$composeR = F3(
 		return g(
 			f(x));
 	});
-var $justinmimbs$date$Date$monthToNumber = function (m) {
-	switch (m.$) {
-		case 'Jan':
-			return 1;
-		case 'Feb':
-			return 2;
-		case 'Mar':
-			return 3;
-		case 'Apr':
-			return 4;
-		case 'May':
-			return 5;
-		case 'Jun':
-			return 6;
-		case 'Jul':
-			return 7;
-		case 'Aug':
-			return 8;
-		case 'Sep':
-			return 9;
-		case 'Oct':
-			return 10;
-		case 'Nov':
-			return 11;
-		default:
-			return 12;
-	}
-};
-var $elm$time$Time$Aug = {$: 'Aug'};
-var $elm$time$Time$Mar = {$: 'Mar'};
-var $elm$time$Time$Nov = {$: 'Nov'};
-var $justinmimbs$date$Date$numberToMonth = function (mn) {
-	var _v0 = A2($elm$core$Basics$max, 1, mn);
-	switch (_v0) {
-		case 1:
-			return $elm$time$Time$Jan;
-		case 2:
-			return $elm$time$Time$Feb;
-		case 3:
-			return $elm$time$Time$Mar;
-		case 4:
-			return $elm$time$Time$Apr;
-		case 5:
-			return $elm$time$Time$May;
-		case 6:
-			return $elm$time$Time$Jun;
-		case 7:
-			return $elm$time$Time$Jul;
-		case 8:
-			return $elm$time$Time$Aug;
-		case 9:
-			return $elm$time$Time$Sep;
-		case 10:
-			return $elm$time$Time$Oct;
-		case 11:
-			return $elm$time$Time$Nov;
-		default:
-			return $elm$time$Time$Dec;
-	}
-};
-var $justinmimbs$date$Date$toCalendarDateHelp = F3(
-	function (y, m, d) {
-		toCalendarDateHelp:
-		while (true) {
-			var monthDays = A2($justinmimbs$date$Date$daysInMonth, y, m);
-			var mn = $justinmimbs$date$Date$monthToNumber(m);
-			if ((mn < 12) && (_Utils_cmp(d, monthDays) > 0)) {
-				var $temp$y = y,
-					$temp$m = $justinmimbs$date$Date$numberToMonth(mn + 1),
-					$temp$d = d - monthDays;
-				y = $temp$y;
-				m = $temp$m;
-				d = $temp$d;
-				continue toCalendarDateHelp;
-			} else {
-				return {day: d, month: m, year: y};
-			}
-		}
-	});
-var $justinmimbs$date$Date$divWithRemainder = F2(
-	function (a, b) {
-		return _Utils_Tuple2(
-			A2($justinmimbs$date$Date$floorDiv, a, b),
-			A2($elm$core$Basics$modBy, b, a));
-	});
-var $justinmimbs$date$Date$year = function (_v0) {
-	var rd = _v0.a;
-	var _v1 = A2($justinmimbs$date$Date$divWithRemainder, rd, 146097);
-	var n400 = _v1.a;
-	var r400 = _v1.b;
-	var _v2 = A2($justinmimbs$date$Date$divWithRemainder, r400, 36524);
-	var n100 = _v2.a;
-	var r100 = _v2.b;
-	var _v3 = A2($justinmimbs$date$Date$divWithRemainder, r100, 1461);
-	var n4 = _v3.a;
-	var r4 = _v3.b;
-	var _v4 = A2($justinmimbs$date$Date$divWithRemainder, r4, 365);
-	var n1 = _v4.a;
-	var r1 = _v4.b;
-	var n = (!r1) ? 0 : 1;
-	return ((((n400 * 400) + (n100 * 100)) + (n4 * 4)) + n1) + n;
-};
-var $justinmimbs$date$Date$toOrdinalDate = function (_v0) {
-	var rd = _v0.a;
-	var y = $justinmimbs$date$Date$year(
-		$justinmimbs$date$Date$RD(rd));
-	return {
-		ordinalDay: rd - $justinmimbs$date$Date$daysBeforeYear(y),
-		year: y
-	};
-};
-var $justinmimbs$date$Date$toCalendarDate = function (_v0) {
-	var rd = _v0.a;
-	var date = $justinmimbs$date$Date$toOrdinalDate(
-		$justinmimbs$date$Date$RD(rd));
-	return A3($justinmimbs$date$Date$toCalendarDateHelp, date.year, $elm$time$Time$Jan, date.ordinalDay);
-};
 var $justinmimbs$date$Date$day = A2(
 	$elm$core$Basics$composeR,
 	$justinmimbs$date$Date$toCalendarDate,
@@ -19000,7 +19036,7 @@ var $author$project$Viewers$ProjectsViewer$ProjectPicker$projectPicker = F2(
 					_List_fromArray(
 						[
 							A2(
-							$mdgriffith$elm_ui$Element$el,
+							$mdgriffith$elm_ui$Element$newTabLink,
 							_List_fromArray(
 								[
 									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
@@ -19011,14 +19047,13 @@ var $author$project$Viewers$ProjectsViewer$ProjectPicker$projectPicker = F2(
 									$mdgriffith$elm_ui$Element$Font$size(20),
 									$mdgriffith$elm_ui$Element$scrollbarY,
 									$mdgriffith$elm_ui$Element$padding(20),
-									$mdgriffith$elm_ui$Element$pointer,
-									$mdgriffith$elm_ui$Element$Events$onClick(
-									$author$project$Types$LinkClicked(
-										$elm$browser$Browser$External('https://www.instagram.com/coelepinda/'))),
 									$mdgriffith$elm_ui$Element$Background$color(
 									A3($mdgriffith$elm_ui$Element$rgb, 0.5, 0.7, 0.5))
 								]),
-							$mdgriffith$elm_ui$Element$text('running experimentations'))
+							{
+								label: $mdgriffith$elm_ui$Element$text('running experimentations'),
+								url: 'https://www.instagram.com/coelepinda/'
+							})
 						])),
 				A2(
 					$elm$core$List$map,
