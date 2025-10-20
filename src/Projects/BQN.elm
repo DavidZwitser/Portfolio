@@ -48,9 +48,11 @@ data =
             , Project.YoutubeEmbedded { fileName = "nrSst9keXO8?si=k1KgPkV1OlEteqKT", description = "Me being allowed to talk on my favoroute poscast which is about languages like this" }
             , Project.Image { fileName = "workshop_adverticement.png", description = "The promotion for a workshop I gave about this language" }
             , Project.Image { fileName = "workshop_image.jpg", description = "An image of that workshop!" }
-            , Project.Image { fileName = "language_extension_zed.png", description = "An extension I made for the ZED code editor to run BQN. Here I learned about LSP's and TreeSitter!" }
             , Project.YoutubeEmbedded { fileName = "57oi4hBBlj0?si=zvy5WZU-Le0zR4zu", description = "A livestream looking at the code behind the text editor for the live-coding tool and making some more progress" }
             , Project.Video { fileName = "LiveCoder2.mov", description = "Another video of that LiveCoding tool. I like the LFO interactive system I made to quickly and intuitively add movements" }
+            , Project.Video { fileName = "astroids.mov", description = "A astroids replica I made in Rayed-BQN" }
+            , Project.Video { fileName = "snake.mov", description = "A snake replica I made in Rayed-BQN" }
+            , Project.Image { fileName = "language_extension_zed.png", description = "An extension I made for the ZED code editor to run BQN. Here I learned about LSP's and TreeSitter!" }
             ]
         , processFootage = []
         , externalLink = Just "https://github.com/DavidZwitser/BQN-Experiments"

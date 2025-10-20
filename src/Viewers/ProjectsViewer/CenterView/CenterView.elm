@@ -318,22 +318,25 @@ centerViewer importStyles projectTransition footageTransition footageType muted 
                                     "⎁"
                             )
                     )
-        , el
+        , textColumn
             [ Font.size <| when isPortrait 20 10
             , centerX
             , Font.center
             , padding 10
             ]
           <|
-            text
-                (footageToShow
-                    |> List.Extra.getAt footageIndex
-                    |> Maybe.andThen
-                        (\footage ->
-                            footage
-                                |> Project.unpackFootage
-                                |> Maybe.andThen (\footageMetadata -> Just <| footageMetadata.description)
-                        )
-                    |> Maybe.withDefault "Contact information"
-                )
+            [ paragraph []
+                [ text
+                    (footageToShow
+                        |> List.Extra.getAt footageIndex
+                        |> Maybe.andThen
+                            (\footage ->
+                                footage
+                                    |> Project.unpackFootage
+                                    |> Maybe.andThen (\footageMetadata -> Just <| footageMetadata.description)
+                            )
+                        |> Maybe.withDefault "Contact information"
+                    )
+                ]
+            ]
         ]

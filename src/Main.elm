@@ -11,6 +11,8 @@ import Effects.LoadAnimation
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font
+import Html exposing (header, node)
+import Html.Attributes exposing (href, rel, type_)
 import List
 import Project exposing (..)
 import Projects.AllProjects exposing (defaultProject, projects)

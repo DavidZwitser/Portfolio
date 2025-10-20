@@ -78,7 +78,7 @@ projectViewer model =
                                 "scroll"
                             )
                    , Element.htmlAttribute <| Html.Attributes.style "height" "100vh"
-                   , pointer
+                   , when (Animator.current model.activeViewerPart == Types.ProjectPicker) pointer (alpha 1)
                    , inFront <| partBanner "DESCRIPTION" Description
                    , Events.onMouseEnter <| NewHover Description
                    , Events.onMouseLeave <| NewHover Background
@@ -124,7 +124,6 @@ projectViewer model =
         , column
             (([ width fill, height fill, clipY ] ++ partSize ProjectPicker)
                 ++ [ alignRight
-                   , pointer
                    , partColor ProjectPicker
                    , Element.htmlAttribute <|
                         Html.Attributes.style "overflow"
@@ -139,6 +138,7 @@ projectViewer model =
                    , Events.onClick <| NewPagePartActive ProjectPicker
                    , Events.onMouseEnter <| NewHover ProjectPicker
                    , Events.onMouseLeave <| NewHover Background
+                   , when (Animator.current model.activeViewerPart == Types.Description) pointer (alpha 1)
                    ]
                 ++ styleWhen (Animator.current model.activeViewerPart == Description)
                     [ alpha <| hoverAnimation model ProjectPicker 1 0.7

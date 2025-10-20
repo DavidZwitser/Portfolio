@@ -13,6 +13,7 @@ import Projects.PersonalSharedPhysicsl
 import Projects.PledgeStation
 import Projects.StateCircuits
 import Projects.WhooshWhoosh
+import Projects.WorkInProgress
 
 
 projects : List Project.Project
@@ -21,6 +22,7 @@ projects =
     , Projects.PledgeStation.data
     , Projects.CuddleKing2000.data
     , Projects.Dinner2050.data
+    , Projects.WorkInProgress.data
     , Projects.StateCircuits.data
     , Projects.BQN.data
     , Projects.WhooshWhoosh.data
